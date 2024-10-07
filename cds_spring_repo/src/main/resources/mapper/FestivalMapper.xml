@@ -8,18 +8,41 @@
 	<insert id="insertFestival" parameterType="FestivalVO">
         INSERT INTO festival (f_contentid, f_sigungucode, f_title, f_addr1, f_addr2, f_eventstartdate, 
         						f_eventenddate, f_firstimage, f_mapx, f_mapy, f_areacode, f_tel)
-        VALUES (#{f_contentid}, #{f_sigungucode}, #{f_title}, #{f_addr1}, #{f_addr2}, #{f_eventstartdate}, 
-        			#{f_eventenddate}, #{f_firstimage}, #{f_mapx}, #{f_mapy}, #{f_areacode}, #{f_tel})
+        VALUES (#{contentid}, #{sigungucode}, #{title}, #{addr1}, #{addr2}, #{eventstartdate}, 
+        			#{eventenddate}, #{firstimage}, #{mapx}, #{mapy}, #{areacode}, #{tel})
     </insert>
     
-    <select id="getFestivalList" resultType="Festival">
+    <select id="getFestivalList" resultType="FestivalDBVO">
 	    select * from festival
-		limit 20
+	    limit 20
 	</select>
+	<!-- limit 20 -->
 	
-	<select id="getFestivalAreaSelectList" resultType="Festival">
+	<select id="getFestivalAreaSelectList" resultType="FestivalDBVO">
 		select * from festival
 		where f_areacode = #{areaCode}
+	</select>
+	
+	<update id="updateAreaName" parameterType="map">
+		update festival
+			set f_areaname = #{areaName}, f_sigunguname = #{sigunguName}
+			where f_contentid = #{contentid}
+	</update>
+	
+	<select id="getFestivalDateSelectList" resultType="FestivalDBVO">
+		select * from festival
+    		where #{selectDate} between f_eventstartdate and f_eventenddate
+	</select>
+	
+	<select id="getFestivalAreaDateSelectList" parameterType="map" resultType="FestivalDBVO">
+		select * from festival
+			where #{selectDate} between f_eventstartdate and f_eventenddate
+				and f_areacode = #{areaCode}
+	</select>
+	
+	<select id="getFestival" resultType="FestivalModalVO">
+		select * from festival
+			where f_contentid = #{contentid}
 	</select>
 		
 </mapper>	

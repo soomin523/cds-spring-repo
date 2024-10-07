@@ -14,7 +14,7 @@ import java.net.URLEncoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class FDetailIntroApiExplorer {
+public class FDetailCommonApiExplorer {
     public static <T extends Object> T getApiJsonData( String serviceKey, String srcUrl, String contentId, 
     														Class<T> vo) throws IOException, URISyntaxException {
         StringBuilder urlBuilder = new StringBuilder(srcUrl); /*URL*/
@@ -24,7 +24,7 @@ public class FDetailIntroApiExplorer {
         urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("cds", "UTF-8")); /*어플명*/
         urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(contentId, "UTF-8")); /*콘텐츠ID*/
         urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode("15", "UTF-8")); /*관광타입(축제공연행사는 15)*/
-        
+        urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); /*콘텐츠 개요 조회여부*/
         
         //공공데이터 요청
         URL url = new URI(urlBuilder.toString()).toURL();

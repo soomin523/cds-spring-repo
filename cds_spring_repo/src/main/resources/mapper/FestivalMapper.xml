@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.cds.mapper.FestivalMapper">
+<!-- namespace: XML 파일에서 내용의 구분을 위해서 사용 -->
+
+	<insert id="insertFestival" parameterType="FestivalVO">
+        INSERT INTO festival (f_contentid, f_sigungucode, f_title, f_addr1, f_addr2, f_eventstartdate, 
+        						f_eventenddate, f_firstimage, f_mapx, f_mapy, f_areacode, f_tel)
+        VALUES (#{f_contentid}, #{f_sigungucode}, #{f_title}, #{f_addr1}, #{f_addr2}, #{f_eventstartdate}, 
+        			#{f_eventenddate}, #{f_firstimage}, #{f_mapx}, #{f_mapy}, #{f_areacode}, #{f_tel})
+    </insert>
+    
+    <select id="getFestivalList" resultType="Festival">
+	    select * from festival
+		limit 20
+	</select>
+	
+	<select id="getFestivalAreaSelectList" resultType="Festival">
+		select * from festival
+		where f_areacode = #{areaCode}
+	</select>
+		
+</mapper>	

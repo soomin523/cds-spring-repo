@@ -1,0 +1,251 @@
+/* 전체 레이아웃 */
+.travel-products {
+    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  
+  
+  
+  
+  .main-title {
+    font-size: 36px;
+    color: #757577;
+    margin-left: 10px;
+    margin-bottom: 10px;
+  }
+  .title-border{
+    border-bottom: #999999 4px solid;
+    width: 300px;
+    margin-bottom: 20px;
+  }
+
+  /* 지역설정 */
+  .location-selector {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.location-icon {
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.location-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 3;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.location-dropdown div {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.location-dropdown div:hover {
+    background-color: #f1f1f1;
+}
+
+  /* 카테고리 메뉴 */
+ 
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.category-menu {
+    display: flex;
+    gap: 10px;
+}
+.category-item {
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.category-item.active {
+    background-color: #007bff;
+    color: white;
+}
+.search-container {
+    display: flex;
+    gap: 10px;
+}
+#search-input {
+    width: 200px;
+    padding: 5px;
+}
+#search-button {
+    padding: 5px 10px;
+}
+  
+  /* 상품 그리드 */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  /* 기존 CSS 코드는 그대로 유지하고, 아래 내용을 추가하거나 수정합니다 */
+
+.product-card {
+    position: relative;  /* 추가: 자식 요소의 절대 위치 기준점 */
+    background: #f5f5f5;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    position: relative;  /* 추가: 카테고리의 기준점 */
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .product-category {
+    position: absolute;  /* 변경: 절대 위치로 설정 */
+    top: 10px;  /* 추가: 상단에서 10px 떨어짐 */
+    left: 10px;  /* 추가: 좌측에서 10px 떨어짐 */
+    font-size: 14px;
+    padding: 5px 10px;
+    color: #ffffff;
+    border-radius: 15px;
+    z-index: 1;  /* 추가: 이미지 위에 표시되도록 함 */
+  }
+  
+ 
+  
+  .product-title {
+    font-size: 18px;
+    margin: 10px;
+    color: #444444;
+  }
+  
+  .product-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #ffffff;
+    font-size: 14px;
+    color: #777777;
+    margin-top: auto;  /* 카드 하단에 고정 */
+  }
+  
+  
+  /* 페이지네이션 */
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #757577;
+  }
+  
+  /* 유틸리티 클래스 */
+  .bg-green { background-color: #6dc285; }
+  .bg-pink { background-color: #e487b9; }
+  .bg-blue { background-color: #6d75c2; }
+  .bg-purple { background-color: #926dc2; }
+  .bg-orange { background-color: #ce9655; }
+  
+
+
+
+        /* 모달 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 0;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        }
+
+        .modal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .modal-info {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .modal-details {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .modal-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .modal-button {
+            background-color: #72b2ee;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .close {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1;
+        }

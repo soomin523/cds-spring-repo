@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* 패딩과 보더가 요소의 전체 너비와 높이에 포함되도록 설정 */
+}
+
+
+/* 지역별 숙소 시트의 전체 페이지 css */
+.fullcity {
+    display: flex;
+    flex-direction: column;
+}
+
+.cityaccoheader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 10px 0 10px 0;
+}
+
+.citymiddle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    /* 스크롤바 추가 */
+    margin: 10px 0 10px 0;
+}
+
+.city-row {
+    display: flex;
+    flex-direction: row;
+    /* 가로로 2개씩 배치 */
+    justify-content: space-around;
+    /* 양쪽 여백 균등 분배 */
+    margin-bottom: 10px;
+    /* 행 간격 */
+}
+
+.city-accommodation {
+    width: 45%;
+    /* 각 박스가 2개씩 배치되도록 너비 설정 */
+    height: 150px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: green;
+}

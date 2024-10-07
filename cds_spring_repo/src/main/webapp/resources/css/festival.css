@@ -1,0 +1,341 @@
+@charset "UTF-8";
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    color: #000;
+}
+button{
+	background-color: #fff0;
+    border: none;
+	cursor: pointer;
+}
+
+/* 축제행사 메인페이지 : festival.jsp */
+#festivalMain{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 2%;
+}
+#festivalMain>.search{ /* 상단 검색창 */
+    padding: 40px 1% 10px;
+    margin-left: auto;
+    border-bottom: solid 1px #87bee585;
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+}
+#festivalMain>.search>input{
+    border: none;
+    font-size: 16px;
+    width: 90%;
+}
+#festivalMain>.search>input:focus {
+    border: none; /* 포커스 시 테두리 제거 */
+    outline: none; /* 포커스 시 외곽선 제거 */
+}
+#festivalMain>.search>span{
+    font-size: 20px;
+    color: #969696;
+}
+#festivalMain>.search>button{ /* 검색버튼 */
+    font-size: 16px;
+}
+#festivalMain>.select{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+#festivalMain>.select>.selectDate, #festivalMain>.select>div{
+    width: 28%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 15px;
+    background-color: #87bee585;
+    border: solid 1px #969696;
+    border-radius: 8px;
+}
+#festivalMain>.select>.selectDate>#dateInput{ /* 날짜 선택 버튼 */
+	border: none;
+	width: 70%;
+	height: 100%;
+    padding: 20px 0px;
+    position: relative;
+    background: url(./downIcon.PNG) no-repeat right / 20px auto;
+    font-size: 15px;
+}
+#festivalMain>.select>.selectDate>#dateInput::-webkit-clear-button,
+#festivalMain>.select>.selectDate>#dateInput::-webkit-inner-spin-button{
+    display: none;
+}
+#festivalMain>.select>.selectDate>#dateInput::-webkit-calendar-picker-indicator{ /* 날짜 선택하는 영역을 넓히기 위함 */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150%;
+    height: 100%;
+    background: transparent;
+    color: transparent;
+}
+#festivalMain>.select>.selectDate>#dateInput::before{ /* placeholder를 커스텀 */
+	content: attr(data-placeholder);
+	width: 100%;
+}
+#festivalMain>.select>.selectDate>#dateInput:focus::before,
+#festivalMain>.select>.selectDate>#dateInput:valid::before{ /* 선택하면 placeholder를 사라지게 함 */
+	display: none;
+}
+#festivalMain>.select>div>select{ /* select(지역, 카테고리) */
+	border: none;
+	width: 70%;
+	height: 100%;
+    padding: 20px 0px;
+    background-color: #fff0;
+    font-size: 15px;
+}
+#festivalMain>.select>div>select:focus{
+    outline: none;
+}
+#festivalMain>.select>.selectRefresh{ /* 새로고침 버튼 */
+	width: 6%;
+    border: solid 1px #969696;
+    border-radius: 8px;
+}
+#festivalMain>.select>.selectRefresh>i{
+	color: #6e6e6e;
+}
+#festivalMain>.duration{ /* 진행중/진행예정 */
+    width: 23%;
+    display: flex;
+    justify-content: space-between;
+}
+#festivalMain>.duration>button{
+    margin: 20px 0px;
+    width: 46%;
+    border: solid 1px #969696;
+    padding: 10px 10%;
+    border-radius: 8px;
+    font-size: 1vw;
+}
+#festivalMain>.festivallist{ /* 축제 리스트 */
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-wrap: wrap;
+}
+#festivalMain>.festivallist>.festivalitem{
+    width: 23%;
+    height: 300px;
+    margin: 1%;
+}
+#festivalMain>.festivallist>.festivalitem>.itemImg{
+    width: 100%;
+    height: 280px;
+    background: no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: end;
+}
+#festivalMain>.festivallist>.festivalitem>.itemImg>.hiddenItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 150px;
+    background-color: #6e6e6e85;
+}
+#festivalMain>.festivallist>.festivalitem>.itemImg>.hiddenItem>div{
+	width: 100%;
+    align-self: flex-start;
+    font-weight: bold;
+}
+#festivalMain>.festivallist>.festivalitem>.itemImg>.hiddenItem>button{
+    background-color: #fff;
+    padding: 3%;
+    border-radius: 8px;
+}
+#festivalMain>.festivallist>.festivalitem>.itemImg+div{
+    padding: 0px 3%;
+}
+#festivalMain>.festivalNonelist{ /* 검색 후 축제 리스트 결과가 없을 때 */
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #87bee585;
+    border-radius: 20px;
+}
+#festivalMain>.festivalNonelist>p{
+	margin: 15px 0px;
+}
+#festivalMain>.recommend{
+    width: 100%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+#festivalMain>.recommend>.recTitle{
+    background-color: #87bee585;
+    padding: 20px 10%;
+    font-weight: bold;
+    border-radius: 10px;
+    border: solid 1px #969696; 
+}
+#festivalMain>.recommend>.recList{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+#festivalMain>.recommend>.recList>.recItemImg{
+    background: no-repeat center center;
+    background-size: cover;
+    height: 300px;
+    width: 19%;
+    border-radius: 8px;
+    display: flex;
+    align-items: end;
+}
+#festivalMain>.recommend>.recList>.recItemImg>div{
+	width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3% 5%;
+}
+#festivalMain>.recommend>.recList>.recItemImg>div>button{
+    border: solid 1px #000;
+    border-radius: 20px;
+    padding: 2%;
+}
+
+#modalOverlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000075;
+}
+/* 축제행사 메인페이지 모달창 : festival.jsp */
+#festivalModal{
+    width: 80%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    position: absolute;
+    top: 80px;
+    right: 10%;
+    background-color: #fff;
+    border: solid 1px #969696; 
+    border-radius: 30px;
+    overflow: auto;
+}
+#festivalModal>.festivalName{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+#festivalModal>.festivalName>button{
+    border-radius: 30px;
+    border: solid 1px #969696; 
+    padding: 0.5% 1%;
+}
+#festivalModal>.festivalName>button>i{
+    font-size: 30px;
+    color: #6e6e6e;
+}
+#festivalModal>.modalDate{
+    display: flex;
+    margin-top: 40px;
+}
+#festivalModal>.modalDate>p{
+    margin: 3px;
+}
+#festivalModal>.modalStatus{
+    display: flex;
+    margin-bottom: 30px;
+}
+#festivalModal>.modalStatus>.modalIng{
+    background-color: #87bee585;
+    width: 15%;
+    padding: 1%;
+    text-align: center;
+    border-radius: 10px;
+}
+#festivalModal>.modalMid{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#festivalModal>.modalMid>button{
+    background-color: #87bee585;
+    border-radius: 20px;
+    padding: 1%;
+    margin: 1%;
+}
+#festivalModal>.modalMid>button>i{
+    font-size: 16px;
+}
+#festivalModal>.modalMid>.modalImgContainer{
+    width: 100%;
+    overflow: hidden;
+    margin: 20px 0px;
+}
+#festivalModal>.modalMid>.modalImgContainer>.modalImgs{
+    display: flex;
+}
+#festivalModal>.modalMid>.modalImgContainer>.modalImgs>.modalImg{
+    flex: 0 0 200px; /* 고정 너비 200px */
+    height: 200px;
+    border: solid 1px #969696; 
+    margin: 0px 3%;
+    background: no-repeat center center;
+    background-size: cover;
+}
+#festivalModal>.modalContentBox{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+#festivalModal>.modalContentBox>button{
+    align-self: flex-end;
+    margin: 10px 0px;
+}
+#festivalModal>.modalContentBox>.modalContentPlus{
+    display: flex;
+}
+#festivalModal>.modalContentBox>.modalContentPlus>.plusLeft,
+#festivalModal>.modalContentBox>.modalContentPlus>.plusRight{
+    width: 100%;
+}
+#festivalModal>.modalContentBox+hr{
+    margin: 30px 0px;
+}
+#festivalModal>.modalMap>h3{
+    margin: 20px 0px;
+}
+#festivalModal>.modalMap>.map{
+    width: 100%;
+    height: 250px;
+    background-color: #87bee585;
+    margin: 20px 0px 10px;
+}
+#festivalModal>.modalMap>.mapContent{
+    display: flex;
+    justify-content: space-between;
+}
+#festivalModal>.modalMap>.mapContent>p{
+    font-size: 14px;
+}

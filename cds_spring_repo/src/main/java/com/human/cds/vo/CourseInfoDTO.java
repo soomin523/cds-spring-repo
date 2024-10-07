@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class CourseInfoDTO {
-	private Response response; // 'response' 필드 추가
+	private Response response;
 
     @Data
     @NoArgsConstructor
@@ -28,9 +28,9 @@ public class CourseInfoDTO {
     @NoArgsConstructor
     public static class Body {
         private Items items;
-        private int numOfRows;   // numOfRows 필드 추가
-        private int pageNo;      // pageNo 필드 추가
-        private int totalCount;  // totalCount 필드 추가
+        private int numOfRows;
+        private int pageNo;
+        private int totalCount;
     }
 
     @Data

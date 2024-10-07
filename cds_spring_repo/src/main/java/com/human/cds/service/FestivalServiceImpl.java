@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.human.cds.repository.FestivalDAO;
+import com.human.cds.vo.FestivalDBVO;
+import com.human.cds.vo.FestivalModalVO;
 import com.human.cds.vo.FestivalVO;
-import com.human.cds.vo.FestivalVO.Festival;
 
 @Service
 public class FestivalServiceImpl implements FestivalService {
@@ -26,21 +27,40 @@ public class FestivalServiceImpl implements FestivalService {
 	}
 
 	@Override
-	public List<Festival> getFestivalList() {
+	public List<FestivalDBVO> getFestivalList() {
 		return dao.getFestivalList();
 	}
 
 	@Override
-	public List<Festival> getFestivalAreaSelectList(String areaCode) {
+	public List<FestivalDBVO> getFestivalAreaSelectList(String areaCode) {
 		return dao.getFestivalAreaSelectList(areaCode);
 	}
 
 	@Override
-	public int updateAreaName(String areaCode, String sigunguCode) {
+	public int updateAreaName(String areaName, String sigunguName, String contentid) {
 		Map<String, String> map = new HashMap<>();
-		map.put("areaCode", areaCode);
-		map.put("sigunguCode", sigunguCode);
+		map.put("areaName", areaName);
+		map.put("sigunguName", sigunguName);
+		map.put("contentid", contentid);
 		return dao.updateAreaName(map);
+	}
+
+	@Override
+	public List<FestivalDBVO> getFestivalDateSelectList(String selectDate) {
+		return dao.getFestivalDateSelectList(selectDate);
+	}
+
+	@Override
+	public List<FestivalDBVO> getFestivalAreaDateSelectList(String selectDate, String areaCode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("selectDate", selectDate);
+		map.put("areaCode", areaCode);
+		return dao.getFestivalAreaDateSelectList(map);
+	}
+
+	@Override
+	public FestivalModalVO getFestival(String contentid) {
+		return dao.getFestival(contentid);
 	}
 
 }

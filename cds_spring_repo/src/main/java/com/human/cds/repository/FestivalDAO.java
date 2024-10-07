@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.human.cds.vo.FestivalDBVO;
+import com.human.cds.vo.FestivalModalVO;
 import com.human.cds.vo.FestivalVO;
 import com.human.cds.vo.FestivalVO.Festival;
 
@@ -40,9 +42,9 @@ public class FestivalDAO {
 		return result;
 	}
 
-	public List<Festival> getFestivalList() {
+	public List<FestivalDBVO> getFestivalList() {
 		
-		List<Festival> festivalList = null;
+		List<FestivalDBVO> festivalList = null;
 		
 		try {
 			festivalList = sqlSession.selectList(MAPPER+".getFestivalList");
@@ -55,9 +57,9 @@ public class FestivalDAO {
 		return festivalList;
 	}
 
-	public List<Festival> getFestivalAreaSelectList(String areaCode) {
+	public List<FestivalDBVO> getFestivalAreaSelectList(String areaCode) {
 		
-		List<Festival> festivalList = null;
+		List<FestivalDBVO> festivalList = null;
 		
 		try {
 			festivalList = sqlSession.selectList(MAPPER+".getFestivalAreaSelectList", areaCode);
@@ -71,16 +73,61 @@ public class FestivalDAO {
 	}
 
 	public int updateAreaName(Map<String, String> map) {
-		FestivalVO vo = null;
+		int result = 0;
 		
 		try {
+			result = sqlSession.update(MAPPER+".updateAreaName", map);
 			
 		} catch (Exception e) {
 			System.out.println("updateAreaName DAO 동작 중 오류 발생");
 			e.printStackTrace();
 		}
 		
-		return 0;
+		return result;
+	}
+
+	public List<FestivalDBVO> getFestivalDateSelectList(String selectDate) {
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		try {
+			festivalList = sqlSession.selectList(MAPPER+".getFestivalDateSelectList", selectDate);
+			
+		} catch (Exception e) {
+			System.out.println("getFestivalDateSelectList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return festivalList;
+	}
+
+	public List<FestivalDBVO> getFestivalAreaDateSelectList(Map<String, String> map) {
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		try {
+			festivalList = sqlSession.selectList(MAPPER+".getFestivalAreaDateSelectList", map);
+			
+		} catch (Exception e) {
+			System.out.println("getFestivalAreaDateSelectList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return festivalList;
+	}
+
+	public FestivalModalVO getFestival(String contentid) {
+		
+		FestivalModalVO vo = null;
+		
+		try {
+			vo = sqlSession.selectOne(MAPPER+".getFestival", contentid);
+			
+		} catch (Exception e) {
+			System.out.println("getFestival DAO 동작 중 오류 발생");
+		}
+		
+		return vo;
 	}
 
 }

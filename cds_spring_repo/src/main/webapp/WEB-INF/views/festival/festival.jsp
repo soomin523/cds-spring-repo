@@ -18,7 +18,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             <div class="search">
                 <input type="text" id="searchText" placeholder="검색어를 입력하세요(축제/행사 명)">
                 <span>|</span>
-                <button type="submit">
+                <button>
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </div>
@@ -77,9 +77,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <div class="festivalitem">
                     <div class="itemImg" style="background-image: url(${ item.getF_firstimage() });">
                         <div class="hiddenItem">
-                            <div>${ item.getF_areacode() } ${ item.getF_sigungucode() }</div>
+                            <div>${ item.getF_areaname() } ${ item.getF_sigunguname() }</div>
                             <p>${ item.getF_eventstartdate() } ~ ${ item.getF_eventenddate() }</p>
-                            <button>바로가기</button>
+                            <button value="${ item.f_contentid }">바로가기</button>
                         </div>
                     </div>
                     <div>${ item.getF_title() }</div>
@@ -94,7 +94,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             </div>
    	</c:otherwise>
 </c:choose>
-<c:if test="${ festivalList.size() lt 5 }">
             <div class="recommend">
                 <div class="recTitle">이런 축제는 어때요?</div>
                 <div class="recList">
@@ -136,11 +135,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     </div>
                 </div>
             </div>
-</c:if>
         </div>
         <div id="modalOverlay"></div>
-        <div id="festivalModal">
-            <div class="festivalName">
+        <div id="festivalModal"></div>
+    </div>
+    
+    <!-- <script>
+        $(function(){
+            
+        	<div class="festivalName">
                 <h1>축제명</h1>
                 <button class="closeModal">
                     <i class="fa-solid fa-xmark"></i>
@@ -210,13 +213,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <p>전화번호</p>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- <script>
-        $(function(){
-            
-        	
 
         });
           

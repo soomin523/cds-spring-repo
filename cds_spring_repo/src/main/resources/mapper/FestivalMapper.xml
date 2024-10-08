@@ -44,5 +44,25 @@
 		select * from festival
 			where f_contentid = #{contentid}
 	</select>
+	
+	<select id="getFestivalSoonList" parameterType="map" resultType="FestivalDBVO">
+		select * from festival
+			where f_eventstartdate between #{selectDate}+1 and 20991231
+				and f_areacode = #{areaCode}
+	</select>
+	
+	<select id="getFestivalSearchTitle" resultType="FestivalDBVO">
+		select * from festival
+			where trim(f_title) like concat('%', #{searchText}, '%')
+	</select>
+	
+	<select id="getFestivalRandomList" resultType="FestivalDBVO">
+		select * from festival
+			where f_contentid not in <foreach item="id" collection="list" open="(" separator="," close=")">
+										#{id}
+									</foreach>
+			order by rand()
+			limit 3
+	</select>
 		
 </mapper>	

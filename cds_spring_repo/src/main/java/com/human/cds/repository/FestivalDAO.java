@@ -130,4 +130,49 @@ public class FestivalDAO {
 		return vo;
 	}
 
+	public List<FestivalDBVO> getFestivalSoonList(Map<String, String> map) {
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		try {
+			festivalList = sqlSession.selectList(MAPPER+".getFestivalSoonList", map);
+			
+		} catch (Exception e) {
+			System.out.println("getFestivalSoonList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return festivalList;
+	}
+
+	public List<FestivalDBVO> getFestivalSearchTitle(String searchText) {
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		try {
+			festivalList = sqlSession.selectList(MAPPER+".getFestivalSearchTitle", searchText);
+			
+		} catch (Exception e) {
+			System.out.println("getFestivalSearchTitle DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return festivalList;
+	}
+
+	public List<FestivalDBVO> getFestivalRandomList(List<String> contentid) {
+		
+		List<FestivalDBVO> newfestivalList = null;
+		
+		try {
+			newfestivalList = sqlSession.selectList(MAPPER+".getFestivalRandomList", contentid);
+			
+		} catch (Exception e) {
+			System.out.println("getFestivalRandomList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return newfestivalList;
+	}
+
 }

@@ -106,8 +106,6 @@ public class FestivalVO {
 	
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class Festival{
 		private String contentid;		//콘텐츠ID
 		private String firstimage;		//대표이미지(원본)

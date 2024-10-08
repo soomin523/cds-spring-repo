@@ -3,6 +3,7 @@ package com.human.cds.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,24 @@ public class FestivalServiceImpl implements FestivalService {
 	@Override
 	public FestivalModalVO getFestival(String contentid) {
 		return dao.getFestival(contentid);
+	}
+
+	@Override
+	public List<FestivalDBVO> getFestivalSoonList(String areaCode, String selectDate) {
+		Map<String, String> map = new HashMap<>();
+		map.put("selectDate", selectDate);
+		map.put("areaCode", areaCode);
+		return dao.getFestivalSoonList(map);
+	}
+
+	@Override
+	public List<FestivalDBVO> getFestivalSearchTitle(String searchText) {
+		return dao.getFestivalSearchTitle(searchText);
+	}
+
+	@Override
+	public List<FestivalDBVO> getFestivalRandomList(List<String> contentid) {		
+		return dao.getFestivalRandomList(contentid);
 	}
 
 }

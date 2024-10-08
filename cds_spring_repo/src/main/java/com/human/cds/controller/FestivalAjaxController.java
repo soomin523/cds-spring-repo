@@ -116,4 +116,37 @@ public class FestivalAjaxController {
 		
 	}
 	
+	//진행예정 축제리스트 불러오기
+	@GetMapping("/getFestivalSoonList.do")
+	public List<FestivalDBVO> getFestivalSoonList(@RequestParam String areaCode, @RequestParam String selectDate) {
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		festivalList = festivalServiceImpl.getFestivalSoonList(areaCode, selectDate);
+		
+		return festivalList;
+	}
+	
+	//검색에 따른 축제리스트 불러오기
+	@GetMapping("/getFestivalSearchTitle.do")
+	public List<FestivalDBVO> getFestivalSearchTitle(@RequestParam String searchText){
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		festivalList = festivalServiceImpl.getFestivalSearchTitle(searchText);
+		
+		return festivalList;
+	}
+	
+	//이런축제는어때요 리스트 불러오기
+	@GetMapping("/getFestivalRandomList.do")
+	public List<FestivalDBVO> getFestivalRandomList(@RequestParam("contentid[]") List<String> contentid){
+		
+		List<FestivalDBVO> recommendList = null;
+		
+		recommendList = festivalServiceImpl.getFestivalRandomList(contentid);
+		
+		return recommendList;
+	}
+	
 }

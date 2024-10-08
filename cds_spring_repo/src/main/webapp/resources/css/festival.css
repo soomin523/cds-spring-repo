@@ -232,7 +232,7 @@ button{
     height: max-content;
     display: flex;
     flex-direction: column;
-    padding: 2%;
+    padding: 5% 2%;
     position: absolute;
     top: 80px;
     right: 10%;

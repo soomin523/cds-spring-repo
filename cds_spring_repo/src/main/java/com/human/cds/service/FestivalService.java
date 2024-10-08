@@ -22,4 +22,10 @@ public interface FestivalService {
 
 	FestivalModalVO getFestival(String contentid);
 
+	List<FestivalDBVO> getFestivalSoonList(String areaCode, String selectDate);
+
+	List<FestivalDBVO> getFestivalSearchTitle(String searchText);
+
+	List<FestivalDBVO> getFestivalRandomList(List<String> contentid);
+
 }

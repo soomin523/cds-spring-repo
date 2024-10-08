@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+}
+
+.log-container { /* class 이름에 log- 접두사 추가 */
+    width: 50%;
+    margin: 50px auto;
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p.subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.log-message-box { /* class 이름에 log- 접두사 추가 */
+    background-color: #f7f7f7;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.log-message-box h2 { /* class 이름에 log- 접두사 추가 */
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.log-message-box p { /* class 이름에 log- 접두사 추가 */
+    font-size: 18px;
+    color: #333;
+}
+
+.info-table {
+    width: 60%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    margin-bottom: 40px;
+}
+
+.info-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.info-table td:first-child {
+    background-color: #f7f7f7;
+    width: 40%;
+    font-weight: bold;
+}
+
+.info-table td:last-child {
+    width: 60%;
+}
+
+.log-main-btn { /* class 이름에 log- 접두사 추가 */
+    display: inline-block;
+    background-color: #4caff6;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.log-main-btn:hover { /* class 이름에 log- 접두사 추가 */
+    background-color: #87bee585;
+}

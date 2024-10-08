@@ -1,0 +1,508 @@
+@charset "UTF-8";
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .commu-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 90%; /* 양쪽 여백을 줄이기 위해 90%로 설정 */
+            max-width: 1400px;
+            margin: 20px auto;
+        }
+        .commu-content {
+            width: 75%; /* 사이드바 여백 줄이기 */
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .commu-sidebar {
+            width: 20%;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            height: auto;
+        }
+        .commu-search-box {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            background-color: #eee;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+        .commu-search-box input {
+            border: none;
+            background: none;
+            outline: none;
+            margin-left: 10px;
+            font-size: 14px;
+        }
+        
+        .commu-search-box svg {
+            width: 20px;
+            height: 20px;
+        }
+        .commu-post-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개씩 배치 */
+            grid-gap: 20px;
+        }
+        .commu-post {
+            position: relative;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .commu-post img {
+            width: 100%;
+            height: 200px; /* 사진 세로 길이 설정 */
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .commu-post .commu-profile {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* 프로필과 이미지 사이 간격 추가 */
+        }
+        .commu-post .commu-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+        .commu-post .commu-profile span {
+            position: relative;
+            top: -5px; /* 유저 아이디 위치를 조금 올리기 */
+        }
+        .commu-post-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .commu-post-meta {
+            font-size: 12px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        .commu-rating {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .commu-rating .commu-star {
+            width: 16px;
+            height: 16px;
+            background-color: #ddd;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            margin-right: 2px;
+        }
+        .commu-rating .commu-star.filled {
+            background-color: #4caff6;
+        }
+		.commu-likes-comments {
+		    display: flex;
+		    align-items: center;
+		    font-size: 14px;
+		    gap: 5px; /* 아이콘과 숫자 간의 간격 설정 */
+		}
+		.commu-likes-comments .commu-icon {
+		    display: flex;
+		    align-items: center;
+		    gap: 5px; /* 아이콘과 숫자 사이 간격 설정 */
+		}
+
+        .commu-pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .commu-pagination button {
+            padding: 8px 12px;
+            margin: 2px;
+            background-color: #ddd;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .commu-pagination button.active {
+            background-color: #4caff6;
+            color: white;
+        }
+		 .commu-sort-options {
+		   display: flex;
+		   align-items: center;
+		   gap: 10px;
+		}
+		
+		.commu-location-tag {
+		    position: absolute;
+		    top: 10px;
+		    right: 10px;
+		    padding: 5px 10px;
+		    background-color: #333;
+		    color: white;
+		    font-size: 12px;
+		    border-radius: 5px;
+	        }
+		.commu-header {
+		    display: flex;
+		    align-items: center;
+		    margin-bottom: 20px; /* 제목과 게시물 사이에 간격 추가 */
+		}
+		.commu-postList {
+		    margin-top: 20px; /* 게시물 목록 위쪽에 간격 추가 */
+		}
+		.commu-header h2 {
+		    margin: 0;
+		}
+
+		        /* 수정된 정렬 버튼 스타일 */
+		       .commu-sort-options button {
+		    padding: 10px 15px;
+		    margin-left: 10px;
+		    background-color: #b2e0f5;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    font-size: 16px;
+		}
+		
+		.commu-post-button {
+		    background-color: #4caff6;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    padding: 10px 15px;
+		}
+		
+		
+		.commu-post-button:hover {
+		    background-color: #369fd5;
+		}
+		
+		    /* 수정된 active 클래스 색상 스타일 */
+		.commu-sort-options button.active {
+		    background-color: #4caff6; /* 클릭 시 변경될 배경 색상 */
+		    color: white;
+		}
+
+        /* 모달 스타일 */
+        .commu-modal {
+            display: none;
+            position: fixed;
+            z-index: 5;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .commu-modal-content {
+            background-color: white;
+            padding: 40px 20px;
+            border-radius: 10px;
+            width: 30%;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+        }
+
+        /* 고객 프로필 및 닫기 버튼 배치 */
+        .commu-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: absolute;
+            top: 5px;
+            left: 20px;
+            right: 20px;
+            gap: 10px; /* 닫기 버튼과 위치 아이콘의 간격을 좁힘 */
+        }
+
+        .commu-location-icon {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: bold;
+    color: #555;
+    position: absolute;
+    right: 30px; /* 오른쪽에서 더 멀리 떨어지도록 값 변경 */
+    top: 7px; /* 위에서 더 내려오도록 값 변경 */
+}
+
+
+        .commu-location-icon img {
+            width: 20px; /* 이미지 크기 설정 */
+            height: 20px;
+            margin-right: 5px; /* 이미지와 텍스트 간격 */
+        }
+
+        .commu-modal-header .commu-profile {
+            display: flex;
+            align-items: center;
+            left: 40px;
+            margin-right: 10px; /* 프로필과 아이디 간격 추가 */
+        }
+
+        .commu-modal-header .commu-profile img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            
+        }
+
+        .commu-modal-close {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+      .commu-modal-slider {
+    position: relative;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.commu-modal-slider img {
+    width: 100%;
+    height: auto;
+}
+
+.prev-slide, .next-slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.prev-slide {
+    left: 0;
+}
+
+.next-slide {
+    right: 0;
+}
+
+
+.commu-modal-slider img {
+    width: 100%;
+    height: auto;
+}
+
+.prev-slide, .next-slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.prev-slide {
+    left: 0;
+}
+
+.next-slide {
+    right: 0;
+}
+
+
+.commu-modal-slider img {
+    width: 100%;
+    height: auto;
+}
+
+.prev-slide, .next-slide {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.prev-slide {
+    left: 0;
+}
+
+.next-slide {
+    right: 0;
+}
+
+
+        /* 모달 하단에 좋아요 수, 댓글 수 및 작성일 표시 스타일 */
+        .commu-modal-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .commu-modal-meta .commu-likes-comments {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .commu-modal-meta .commu-likes-comments .commu-icon {
+            margin-right: 10px;
+        }
+
+        .commu-modal-meta .commu-post-date {
+            font-size: 12px;
+            color: #777; /* 회색 글자 */
+            font-size: 12px; /* 글자 크기 줄임 */
+        }
+
+        .commu-modal-title {
+            font-weight: bold;
+            font-size: 18px;
+            text-align: left; /* 제목을 왼쪽으로 정렬 */
+            width: 100%;
+        }
+
+        .commu-modal-description {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #555;
+            text-align: left; /* 내용도 왼쪽으로 정렬 */
+        }
+
+        .commu-search-box img {
+            width: 20px; /* 돋보기 이미지 크기 */
+            height: 20px;
+        }
+
+        .commu-location-icon img {
+            width: 18px; /* 위치 아이콘 이미지 크기 */
+            height: 18px;
+            margin-right: 5px; /* 이미지와 텍스트 간격 */
+        }
+
+        .commu-button-container {
+            display: flex;
+            flex-wrap: wrap; /* 버튼이 줄 바꿈을 할 수 있도록 설정 */
+            justify-content: space-between; /* 버튼 간의 간격을 자동으로 조절 */
+            margin-top: 10px;
+        }
+
+        .commu-button-container button {
+            flex: 0 1 calc(44.44% - 2px); /* 각 버튼의 가로 길이를 1/3로 설정 (여백 포함) */
+            margin-bottom: 10px; /* 버튼 간의 세로 간격 추가 */
+        }
+        .commu-button-container button:hover {
+            background-color: #b2e0f5; /* 마우스 오버 시 연한색으로 변경 */
+        }
+
+        /* 추가된 스타일: 선택된 버튼의 배경색 변경 */
+        .commu-button.selected {
+            background-color: #b2e0f5;
+            color: white;
+        }
+
+        .commu-button {
+            padding: 8px 10px;
+            margin: 5px 0;
+            background-color: #4caff6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .commu-button.active {
+            background-color: #333;
+        }
+        
+        .commu-comment-box {
+            display: flex;
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+        .commu-comment-box textarea {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        .commu-comment-box button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background-color: #4caff6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .commu-likes-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end; /* 좋아요와 댓글을 오른쪽에 배치 */
+        }
+
+        .commu-likes-container .commu-likes-comments {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .commu-likes-container .commu-likes-comments .icon {
+            margin-right: 5px;
+        }
+
+        /* 작성일자, 조회수 위치 수정 */
+        .commu-meta-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        /* 댓글 스타일 수정 */
+        .commu-modal-comments p {
+            text-align: left; /* 댓글을 왼쪽으로 정렬 */
+            display: flex;
+            justify-content: space-between; /* 댓글과 삭제 버튼 간격 조절 */
+            margin-bottom: 10px;
+        }
+        .commu-comment-delete {
+            margin-left: 10px; /* 삭제 버튼을 오른쪽에 밀착 */
+            cursor: pointer;
+            color: red;
+        }

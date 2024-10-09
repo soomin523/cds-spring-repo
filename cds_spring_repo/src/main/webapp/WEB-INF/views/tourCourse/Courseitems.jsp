@@ -11,38 +11,42 @@
 
 <h1>코스 제목과 ID</h1>
 
-<form id="updateForm" method="post" action="updateOverview.do">
+<!-- 새로운 버튼을 위한 폼 -->
+<form id="updateCourseDetailsForm" method="post" action="updateCourseDetails.do">
+<button type="submit">선택한 항목 업데이트 (Course Details)</button>
+    <!-- 동일한 체크박스를 사용하여 선택된 항목을 전송 -->
     <table border="1">
         <thead>
             <tr>
                 <th><input type="checkbox" id="selectAll"></th> <!-- 전체 선택 체크박스 -->
                 <th>제목</th>
                 <th>콘텐츠 ID</th>
+                <th>콘텐츠 타입 ID</th>
             </tr>
         </thead>
         <tbody>
             <c:forEach var="course" items="${courseList}">
                 <tr>
-                    <td><input type="checkbox" name="contentIds" value="${course['content_id']}"></td> <!-- 각 행의 체크박스 -->
+                    <td>
+                        <input type="checkbox" name="selectedItems" value="${course['content_id']},${course['content_type_id']}">
+                    </td> <!-- 각 행의 체크박스에 content_id와 contenttypeid를 함께 전송 -->
                     <td>${course['title']}</td>
                     <td>${course['content_id']}</td>
+                    <td>${course['content_type_id']}</td>
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-
-    <!-- 업데이트 버튼 -->
-    <button type="submit">선택한 항목 업데이트</button>
 </form>
 
 <script>
     // 전체 선택 체크박스 기능
     $(document).ready(function(){
         $('#selectAll').click(function() {
-            $('input[name="contentIds"]').prop('checked', this.checked);
+            $('input[name="selectedItems"]').prop('checked', this.checked);
         });
 
-        $('input[name="contentIds"]').click(function() {
+        $('input[name="selectedItems"]').click(function() {
             if (!this.checked) {
                 $('#selectAll').prop('checked', false);
             }

@@ -20,15 +20,6 @@
 	<input type="submit" value="API 요청하기" />
 </form>
 
-	<h1>Course Data 2차 입력 overview추가</h1>
-<form method="post" action="InsertCoursesProcess.do">
-	<input type="hidden" name="serviceKey" value="y%2BM4KcA3dU54OMX03WyfG7Vgskk1N4ti1JPnqNLJgfSxfGZDGpJzCXttag92jy9eIo3XD6a89LQXwVwD%2BM9RyQ%3D%3D" />
-	<input type="hidden" name="srcUrl" value="http://apis.data.go.kr/B551011/KorService1/detailCommon1" />
-	<input type="hidden" name="pageNo" value="1" />
-	<input type="hidden" name="numOfRows" value="10" />
-	<input type="submit" value="API 요청하기" />
-</form>
-
 
 
 </body>

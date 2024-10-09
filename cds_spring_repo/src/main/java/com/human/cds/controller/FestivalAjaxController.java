@@ -143,10 +143,29 @@ public class FestivalAjaxController {
 	public List<FestivalDBVO> getFestivalRandomList(@RequestParam("contentid[]") List<String> contentid){
 		
 		List<FestivalDBVO> recommendList = null;
+
+		if(contentid.size() == 0) {
+			recommendList = festivalServiceImpl.getFestivalAllRandomList();
+		    
+		}else {
+			recommendList = festivalServiceImpl.getFestivalRandomList(contentid);
+		}
 		
-		recommendList = festivalServiceImpl.getFestivalRandomList(contentid);
+		
 		
 		return recommendList;
 	}
+	
+	//무한스크롤 리스트 불러오기
+	@GetMapping("/getMoreFestivalData.do")
+	public List<FestivalDBVO> getMoreFestivalData(@RequestParam int page){
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		festivalList = festivalServiceImpl.getMoreFestivalData(page);
+		
+		return festivalList;
+	}
+	
 	
 }

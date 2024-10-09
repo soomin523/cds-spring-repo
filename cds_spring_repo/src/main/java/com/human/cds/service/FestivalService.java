@@ -28,4 +28,8 @@ public interface FestivalService {
 
 	List<FestivalDBVO> getFestivalRandomList(List<String> contentid);
 
+	List<FestivalDBVO> getMoreFestivalData(int page);
+
+	List<FestivalDBVO> getFestivalAllRandomList();
+
 }

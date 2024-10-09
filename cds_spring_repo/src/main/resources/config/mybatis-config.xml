@@ -8,6 +8,8 @@
 	<typeAliases>
 		<typeAlias alias="FestivalVO" type="com.human.cds.vo.FestivalVO"/>
 		<typeAlias alias="Festival" type="com.human.cds.vo.FestivalVO$Festival"/>
+		<typeAlias alias="FestivalDBVO" type="com.human.cds.vo.FestivalDBVO"/>
+		<typeAlias alias="FestivalModalVO" type="com.human.cds.vo.FestivalModalVO"/>
 	</typeAliases>
 	
   

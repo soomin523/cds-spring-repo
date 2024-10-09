@@ -64,5 +64,16 @@
 			order by rand()
 			limit 3
 	</select>
+	
+	<select id="getFestivalAllRandomList" resultType="FestivalDBVO">
+		select * from festival
+			order by rand()
+			limit 3
+	</select>
+	
+	<select id="getMoreFestivalData" resultType="FestivalDBVO">
+		select * from festival
+			limit #{page}, 20
+	</select>
 		
-</mapper>	
+</mapper>

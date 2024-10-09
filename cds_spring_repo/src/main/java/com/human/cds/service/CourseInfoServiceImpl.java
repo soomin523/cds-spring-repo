@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.human.cds.repository.CourseInfoDAO;
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO.Item;
+import com.human.cds.vo.CourseInfoVO;
 
 @Service
 public class CourseInfoServiceImpl implements CourseInfoService {
@@ -26,9 +27,24 @@ public class CourseInfoServiceImpl implements CourseInfoService {
 		courseInfoDAO.updateOverview(contentId, overview);
 		
 	}
-	
+
 	@Override
-    public List<Item> getCoursesByRegion(String areaCode) {
-        return courseInfoDAO.getCoursesByRegion(areaCode);  // DAO 호출하여 지역별 코스 조회
-    }
+	public List<CourseInfoVO> getCoursesByRegion(String areaCode) {
+		return courseInfoDAO.getCoursesByRegion(areaCode);
+	}
+
+	@Override
+	public CourseInfoVO getCourseByContentId(String contentid) {
+		// TODO Auto-generated method stub
+		return courseInfoDAO.getCourseByContentId(contentid);
+	}
+
+	@Override
+	public void updateCourseDetails(String contentId, String contentTypeId, String distance, String taketime) {
+		courseInfoDAO.updateCourseDetails(contentId,contentTypeId,distance,taketime);
+		
+	}
+	
+	
+	
 }

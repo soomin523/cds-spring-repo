@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.cds.mapper.DestinationMapper">
+
+	<insert id="insertDestination"><!-- 위에가 데베 아래가 vo -->
+		INSERT INTO destination (d_contentid,d_firstimage,d_sigungucode,d_areacode,
+		d_title,d_addr1,d_addr2,d_mapx,d_mapy)
+		VALUES (#{contentid},#{firstimage},#{sigungucode},
+		#{areacode},#{title},#{addr1},#{addr2},#{mapx},#{mapy})
+	</insert>
+
+	<select id="selectTitleAndContentId" resultType="map">
+		SELECT title, content_id
+		FROM travel_course
+	</select>
+
+	<update id="updateOverview">
+		UPDATE travel_course
+		SET overview = #{overview}
+		WHERE content_id = #{contentId} and content_type_id = "25"
+	</update>
+
+	<select id="getCoursesByRegion"
+		resultType="com.human.cds.vo.CourseInfoDTO$Item">
+		SELECT title, first_image, content_id
+		FROM travel_course
+		WHERE area_code = #{areaCode}
+	</select>
+</mapper>
+
+
+

@@ -162,17 +162,62 @@ public class FestivalDAO {
 
 	public List<FestivalDBVO> getFestivalRandomList(List<String> contentid) {
 		
-		List<FestivalDBVO> newfestivalList = null;
+		List<FestivalDBVO> festivalList = null;
 		
 		try {
-			newfestivalList = sqlSession.selectList(MAPPER+".getFestivalRandomList", contentid);
+			festivalList = sqlSession.selectList(MAPPER+".getFestivalRandomList", contentid);
 			
 		} catch (Exception e) {
 			System.out.println("getFestivalRandomList DAO 동작 중 오류 발생");
 			e.printStackTrace();
 		}
 		
-		return newfestivalList;
+		return festivalList;
+	}
+
+	public List<FestivalDBVO> getFestivalAllRandomList() {
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		try {
+			festivalList = sqlSession.selectList(MAPPER+".getFestivalAllRandomList");
+			
+		} catch (Exception e) {
+			System.out.println("getFestivalAllRandomList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return festivalList;
+	}
+
+	public List<FestivalDBVO> getMoreFestivalData(int page) {
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		try {
+			festivalList = sqlSession.selectList(MAPPER+".getMoreFestivalData", page);
+			
+		} catch (Exception e) {
+			System.out.println("getMoreFestivalData DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return festivalList;
+	}
+
+	public List<FestivalDBVO> getAreaList(String areaCode) {
+		
+		List<FestivalDBVO> areaList = null;
+		
+		try {
+			areaList = sqlSession.selectList(MAPPER+".getAreaList", areaCode);
+			
+		} catch (Exception e) {
+			System.out.println("getAreaList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return areaList;
 	}
 
 }

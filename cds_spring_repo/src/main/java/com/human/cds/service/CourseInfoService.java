@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO.Item;
+import com.human.cds.vo.CourseInfoVO;
 
 public interface CourseInfoService {
 
@@ -12,7 +13,12 @@ public interface CourseInfoService {
     
     void updateOverview(String contentId, String overview);
 
-    List<Item> getCoursesByRegion(String areaCode);
+	List<CourseInfoVO> getCoursesByRegion(String areaCode);
+
+	CourseInfoVO getCourseByContentId(String contentid);
+
+	void updateCourseDetails(String contentId, String contentTypeId, String distance, String taketime);
+
     
     	
 }

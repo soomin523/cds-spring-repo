@@ -2,6 +2,8 @@ $(function(){
 
 	//검색어 입력창
 	$(".search > button").click(function(){
+		$("#dateInput").val("");
+        $(".areaSelect").val("");
 		const searchText = $("#searchText").val().trim();
 		
 		if(searchText != ""){
@@ -13,6 +15,8 @@ $(function(){
 	// 검색어 입력창
     $("#searchText").on("keydown", function(event) {
         if (event.key === "Enter") {
+        	$("#dateInput").val("");
+        	$(".areaSelect").val("");
             const searchText = $(this).val().trim();
             if (searchText !== "") {
                 searchTitle(searchText);
@@ -21,7 +25,7 @@ $(function(){
             }
         }
     });
-    
+    //검색 리스트 요청
     function searchTitle(searchText){
     	$.ajax({
             type:"get",
@@ -35,9 +39,18 @@ $(function(){
                 console.log("초기화된 리스트를 불러오는 데 실패했습니다.");
             }
         });
-    
     };
-	
+    
+    
+    //진행중, 진행예정 버튼 초기화
+    function ingSoonReset(){
+		if($(".duration > .ing").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
+	    	$(".duration > .ing").css("backgroundColor", "rgba(255, 255, 255, 0)")
+	    }
+	    if($(".duration > .soon").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
+	    	$(".duration > .soon").css("backgroundColor", "rgba(255, 255, 255, 0)")
+	    }
+    };
 
     //select 선택창 초기화
     $(".selectRefresh").click(()=>{
@@ -46,12 +59,7 @@ $(function(){
         $(".areaSelect").val("");
         $("#searchText").val("");
         
-        if($(".duration > .ing").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
-        	$(".duration > .ing").css("backgroundColor", "rgba(255, 255, 255, 0)")
-        }
-        if($(".duration > .soon").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
-        	$(".duration > .soon").css("backgroundColor", "rgba(255, 255, 255, 0)")
-        }
+        ingSoonReset();
 
 		const selectarea = $(".areaSelect").val();
         const dateInput = $("#dateInput").val();
@@ -118,7 +126,7 @@ $(function(){
 	                    loadingFestivalList(festivalList);
 	                },
 	                error:function(){
-	                    console.log("진행중 리스트를 불러오는 데 실패했습니다.");
+	                    console.log("진행예정 리스트를 불러오는 데 실패했습니다.");
 	                }
 	            });
 	        }
@@ -142,19 +150,6 @@ $(function(){
         }
     });
     
-    
-    //축제 리스트 hover 효과
-    $(".festivalitem > .itemImg > .hiddenItem").hide();
-    $(".festivalitem > .itemImg").hover(
-        function(){
-            $(this).find(".hiddenItem").show();
-        },
-        function(){
-            $(this).find(".hiddenItem").hide();
-        }
-    );
-    
-    
     //지역 선택에 따른 리스트 불러오기
 	$(".areaSelect").change(function() {
         const selectarea = $(this).val();
@@ -162,12 +157,7 @@ $(function(){
         const selectDate = dateInput.replace(/-/g, '');
         $("#searchText").val("");
         
-        if($(".duration > .ing").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
-        	$(".duration > .ing").css("backgroundColor", "rgba(255, 255, 255, 0)")
-        }
-        if($(".duration > .soon").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
-        	$(".duration > .soon").css("backgroundColor", "rgba(255, 255, 255, 0)")
-        }
+        ingSoonReset();
       
     	$.ajax({
             type:"get",
@@ -181,7 +171,41 @@ $(function(){
                 console.log("지역 선택 리스트를 불러오는 데 실패했습니다.");
             }
         });
+        
+        //상세지역 선택창 만들기
+        $.ajax({
+            type:"get",
+            url:"http://localhost:9090/web/festival/getAreaList.do",
+            data:{ areaCode: selectarea },
+            headers: {"Accept": "application/json"},
+            success:function(AreaList){
+                addAreaList(AreaList);
+            },
+            error:function(){
+                console.log("지역 리스트를 불러오는 데 실패했습니다.");
+            }
+        });
 
+    });
+    //상세지역 선택창 리스트 불러오기
+    function addAreaList(AreaList){
+    	let htmlContent = `
+    		<option value="">상세지역</option>
+    	`;
+    	
+    	AreaList.forEach(function(item) {
+	    	htmlContent += `
+	    		<option value="${item.f_sigungucode}">${item.f_sigunguname}</option>
+	    	`;
+    	});
+    	
+    	$(".categorySelect").html(htmlContent);
+    };
+    
+    //상세지역 선택에 따른 리스트 불러오기
+    $("categorySelect").change(function(){
+    	
+    
     });
     
     //날짜 선택에 따른 리스트 불러오기
@@ -191,12 +215,7 @@ $(function(){
         const selectDate = selectValue.replace(/-/g, '');
         $("#searchText").val("");
         
-        if($(".duration > .ing").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
-        	$(".duration > .ing").css("backgroundColor", "rgba(255, 255, 255, 0)")
-        }
-        if($(".duration > .soon").css("backgroundColor") !== "rgba(255, 255, 255, 0)"){
-        	$(".duration > .soon").css("backgroundColor", "rgba(255, 255, 255, 0)")
-        }
+        ingSoonReset();
 
         $.ajax({
             type:"get",
@@ -211,19 +230,35 @@ $(function(){
             }
         });
     });
+    
+    
+    //축제 리스트 hover 효과
+    function festivalListHover(){
+	    $(".festivalitem > .itemImg > .hiddenItem").hide();
+	    $(".festivalitem > .itemImg").hover(
+	        function(){
+	            $(this).find(".hiddenItem").show();
+	        },
+	        function(){
+	            $(this).find(".hiddenItem").hide();
+	        }
+	    );    
+    };
+    festivalListHover();
 
 	//선택에 따른 축제 리스트 html에 표시하기
     function loadingFestivalList(festivalList){
         let htmlContent = "";
         let contentid = [];
         
-        if(festivalList == null){
+        if(festivalList.length == 0){
         	htmlContent += `
         		<p>검색 결과가 없습니다.</p>
                 <p>다시 검색해 주세요.</p>
         	`;
-        	$(".festivalNonelist").show();
+        	$(".festivallist").hide();
         	$(".festivalNonelist").html(htmlContent);
+        	$(".festivalNonelist").show();
         }else{
 	        festivalList.forEach(function(item, index) {
 	            htmlContent += `
@@ -240,12 +275,15 @@ $(function(){
 				contentid[index] = item.f_contentid;
 	        });
 	        
-	        console.log(contentid);
+	        $(".festivalNonelist").hide();
+        	$(".festivallist").html(htmlContent);
+        	$(".festivallist").show();
+	    }
 	        
-	        if(festivalList.length < 5){ //이런축제는어때요 리스트 표기 조건
-	        	$(".recommend").show();
-	        	
-	        	$.ajax({
+        if(festivalList.length < 5){ //이런축제는어때요 리스트 표기 조건
+        	$(".recommend").show();
+        	
+        	$.ajax({
 	            type:"get",
 	            url:"http://localhost:9090/web/festival/getFestivalRandomList.do",
 	            data:{ contentid: contentid },
@@ -257,50 +295,16 @@ $(function(){
 	                console.log("이런 축제는 어때요 리스트를 불러오는 데 실패했습니다.");
 	            }
 	        });
-	        }else{
-	        	$(".recommend").hide();
-	        }
+        }else{
+        	$(".recommend").hide();
+        }
 	        
-        	$(".festivallist").html(htmlContent);
-	    }
-
-        
         $(".festivalitem > .itemImg > .hiddenItem > button").click(function(){
-        	setTimeout(function() {
-	            $("#festivalModal").show();
-	            $("#modalOverlay").show();
-			}, 500);
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // 부드러운 스크롤
-            });
-            const contentid = $(this).val();
-        	
-        	$.ajax({
-                type:"get",
-                url:"http://localhost:9090/web/festival/getFestival.do",
-                data:{ contentid: contentid },
-                headers: {"Accept": "application/json"},
-                success:function(item){
-                    showFestivalModal(item);
-                },
-                error:function(){
-                    console.log("축제 상세보기를 불러오는 데 실패했습니다.");
-                }
-            });
-            
+        	const contentid = $(this).val();
+       		showModal(contentid);
         });
         
-        //축제 리스트 hover 효과
-        $(".festivalitem > .itemImg > .hiddenItem").hide();
-        $(".festivalitem > .itemImg").hover(
-            function(){
-                $(this).find(".hiddenItem").show();
-            },
-            function(){
-                $(this).find(".hiddenItem").hide();
-            }
-        );
+        festivalListHover();
     };
     
     
@@ -311,14 +315,16 @@ $(function(){
             <div class="recList">
     	`;
     	
-    	recommendList.forEach(function(item, index) {
+    	recommendList.forEach(function(item) {
     		htmlContent += ` 
                     <div class="recItemImg" style='background-image: url(${item.f_firstimage});'>
                         <div>
                             <div class="recItemText">
-                                <div>${item.f_title}</div>
-                                <div>${item.f_eventstartdate} ~ ${item.f_eventenddate}</div>
-                                <div>${item.f_areaname} ${item.f_sigunguname}</div>
+                            	<div>
+	                                <div>${item.f_title}</div>
+	                                <div>${item.f_eventstartdate} ~ ${item.f_eventenddate}</div>
+	                                <div>${item.f_areaname} ${item.f_sigunguname}</div>
+                            	</div>
                             </div>
                             <button class="recItemText" value="${item.f_contentid}">
                                 <i class="fa-solid fa-arrow-right"></i>
@@ -334,7 +340,7 @@ $(function(){
          
         //이런축제는어때요 크기
 	    $(".recList > .recItemImg:eq(0)").css("width", "57%"); //첫번째 요소 크게
-	    $(".recList > .recItemImg > .recItemText").hide();
+	    $(".recList > .recItemImg > div > .recItemText").hide();
 	    $(".recList > .recItemImg:eq(0) .recItemText").show();
 	
 	    //이런축제는어때요 mouseover 효과
@@ -345,52 +351,11 @@ $(function(){
 			$(this).find(".recItemText").show();
 	    });	
          
-        $(".recList > .recItemImg > button").click(function(){
-        	setTimeout(function() {
-	            $("#festivalModal").show();
-	            $("#modalOverlay").show();
-			}, 500);
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // 부드러운 스크롤
-            });
-            const contentid = $(this).val();
-        	
-        	$.ajax({
-                type:"get",
-                url:"http://localhost:9090/web/festival/getFestival.do",
-                data:{ contentid: contentid },
-                headers: {"Accept": "application/json"},
-                success:function(item){
-                    showFestivalModal(item);
-                },
-                error:function(){
-                    console.log("축제 상세보기를 불러오는 데 실패했습니다.");
-                }
-            });
-            
+        $(".recList > .recItemImg > div > button").click(function(){
+        	const contentid = $(this).val();
+       		showModal(contentid);
         });
     };
-    
-    
-    //모달 띄울 때 안의 콘텐츠 가져오기
-    $(".festivalitem > .itemImg > .hiddenItem > button , .recList > .recItemImg > div > button").click(function(){
-    	const contentid = $(this).val();
-    	
-    	$.ajax({
-            type:"get",
-            url:"http://localhost:9090/web/festival/getFestival.do",
-            data:{ contentid: contentid },
-            headers: {"Accept": "application/json"},
-            success:function(item){
-                showFestivalModal(item);
-            },
-            error:function(){
-                console.log("축제 상세보기를 불러오는 데 실패했습니다.");
-            }
-        });
-    	
-    });
     
     //모달에 html 태그 집어넣기
     function showFestivalModal(item){
@@ -461,7 +426,7 @@ $(function(){
                     <i class="fa-solid fa-angle-right"></i>
                 </button>
         	`;
-        }                       
+        }
                         
          htmlContent += `
             </div>
@@ -495,28 +460,9 @@ $(function(){
             
         $("#festivalModal").html(htmlContent);
         
-        //모달 내 이미지 슬라이드 효과
-        let currentIndex = 0;
-        const totalImages = $('.modalImg').length-1;
-        const imageWidth = 200;
-
-        $(".prevBtn").click(() => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
-            updateImagePosition();
-        });
-
-        $(".nextBtn").click(() => {
-            currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
-            updateImagePosition();
-        });
+        modalImgSlide();
         
-        function updateImagePosition() {
-            const offset = -currentIndex * imageWidth;
-            $('.modalImgs').css({
-                transform: `translateX(${offset}px)`,
-                transition: 'transform 0.3s ease' // 부드러운 이동 효과
-            });
-        }
+        initMap(item.f_mapx, item.f_mapy);
         
         //모달 닫기
         $(".closeModal").click(function(){
@@ -524,6 +470,27 @@ $(function(){
             $("#modalOverlay").hide();
         });
     	
+    };
+    
+    //지도 함수
+    function initMap(mapx, mapy){
+		let mapContainer = $(".map")[0]; // 지도를 표시할 div
+		var mapOption = {
+			center: new kakao.maps.LatLng(mapx, mapy), // 지도의 중심좌표
+			level: 6 // 지도의 확대 레벨
+		};
+
+		// 지도 생성
+		let map = new kakao.maps.Map(mapContainer, mapOption);
+
+		// 마커 생성
+		var markerPosition = new kakao.maps.LatLng(mapx, mapy);
+		var marker = new kakao.maps.Marker({
+			position: markerPosition
+		});
+
+		// 마커 지도에 추가
+		marker.setMap(map);
     };
     
     
@@ -541,12 +508,13 @@ $(function(){
     //이런축제는 어때요 기본적으로 숨기기
     $(".recommend").hide();
     
-    //modal
+    //modal 기본적으로 숨기기
     $("#festivalModal").hide();
     $("#modalOverlay").hide();
     
-    $(".festivalitem > .itemImg > .hiddenItem > button , .recList > .recItemImg > div > button").click(function(){
-        setTimeout(function() {
+    //모달 보이기
+    function showModal(contentid){
+    	 setTimeout(function() { 
 	            $("#festivalModal").show();
 	            $("#modalOverlay").show();
 			}, 500);
@@ -554,35 +522,108 @@ $(function(){
             top: 0,
             behavior: 'smooth' // 부드러운 스크롤
         });
-    });
-
-    $(".closeModal").click(function(){
-    	$("#festivalModal").hide();
-        $("#modalOverlay").hide();
-    });
+    	
+    	$.ajax({
+            type:"get",
+            url:"http://localhost:9090/web/festival/getFestival.do",
+            data:{ contentid: contentid },
+            headers: {"Accept": "application/json"},
+            success:function(item){
+                showFestivalModal(item);
+            },
+            error:function(){
+                console.log("축제 상세보기를 불러오는 데 실패했습니다.");
+            }
+        });
+    };
     
+    $(".festivalitem > .itemImg > .hiddenItem > button , .recList > .recItemImg > div > button").click(function(){
+    	const contentid = $(this).val();
+       	showModal(contentid);
+    });
     
     //모달 내 이미지 슬라이드 효과
-    let currentIndex = 0;
-    const totalImages = $('.modalImg').length-1;
-    const imageWidth = 200;
-
-    $(".prevBtn").click(() => {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
-        updateImagePosition();
-    });
-
-    $(".nextBtn").click(() => {
-        currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
-        updateImagePosition();
-    });
+    function modalImgSlide(){
+	    let currentIndex = 0;
+	    const totalImages = $('.modalImg').length-1;
+	    const imageWidth = 200;
+	
+	    $(".prevBtn").click(() => {
+	        currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
+	        updateImagePosition();
+	    });
+	
+	    $(".nextBtn").click(() => {
+	        currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
+	        updateImagePosition();
+	    });
+	    
+	    function updateImagePosition() {
+	        const offset = -currentIndex * imageWidth;
+	        $('.modalImgs').css({
+	            transform: `translateX(${offset}px)`,
+	            transition: 'transform 0.3s ease' // 부드러운 이동 효과
+	        });
+	    }
+    };
+    modalImgSlide();
     
-    function updateImagePosition() {
-        const offset = -currentIndex * imageWidth;
-        $('.modalImgs').css({
-            transform: `translateX(${offset}px)`,
-            transition: 'transform 0.3s ease' // 부드러운 이동 효과
-        });
-    }
+    
+    //무한스크롤
+    let page = 1;
+    
+    function MoreFestivalData() {
+	    $.ajax({
+	        type: "GET",
+	        url: "http://localhost:9090/web/festival/getMoreFestivalData.do",
+	        data: { page: page },
+	        headers: {"Accept": "application/json"},
+	        success: function (data) {
+	        	console.log(data);
+	            appendData(data);
+	            page++;
+	        },
+	        error: function () {
+	            console.log("추가 축제 리스트 데이터 로드 실패");
+	        }
+	    });
+	    
+	}
+	
+	// 스크롤 이벤트 리스너
+	$(window).scroll(function () {
+	    if ($(window).scrollTop() + $(window).height() >= $(document).height()
+	    	&& $("#dateInput").val() == "" && $(".areaSelect").val() == "" && $("#searchText").val() == "") {
+	        MoreFestivalData();
+	    }
+	});
+	
+	function appendData(data) {
+		let htmlContent = "";
+		data.forEach(function(item) {
+			htmlContent += `
+				<div class="festivalitem">
+	                    <div class="itemImg" style="background-image: url(${ item.f_firstimage });">
+	                        <div class="hiddenItem">
+	                            <div>${ item.f_areaname } ${ item.f_sigunguname }</div>
+	                            <p>${ item.f_eventstartdate } ~ ${ item.f_eventenddate }</p>
+	                            <button value="${ item.f_contentid }">바로가기</button>
+	                        </div>
+	                    </div>
+	                    <div>${ item.f_title }</div>
+	                </div>
+			`;
+		});
+		htmlContent += `</div>`;
+		
+		$(".festivallist").append(htmlContent);
+		
+		festivalListHover();
+		
+		$(".festivalitem > .itemImg > .hiddenItem > button").click(function(){
+        	const contentid = $(this).val();
+       		showModal(contentid);
+		});
+	}
             
 });

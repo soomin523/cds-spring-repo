@@ -11,6 +11,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/festival.css">
 <script src="../resources/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/festival.js"></script>
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
 </head>
 <body>
     <div id="section">
@@ -53,13 +54,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <div class="selectCategory">
                 	<i class="fa-regular fa-folder"></i>
 	                <select class="categorySelect">
-	                    <option value="">카테고리</option>
-	                    <option value="0">나들이</option>
-	                    <option value="0">가을꽃</option>
-	                    <option value="0">야경</option>
-	                    <option value="0">문화예술</option>
-	                    <option value="0">미디어아트</option>
-	                    <option value="0">빛</option>
+	                    <option value="">상세지역</option>
 	                </select>
                 </div>
                 <button class="selectRefresh">

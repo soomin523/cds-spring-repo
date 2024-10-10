@@ -2,18 +2,13 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.human.cds.mapper.CourseInfoMapper">
+<mapper namespace="com.human.cds.mapper.DestinationMapper">
 
-	<insert id="insertCourseInfo">
-		INSERT INTO travel_course (content_id, title, addr1, addr2, area_code,
-		book_tour, cat1, cat2, cat3, content_type_id, created_time,
-		first_image, first_image2, cpyrht_Div_Cd, map_x, map_y, m_level,
-		modified_time, sigungu_code, tel, zipcode)
-		VALUES (#{contentid}, #{title}, #{addr1}, #{addr2}, #{areacode},
-		#{booktour}, #{cat1}, #{cat2}, #{cat3}, #{contenttypeid},
-		#{createdtime},
-		#{firstimage}, #{firstimage2}, #{cpyrhtDivCd}, #{mapx}, #{mapy}, #{mlevel},
-		#{modifiedtime}, #{sigungucode}, #{tel}, #{zipcode});
+	<insert id="insertDestination"><!-- 위에가 데베 아래가 vo -->
+		INSERT INTO destination (d_contentid,d_firstimage,d_sigungucode,d_areacode,
+		d_title,d_addr1,d_addr2,d_mapx,d_mapy)
+		VALUES (#{contentid},#{firstimage},#{sigungucode},
+		#{areacode},#{title},#{addr1},#{addr2},#{mapx},#{mapy})
 	</insert>
 
 	<select id="selectTitleAndContentId" resultType="map">

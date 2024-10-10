@@ -216,7 +216,7 @@ body {
     /* 흔들리는 애니메이션 추가 */
 }
 
-@keyframes shake{
+@keyframes shake {
     0% {
         transform: translateY(0);
         /* 원래 위치 */
@@ -235,114 +235,158 @@ body {
 
 /* ----------------------------------------------------------------------------------------------------------- */
 
-        
- .coursemodal {
-            display: none;
-            position: fixed; /* 화면에 고정 */
-            flex-direction:column;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* 중앙에 배치 */
-            width: 90%;
-            max-width: 500px;
-            height: auto;
-            background-color: lightblue;
-            align-items: center;
-            border: 1px solid #333;
-            border-radius: 15px;
-            padding: 20px;
-            z-index: 1000; /* 배경 오버레이 위에 표시 */
-        }
 
-        /* 닫기 버튼 스타일 */
-        .close-btn {
-            align-self: flex-end;
-            font-size: 24px;
-            cursor: pointer;
-        }
+.coursemodal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 500px;
+    height: 90vh;
+    /* 모달이 화면 높이의 90%를 차지 */
+    overflow-y: auto;
+    /* 내용이 넘칠 경우 세로 스크롤 */
+    background-color: lightblue;
+    align-items: center;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 20px;
+    z-index: 1000;
+    flex-direction: column;
+    /* 내부 요소를 세로로 배치 */
+}
 
-        .coursenamebox {
-            width: 100%;
-            height: 150px;
-            background-color: grey;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-size: 24px;
-        }
+/* 닫기 버튼 스타일 */
+.close-btn {
+    align-self: flex-end;
+    font-size: 24px;
+    cursor: pointer;
+}
 
-        hr {
-            width: 95%;
-            border: 1px solid #333;
-        }
+.coursenamebox {
+    width: 100%;
+    height: auto;
+    /* 높이를 자동으로 조정 */
+    display: flex;
+    flex-direction: column;
+    /* 이미지와 코스 이름을 세로로 배치 */
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+}
 
-        /* 태그 박스 */
-        .tagbox {
-            display: flex;
-            justify-content: space-around;
-            width: 80%;
-            margin: 20px 0;
-        }
+.first-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    /* 이미지의 최대 높이를 설정 */
+    object-fit: cover;
+    /* 이미지가 영역에 맞게 조정 */
+    margin-bottom: 10px;
+    /* 이미지와 텍스트 간의 여백 */
+}
 
-        .tag {
-            text-align: center;
-            padding: 10px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-            width: 80px;
-            height: 80px;
-        }
+.course-title {
+    margin-top: 10px;
+    font-size: 24px;
+    color: white;
+    text-align: center;
+}
 
-        .tag img {
-            display: block;
-            margin: 0 auto;
-            width: 30px;
-            height: 30px;
-        }
+.overview {
+    background-color: white;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
 
-        /* 지도 박스 */
-        .mapbox {
-            width: 90%;
-            height: 200px;
-            background-color: lightgrey;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #333;
-        }
+/* 스크롤이 모달 내에서만 작동하도록 */
+.coursemodal::-webkit-scrollbar {
+    width: 10px;
+}
 
-        /* 댓글란 스타일 */
-        .commentbox {
-            width: 90%;
-            margin-top: 20px;
-        }
+.coursemodal::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
 
-        .comment-title {
-            background-color: lightgrey;
-            width: 95%;
-            padding: 10px;
-            text-align: center;
-            font-size: 18px;
-        }
+.coursemodal::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+}
 
-        .comment {
-            display: flex;
-            align-items: center;
-            background-color: white;
-            margin: 10px 0;
-            padding: 10px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
+hr {
+    width: 95%;
+    border: 1px solid #333;
+}
 
-        .comment img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
+/* 태그 박스 */
+.tagbox {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: 20px 0;
+}
 
-        .comment p {
-            margin: 0;
-        }
+.tag {
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    width: 80px;
+    height: 80px;
+}
+
+.tag img {
+    display: block;
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+}
+
+/* 지도 박스 */
+.mapbox {
+    width: 90%;
+    height: 200px;
+    background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+/* 댓글란 스타일 */
+.commentbox {
+    width: 90%;
+    margin-top: 20px;
+}
+
+.comment-title {
+    background-color: lightgrey;
+    width: 95%;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.comment {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    margin: 10px 0;
+    padding: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment p {
+    margin: 0;
+}

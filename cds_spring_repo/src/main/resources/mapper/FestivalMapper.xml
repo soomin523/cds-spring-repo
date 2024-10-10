@@ -61,12 +61,14 @@
 			where f_contentid not in <foreach item="id" collection="list" open="(" separator="," close=")">
 										#{id}
 									</foreach>
+				and f_firstimage is not null
 			order by rand()
 			limit 3
 	</select>
 	
 	<select id="getFestivalAllRandomList" resultType="FestivalDBVO">
 		select * from festival
+			where f_firstimage is not null
 			order by rand()
 			limit 3
 	</select>
@@ -74,6 +76,14 @@
 	<select id="getMoreFestivalData" resultType="FestivalDBVO">
 		select * from festival
 			limit #{page}, 20
+	</select>
+	
+	<select id="getAreaList" resultType="FestivalDBVO">
+	SELECT f_sigunguname, f_sigungucode
+		FROM festival
+		WHERE f_areacode = #{areaCode} and f_sigunguname is not null
+		GROUP BY f_sigunguname, f_sigungucode
+		ORDER BY CAST(f_sigungucode AS UNSIGNED)
 	</select>
 		
 </mapper>

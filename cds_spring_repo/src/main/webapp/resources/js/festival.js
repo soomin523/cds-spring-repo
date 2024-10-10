@@ -2,6 +2,8 @@ $(function(){
 
 	//검색어 입력창
 	$(".search > button").click(function(){
+		$("#dateInput").val("");
+        $(".areaSelect").val("");
 		const searchText = $("#searchText").val().trim();
 		
 		if(searchText != ""){
@@ -13,6 +15,8 @@ $(function(){
 	// 검색어 입력창
     $("#searchText").on("keydown", function(event) {
         if (event.key === "Enter") {
+        	$("#dateInput").val("");
+        	$(".areaSelect").val("");
             const searchText = $(this).val().trim();
             if (searchText !== "") {
                 searchTitle(searchText);
@@ -167,7 +171,41 @@ $(function(){
                 console.log("지역 선택 리스트를 불러오는 데 실패했습니다.");
             }
         });
+        
+        //상세지역 선택창 만들기
+        $.ajax({
+            type:"get",
+            url:"http://localhost:9090/web/festival/getAreaList.do",
+            data:{ areaCode: selectarea },
+            headers: {"Accept": "application/json"},
+            success:function(AreaList){
+                addAreaList(AreaList);
+            },
+            error:function(){
+                console.log("지역 리스트를 불러오는 데 실패했습니다.");
+            }
+        });
 
+    });
+    //상세지역 선택창 리스트 불러오기
+    function addAreaList(AreaList){
+    	let htmlContent = `
+    		<option value="">상세지역</option>
+    	`;
+    	
+    	AreaList.forEach(function(item) {
+	    	htmlContent += `
+	    		<option value="${item.f_sigungucode}">${item.f_sigunguname}</option>
+	    	`;
+    	});
+    	
+    	$(".categorySelect").html(htmlContent);
+    };
+    
+    //상세지역 선택에 따른 리스트 불러오기
+    $("categorySelect").change(function(){
+    	
+    
     });
     
     //날짜 선택에 따른 리스트 불러오기
@@ -195,15 +233,18 @@ $(function(){
     
     
     //축제 리스트 hover 효과
-    $(".festivalitem > .itemImg > .hiddenItem").hide();
-    $(".festivalitem > .itemImg").hover(
-        function(){
-            $(this).find(".hiddenItem").show();
-        },
-        function(){
-            $(this).find(".hiddenItem").hide();
-        }
-    );
+    function festivalListHover(){
+	    $(".festivalitem > .itemImg > .hiddenItem").hide();
+	    $(".festivalitem > .itemImg").hover(
+	        function(){
+	            $(this).find(".hiddenItem").show();
+	        },
+	        function(){
+	            $(this).find(".hiddenItem").hide();
+	        }
+	    );    
+    };
+    festivalListHover();
 
 	//선택에 따른 축제 리스트 html에 표시하기
     function loadingFestivalList(festivalList){
@@ -239,63 +280,31 @@ $(function(){
         	$(".festivallist").show();
 	    }
 	        
-	        if(festivalList.length < 5){ //이런축제는어때요 리스트 표기 조건
-	        	$(".recommend").show();
-	        	
-	        	$.ajax({
-		            type:"get",
-		            url:"http://localhost:9090/web/festival/getFestivalRandomList.do",
-		            data:{ contentid: contentid },
-		            headers: {"Accept": "application/json"},
-		            success:function(recommendList){
-		                recommendFestivalList(recommendList);
-		            },
-		            error:function(){
-		                console.log("이런 축제는 어때요 리스트를 불러오는 데 실패했습니다.");
-		            }
-		        });
-	        }else{
-	        	$(".recommend").hide();
-	        }
-	        
-
-        
-        $(".festivalitem > .itemImg > .hiddenItem > button").click(function(){
-        	setTimeout(function() {
-	            $("#festivalModal").show();
-	            $("#modalOverlay").show();
-			}, 500);
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // 부드러운 스크롤
-            });
-            const contentid = $(this).val();
+        if(festivalList.length < 5){ //이런축제는어때요 리스트 표기 조건
+        	$(".recommend").show();
         	
         	$.ajax({
-                type:"get",
-                url:"http://localhost:9090/web/festival/getFestival.do",
-                data:{ contentid: contentid },
-                headers: {"Accept": "application/json"},
-                success:function(item){
-                    showFestivalModal(item);
-                },
-                error:function(){
-                    console.log("축제 상세보기를 불러오는 데 실패했습니다.");
-                }
-            });
-            
+	            type:"get",
+	            url:"http://localhost:9090/web/festival/getFestivalRandomList.do",
+	            data:{ contentid: contentid },
+	            headers: {"Accept": "application/json"},
+	            success:function(recommendList){
+	                recommendFestivalList(recommendList);
+	            },
+	            error:function(){
+	                console.log("이런 축제는 어때요 리스트를 불러오는 데 실패했습니다.");
+	            }
+	        });
+        }else{
+        	$(".recommend").hide();
+        }
+	        
+        $(".festivalitem > .itemImg > .hiddenItem > button").click(function(){
+        	const contentid = $(this).val();
+       		showModal(contentid);
         });
         
-        //축제 리스트 hover 효과
-        $(".festivalitem > .itemImg > .hiddenItem").hide();
-        $(".festivalitem > .itemImg").hover(
-            function(){
-                $(this).find(".hiddenItem").show();
-            },
-            function(){
-                $(this).find(".hiddenItem").hide();
-            }
-        );
+        festivalListHover();
     };
     
     
@@ -343,51 +352,10 @@ $(function(){
 	    });	
          
         $(".recList > .recItemImg > div > button").click(function(){
-        	setTimeout(function() {
-	            $("#festivalModal").show();
-	            $("#modalOverlay").show();
-			}, 500);
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth' // 부드러운 스크롤
-            });
-            const contentid = $(this).val();
-        	
-        	$.ajax({
-                type:"get",
-                url:"http://localhost:9090/web/festival/getFestival.do",
-                data:{ contentid: contentid },
-                headers: {"Accept": "application/json"},
-                success:function(item){
-                    showFestivalModal(item);
-                },
-                error:function(){
-                    console.log("축제 상세보기를 불러오는 데 실패했습니다.");
-                }
-            });
-            
+        	const contentid = $(this).val();
+       		showModal(contentid);
         });
     };
-    
-    
-    //모달 띄울 때 안의 콘텐츠 가져오기
-    $(".festivalitem > .itemImg > .hiddenItem > button , .recList > .recItemImg > div > button").click(function(){
-    	const contentid = $(this).val();
-    	
-    	$.ajax({
-            type:"get",
-            url:"http://localhost:9090/web/festival/getFestival.do",
-            data:{ contentid: contentid },
-            headers: {"Accept": "application/json"},
-            success:function(item){
-                showFestivalModal(item);
-            },
-            error:function(){
-                console.log("축제 상세보기를 불러오는 데 실패했습니다.");
-            }
-        });
-    	
-    });
     
     //모달에 html 태그 집어넣기
     function showFestivalModal(item){
@@ -492,20 +460,9 @@ $(function(){
             
         $("#festivalModal").html(htmlContent);
         
-        //모달 내 이미지 슬라이드 효과
-        let currentIndex = 0;
-        const totalImages = $('.modalImg').length-1;
-        const imageWidth = 200;
-
-        $(".prevBtn").click(() => {
-            currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
-            updateImagePosition();
-        });
-
-        $(".nextBtn").click(() => {
-            currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
-            updateImagePosition();
-        });
+        modalImgSlide();
+        
+        initMap(item.f_mapx, item.f_mapy);
         
         //모달 닫기
         $(".closeModal").click(function(){
@@ -513,6 +470,27 @@ $(function(){
             $("#modalOverlay").hide();
         });
     	
+    };
+    
+    //지도 함수
+    function initMap(mapx, mapy){
+		let mapContainer = $(".map")[0]; // 지도를 표시할 div
+		var mapOption = {
+			center: new kakao.maps.LatLng(mapx, mapy), // 지도의 중심좌표
+			level: 6 // 지도의 확대 레벨
+		};
+
+		// 지도 생성
+		let map = new kakao.maps.Map(mapContainer, mapOption);
+
+		// 마커 생성
+		var markerPosition = new kakao.maps.LatLng(mapx, mapy);
+		var marker = new kakao.maps.Marker({
+			position: markerPosition
+		});
+
+		// 마커 지도에 추가
+		marker.setMap(map);
     };
     
     
@@ -530,12 +508,13 @@ $(function(){
     //이런축제는 어때요 기본적으로 숨기기
     $(".recommend").hide();
     
-    //modal
+    //modal 기본적으로 숨기기
     $("#festivalModal").hide();
     $("#modalOverlay").hide();
     
-    $(".festivalitem > .itemImg > .hiddenItem > button , .recList > .recItemImg > div > button").click(function(){
-        setTimeout(function() {
+    //모달 보이기
+    function showModal(contentid){
+    	 setTimeout(function() { 
 	            $("#festivalModal").show();
 	            $("#modalOverlay").show();
 			}, 500);
@@ -543,36 +522,51 @@ $(function(){
             top: 0,
             behavior: 'smooth' // 부드러운 스크롤
         });
-    });
-
-    $(".closeModal").click(function(){
-    	$("#festivalModal").hide();
-        $("#modalOverlay").hide();
-    });
+    	
+    	$.ajax({
+            type:"get",
+            url:"http://localhost:9090/web/festival/getFestival.do",
+            data:{ contentid: contentid },
+            headers: {"Accept": "application/json"},
+            success:function(item){
+                showFestivalModal(item);
+            },
+            error:function(){
+                console.log("축제 상세보기를 불러오는 데 실패했습니다.");
+            }
+        });
+    };
     
+    $(".festivalitem > .itemImg > .hiddenItem > button , .recList > .recItemImg > div > button").click(function(){
+    	const contentid = $(this).val();
+       	showModal(contentid);
+    });
     
     //모달 내 이미지 슬라이드 효과
-    let currentIndex = 0;
-    const totalImages = $('.modalImg').length-1;
-    const imageWidth = 200;
-
-    $(".prevBtn").click(() => {
-        currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
-        updateImagePosition();
-    });
-
-    $(".nextBtn").click(() => {
-        currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
-        updateImagePosition();
-    });
-    
-    function updateImagePosition() {
-        const offset = -currentIndex * imageWidth;
-        $('.modalImgs').css({
-            transform: `translateX(${offset}px)`,
-            transition: 'transform 0.3s ease' // 부드러운 이동 효과
-        });
-    }
+    function modalImgSlide(){
+	    let currentIndex = 0;
+	    const totalImages = $('.modalImg').length-1;
+	    const imageWidth = 200;
+	
+	    $(".prevBtn").click(() => {
+	        currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalImages - 1;
+	        updateImagePosition();
+	    });
+	
+	    $(".nextBtn").click(() => {
+	        currentIndex = (currentIndex < totalImages - 1) ? currentIndex + 1 : 0;
+	        updateImagePosition();
+	    });
+	    
+	    function updateImagePosition() {
+	        const offset = -currentIndex * imageWidth;
+	        $('.modalImgs').css({
+	            transform: `translateX(${offset}px)`,
+	            transition: 'transform 0.3s ease' // 부드러운 이동 효과
+	        });
+	    }
+    };
+    modalImgSlide();
     
     
     //무한스크롤
@@ -624,16 +618,12 @@ $(function(){
 		
 		$(".festivallist").append(htmlContent);
 		
-		$(".festivalitem > .itemImg > .hiddenItem").hide();
-	    $(".festivalitem > .itemImg").hover(
-	        function(){
-	            $(this).find(".hiddenItem").show();
-	        },
-	        function(){
-	            $(this).find(".hiddenItem").hide();
-	        }
-	    );
+		festivalListHover();
 		
+		$(".festivalitem > .itemImg > .hiddenItem > button").click(function(){
+        	const contentid = $(this).val();
+       		showModal(contentid);
+		});
 	}
             
 });

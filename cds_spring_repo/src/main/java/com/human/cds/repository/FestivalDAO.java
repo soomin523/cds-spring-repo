@@ -205,4 +205,19 @@ public class FestivalDAO {
 		return festivalList;
 	}
 
+	public List<FestivalDBVO> getAreaList(String areaCode) {
+		
+		List<FestivalDBVO> areaList = null;
+		
+		try {
+			areaList = sqlSession.selectList(MAPPER+".getAreaList", areaCode);
+			
+		} catch (Exception e) {
+			System.out.println("getAreaList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return areaList;
+	}
+
 }

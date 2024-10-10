@@ -93,4 +93,9 @@ public class FestivalServiceImpl implements FestivalService {
 		return dao.getMoreFestivalData(page);
 	}
 
+	@Override
+	public List<FestivalDBVO> getAreaList(String areaCode) {
+		return dao.getAreaList(areaCode);
+	}
+
 }

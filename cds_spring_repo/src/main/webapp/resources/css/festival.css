@@ -340,7 +340,6 @@ button{
 #festivalModal>.modalMap>.map{
     width: 100%;
     height: 250px;
-    background-color: #87bee585;
     margin: 20px 0px 10px;
 }
 #festivalModal>.modalMap>.mapContent{

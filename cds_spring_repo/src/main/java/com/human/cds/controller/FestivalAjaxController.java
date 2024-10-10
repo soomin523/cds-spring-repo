@@ -59,6 +59,17 @@ public class FestivalAjaxController {
 		return festivalList;
 	}
 	
+	//지역 선택에 따른 상세지역 표시하기
+	@GetMapping("/getAreaList.do")
+	public List<FestivalDBVO> getAreaList(@RequestParam String areaCode){
+		
+		List<FestivalDBVO> areaList = null;
+		
+		areaList = festivalServiceImpl.getAreaList(areaCode);
+		
+		return areaList;
+	}
+	
 	//축제 상세보기 불러오기
 	@GetMapping("/getFestival.do")
 	public FestivalModalVO getFestival(@RequestParam String contentid) {

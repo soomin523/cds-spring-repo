@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,8 @@
 integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/support.css">
+<script src="../resources/js/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/support.js"></script>
 </head>
 <body>
 	<div id="section">
@@ -34,70 +37,63 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 		            </c:otherwise>
 	            </c:choose>
 	        </div>
-<%-- <jsp:useBean id="dao" class="dao.SupportDAO" />
-<c:set var="notice" value='${ dao.search("notice") }' />
-<c:set var="guide" value='${ dao.search("guide") }' />
-<c:set var="question" value='${ dao.search("question") }' /> --%>
-<c:set var="supportSelect" value="" />
 	        <div class="supMainBtm">
-	            <div class="notice">
+	            <div class="notice select">
 	                <h4>공지사항</h4>
-	                <button onclick="goDetailSelect('notice')">더보기 <i class="fa-solid fa-plus"></i></button>
+	                <button value="notice">더보기 <i class="fa-solid fa-plus"></i></button>
 	                <div class="items">
-                        <div class="item">
-                            <div class="title">공지사항1</div>
-                            <div class="date">2024.09.24</div>
-                        </div>
-                        <hr>
-                        <div class="item">
-                            <div class="title">공지사항2</div>
-                            <div class="date">2024.09.20</div>
-                        </div>
-		                <%-- <c:forEach var="item" items="${ notice }">
-		                	<div class="item">
-		                		<div class="title">${ item.sTitle }</div>
-		                		<div class="date">${ item.sDate }</div>
-		                	</div>
-		                </c:forEach> --%>
+	                <hr>
+<c:if test="${ not empty notice }">
+	<c:forEach var="i" begin="0" end="${ notice.size() > 7 ? 7 : notice.size()-1 }">
+						<div class="item">
+	                		<div class="title">${ notice[i].s_title }</div>
+	                		<div class="date">
+		<fmt:formatDate value="${ notice[i].post_date }" type="date" pattern="yyyy-MM-dd" />
+	                		</div>
+	                	</div>
+	                <hr>	
+	</c:forEach>
+</c:if>
                     </div>
 	            </div>
-	            <div class="guide">
+	            <div class="guide select">
 	                <h4>이용안내</h4>
-	                <button onclick="goDetailSelect('guide')">더보기 <i class="fa-solid fa-plus"></i></button>
+	                <button value="guide">더보기 <i class="fa-solid fa-plus"></i></button>
 	                <div class="items">
-		                <%-- <c:forEach var="item" items="${ guide }">
-		                	<div class="item">
-		                		<div class="title">${ item.sTitle }</div>
-		                		<div class="date">${ item.sDate }</div>
-		                	</div>
-		                </c:forEach> --%>
+	                <hr>
+<c:if test="${ not empty guide }">
+	<c:forEach var="i" begin="0" end="${ guide.size() > 7 ? 7 : guide.size()-1 }">
+						<div class="item">
+		                	<div class="title">${ guide[i].s_title }</div>
+	                		<div class="date">
+		<fmt:formatDate value="${ guide[i].post_date }" type="date" pattern="yyyy-MM-dd" />
+	                		</div>
+	                	</div>
+	                <hr>
+	</c:forEach>
+</c:if>
 		            </div>
 	            </div>
-	            <div class="question">
+	            <div class="question select">
 	                <h4>자주 묻는 질문</h4>
-	                <button onclick="goDetailSelect('question')"> 더보기 <i class="fa-solid fa-plus"></i></button>
+	                <button value="question"> 더보기 <i class="fa-solid fa-plus"></i></button>
                     <div class="items">
-		                <%-- <c:forEach var="item" items="${ question }">
-		                	<div class="item">
-		                		<div class="title">${ item.sTitle }</div>
-		                		<div class="date">${ item.sDate }</div>
-		                	</div>
-		                </c:forEach> --%>
+                    <hr>
+<c:if test="${ not empty question }">
+	<c:forEach var="i" begin="0" end="${ question.size() > 7 ? 7 : question.size()-1 }">
+						<div class="item">
+	                		<div class="title">${ question[i].s_title }</div>
+	                		<div class="date">
+		<fmt:formatDate value="${ question[i].post_date }" type="date" pattern="yyyy-MM-dd" />
+	                		</div>
+	                	</div>
+	                <hr>
+	</c:forEach>
+</c:if>
                     </div>
 	            </div>
 	        </div>
 	    </div>
 	</div>
-	
-	<script>
-		const goDetailSelect = (select) => {
-			switch(select){
-				case 'notice': window.location.href = `supportDetail.jsp?supportSelect=notice`; break;
-				case 'guide': window.location.href = `supportDetail.jsp?supportSelect=guide`; break;
-				case 'question': window.location.href = `supportDetail.jsp?supportSelect=question`;
-			}
-			// window.location.href = `supportDetail.jsp?supportSelect=${select}`;
-		}
-	</script>
 </body>
 </html>

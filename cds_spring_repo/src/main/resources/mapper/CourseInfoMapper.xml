@@ -3,7 +3,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.human.cds.mapper.CourseInfoMapper">
-<!-- namespace: XML 파일에서 내용의 구분을 위해서 사용 -->
+	<!-- namespace: XML 파일에서 내용의 구분을 위해서 사용 -->
 
 	<insert id="insertCourseInfo">
 		INSERT INTO travel_course (content_id, title, addr1,
@@ -22,14 +22,14 @@
 		#{mlevel},
 		#{modifiedtime}, #{sigungucode}, #{tel}, #{zipcode});
 	</insert>
-	
+
 	<select id="selectTitleAndContentId" resultType="map">
 		SELECT title,
 		content_id, content_type_id
 		FROM travel_course
 	</select>
-	
-	
+
+
 	<update id="updateOverview">
 		UPDATE travel_course
 		SET overview = #{overview}
@@ -43,7 +43,13 @@
 		travel_course
 		WHERE area_code = #{areaCode}
 	</select>
-	
+
+	<select id="getAllCourses" resultType="CourseInfoVO">
+		SELECT *
+		FROM travel_course
+		WHERE area_code IN ("1","2", "3","4", "5", "6", "7", "39")
+	</select>
+
 	<select id="getCourseByContentId" resultType="CourseInfoVO">
 		SELECT *
 		FROM
@@ -53,7 +59,17 @@
 
 	<update id="updateCourseDetails">
 		UPDATE travel_course
-		SET distance = #{distance}, taketime = #{taketime}
-		WHERE content_id = #{contentId} AND content_type_id = #{contentTypeId}
+		SET distance = #{distance},
+		taketime = #{taketime}
+		WHERE content_id = #{contentId} AND
+		content_type_id = #{contentTypeId}
 	</update>
+	
+	<select id="getRandomFestival" resultType="FestivalDBVO">
+        SELECT *
+        FROM festival
+        ORDER BY RAND()
+        LIMIT 1;
+    </select>
+	
 </mapper>	

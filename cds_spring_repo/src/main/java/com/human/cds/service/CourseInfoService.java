@@ -3,8 +3,8 @@ package com.human.cds.service;
 import java.util.List;
 
 import com.human.cds.vo.CourseInfoDTO;
-import com.human.cds.vo.CourseInfoDTO.Item;
 import com.human.cds.vo.CourseInfoVO;
+import com.human.cds.vo.FestivalDBVO;
 
 public interface CourseInfoService {
 
@@ -18,6 +18,9 @@ public interface CourseInfoService {
 	CourseInfoVO getCourseByContentId(String contentid);
 
 	void updateCourseDetails(String contentId, String contentTypeId, String distance, String taketime);
+
+	FestivalDBVO getRandomFestival();
+
 
     
     	

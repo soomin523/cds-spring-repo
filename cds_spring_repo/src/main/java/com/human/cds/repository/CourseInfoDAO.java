@@ -11,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO.Item;
 import com.human.cds.vo.CourseInfoVO;
+import com.human.cds.vo.FestivalDBVO;
+import com.human.cds.vo.FestivalVO;
 
 @Repository
 public class CourseInfoDAO {
@@ -51,6 +53,12 @@ public class CourseInfoDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(MAPPER + ".getCoursesByRegion", areaCode);
 	}
+	
+	public List<CourseInfoVO> getAllCourses() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(MAPPER + ".getAllCourses");
+	}
+	
 
 	public CourseInfoVO getCourseByContentId(String contentid) {
 		// TODO Auto-generated method stub
@@ -83,5 +91,9 @@ public class CourseInfoDAO {
 	    }
 	}
 
+
+	public FestivalDBVO getRandomFestival() {
+        return sqlSession.selectOne(MAPPER + ".getRandomFestival");
+    }
 
 }

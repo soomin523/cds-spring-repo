@@ -79,8 +79,9 @@
 }
 #supportMain>.supMainBtm>div>.items{ /* 리스트 출력될 곳 */
     width: 100%;
-    margin-top: 65px;
+    margin-top: 15px;
     padding: 0px 10px;
+    min-height: 200px;
 }
 #supportMain>.supMainBtm>div>.items>hr{
     margin: 5px 0px;
@@ -167,5 +168,22 @@
 	color: #6e6e6e;
 }
 #supportDetail>section>.content>.contentText{ /* 콘텐츠 내용 */
-	margin: 2% 0px;
+	margin: 2% 2% 0px;
+	display: flex;
+	flex-direction: column;
+}
+#supportDetail>section>.content>.contentText>div{
+	align-self: flex-end;
+	margin-top: 10px;
+}
+#supportDetail>section>.content>.contentText>div>button, #supportDetail>section>.newContent>button{
+	border: none;
+	background-color: #fff0;
+	cursor: pointer;
+}
+#supportDetail>section>.newContent{
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 1%;
+	margin-bottom: 10px;
 }

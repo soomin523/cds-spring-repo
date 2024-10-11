@@ -11,6 +11,7 @@
 		<typeAlias alias="FestivalDBVO" type="com.human.cds.vo.FestivalDBVO"/>
 		<typeAlias alias="FestivalModalVO" type="com.human.cds.vo.FestivalModalVO"/>
 		<typeAlias alias="CourseInfoVO" type="com.human.cds.vo.CourseInfoVO"/>
+		<typeAlias alias="SupportVO" type="com.human.cds.vo.SupportVO"/>
 	</typeAliases>
 	
   

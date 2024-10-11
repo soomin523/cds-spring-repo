@@ -15,15 +15,17 @@ import com.human.cds.vo.FestivalVO;
 @Service
 public class FestivalServiceImpl implements FestivalService {
 	
-	private final FestivalDAO dao;
 	@Autowired
-	public FestivalServiceImpl(FestivalDAO dao) {
-		this.dao = dao;
-	}
+	private FestivalDAO dao;
 
 	@Override
 	public int insertFestival(FestivalVO data) {
 		return dao.insertFestival(data);
+	}
+	
+	@Override
+	public List<FestivalDBVO> getAreaList(String areaCode) {
+		return dao.getAreaList(areaCode);
 	}
 
 	@Override
@@ -94,8 +96,12 @@ public class FestivalServiceImpl implements FestivalService {
 	}
 
 	@Override
-	public List<FestivalDBVO> getAreaList(String areaCode) {
-		return dao.getAreaList(areaCode);
+	public List<FestivalDBVO> getFestivaldetailSelectList(String selectarea, String selectsigungu) {
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("selectarea", selectarea);
+		map.put("selectsigungu", selectsigungu);
+		return dao.getFestivaldetailSelectList(map);
 	}
 
 }

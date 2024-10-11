@@ -12,6 +12,14 @@
         			#{eventenddate}, #{firstimage}, #{mapx}, #{mapy}, #{areacode}, #{tel})
     </insert>
     
+	<select id="getAreaList" resultType="FestivalDBVO">
+	SELECT f_sigunguname, f_sigungucode
+		FROM festival
+		WHERE f_areacode = #{areaCode} and f_sigunguname is not null
+		GROUP BY f_sigunguname, f_sigungucode
+		ORDER BY CAST(f_sigungucode AS UNSIGNED)
+	</select>
+    
     <select id="getFestivalList" resultType="FestivalDBVO">
 	    select * from festival
 	    limit 20
@@ -78,12 +86,10 @@
 			limit #{page}, 20
 	</select>
 	
-	<select id="getAreaList" resultType="FestivalDBVO">
-	SELECT f_sigunguname, f_sigungucode
-		FROM festival
-		WHERE f_areacode = #{areaCode} and f_sigunguname is not null
-		GROUP BY f_sigunguname, f_sigungucode
-		ORDER BY CAST(f_sigungucode AS UNSIGNED)
+	<select id="getFestivaldetailSelectList" parameterType="map" resultType="FestivalDBVO">
+		select * from festival
+			where f_areacode = #{selectarea} and f_sigunguCode = #{selectsigungu}
 	</select>
+	
 		
 </mapper>

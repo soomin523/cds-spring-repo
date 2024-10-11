@@ -20,6 +20,7 @@ import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO2;
 import com.human.cds.vo.CourseInfoDTO3;
 import com.human.cds.vo.CourseInfoVO;
+import com.human.cds.vo.FestivalDBVO;
 
 import lombok.AllArgsConstructor;
 
@@ -161,5 +162,10 @@ public class CourseInfoController {
 	    return "redirect:/tourCourse/Courseitems.do";  // 업데이트 후 리스트 페이지로 리다이렉트
 	}
 
-
+	 @GetMapping("/getRandomFestival.do")
+	    @ResponseBody
+	    public FestivalDBVO getRandomFestival() {
+	        return courseInfoServiceImpl.getRandomFestival();
+	    }
+	
 }

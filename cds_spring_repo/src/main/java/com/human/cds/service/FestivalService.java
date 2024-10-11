@@ -9,6 +9,8 @@ import com.human.cds.vo.FestivalVO;
 public interface FestivalService {
 
 	int insertFestival(FestivalVO data);
+	
+	List<FestivalDBVO> getAreaList(String areaCode);
 
 	List<FestivalDBVO> getFestivalList();
 
@@ -32,6 +34,6 @@ public interface FestivalService {
 
 	List<FestivalDBVO> getFestivalAllRandomList();
 
-	List<FestivalDBVO> getAreaList(String areaCode);
+	List<FestivalDBVO> getFestivaldetailSelectList(String selectarea, String selectsigungu);
 
 }

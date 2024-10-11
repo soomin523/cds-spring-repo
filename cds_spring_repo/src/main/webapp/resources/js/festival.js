@@ -4,6 +4,7 @@ $(function(){
 	$(".search > button").click(function(){
 		$("#dateInput").val("");
         $(".areaSelect").val("");
+        $(".categorySelect").val("");
 		const searchText = $("#searchText").val().trim();
 		
 		if(searchText != ""){
@@ -17,6 +18,7 @@ $(function(){
         if (event.key === "Enter") {
         	$("#dateInput").val("");
         	$(".areaSelect").val("");
+        	$(".categorySelect").val("");
             const searchText = $(this).val().trim();
             if (searchText !== "") {
                 searchTitle(searchText);
@@ -27,9 +29,9 @@ $(function(){
     });
     //검색 리스트 요청
     function searchTitle(searchText){
-    	$.ajax({
+    	$.ajax({ 
             type:"get",
-            url:"http://localhost:9090/web/festival/getFestivalSearchTitle.do",
+            url:"http://localhost:9090/cds/festival/getFestivalSearchTitle.do",
             data:{ searchText: searchText },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -65,9 +67,9 @@ $(function(){
         const dateInput = $("#dateInput").val();
         const selectDate = dateInput.replace(/-/g, '');
         
-        $.ajax({
+        $.ajax({ 
             type:"get",
-            url:"http://localhost:9090/web/festival/getFestivalSelectList.do",
+            url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
             data:{ areaCode: selectarea, selectDate: selectDate },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -88,6 +90,7 @@ $(function(){
         $(".duration button").css("backgroundColor", "#fff0");
         $("#dateInput").val("");
         $("#searchText").val("");
+        $(".categorySelect").val("");
         
         // 클릭한 버튼의 배경색을 토글
         if (!isColor) {
@@ -103,9 +106,9 @@ $(function(){
             
             // 버튼의 클래스에 따라 작업 수행
 	        if ($(this).hasClass('ing')) {
-	            $.ajax({
+	            $.ajax({ 
 	                type:"get",
-	                url:"http://localhost:9090/web/festival/getFestivalSelectList.do",
+	                url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
 	                data:{ areaCode: selectarea, selectDate: selectDate },
 	                headers: {"Accept": "application/json"},
 	                success:function(festivalList){
@@ -117,9 +120,9 @@ $(function(){
 	            });
 
 	        } else if ($(this).hasClass('soon')) {
-	            $.ajax({
+	            $.ajax({ 
 	                type:"get",
-	                url:"http://localhost:9090/web/festival/getFestivalSoonList.do",
+	                url:"http://localhost:9090/cds/festival/getFestivalSoonList.do",
 	                data:{ areaCode: selectarea, selectDate: selectDate },
 	                headers: {"Accept": "application/json"},
 	                success:function(festivalList){
@@ -134,9 +137,9 @@ $(function(){
         	const selectarea = $(".areaSelect").val();
         	const selectDate = $("#dateInput").val();
         
-        	$.ajax({
+        	$.ajax({ 
                 type:"get",
-                url:"http://localhost:9090/web/festival/getFestivalSelectList.do",
+                url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
                 data:{ areaCode: selectarea, selectDate: selectDate },
                 headers: {"Accept": "application/json"},
                 success:function(festivalList){
@@ -156,12 +159,13 @@ $(function(){
         const dateInput = $("#dateInput").val();
         const selectDate = dateInput.replace(/-/g, '');
         $("#searchText").val("");
+        $(".categorySelect").val("");
         
         ingSoonReset();
       
-    	$.ajax({
+    	$.ajax({ 
             type:"get",
-            url:"http://localhost:9090/web/festival/getFestivalSelectList.do",
+            url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
             data:{ areaCode: selectarea, selectDate: selectDate },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -173,9 +177,9 @@ $(function(){
         });
         
         //상세지역 선택창 만들기
-        $.ajax({
+        $.ajax({ 
             type:"get",
-            url:"http://localhost:9090/web/festival/getAreaList.do",
+            url:"http://localhost:9090/cds/festival/getAreaList.do",
             data:{ areaCode: selectarea },
             headers: {"Accept": "application/json"},
             success:function(AreaList){
@@ -203,8 +207,23 @@ $(function(){
     };
     
     //상세지역 선택에 따른 리스트 불러오기
-    $("categorySelect").change(function(){
+    $(".categorySelect").change(function(){
+    	$("#dateInput").val("");
+    	const selectarea = $(".areaSelect").val();
+    	const selectsigungu = $(".categorySelect").val();
     	
+    	$.ajax({ 
+            type:"get",
+            url:"http://localhost:9090/cds/festival/getFestivaldetailSelectList.do",
+            data:{ selectarea: selectarea, selectsigungu: selectsigungu },
+            headers: {"Accept": "application/json"},
+            success:function(festivalList){
+                loadingFestivalList(festivalList);
+            },
+            error:function(){
+                console.log("상세지역 선택 리스트를 불러오는 데 실패했습니다.");
+            }
+        });
     
     });
     
@@ -214,12 +233,13 @@ $(function(){
         const selectValue = $(this).val();
         const selectDate = selectValue.replace(/-/g, '');
         $("#searchText").val("");
+        $(".categorySelect").val("");
         
         ingSoonReset();
 
-        $.ajax({
+        $.ajax({ 
             type:"get",
-            url:"http://localhost:9090/web/festival/getFestivalSelectList.do",
+            url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
             data:{ areaCode: selectarea, selectDate: selectDate },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -283,10 +303,10 @@ $(function(){
         if(festivalList.length < 5){ //이런축제는어때요 리스트 표기 조건
         	$(".recommend").show();
         	
-        	$.ajax({
+        	$.ajax({ 
 	            type:"get",
-	            url:"http://localhost:9090/web/festival/getFestivalRandomList.do",
-	            data:{ contentid: contentid },
+	            url:"http://localhost:9090/cds/festival/getFestivalRandomList.do",
+	            data:{ 'contentid[]': contentid },
 	            headers: {"Accept": "application/json"},
 	            success:function(recommendList){
 	                recommendFestivalList(recommendList);
@@ -523,9 +543,9 @@ $(function(){
             behavior: 'smooth' // 부드러운 스크롤
         });
     	
-    	$.ajax({
+    	$.ajax({ 
             type:"get",
-            url:"http://localhost:9090/web/festival/getFestival.do",
+            url:"http://localhost:9090/cds/festival/getFestival.do",
             data:{ contentid: contentid },
             headers: {"Accept": "application/json"},
             success:function(item){
@@ -573,9 +593,9 @@ $(function(){
     let page = 1;
     
     function MoreFestivalData() {
-	    $.ajax({
+	    $.ajax({ 
 	        type: "GET",
-	        url: "http://localhost:9090/web/festival/getMoreFestivalData.do",
+	        url: "http://localhost:9090/cds/festival/getMoreFestivalData.do",
 	        data: { page: page },
 	        headers: {"Accept": "application/json"},
 	        success: function (data) {

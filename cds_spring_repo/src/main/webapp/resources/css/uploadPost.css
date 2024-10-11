@@ -1,5 +1,5 @@
 @charset "UTF-8";
-        body {
+       body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -20,7 +20,7 @@
             text-align: left;
             margin-bottom: 20px;
         }
-
+        
         .commu-label {
             display: block;
             margin-bottom: 10px;
@@ -28,15 +28,14 @@
         }
 
        .commu-input, .commu-textarea, .commu-select {
-	    width: 100%;
-	    padding: 10px;
-	    margin-bottom: 20px;
-	    border: 1px solid #269ff6;
-	    border-radius: 5px;
-	    box-sizing: border-box; /* 패딩 포함한 너비 계산 */
-	    padding-right: 15px; /* 오른쪽 여백 추가 */
-		}
-
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #269ff6;
+            border-radius: 5px;
+            box-sizing: border-box; /* 패딩 포함한 너비 계산 */
+            padding-right: 15px; /* 오른쪽 여백 추가 */
+        }
 
         .commu-textarea {
             height: 150px;
@@ -79,46 +78,48 @@
             text-align: right;
         }
         /* 위치 추가 필드 스타일 */
-		.commu-location-input {
-		    width: 100%;
-		    padding: 10px;
-		    margin-bottom: 20px;
-		    border: 1px solid #269ff6;
-		    border-radius: 5px;
-		    box-sizing: border-box;
-		}
-		/* 추가된 위치 스타일 */
-		.location-tag {
-		    display: inline-block;
-		    background-color: #e0e0e0;
-		    border-radius: 15px;
-		    padding: 5px 10px;
-		    margin-right: 5px;
-		    margin-bottom: 5px;
-		    font-size: 14px;
-		    position: relative;
-		}
-		
-		.location-tag .remove-location {
-		    margin-left: 8px;
-		    cursor: pointer;
-		    font-weight: bold;
-		    color: red;
-		}
-		
-		.remove-location-button {
-		    background-color: #4caff6; /* 하늘색 배경 */
-		    color: white; /* 흰색 글자 */
-		    border: none; /* 테두리 없음 */
-		    border-radius: 5px; /* 모서리 둥글게 */
-		    padding: 5px 10px; /* 패딩 추가 */
-		    cursor: pointer; /* 커서 모양 변경 */
-		    font-weight: bold; /* 글자 두껍게 */
-		    margin-left: 10px; /* 버튼과 글자 간격 추가 */
-		}
-		
-		
-		
-		.remove-location-button:hover {
-		    background-color: #b4e0ff; /* 호버 시 색 변경 */
-		}
+        .commu-location-input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #269ff6;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        /* 추가된 위치 스타일 */
+        .location-tag {
+            display: inline-block;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            padding: 5px 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .location-tag .remove-location {
+            margin-left: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            color: red;
+        }
+        
+        .remove-location-button {
+            background-color: #4caff6; /* 하늘색 배경 */
+            color: white; /* 흰색 글자 */
+            border: none; /* 테두리 없음 */
+            border-radius: 5px; /* 모서리 둥글게 */
+            padding: 5px 10px; /* 패딩 추가 */
+            cursor: pointer; /* 커서 모양 변경 */
+            font-weight: bold; /* 글자 두껍게 */
+            margin-left: 10px; /* 버튼과 글자 간격 추가 */
+        }
+        
+        .remove-location-button:hover {
+            background-color: #b4e0ff; /* 호버 시 색 변경 */
+        }
+
+        a {
+            text-decoration: none; /* 링크에 밑줄 제거 */
+        }

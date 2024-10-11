@@ -27,13 +27,8 @@ public class FestivalController {
 	private String srcUrlAreaCode = "https://apis.data.go.kr/B551011/KorService1/areaCode1";
 	private String numOfRows = "30";
 	
-	private final FestivalService festivalServiceImpl;
 	@Autowired
-	public FestivalController(FestivalService festivalServiceImpl) {
-		this.festivalServiceImpl = festivalServiceImpl;
-	}
-	
-	//redirect:/index.do
+	private FestivalService festivalServiceImpl;
 	
 	//festival 리스트 DB에 저장하기
 	@GetMapping("/festival.do")

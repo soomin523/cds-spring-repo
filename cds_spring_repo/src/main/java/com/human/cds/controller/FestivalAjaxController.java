@@ -30,12 +30,8 @@ public class FestivalAjaxController {
 	private String srcUrlDetailCommon = "https://apis.data.go.kr/B551011/KorService1/detailCommon1";
 	private String srcUrlFDetailIntro = "https://apis.data.go.kr/B551011/KorService1/detailIntro1";
 	
-	private final FestivalService festivalServiceImpl;
 	@Autowired
-	public FestivalAjaxController(FestivalService festivalServiceImpl) {
-		this.festivalServiceImpl = festivalServiceImpl;
-	}
-	
+	private FestivalService festivalServiceImpl;
 	
 	//지역과 날짜 선택에 따른 리스트 다시 불러오기
 	@GetMapping("/getFestivalSelectList.do")
@@ -174,6 +170,17 @@ public class FestivalAjaxController {
 		List<FestivalDBVO> festivalList = null;
 		
 		festivalList = festivalServiceImpl.getMoreFestivalData(page);
+		
+		return festivalList;
+	}
+	
+	//상세지역 리스트 불러오기
+	@GetMapping("/getFestivaldetailSelectList.do")
+	public List<FestivalDBVO> getFestivaldetailSelectList(@RequestParam String selectarea, @RequestParam String selectsigungu){
+		
+		List<FestivalDBVO> festivalList = null;
+		
+		festivalList = festivalServiceImpl.getFestivaldetailSelectList(selectarea, selectsigungu);
 		
 		return festivalList;
 	}

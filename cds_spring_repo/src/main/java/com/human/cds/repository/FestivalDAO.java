@@ -15,11 +15,8 @@ import com.human.cds.vo.FestivalVO.Festival;
 @Repository
 public class FestivalDAO {
 	
-	private final SqlSession sqlSession;
 	@Autowired
-	public FestivalDAO(SqlSession sqlSession) {
-		this.sqlSession = sqlSession;
-	}
+	private SqlSession sqlSession;
 	
 	public static final String MAPPER = "com.human.cds.mapper.FestivalMapper";
 
@@ -40,6 +37,21 @@ public class FestivalDAO {
 		}
 		
 		return result;
+	}
+	
+	public List<FestivalDBVO> getAreaList(String areaCode) {
+		
+		List<FestivalDBVO> areaList = null;
+		
+		try {
+			areaList = sqlSession.selectList(MAPPER+".getAreaList", areaCode);
+			
+		} catch (Exception e) {
+			System.out.println("getAreaList DAO 동작 중 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return areaList;
 	}
 
 	public List<FestivalDBVO> getFestivalList() {
@@ -205,19 +217,19 @@ public class FestivalDAO {
 		return festivalList;
 	}
 
-	public List<FestivalDBVO> getAreaList(String areaCode) {
-		
-		List<FestivalDBVO> areaList = null;
+	public List<FestivalDBVO> getFestivaldetailSelectList(Map<String, String> map) {
+		List<FestivalDBVO> festivalList = null;
 		
 		try {
-			areaList = sqlSession.selectList(MAPPER+".getAreaList", areaCode);
+			festivalList = sqlSession.selectList(MAPPER+".getFestivaldetailSelectList", map);
 			
 		} catch (Exception e) {
-			System.out.println("getAreaList DAO 동작 중 오류 발생");
+			System.out.println("getFestivaldetailSelectList DAO 동작 중 오류 발생");
 			e.printStackTrace();
 		}
 		
-		return areaList;
+		return festivalList;
 	}
+
 
 }

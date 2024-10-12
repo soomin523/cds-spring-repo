@@ -28,5 +28,21 @@ public class SupportDAO {
 		return sqlSession.selectList(MAPPER+".getQuestionList");
 	}
 
+	public int insertSupport(SupportVO vo) {
+		return sqlSession.insert(MAPPER+".insertSupport", vo);
+	}
+
+	public SupportVO getsupport(String s_idx) {
+		return sqlSession.selectOne(MAPPER+".getsupport", s_idx);
+	}
+	
+	public int updateSupport(SupportVO vo) {
+		return sqlSession.update(MAPPER+".updateSupport", vo);
+	}
+
+	public void deleteSupport(String s_idx) {
+		sqlSession.update(MAPPER+".deleteSupport", s_idx);
+	}
+
 
 }

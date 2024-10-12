@@ -7,20 +7,42 @@
 
 	<select id="getNoticeList" resultType="SupportVO">
 		select * from support
-			where s_category = 'notice'
+			where s_category = 'notice' and s_status = 'N'
 			order by s_idx desc
 	</select>
 	
 	<select id="getGuideList" resultType="SupportVO">
 		select * from support
-			where s_category = 'guide'
+			where s_category = 'guide' and s_status = 'N'
 			order by s_idx desc
 	</select>
 	
 	<select id="getQuestionList" resultType="SupportVO">
 		select * from support
-			where s_category = 'question'
+			where s_category = 'question' and s_status = 'N'
 			order by s_idx desc
 	</select>
+	
+	<insert id="insertSupport" parameterType="SupportVO">
+		insert into support (s_writer, s_category, s_title, s_content)
+			values (#{s_writer}, #{s_category}, #{s_title}, #{s_content})
+	</insert>
+	
+	<select id="getsupport" resultType="SupportVO">
+		select * from support
+			where s_idx = #{s_idx}
+	</select>
+	
+	<update id="updateSupport" parameterType="SupportVO">
+		update support
+			set s_category = #{s_category}, s_title = #{s_title}, s_content = #{s_content}, update_date = now()
+			where s_idx = #{s_idx}
+	</update>
+	
+	<update id="deleteSupport">
+		update support
+			set s_status = 'Y', update_date = now()
+			where s_idx = #{s_idx}
+	</update>
 		
 </mapper>

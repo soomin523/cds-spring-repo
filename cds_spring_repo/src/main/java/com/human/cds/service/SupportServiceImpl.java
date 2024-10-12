@@ -29,4 +29,24 @@ public class SupportServiceImpl implements SupportService {
 		return dao.getQuestionList();
 	}
 
+	@Override
+	public int insertSupport(SupportVO vo) {
+		return dao.insertSupport(vo);
+	}
+
+	@Override
+	public SupportVO getsupport(String s_idx) {
+		return dao.getsupport(s_idx);
+	}
+	
+	@Override
+	public int updateSupport(SupportVO vo) {
+		return dao.updateSupport(vo);
+	}
+
+	@Override
+	public void deleteSupport(String s_idx) {
+		dao.deleteSupport(s_idx);
+	}
+
 }

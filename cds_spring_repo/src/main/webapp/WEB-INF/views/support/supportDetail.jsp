@@ -34,15 +34,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                 <div class="sectionTop">
                     <h1>
 						<c:choose>
-							<c:when test="${ select eq 'notice' }">공지사항</c:when>
 							<c:when test="${ select eq 'guide' }">이용안내</c:when>
-							<c:otherwise>자주묻는질문</c:otherwise>
+							<c:when test="${ select eq 'question' }">자주묻는질문</c:when>
+							<c:otherwise>공지사항</c:otherwise>
 						</c:choose>          
                     </h1>
                 </div>
+<%-- <c:if test="${ membership_level == 3 }"> --%>
                 <div class="newContent">
                 	<button>새글쓰기</button>
                 </div>
+<%-- </c:if> --%>
                 <hr>
 <c:if test="${ not empty support }">
 	<c:forEach var="item" items="${ support }">
@@ -52,20 +54,64 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                         <i class="fa-solid fa-angle-up"></i>
                         <i class="fa-solid fa-angle-down"></i>
                     </div>
-                    <div id="contentText" class="contentText">
+                    <div class="contentText">
                     	<p>${ item.s_content }</p>
-<%-- <c:if test="${ membership_level == 3 }"> --%>
                     	<div>
-	                    	<button class="update">수정하기</button>
-	                    	<span>|</span>
-	                    	<button class="delete">삭제하기</button>
-                    	</div>
+		<fmt:formatDate value="${ item.update_date }" pattern="yyyy-MM-dd HH:mm:ss" />
+<%-- <c:if test="${ membership_level == 3 }"> --%>
+							<div>
+		                    	<button class="update" data-sidx="${ item.s_idx }" data-category="${ item.s_category }">
+		                    		수정하기</button>
+		                    	<span>|</span>
+		                    	<button class="delete" data-sidx="${ item.s_idx }" data-category="${ item.s_category }">
+		                    		삭제하기</button>
+							</div>
 <%-- </c:if> --%>
+                    	</div>
                     </div>
                 </div>
                 <hr>
 	</c:forEach>
 </c:if>
+				<div id="modalOverlay"></div>
+				<div class="newContentPage">
+				    <h2>새 글 작성</h2>
+				    <h2 style="color: #fff0;">띄우기</h2>
+	               <form name="newContent" action="insertSupport.do" method="post">
+	                   <input type="text" name="s_writer" value="manager" readonly><br>
+	                   <select name="s_category">
+	                       <option value="notice">공지사항</option>
+	                       <option value="guide">이용안내</option>
+	                       <option value="question">자주묻는질문</option>
+	                   </select>
+	                   <input type="text" name="s_title" placeholder="제목을 입력하세요"><br>
+	                   <textarea name="s_content" cols="50" rows="25" placeholder="내용을 입력하세요"></textarea>
+	                   <div class="button-group">
+		                <input type="submit" value="등록">
+		                <input type="reset" value="리셋">
+		                <input type="button" value="취소">
+		            </div>
+	               </form>
+	           </div>
+	           <div class="updateContentPage">
+	           		<h2>게시글 수정</h2>
+	           		<h2 style="color: #fff0;">띄우기</h2>
+	               <form name="updateContent" action="updateSupport.do" method="post">
+	               	   <input type="number" name="s_idx" style="display: none;">
+	                   <input type="text" name="s_writer" readonly><br>
+	                   <select name="s_category">
+	                       <option value="notice">공지사항</option>
+	                       <option value="guide">이용안내</option>
+	                       <option value="question">자주묻는질문</option>
+	                   </select>
+	                   <input type="text" name="s_title"><br>
+	                   <textarea name="s_content" cols="50" rows="25"></textarea>
+	                   <div>
+		                <input type="submit" value="수정">
+		                <input type="button" value="취소">
+		            </div>
+	               </form>
+	           </div>
             </section>
         </div>
     </div>

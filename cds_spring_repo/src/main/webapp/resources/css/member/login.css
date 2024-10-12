@@ -1,0 +1,215 @@
+@charset "UTF-8";
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+/* 로그인 버튼 */
+.log-login-btn { 
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.log-login-btn img { 
+    width: 40px;
+    height: 40px;
+}
+
+/* 모달 스타일 */
+.log-modal { 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.log-modal-content { 
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 400px;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.log-close { 
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.log-close:hover { 
+    color: red;
+}
+
+h2 {
+    font-size: 24px;
+    margin-top: 60px; /* 로고 아래에 여백 추가 */
+    margin-bottom: 20px;
+}
+
+/* 로그인 모달 로고 왼쪽 상단 고정 */
+.log-logo { 
+    width: 100px;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+/* 로그인 버튼 스타일 */
+.log-login-options button, .log-login-form button, .log-back-button { 
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    background-color: #62b2eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.log-login-options button:hover, .log-login-form button:hover, .log-back-button:hover { 
+    background-color: #87bee585;
+}
+
+/* 카카오 로그인 버튼 스타일 */
+.log-kakao-login { 
+    background-color: #fee500 !important; /* 노란색 */
+    color: #3c1e1e !important;
+    border: none !important;
+    padding: 10px !important;
+    margin: 10px 0 !important;
+    width: 100% !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+}
+
+/* 네이버 로그인 버튼 스타일 */
+.log-naver-login { 
+    background-color: #03c75a !important; /* 연두색 */
+    color: white !important;
+    border: none !important;
+    padding: 10px !important;
+    margin: 10px 0 !important;
+    width: 100% !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+}
+
+/* 폼 입력 스타일 */
+.log-login-form input[type="text"], .log-login-form input[type="password"] { 
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.log-login-description { 
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.log-footer-links a { 
+    font-size: 12px;
+    color: #555;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.log-footer-links a:hover { 
+    text-decoration: underline;
+}
+
+/* 비밀번호 표시 아이콘 */
+.log-input-container { 
+    position: relative;
+}
+
+.log-input-container input[type="password"] { 
+    width: 100%;
+    padding-right: 40px;
+}
+
+.log-input-container img { 
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+/* 소셜 로그인 버튼에 포함된 이미지 스타일 */
+.log-social-icons img { 
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+/* 일반 로그인 폼 숨김 */
+.log-login-form { 
+    display: none;
+}
+
+/* '또는' 선 스타일 */
+.log-divider { 
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.log-divider hr { 
+    flex: 1;
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+.log-divider span { 
+    font-size: 12px;
+    color: #999;
+}
+
+/* 여백 조정 */
+.log-footer-links { 
+    margin-top: 10px; /* 로그인 버튼과의 간격 */
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.log-modal-content { 
+    padding-bottom: 30px; /* 하단 여백 추가 */
+}

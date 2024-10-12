@@ -21,7 +21,7 @@
  	<h3>고객센터</h3>
    	<a href="support/support.do">고객센터</a><br>
    	<h3>로그인</h3>
-   	<a href="member/login.do">고객센터</a><br>
+   	<a href="member/login.do">로그인</a><br>
    	
     <c:if test="${ not empty msg }">
 		<p>${ msg }</p>

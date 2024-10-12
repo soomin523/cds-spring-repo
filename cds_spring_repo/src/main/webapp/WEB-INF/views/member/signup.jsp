@@ -4,145 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/login/login.css">
-    <style>
-        body { 
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-        }
-        .container {
-            width: 40%;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
-            color: #333;
-        }
-        h4 {
-            font-size: 20px; /* 글자 크기를 키움 */
-            color: #4caff6; /* 하늘색으로 변경 */
-            margin-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        table td { 
-            padding: 8px;
-        }
-        input[type="text"], input[type="password"], input[type="tel"], input[type="email"] {
-            padding: 12px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            width: calc(60% - 30px); /* 아이콘 공간을 고려하여 고정 */
-        }
-        input[type="submit"], button {
-            width: 120px;
-            background-color: #4caff6;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer; 
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-        input[type="submit"]:hover, button:hover {
-            background-color: #87bee585;
-        }
-        .checkbox-group {
-            margin-top: 20px;
-        }
-        .checkbox-group label {
-            display: block;
-            margin: 8px 0;
-            font-size: 14px;
-        }
-        .gender-group {
-            margin: 10px 0;
-        }
-        .note {
-            font-size: 12px;
-            color: gray;
-        }
-        .centered {
-            text-align: center;
-        }
-        .dup-check-btn {
-            padding: 6px 10px;
-            background-color: #87bee5;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 10px;
-            font-size: 12px;
-            transition: background-color 0.3s ease;
-        }
-        .dup-check-btn:hover {
-            background-color: #87bee585;
-        }
-        .input-container {
-            position: relative;
-            width: calc(60% - 10px); /* 입력 칸의 너비를 고정시켜 아이콘 크기 변화 방지 */
-        }
-        .input-container input[type="password"] {
-            width: 100%; /* 아이콘을 고려하여 입력 필드 너비 100% */
-            padding-right: 40px; /* 아이콘 공간 확보 */
-            padding: 12px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .input-container img {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-        .email-input {
-            display: flex;
-            align-items: center;
-        }
-        #email_prefix {
-            width: 50%;
-            margin-right: 10px;
-        }
-        #email_domain {
-            width: 120px;
-            height: 40px;
-        }
-        #custom_email_domain {
-            width: 120px;
-            margin-left: 10px;
-            display: none;
-        }
-        .separator-line {
-            border: none;
-            height: 1px;
-            background-color: #ddd;
-            margin: 20px 0;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member/signup.css">
 </head>
 <body>
     <section>
         <div class="container">
             <h2>회원가입</h2>
-            <form method="post" action="signupProcess.jsp">
+            <form method="post" action="signupProcess.do">
                 <table>
                     <tr>
                         <td>이름</td>
@@ -158,7 +26,7 @@
                     <tr>
                         <td>아이디</td>
                         <td>
-                            <input type="text" name="username" placeholder="아이디를 입력해주세요." required>
+                            <input type="text" name="member_id" id="member_id" placeholder="아이디를 입력해주세요." required>
                             <button type="button" class="dup-check-btn">중복확인</button>
                         </td>
                     </tr>
@@ -167,7 +35,7 @@
                         <td>
                             <div class="input-container">
                                 <input type="password" id="password" name="password" placeholder="6~12자 영문, 숫자, 특수문자 조합" required style="width: 100%; padding-right: 40px;">
-                                <img src="비밀번호표시.png" alt="비밀번호 보기" onclick="togglePassword('password')">
+                                <p><img src="${pageContext.request.contextPath}/resources/img/비밀번호표시.png" alt="비밀번호 보기" onclick="togglePassword('password')"></p>                            
                             </div>
                         </td>
                     </tr>
@@ -176,7 +44,7 @@
                         <td>
                             <div class="input-container">
                                 <input type="password" id="confirm_password" name="confirm_password" placeholder="비밀번호를 한번 더 입력해주세요." required style="width: 100%; padding-right: 40px;">
-                                <img src="비밀번호표시.png" alt="비밀번호 보기" onclick="togglePassword('confirm_password')">
+                                <p><img src="${pageContext.request.contextPath}/resources/img/비밀번호표시.png" alt="비밀번호 보기" onclick="togglePassword('confirm_password')"></p>
                             </div>
                         </td>
                     </tr>
@@ -199,21 +67,17 @@
                     <tr>
                         <td>성별</td>
                         <td class="gender-group">
-                            <input type="radio" name="gender" value="남자" required> 남자
-                            <input type="radio" name="gender" value="여자" required> 여자
+                            <input type="radio" name="gender" value="M" required> 남자
+                            <input type="radio" name="gender" value="F" required> 여자
                         </td>
                     </tr>
-                    
                 </table>
 
-                <!-- 약관동의 전 선 추가 -->
-                 <hr class="separator-line">
-                
+                <hr class="separator-line">
+
                 <h4>약관동의</h4>
                 <div class="checkbox-group">
                     <label><input type="checkbox" id="allAgree" onclick="toggleAllCheckboxes(this)"> 회원약관 및 개인정보처리방침 모두 동의합니다. [선택항목 포함]</label>
-                    <!-- 얇은 선 추가 -->
-
                     <label><input type="checkbox" class="terms-checkbox" name="use_agree" required> [필수] 홈페이지 이용약관 동의</label>
                     <label><input type="checkbox" class="terms-checkbox" name="use_age" required> [필수] 만 14세 이상 확인</label>
                     <label><input type="checkbox" class="terms-checkbox" name="collect_agree" required> [필수] 개인정보 수집 및 이용목적에 대한 동의</label>
@@ -229,6 +93,7 @@
             </form>
         </div>
     </section>
+
     <script>
     // 비밀번호 표시/숨기기 기능
     function togglePassword(id) {
@@ -290,6 +155,32 @@
         }
         event.target.value = value;
     });
+
+    // 중복 확인 함수
+    function checkDuplicate() {
+        const username = document.getElementById('memder_id').value;
+
+        // 중복 확인 요청을 서버로 보내기
+        fetch('/checkDuplicate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ memder_id: memder_id }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.isDuplicate) {
+                alert('이미 사용 중인 아이디입니다.');
+            } else {
+                alert('사용 가능한 아이디입니다.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    // 중복확인 버튼에 이벤트 리스너 추가
+    document.querySelector('.dup-check-btn').addEventListener('click', checkDuplicate);
 
     // 비밀번호 유효성 검사 함수
     function validatePassword() {

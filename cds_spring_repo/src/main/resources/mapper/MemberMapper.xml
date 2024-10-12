@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.human.cds.mapper.MemberMapper">
+
+    <!-- 아이디 중복 검사 -->
+    <select id="selectExistsId" parameterType="String" resultType="String">
+        SELECT 'Y' FROM member WHERE member_id = #{memberId}
+    </select>
+
+    <!-- 회원 정보 조회 -->
+    <select id="selectMemberById" parameterType="String" resultType="MemberVO">
+        SELECT id, member_id, password, birth_date, phone, name, email, gender, marketing_consent, profile_image, withdrawal_request, membership_level, created_at
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+
+    <!-- 모든 회원 정보 조회 -->
+    <select id="selectAllMembers" resultType="MemberVO">
+        SELECT id, member_id, password, birth_date, phone, name, email, gender, marketing_consent, profile_image, withdrawal_request, membership_level, created_at
+        FROM member
+    </select>
+
+    <!-- 회원 정보 삽입 -->
+    <insert id="insertMember" parameterType="MemberVO">
+        insert into member (member_id,password ,phone,name,email,gender)
+        VALUES (#{member_id}, #{password}, #{phone}, #{name}, #{email}, #{gender})
+    </insert>
+
+    <!-- 회원 정보 수정 -->
+    <update id="updateMember" parameterType="MemberVO">
+        UPDATE member
+        SET password = #{password},
+            birth_date = #{birthDate},
+            phone = #{phone},
+            name = #{name},
+            email = #{email},
+            gender = #{gender},
+            marketing_consent = #{marketingConsent},
+            profile_image = #{profileImage},
+            membership_level = #{membershipLevel},
+            withdrawal_request = #{withdrawalRequest}
+        WHERE member_id = #{memberId}
+    </update>
+
+    <!-- 회원 정보 삭제 -->
+    <delete id="deleteMember" parameterType="String">
+        DELETE FROM member WHERE member_id = #{memberId}
+    </delete>
+
+</mapper>

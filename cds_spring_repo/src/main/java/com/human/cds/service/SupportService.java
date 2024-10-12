@@ -12,5 +12,13 @@ public interface SupportService {
 
 	List<SupportVO> getQuestionList();
 
+	int insertSupport(SupportVO vo);
+
+	SupportVO getsupport(String s_idx);
+	
+	int updateSupport(SupportVO vo);
+
+	void deleteSupport(String s_idx);
+
 
 }

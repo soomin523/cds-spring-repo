@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.cds.service.SupportService;
 import com.human.cds.vo.SupportVO;
@@ -41,7 +44,7 @@ public class SupportController {
 		return viewName;
 	}
 	
-	@GetMapping("supportDetail.do")
+	@GetMapping("/supportDetail.do")
 	public String supportDetail(String select, Model model) {
 		
 		List<SupportVO> vo = null;
@@ -54,6 +57,52 @@ public class SupportController {
 		model.addAttribute("select", select);
 		model.addAttribute("support", vo);
 		return "/support/supportDetail";
+	}
+	
+	@GetMapping("/newContent.do")
+	public String newContent() {
+		return "/support/supportDetail";
+	}
+	
+	@PostMapping("/insertSupport.do")
+	@ResponseBody
+	public String insertSupport(SupportVO vo) {
+		String result = "error";
+		
+		if(supportServiceImpl.insertSupport(vo) == 1) {
+			result = "success";
+		}
+		
+		return result;
+	}
+	
+	@GetMapping("/getsupport.do")
+	@ResponseBody
+	public SupportVO getsupport(@RequestParam String s_idx) {
+		SupportVO vo = null;
+		
+		vo = supportServiceImpl.getsupport(s_idx);
+		
+		return vo;
+	}
+	
+	@PostMapping("/updateSupport.do")
+	@ResponseBody
+	public String updateSupport(SupportVO vo) {
+		String result = "error";
+		
+		if(supportServiceImpl.updateSupport(vo) == 1) {
+			result = "success";
+		}
+		
+		return result;
+	}
+	
+	@GetMapping("/deleteSupport.do")
+	public String deleteSupport(String s_idx) {		
+		supportServiceImpl.deleteSupport(s_idx);
+		
+		return "redirect:supportDetail.do?select=notice";
 	}
 	
 }

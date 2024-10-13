@@ -45,7 +45,7 @@ public class CourseInfoDAO {
 	}
 
 	public List<Map<String, Object>> getTitleAndContentId() {
-		return sqlSession.selectList(MAPPER + ".selectTitleAndContentId");
+		return sqlSession.selectList(MAPPER + ".getTitleAndContentId");
 	}
 
 
@@ -58,6 +58,18 @@ public class CourseInfoDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(MAPPER + ".getAllCourses");
 	}
+	
+	public List<CourseInfoVO> getCoursesByTheme(String cat2) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(MAPPER + ".getCoursesByTheme", cat2);
+	}
+	
+	public List<CourseInfoVO> getCoursesByRegionAndTheme(String areaCode, String cat2) {
+        Map<String, String> params = new HashMap<>();
+        params.put("areaCode", areaCode);
+        params.put("cat2", cat2);
+        return sqlSession.selectList(MAPPER + ".getCoursesByRegionAndTheme", params);
+    }
 	
 
 	public CourseInfoVO getCourseByContentId(String contentid) {
@@ -95,5 +107,7 @@ public class CourseInfoDAO {
 	public FestivalDBVO getRandomFestival() {
         return sqlSession.selectOne(MAPPER + ".getRandomFestival");
     }
+
+
 
 }

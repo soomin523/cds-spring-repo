@@ -13,7 +13,7 @@ public interface CourseInfoService {
     
     void updateOverview(String contentId, String overview);
 
-	List<CourseInfoVO> getCoursesByRegion(String areaCode);
+	List<CourseInfoVO> getCoursesByRegion(String areaCode,String cat2);
 
 	CourseInfoVO getCourseByContentId(String contentid);
 

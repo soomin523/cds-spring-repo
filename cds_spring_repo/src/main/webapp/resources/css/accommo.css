@@ -33,7 +33,7 @@
 /* 기존 배경 이미지 스타일 유지 */
 /* 숙소 헤더 */
 .accoheader {
-    background-image: url("./accomooimg/acoimg.png");
+    background-image: url("../img/acoimg.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

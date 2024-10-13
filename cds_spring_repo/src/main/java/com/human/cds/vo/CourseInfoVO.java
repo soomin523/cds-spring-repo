@@ -17,5 +17,5 @@ public class CourseInfoVO {
 	private String areacode;
 	private String distance;
 	private String taketime;
-	
+	private String cat2;
 }

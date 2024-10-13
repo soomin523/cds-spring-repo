@@ -117,10 +117,15 @@ public class CourseInfoController {
 
 	@GetMapping("/getCoursesByRegion.do")
 	@ResponseBody
-	public List<CourseInfoVO> getCoursesByRegion(String areaCode) {
-		// 서비스 계층을 통해 데이터를 가져옴
-		return courseInfoServiceImpl.getCoursesByRegion(areaCode);
+	public List<CourseInfoVO> getCoursesByRegion(@RequestParam(value = "areaCode", required = false) String areaCode,
+	                                             @RequestParam(value = "cat2", required = false) String cat2) {
+	    if ("all".equalsIgnoreCase(areaCode)) {
+	        areaCode = null; // areaCode가 "all"인 경우 null로 설정하여 전체 조회
+	    }
+	    // 서비스 계층을 통해 데이터를 가져옴
+	    return courseInfoServiceImpl.getCoursesByRegion(areaCode, cat2);
 	}
+
 
 	@GetMapping("/getCourseDetails.do")
 	@ResponseBody

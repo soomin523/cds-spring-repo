@@ -17,11 +17,14 @@
    	<a href="tourCourse/Course.do">코스화면</a><br>
    	<h3>관광지</h3>
    	<a href="destination/DestinationList.do">관광지 리스트 등록</a><br>
- 	<!-- <a href="destination/DestinationListShow.do">관광지 리스트 보기</a><br> -->
+    <a href="destination/DestinationNameList.do">관광지 지역 등록</a><br>
  	<h3>고객센터</h3>
    	<a href="support/support.do">고객센터</a><br>
    	<h3>로그인</h3>
    	<a href="member/login.do">로그인</a><br>
+   	<h3>숙소</h3>
+   	<a href="accommodations/accommo.do">숙소</a><br>
+   	<a href="accommodations/Insertaccommo.do">숙소데이터삽입</a><br>
    	
     <c:if test="${ not empty msg }">
 		<p>${ msg }</p>

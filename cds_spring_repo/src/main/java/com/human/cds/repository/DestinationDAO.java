@@ -1,12 +1,14 @@
 package com.human.cds.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.human.cds.vo.CourseInfoDTO;
+import com.human.cds.vo.DestinationDBVO;
 
 
 @Repository
@@ -38,6 +40,18 @@ public class DestinationDAO {
 		}
 		
 		return result;
+	}
+	
+	//DB에 지역 코드 시군구 코드 조회
+	public List<DestinationDBVO> getDestinationNameList() {
+		
+		//조회
+		return sqlSession.selectList(MAPPER+".DestinationNameList");
+	}
+
+
+	public int updateAreaName(Map<String, String> map) {
+		return sqlSession.update(MAPPER+".DestinationName",map);
 	}
 
 }

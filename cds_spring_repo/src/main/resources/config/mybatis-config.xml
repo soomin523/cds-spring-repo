@@ -13,6 +13,7 @@
 		<typeAlias alias="CourseInfoVO" type="com.human.cds.vo.CourseInfoVO"/>
 		<typeAlias alias="SupportVO" type="com.human.cds.vo.SupportVO"/>
 		<typeAlias alias="MemberVO" type="com.human.cds.vo.MemberVO"/>
+		<typeAlias alias="DestinationDBVO" type="com.human.cds.vo.DestinationDBVO"/>
 	</typeAliases>
 	
   

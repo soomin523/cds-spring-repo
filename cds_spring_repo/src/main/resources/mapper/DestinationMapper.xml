@@ -3,7 +3,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.human.cds.mapper.DestinationMapper">
-
+	<!-- id는 dao에서 sql.session뒤에 .뭐시기 그거랑 맞춰야함  -->
 	<insert id="insertDestination"><!-- 위에가 데베 아래가 vo -->
 		INSERT INTO destination (d_contentid,d_firstimage,d_sigungucode,d_areacode,
 		d_title,d_addr1,d_addr2,d_mapx,d_mapy)
@@ -11,23 +11,17 @@
 		#{areacode},#{title},#{addr1},#{addr2},#{mapx},#{mapy})
 	</insert>
 
-	<select id="selectTitleAndContentId" resultType="map">
-		SELECT title, content_id
-		FROM travel_course
-	</select>
 
-	<update id="updateOverview">
-		UPDATE travel_course
-		SET overview = #{overview}
-		WHERE content_id = #{contentId} and content_type_id = "25"
+	<select id="DestinationNameList" resultType="DestinationDBVO">
+        SELECT * FROM destination
+    </select>
+
+
+	<update id="DestinationName" parameterType="map">
+	    UPDATE destination
+        SET d_areaname = #{areaname}, d_sigunguname = #{sigunguname}
+        WHERE d_contentid = #{contentid}
 	</update>
-
-	<select id="getCoursesByRegion"
-		resultType="com.human.cds.vo.CourseInfoDTO$Item">
-		SELECT title, first_image, content_id
-		FROM travel_course
-		WHERE area_code = #{areaCode}
-	</select>
 </mapper>
 
 

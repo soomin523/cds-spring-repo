@@ -5,7 +5,7 @@
     <head>
         <meta charset="UTF-8">
         <title>숙소 검색</title>
-        <link rel="stylesheet" type="text/css" href="accommo.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/accommo.css">
     </head>
 
     <body>

@@ -23,7 +23,7 @@
 		#{modifiedtime}, #{sigungucode}, #{tel}, #{zipcode});
 	</insert>
 
-	<select id="selectTitleAndContentId" resultType="map">
+	<select id="getTitleAndContentId" resultType="map">
 		SELECT title,
 		content_id, content_type_id
 		FROM travel_course
@@ -47,7 +47,18 @@
 	<select id="getAllCourses" resultType="CourseInfoVO">
 		SELECT *
 		FROM travel_course
-		WHERE area_code IN ("1","2", "3","4", "5", "6", "7", "39")
+	</select>
+
+	<select id="getCoursesByTheme" parameterType="String"
+		resultType="CourseInfoVO">
+		SELECT * FROM travel_course
+		WHERE cat2 = #{cat2}
+	</select>
+
+	<select id="getCoursesByRegionAndTheme" parameterType="map"
+		resultType="CourseInfoVO">
+		SELECT * FROM travel_course
+		WHERE area_code = #{areaCode} AND cat2 = #{cat2}
 	</select>
 
 	<select id="getCourseByContentId" resultType="CourseInfoVO">
@@ -64,12 +75,13 @@
 		WHERE content_id = #{contentId} AND
 		content_type_id = #{contentTypeId}
 	</update>
-	
+
 	<select id="getRandomFestival" resultType="FestivalDBVO">
-        SELECT *
-        FROM festival
-        ORDER BY RAND()
-        LIMIT 1;
-    </select>
-	
+		SELECT *
+		FROM festival
+		WHERE f_firstimage IS NOT NULL
+		ORDER BY RAND()
+		LIMIT 1;
+	</select>
+
 </mapper>	

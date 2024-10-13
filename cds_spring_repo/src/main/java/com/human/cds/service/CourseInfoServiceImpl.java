@@ -29,15 +29,23 @@ public class CourseInfoServiceImpl implements CourseInfoService {
 	}
 
 	@Override
-	public List<CourseInfoVO> getCoursesByRegion(String areaCode) {
-		if (areaCode == null || areaCode.equals("all")) {
-			
-			return courseInfoDAO.getAllCourses();
-		} else {
-
-			return courseInfoDAO.getCoursesByRegion(areaCode);
-		}
+	public List<CourseInfoVO> getCoursesByRegion(String areaCode, String cat2) {
+	    if ((areaCode == null || areaCode.equalsIgnoreCase("all") || areaCode.isEmpty()) && (cat2 == null || cat2.isEmpty())) {
+	        // 지역과 테마가 모두 null 또는 전체일 경우 전체 코스 반환
+	        return courseInfoDAO.getAllCourses();
+	    } else if ((areaCode == null || areaCode.equalsIgnoreCase("all") || areaCode.isEmpty()) && cat2 != null) {
+	        // 전체 지역에 대해 특정 테마만 선택한 경우 해당 테마의 코스 반환
+	        return courseInfoDAO.getCoursesByTheme(cat2);
+	    } else if (areaCode != null && !areaCode.equalsIgnoreCase("all") && (cat2 == null || cat2.isEmpty())) {
+	        // 특정 지역만 선택한 경우 해당 지역의 코스 반환
+	        return courseInfoDAO.getCoursesByRegion(areaCode);
+	    } else {
+	        // 특정 지역과 특정 테마를 모두 선택한 경우 해당 지역과 테마의 코스 반환
+	        return courseInfoDAO.getCoursesByRegionAndTheme(areaCode, cat2);
+	    }
 	}
+
+
 
 	@Override
 	public CourseInfoVO getCourseByContentId(String contentid) {

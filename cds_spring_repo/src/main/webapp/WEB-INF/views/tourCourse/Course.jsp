@@ -9,8 +9,12 @@
 <!-- CSS 파일을 불러오는 링크 태그 -->
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/Course.css">
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/Course.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/js/Coursemodal.js"></script>
 </head>
 
 <body>
@@ -42,31 +46,50 @@
 						<div class="course-button" data-region="6" data-rname="부산">부산</div>
 						<div class="course-button" data-region="7" data-rname="울산">울산</div>
 						<div class="course-button" data-region="39" data-rname="제주">제주</div>
+						<hr>
+						<div class="course-button" data-cat2="C0112" data-rname="가족코스">가족코스</div>
+						<div class="course-button" data-cat2="C0113" data-rname="나홀로코스">나홀로코스</div>
+						<div class="course-button" data-cat2="C0114" data-rname="힐링코스">힐링코스</div>
+						<div class="course-button" data-cat2="C0115" data-rname="도보코스">도보코스</div>
+						<div class="course-button" data-cat2="C0116" data-rname="캠핑코스">캠핑코스</div>
+						<div class="course-button" data-cat2="C0117" data-rname="맛코스">맛코스</div>
+
 					</div>
-					
-					
+
+
 					<div class="festa">
 						<h2>이런 축제는 어때요?</h2>
 						<hr>
 						<h3>축제정보가 없음</h3>
-						<div class="festaimgbox"><img src="" loading="lazy" alt="축제이미지"></div>
+						<div class="festaimgbox">
+							<img src="" loading="lazy" alt="축제이미지">
+						</div>
 						<h4></h4>
 					</div>
-					
-					
+
+
 				</div>
 			</div>
 		</div>
 	</section>
 
 
-
-
 	<!-- 모달 -->
-	<div class="coursemodal" style="display: none;">
+	<div class="coursemodal">
+
 		<!-- 닫기 버튼 -->
 		<div class="close-btn">&times;</div>
 
+		<!-- 고정된 카테고리 바 -->
+		<div class="fixed-category-bar">
+			<button class="category-link" data-target=".coursenamebox">코스
+				이름</button>
+			<button class="category-link" data-target=".tagbox">코스 정보</button>
+			<button class="category-link" data-target=".mapbox">지도</button>
+			<button class="category-link" data-target=".overview">설명</button>
+			<button class="category-link" data-target=".commentbox">댓글란</button>
+		</div>
+		
 		<!-- 코스 이름 및 이미지 박스 -->
 		<div class="coursenamebox">
 			<hr>
@@ -82,32 +105,35 @@
 			<div class="tag">
 				<h3>거리정보</h3>
 				<p>거리 정보 없음</p>
-				<!-- 여기에 distance 값이 들어감 -->
 			</div>
 			<div class="tag">
 				<h3>소요시간</h3>
 				<p>소요 시간 정보 없음</p>
-				<!-- 여기에 taketime 값이 들어감 -->
 			</div>
 		</div>
 		<hr>
+
 		<!-- 지도 박스 -->
-        <div style="width:90%;height:300px;"></div>
+		<div class="mapbox" id="map"></div>
 		<hr>
+
 		<!-- 설명 -->
 		<div class="overview">설명 없음</div>
 		<hr>
+
 		<!-- 댓글란 -->
 		<div class="commentbox">
 			<div class="comment-title">댓글란</div>
 		</div>
 		<hr>
+
 		<!-- 댓글 입력 -->
 		<div class="comment-input">
 			<textarea id="new-comment" placeholder="댓글을 작성하세요"></textarea>
 			<button id="add-comment">댓글 작성</button>
 		</div>
 	</div>
+
 
 
 

@@ -22,5 +22,38 @@
 		#{mlevel},
 		#{modifiedtime}, #{sigungucode}, #{tel}, #{zipcode});
 	</insert>
-
+	
+	
+	<select id="getTitleAndContentId" resultType="map">
+		SELECT title,
+		content_id, content_type_id
+		FROM accommodation
+	</select>
+	
+	<update id="accomoupdate">
+		UPDATE accommodation
+		SET overview = #{overview}
+		WHERE
+		content_id = #{contentId} and content_type_id = "32"
+	
+	</update>
+	
+	<insert id = "insertRoomInfo">
+		INSERT INTO accommodationroom (
+            contentid, contenttypeid, roomtitle, roomcode, roomoffseasonminfee1,
+            roomimg1, roomimg1alt, roomimg2, roomimg2alt, roomimg3, roomimg3alt,
+            roomimg4, roomimg4alt, roomimg5, roomimg5alt
+        ) VALUES (
+            #{contentid}, #{contenttypeid}, #{roomtitle}, #{roomcode}, #{roomoffseasonminfee1},
+            #{roomimg1}, #{roomimg1alt}, #{roomimg2}, #{roomimg2alt}, #{roomimg3}, #{roomimg3alt},
+            #{roomimg4}, #{roomimg4alt}, #{roomimg5}, #{roomimg5alt}
+        )
+	
+	</insert>
+	
+	
+	<select id="accoImg" resultType="AcommoImgVO">
+    SELECT *
+    FROM accommodation
+</select>
 </mapper>	

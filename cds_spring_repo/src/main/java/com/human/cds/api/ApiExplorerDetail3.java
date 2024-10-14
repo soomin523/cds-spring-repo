@@ -10,17 +10,18 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.human.cds.vo.AcommointroVO;
 import com.human.cds.vo.CourseInfoDTO3;
 
 
-public class ApiExplorerDetail2 {
+public class ApiExplorerDetail3 {
 
-    public static CourseInfoDTO3 getDetailByContentId(String serviceKey, String contentId, String contentTypeId)
+    public static AcommointroVO getDetailByContentId(String serviceKey, String contentId, String contentTypeId)
             throws IOException, URISyntaxException {
         
         // API 요청 URL 설정
-    	String srcUrl = "https://apis.data.go.kr/B551011/KorService1/detailIntro1";
-//        String srcUrl = "https://apis.data.go.kr/B551011/KorService1/detailInfo1";
+//    	String srcUrl = "https://apis.data.go.kr/B551011/KorService1/detailIntro1";
+        String srcUrl = "https://apis.data.go.kr/B551011/KorService1/detailInfo1";
         StringBuilder urlBuilder = new StringBuilder(srcUrl);
         
         // 필수 파라미터 추가
@@ -54,9 +55,15 @@ public class ApiExplorerDetail2 {
         rd.close();
         conn.disconnect();
 
-        // 응답을 CourseInfoDTO2로 변환
+//        // 응답을 CourseInfoDTO2로 변환
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        AcommointroVO data = objectMapper.readValue(sb.toString(), AcommointroVO.class);
+        
+        String jsonResponse = sb.toString().replace("\"items\": \"\"", "\"items\": null");
+
+        // 응답을 AcommointroVO로 변환
         ObjectMapper objectMapper = new ObjectMapper();
-        CourseInfoDTO3 data = objectMapper.readValue(sb.toString(), CourseInfoDTO3.class);
+        AcommointroVO data = objectMapper.readValue(jsonResponse, AcommointroVO.class);
 
         return data;
     }

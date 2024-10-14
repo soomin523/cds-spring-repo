@@ -26,6 +26,7 @@
    	<h3>숙소</h3>
    	<a href="accommodations/accommo.do">숙소</a><br>
    	<a href="accommodations/Insertaccommo.do">숙소데이터삽입</a><br>
+   	<a href="accommodations/accommoitems.do">숙소데이터 목록 조회 및 추가 삽입</a><br>
    	<h3>관리자</h3>
    	<a href="manager/manager.do">관리자페이지 이동</a><br>
    	

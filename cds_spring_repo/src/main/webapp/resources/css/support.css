@@ -112,11 +112,11 @@
     cursor: pointer;
 }
 #supportDetail>aside>h2+hr{
-	border: solid 4px #969696;
+	border: solid 4px #87bee5;
     border-radius: 10px;
 }
 #supportDetail>aside>div>hr{
-    border: solid 2px #cecece;
+    border: solid 2px #87bee5;
     border-radius: 5px;
     width: 90%;
     margin-left: 5%;
@@ -135,7 +135,7 @@
     padding: 10px 2%;
 }
 #supportDetail>section> hr{
-    border: solid 0.5px #cecece;
+    border: solid 0.5px #87bee585;
 }
 #supportDetail>section>.sectionTop{ /* 카테고리 */
     display: flex;

@@ -212,6 +212,8 @@ $(function(){
     	const selectarea = $(".areaSelect").val();
     	const selectsigungu = $(".categorySelect").val();
     	
+    	ingSoonReset();
+    	
     	$.ajax({ 
             type:"get",
             url:"http://localhost:9090/cds/festival/getFestivaldetailSelectList.do",

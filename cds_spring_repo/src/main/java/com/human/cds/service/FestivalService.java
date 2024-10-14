@@ -36,4 +36,6 @@ public interface FestivalService {
 
 	List<FestivalDBVO> getFestivaldetailSelectList(String selectarea, String selectsigungu);
 
+	List<FestivalDBVO> getFestivalNoAreaSoonList(String selectDate);
+
 }

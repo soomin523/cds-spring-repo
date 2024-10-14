@@ -129,7 +129,11 @@ public class FestivalAjaxController {
 		
 		List<FestivalDBVO> festivalList = null;
 		
-		festivalList = festivalServiceImpl.getFestivalSoonList(areaCode, selectDate);
+		if(areaCode.equals("")) {
+			festivalList = festivalServiceImpl.getFestivalNoAreaSoonList(selectDate);
+		}else {
+			festivalList = festivalServiceImpl.getFestivalSoonList(areaCode, selectDate);
+		}
 		
 		return festivalList;
 	}

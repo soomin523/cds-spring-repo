@@ -231,5 +231,9 @@ public class FestivalDAO {
 		return festivalList;
 	}
 
+	public List<FestivalDBVO> getFestivalNoAreaSoonList(String selectDate) {
+		return sqlSession.selectList(MAPPER+".getFestivalNoAreaSoonList", selectDate);
+	}
+
 
 }

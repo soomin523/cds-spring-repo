@@ -7,6 +7,7 @@
 <title>떠나자</title>
 </head>
 <body>
+	<jsp:include page="main/header.jsp" />
 	<h3>축제</h3>
  	<a href="festival/festival.do">축제 리스트 등록</a><br>
  	<a href="festival/getAreaName.do">축제 리스트 지역 등록</a><br>
@@ -25,10 +26,14 @@
    	<h3>숙소</h3>
    	<a href="accommodations/accommo.do">숙소</a><br>
    	<a href="accommodations/Insertaccommo.do">숙소데이터삽입</a><br>
+   	<h3>관리자</h3>
+   	<a href="manager/manager.do">관리자페이지 이동</a><br>
    	
     <c:if test="${ not empty msg }">
 		<p>${ msg }</p>
 	</c:if>
+	
+	<jsp:include page="main/section.jsp" />
     
 </body>
 </html>

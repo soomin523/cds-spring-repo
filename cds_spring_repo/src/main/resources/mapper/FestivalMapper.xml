@@ -91,5 +91,10 @@
 			where f_areacode = #{selectarea} and f_sigunguCode = #{selectsigungu}
 	</select>
 	
+	<select id="getFestivalNoAreaSoonList" resultType="FestivalDBVO">
+		select * from festival
+			where f_eventstartdate between #{selectDate}+1 and 20991231
+	</select>
+	
 		
 </mapper>

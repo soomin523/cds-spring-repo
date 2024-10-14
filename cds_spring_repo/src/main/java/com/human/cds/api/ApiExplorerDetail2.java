@@ -19,7 +19,8 @@ public class ApiExplorerDetail2 {
             throws IOException, URISyntaxException {
         
         // API 요청 URL 설정
-        String srcUrl = "https://apis.data.go.kr/B551011/KorService1/detailIntro1";
+    	String srcUrl = "https://apis.data.go.kr/B551011/KorService1/detailIntro1";
+//        String srcUrl = "https://apis.data.go.kr/B551011/KorService1/detailInfo1";
         StringBuilder urlBuilder = new StringBuilder(srcUrl);
         
         // 필수 파라미터 추가

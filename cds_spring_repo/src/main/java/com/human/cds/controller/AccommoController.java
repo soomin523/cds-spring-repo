@@ -1,15 +1,25 @@
 package com.human.cds.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.cds.api.ApiExplorerCourseinfo;
+import com.human.cds.api.ApiExplorerDetail;
+import com.human.cds.api.ApiExplorerDetail3;
 import com.human.cds.repository.AccommoDAO;
 import com.human.cds.service.AccommoService;
+import com.human.cds.vo.AcommoImgVO;
+import com.human.cds.vo.AcommointroVO;
 import com.human.cds.vo.CourseInfoDTO;
+import com.human.cds.vo.CourseInfoDTO2;
 
 import lombok.AllArgsConstructor;
 
@@ -69,5 +79,84 @@ public class AccommoController {
 
 		return viewName;
 	}
+	
+	
+	
+	@GetMapping("/accommoitems.do")
+	public String showTitles(Model model) {
+		// title과 content_id를 가져옴
+		List<Map<String, Object>> accommoList = accommoDAO.getTitleAndContentId();
+
+		if (accommoList.isEmpty()) {
+			System.out.println("accommoList가 비어 있습니다.");
+		} else {
+			System.out.println("accommoList 데이터가 있습니다.");
+		}
+		model.addAttribute("accommoList", accommoList);
+		return "accommodations/accommoitems";
+	}
+	
+	@PostMapping("/accomoupdate.do")
+	public String accomoupdate(@RequestParam List<String> contentIds) {
+		try {
+			String serviceKey = "Kw%2BbWob0mUGRN8FWR2ORdZCaU94yAQKwmxuwVTcBFhWwkRqcSzJKM%2FZr56KCIYm8Ly9O%2F6eSz8pdP1cfMxObWA%3D%3D";
+			for (String contentId : contentIds) {
+				// ApiExplorerDetail 클래스를 통해 상세 데이터를 가져옴
+				CourseInfoDTO2 detailData = ApiExplorerDetail.getDetailByContentId(serviceKey, contentId);
+
+				// 해당 contentId에 대해 overview 업데이트
+				if (detailData != null && detailData.getResponse().getBody().getItems().getItem().size() > 0) {
+					String overview = detailData.getResponse().getBody().getItems().getItem().get(0).getOverview();
+					accommoServiceImpl.accomoupdate(contentId, overview); // overview 업데이트
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "redirect:/home"; // 업데이트 후 리스트 페이지로 리다이렉트
+	}
+	
+	
+	@PostMapping("/accomoroomupdate.do")
+	public String updateAccommodationDetails(String[] selectedItems) {
+	    String serviceKey = "y%2BM4KcA3dU54OMX03WyfG7Vgskk1N4ti1JPnqNLJgfSxfGZDGpJzCXttag92jy9eIo3XD6a89LQXwVwD%2BM9RyQ%3D%3D"; // API 서비스 키
+	    try {
+	        for (String selectedItem : selectedItems) {
+	            String[] ids = selectedItem.split(",");
+	            String contentId = ids[0];
+	            String contentTypeId = ids[1];
+
+	            // API에서 상세 데이터를 가져옴
+	            AcommointroVO data = ApiExplorerDetail3.getDetailByContentId(serviceKey, contentId, contentTypeId);
+
+	            // items 필드에 빈 문자열이 들어올 때 강제로 빈 객체로 처리
+	            if (data.getResponse().getBody().getItems() == null || data.getResponse().getBody().getItems().equals("")) {
+	                data.getResponse().getBody().setItems(new AcommointroVO.Items());
+	            }
+
+	            // 데이터가 비어 있지 않다면 데이터를 처리
+	            if (data != null && data.getResponse().getBody().getItems().getItem() != null) {
+	                for (AcommointroVO.Item item : data.getResponse().getBody().getItems().getItem()) {
+	                    accommoServiceImpl.saveRoomInfo(item); // 서비스 호출
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return "redirect:/accommodationList"; // 완료 후 목록 페이지로 리다이렉트
+	}
+
+	@GetMapping("accoImg.do")
+	@ResponseBody
+	public List<AcommoImgVO> accoImg(){
+		List<AcommoImgVO> accList = accommoDAO.accoImg();
+		
+		return accList;
+		
+	}
+	
 	
 }

@@ -27,11 +27,12 @@ public class MemberVO {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(String id, String member_id) {
+	    this.member_id = member_id; // ID 값을 설정
 	}
+
 	public String getMember_id() {
-		return member_id;
+		return member_id; //로그인 처리
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;

@@ -30,7 +30,17 @@
         table td { 
             padding: 8px;
         }
-        input[type="text"], input[type="password"], input[type="tel"], input[type="email"] {
+        input[type="text"]{
+       		padding: 12px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            width: calc(60% - 30px); /* 아이콘 공간을 고려하여 고정 */
+        }
+        
+        
+        input[type="password"], input[type="tel"], input[type="email"] {
             padding: 12px;
             margin: 5px 0;
             border: 1px solid #ccc;
@@ -129,3 +139,40 @@
             background-color: #ddd;
             margin: 20px 0;
         }
+        .email-input, .email-auth {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#email_prefix, #custom_email_domain, #email_auth_code {
+    width: 60%;
+}
+
+.send-auth-code-btn {
+    padding: 8px 10px;
+    cursor: pointer;
+}
+
+
+    /* 비밀번호 입력 필드와 관련된 스타일 */
+    .input-container {
+        position: relative; /* 자식 요소의 절대 위치를 설정할 수 있도록 함 */
+    }
+
+    input[type="password"], input[type="text"] {
+        width: 100%; /* 입력 필드의 너비를 100%로 설정 */
+        padding: 10px; /* 내부 여백 */
+        box-sizing: border-box; /* 여백과 테두리를 포함하여 전체 크기를 계산 */
+    }
+
+    .input-container img {
+        position: absolute; /* 아이콘을 절대 위치로 설정 */
+        right: 10px; /* 오른쪽에서 10px 떨어지게 설정 */
+        top: 50%; /* 세로 중앙 정렬 */
+        transform: translateY(-50%); /* 수직 중앙 정렬을 위한 변환 */
+        cursor: pointer; /* 커서를 포인터로 변경 */
+    }
+
+
+        

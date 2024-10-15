@@ -111,8 +111,21 @@ h2 {
 
 /* 네이버 로그인 버튼 스타일 */
 .log-naver-login { 
-    background-color: #03c75a !important; /* 연두색 */
+    background-color:  #03c75a !important; /* 연두색 */
     color: white !important;
+    border: none !important;
+    padding: 10px !important;
+    margin: 10px 0 !important;
+    width: 100% !important;
+    font-size: 16px !important;
+    cursor: pointer !important;
+    border-radius: 5px !important;
+}
+
+/* 구글 로그인 버튼 스타일 */
+.google-login { 
+    background-color: #FFFFFF !important; /* 화이트색 */
+    color: #0000 !important;
     border: none !important;
     padding: 10px !important;
     margin: 10px 0 !important;

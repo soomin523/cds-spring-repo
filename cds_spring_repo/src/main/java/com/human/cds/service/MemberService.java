@@ -10,7 +10,19 @@ public interface MemberService {
 
 	boolean isEmailAvailable(String email);
 
-	MemberVO getMemberById1(int parseInt);
+	//MemberVO getMemberById1(String memberId); 원본1
+	
+	MemberVO login(String memberId, String password);
+
+	String authEmail(String email);
+
+	boolean checkId(String member_id);
+
+	boolean isPhoneDuplicate(String phone);
+
+	boolean isEmailDuplicate(String email);
+	
+	boolean getMemberById1(String memberId); //수정1
 	
 	
 /*	

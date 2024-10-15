@@ -1,9 +1,12 @@
 package com.human.cds.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.human.cds.repository.AccommoDAO;
+import com.human.cds.vo.AcommoImgVO;
 import com.human.cds.vo.AcommointroVO.Item;
 import com.human.cds.vo.CourseInfoDTO;
 
@@ -32,6 +35,12 @@ public class AccommoServiceImpl implements AccommoService {
             accommoDAO.insertRoomInfo(item); // DAO 호출
         }
     }
+
+	@Override
+	public List<AcommoImgVO> getAccommodationsByRegion(int areacode, int page, int pageSize,String cat3) {
+	    int offset = (page - 1) * pageSize; // OFFSET 계산
+	    return accommoDAO.getAccommodationsByRegion(areacode, pageSize, offset, cat3);
+	}
 
 	
 	

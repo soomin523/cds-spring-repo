@@ -63,6 +63,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <div class="accommodation">
 						<h3>숙박</h3>
 						<a href="accommodations/accommo.do">숙소</a><br>
+						<a href="accommodations/cityaccomo.do">숙소 목록</a><br>
+						<a href="accommodations/accommoitems.do">숙소데이터 목록 조회 및 추가 삽입</a><br>
    	                    <a href="accommodations/Insertaccommo.do">숙소데이터삽입</a><br>
 					</div>
                     <div class="transportation">

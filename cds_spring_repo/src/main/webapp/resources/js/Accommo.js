@@ -30,7 +30,10 @@ $(document).ready(function(){
                     
                     // 숙소 이름에서 [한국관광 품질인증/Korea Quality] 부분 제거
                     let title = data[index].title.replace(/\s*\[.*?\]\s*/g, ''); // 정규 표현식으로 제거
-                    $(this).next('h3').text(title);
+                    let cnt = data[index].cnt
+                    
+                    $(this).siblings('h3').text(title);
+                    $(this).siblings('h4').text("조회수 : " + cnt);
                 }
             });
         },

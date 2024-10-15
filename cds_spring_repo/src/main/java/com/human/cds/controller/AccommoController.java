@@ -33,9 +33,14 @@ public class AccommoController {
 	private AccommoDAO accommoDAO;
 
 	@GetMapping("/accommo.do")
-	public String Course(Model model) {
+	public String accommo(Model model) {
 
 		return "accommodations/accommo";
+	}
+	
+	@GetMapping("/cityaccomo.do")
+	public String cityaccomo(Model model) {
+		return "accommodations/cityaccomo";		
 	}
 	
 	@GetMapping("/Insertaccommo.do")
@@ -157,6 +162,21 @@ public class AccommoController {
 		return accList;
 		
 	}
+	
+	@GetMapping("/getRegionAccommodations.do")
+    @ResponseBody
+    public List<AcommoImgVO> getAccommodations(
+            @RequestParam("area_code") int areacode,
+            @RequestParam("page") int page,           // 페이지 번호
+            @RequestParam("pageSize") int pageSize,
+            @RequestParam(value = "cat3", required = false, defaultValue = "all") String cat3) {  // 페이지당 데이터 수
+		
+		if ("all".equals(cat3)) {
+	        cat3 = null;
+	    }
+		System.out.println("Page: " + page + ", Page Size: " + pageSize);
+        return accommoServiceImpl.getAccommodationsByRegion(areacode, page, pageSize, cat3);
+    }
 	
 	
 }

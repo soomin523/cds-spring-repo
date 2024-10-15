@@ -25,6 +25,8 @@ public class AcommoImgVO {
         private String roomimg5alt;
         private String cnt;
         private String title;
+        private String addr1;
+        private String cat3;
         
 
 }

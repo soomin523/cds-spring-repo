@@ -1,120 +1,95 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
 
 
-    <head>
-        <meta charset="UTF-8">
-        <title>지역별 숙소</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/accommodations/cityaccomo.css">
-        <link rel="stylesheet" type="text/css" href="accommo.css">
-    </head>
+<head>
+<meta charset="UTF-8">
+<title>지역별 숙소</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/accommo.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/cityaccomo.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/cityaccomo.js"></script>
+</head>
 
 
-    <body>
-        <section>
-            <div class="fullcity">
-                <div class="cityaccoheader">
-                    <button>◀</button>
-                    <h2>지역 별 숙소</h2>
-                    <div><button>돋보기</button><button>장바구니</button></div>
-                </div>
+<body>
+	<section>
+		<div class="fullcity">
+			<div class="cityaccoheader">
+				<button class="accomobefore">◀</button>
+				<h2>지역 별 숙소</h2>
+				<div>
+					<button>돋보기</button>
+					<button>장바구니</button>
+				</div>
+			</div>
 
-                <hr>
+			<hr>
+			
+			<div class="accodesbox">
+				<div>
+					<div data-region="1" class="region-btn"></div>
+					<h3 >서울</h3>
+				</div>
+				<div>
+					<div data-region="4" class="region-btn"></div>
+					<h3>대구</h3>
+				</div>
+				<div>
+					<div data-region="3" class="region-btn"></div>
+					<h3 >대전</h3>
+				</div>
+				<div>
+					<div data-region="6" class="region-btn"></div>
+					<h3>부산</h3>
+				</div>
+				<div>
+					<div data-region="7" class="region-btn"></div>
+					<h3>울산</h3>
+				</div>
+				<div>
+					<div data-region="39" class="region-btn"></div>
+					<h3>제주</h3>
+				</div>
+				<div>
+					<div data-region="5" class="region-btn"></div>
+					<h3>광주</h3>
+				</div>
+				<div>
+					<div data-region="2" class="region-btn"></div>
+					<h3>인천</h3>
+				</div>
+			</div>
+			
+			<hr id="atypeline" style="display: none;">
+			
+			<div class="atype" style="display: none;">
+			<div data-cat3="all" class="atype-btn">전체</div>
+			<div data-cat3="B02010100" class="atype-btn">호텔</div>
+			<div data-cat3="B02010900" class="atype-btn">모텔</div>
+			<div data-cat3="B02010600" class="atype-btn">유스호스텔</div>
+			<div data-cat3="A02020200" class="atype-btn">리조트</div>
+			<div data-cat3="B02010500" class="atype-btn">콘도</div>
+			<div data-cat3="B02010700" class="atype-btn">팬션</div>
+			<div data-cat3="B02011600" class="atype-btn">한옥</div>
+			<div data-cat3="B02011100" class="atype-btn">게스트하우스</div>
+			</div>
+			
+			<hr>
 
-                <div class="accodesbox">
-                    <div>
-                        <div></div>
-                        <h3>서울</h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <h3>대구</h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <h3>대전</h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <h3>부산</h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <h3>울산</h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <h3>제주</h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <h3>광주</h3>
-                    </div>
-                    <div>
-                        <div></div>
-                        <h3>인천</h3>
-                    </div>
-                </div>
-                
-                <hr>
 
+			<div class="citymiddle" id="citymiddle">
+				<div class="middlebox" >
+				</div>
+			</div>
 
-                <div class="citymiddle" id="citymiddle">
-                    <div>
+		</div>
 
+	</section>
+</body>
 
-                    </div>
-                </div>
-
-
-
-
-            </div>
-
-        </section>
-    </body>
-
-    </html>
-
-    <script>
-        // 현재 페이지 번호
-        let page = 1;
-
-// 더미 데이터를 생성하는 함수 (한 행에 2개씩 추가)
-function createDummyBoxes(page) {
-    const cityMiddle = document.getElementById('citymiddle');
-    
-    for (let i = 0; i < 5; i++) { // 한 번에 5개의 행을 추가
-        const row = document.createElement('div');
-        row.classList.add('city-row');
-        
-        // 각 행에 2개의 박스를 추가
-        for (let j = 0; j < 2; j++) {
-            const boxNumber = (page - 1) * 10 + (i * 2 + j + 1);
-            const dummyBox = document.createElement('div');
-            dummyBox.classList.add('city-accommodation');
-            dummyBox.innerHTML = `<h3>박스 ${boxNumber}</h3><p>여기에 내용이 들어갑니다.</p>`;
-            row.appendChild(dummyBox);
-        }
-        
-        cityMiddle.appendChild(row);
-    }
-}
-
-// 스크롤 이벤트 리스너 추가
-window.addEventListener('scroll', () => {
-    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-    const scrolled = window.scrollY;
-
-    // 스크롤이 페이지 끝에 도달했을 때 추가 데이터 로드
-    if (scrollable - scrolled <= 1) {
-        page++; // 페이지 번호 증가
-        createDummyBoxes(page); // 더미 박스 생성
-    }
-});
-
-// 초기 더미 박스 로드
-createDummyBoxes(page);
-
-    </script>
+</html>

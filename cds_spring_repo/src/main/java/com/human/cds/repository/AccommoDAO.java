@@ -65,4 +65,13 @@ public class AccommoDAO {
 		return sqlSession.selectList(MAPPER+".accoImg");
 	}
 
+	public List<AcommoImgVO> getAccommodationsByRegion(int areacode, int pageSize, int offset,String cat3) {
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("areaCode", areacode);
+	    params.put("limit", pageSize);
+	    params.put("offset", offset);
+	    params.put("cat3", cat3);
+	    return sqlSession.selectList(MAPPER + ".getAccommodationsByRegion", params);
+	}
+
 }

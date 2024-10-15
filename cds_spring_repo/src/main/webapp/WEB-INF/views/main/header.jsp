@@ -48,7 +48,7 @@
                 location.href = "index.do";
             });
             $(".accommodation").click(function(){
-                location.href = "index.do";
+                location.href = "accommodations/accommo.do";
             });
             $(".community").click(function(){
                 location.href = "index.do";

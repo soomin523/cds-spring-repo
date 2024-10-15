@@ -76,34 +76,46 @@
 			<div class="accodesbox2">
 				<button class="scroll-button left">◀</button>
 				<div>
-					<div></div><h3></h3><h4></h4>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3></h3><h4></h4>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3></h3><h4></h4>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3></h3><h4></h4>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3></h3><h4></h4>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3></h3><h4></h4>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3></h3><h4></h4>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3></h3>
+					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
 				</div>
 				<button class="scroll-button right">▶</button>
 			</div>
 		</div>
-
-
+	
+	<hr>
+	<div class="accofoot">
+	<ul>
+	<h2>• 떠나자 <br>&nbsp 숙소 안내</h2>
+	<li>Lorem ipum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+	</ul>
+	
+	
+	</div>
 
 	</section>
 </body>

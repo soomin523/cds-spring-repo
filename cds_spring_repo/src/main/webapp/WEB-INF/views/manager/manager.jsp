@@ -17,7 +17,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     <div id="section">
         <div id="managerPage">
             <aside>
-                <h2>떠나자 관리</h2>
+                <h2>떠나자</h2>
                 <hr>
                 <div class="select">
                     <button value="member">회원관리</button>
@@ -84,5 +84,15 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             </section>
         </div>
     </div>
+    
+    <script>
+    	$(function(){
+    		
+    		$("aside > h2").click(function(){
+    			location.href = "../index.do";
+    		});
+    		
+    	});
+    </script>
 </body>
 </html>

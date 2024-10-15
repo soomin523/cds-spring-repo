@@ -19,11 +19,11 @@
     		<div class="tourCourse">여행 코스</div>
     		<div class="gift">관광 상품</div>
     		<div class="accommodation">숙소</div>
-    		<div class="transportation">교통</div>
     		<div class="community">여행공유</div>
     		<div class="support">고객센터</div>
+    		<div class="manager">관리자</div>
     	</div>
-        <button class="log-login-btn" onclick="openModal()"> 
+        <button class="log-login-btn"> 
             <img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
         </button>
     </header>
@@ -50,14 +50,17 @@
             $(".accommodation").click(function(){
                 location.href = "index.do";
             });
-            $(".transportation").click(function(){
-                location.href = "index.do";
-            });
             $(".community").click(function(){
                 location.href = "index.do";
             });
             $(".support").click(function(){
                 location.href = "support/support.do";
+            });
+            $(".manager").click(function(){
+                location.href = "manager/manager.do";
+            });
+            $(".log-login-btn").click(function(){
+                location.href = "member/login.do";
             });
             
             //스크롤 시 배경 하얀색 채우기

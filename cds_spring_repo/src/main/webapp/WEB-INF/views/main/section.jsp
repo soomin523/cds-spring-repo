@@ -67,7 +67,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 				</div>
 			</div>
 			<div class="mainReview">
-				<div class="reviewTitle">믿고보는 고객님의 찐리뷰✍</div>
+				<h2 class="reviewTitle">믿고보는 고객님의 찐리뷰✍</h2>
 				<div class="reviewContainer">
 					<div class="reviewList">
 						<div class="reviewItem">
@@ -76,14 +76,20 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 							<div>리뷰 제목</div>
 							<div>작성일자</div>
 						</div>
+						<div class="reviewItem">
+							<img src="" alt="리뷰사진">
+							<div>⭐️⭐️⭐️⭐️⭐️</div>
+							<div>리뷰 제목</div>
+							<div>작성일자</div>
+						</div>
 					</div>
 				</div>
-				<button>더보기<i class="fa-solid fa-plus"></i></button>
+				<button>더보기 <i class="fa-solid fa-plus"></i></button>
 			</div>
 			<div class="mainCourse">
 				<div class="courseIntro">
 					<img src="${pageContext.request.contextPath}/resources/img/trablecokcok.png">
-					<h3>여행콕콕</h3>
+					<h2>여행콕콕</h2>
 					<span>|</span>
 					<div>계절별 추천 여행지 및 코스를 알려드려요.</div>
 				</div>
@@ -96,15 +102,17 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 			</div>
 			<div class="mainSupport">
 				<img src="${pageContext.request.contextPath}/resources/img/support.png">
-				<div class="supportIntro">
-					<h3>공지사항</h3>
-					<button>더보기<i class="fa-solid fa-plus"></i></button>
-				</div>
-				<div class="supportList">
-					<div class="supportItem">
-						<div>카테고리</div>
-						<span>|</span>
-						<div>고객센터 글 제목</div>
+				<div class="supportBox">
+					<div class="supportIntro">
+						<h2>공지사항</h2>
+						<button>더보기 <i class="fa-solid fa-plus"></i></button>
+					</div>
+					<div class="supportList">
+						<div class="supportItem">
+							<div>카테고리</div>
+							<span>|</span>
+							<div>고객센터 글 제목</div>
+						</div>
 					</div>
 				</div>
 			</div>

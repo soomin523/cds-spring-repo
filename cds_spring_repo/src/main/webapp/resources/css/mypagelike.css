@@ -1,0 +1,161 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.background {
+    width: 100%;
+    background: rgb(233, 233, 231);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.mylike-title {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 800px;
+    height: 50px;
+    background-color: white;
+}
+
+.mylike-title > h2 {
+    font-size: 20px;
+}
+
+.mylike-category-button {
+    margin-top: 2px;
+    margin-bottom: 2px;
+    display: flex;
+    justify-content: space-around;
+    width: 800px;
+    height: 40px;
+}
+
+.mylike-category-button > button {
+    background: white;
+    border: none;
+    width: 33.3%;
+}
+
+.mylike-totalnum {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 800px;
+    height: 40px;
+    background-color: white;
+}
+
+.mylike-totalnum > p {
+    font-size: 13px;
+}
+
+.mylike-totalnum > p:nth-child(1) {
+    padding-left: 20px;
+}
+
+.mylike-totalnum > p:nth-child(2) {
+    padding-left: 5px;
+}
+
+.mylike-none {
+    display: flex;
+    width: 800px;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+}
+
+.mylike-none > p {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.mylike-exist {
+    width: 800px;
+    height: auto;
+    background-color: white;
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: 1fr 1fr;
+}
+
+.mylike-exist-data > img {
+    width: 350px;
+    height: 150px;
+    padding-bottom: 20px;
+    padding-top: 30px;
+}
+
+.mylike-exist-data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.mylike-exist-data > p {
+    padding-bottom: 20px;
+}
+
+.mylike-random-festival-title,
+.mylike-random-destination-title {
+    width: 800px;
+    height: 80px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: white;
+    margin-top: 10px;
+}
+
+.mylike-random-festival-title > h2,
+.mylike-random-destination-title > h2 {
+    font-size: 20px;
+    padding-left: 15px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.mylike-random-festival,
+.mylike-random-destination {
+    width: 800px;
+    height: 200px;
+    display: flex;
+    background-color: white;
+    overflow: hidden;
+    cursor: grab;
+}
+
+/* 슬라이더 아이템 스타일 */
+.mylike-random-festival > div,
+.mylike-random-destination > div {
+    display: inline-flex;
+    flex-direction: column;
+    text-align: start;
+    padding: 0 20px;
+}
+
+.mylike-random-festival > div > p,
+.mylike-random-destination > div > p {
+    padding-top: 20px;
+}
+
+.mylike-random-festival > div > img,
+.mylike-random-destination > div > img {
+    width: 130px;
+    height: 130px;
+}
+
+/* 슬라이더 활성화 스타일 */
+.custom-slider.active {
+    cursor: grabbing;
+}

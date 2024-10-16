@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 업로드</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/uploadPost.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member/uploadPost.css">
     <script src="${pageContext.request.contextPath}/resources/js/uploadPost.js"></script>
 </head>
 <body>

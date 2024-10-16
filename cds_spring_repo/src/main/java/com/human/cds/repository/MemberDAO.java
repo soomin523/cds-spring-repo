@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.cds.vo.MemberVO;
 
@@ -34,6 +35,7 @@ public class MemberDAO {
 	}
 
 	// 아이디 중복검사: ajax통신
+	@ResponseBody
 	public boolean checkId(String member_id) {
 		try {
 			if ((Integer)sqlSession.selectOne(MAPPER + ".checkId", member_id) > 0)
@@ -51,10 +53,13 @@ public class MemberDAO {
 			vo = sqlSession.selectOne(MAPPER+".login", map);
 		} catch (Exception e) {
 			System.out.println("로그인 중 예외 발생");
+			e.printStackTrace();
 		}
 
 		return vo;
 	}
+
+
 
 }
 

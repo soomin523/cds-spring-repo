@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member/signup.css">
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/signup.js"></script>
+    <style>
+        /* 여기에 CSS를 추가할 수 있습니다. */
+        /* 기존 CSS는 그대로 유지하되, 추가 CSS는 여기에 작성합니다. */
+    </style>
 </head>
 <body>
     <section>
@@ -18,7 +24,7 @@
                     </tr>
                     <tr>
                         <td>연락처</td>
-                        <td><input type="tel" name="phone" id="phone" placeholder="010-1234-5678" required></td>
+                        <td><input type="tel" name="phone" id="phone" placeholder="010-1234-5678" required maxlength="13"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><h4>회원정보 입력</h4></td>
@@ -27,14 +33,14 @@
                         <td>아이디</td>
                         <td>
                             <input type="text" name="member_id" id="member_id" placeholder="아이디를 입력해주세요." required>
-                            <button type="button" class="dup-check-btn">중복확인</button>
+                            <button type="button" class="check-btn" id="check-btn">중복확인</button>
                         </td>
                     </tr>
                     <tr>
                         <td>비밀번호</td>
                         <td>
                             <div class="input-container">
-                                <input type="password" id="password" name="password" placeholder="6~12자 영문, 숫자, 특수문자 조합" required style="width: 100%; padding-right: 40px;">
+                                <input type="password" id="password" name="password" placeholder="6~12자 영문, 숫자, 특수문자 조합" required>
                                 <p><img src="${pageContext.request.contextPath}/resources/img/비밀번호표시.png" alt="비밀번호 보기" onclick="togglePassword('password')"></p>                            
                             </div>
                         </td>
@@ -43,7 +49,7 @@
                         <td>비밀번호 확인</td>
                         <td>
                             <div class="input-container">
-                                <input type="password" id="confirm_password" name="confirm_password" placeholder="비밀번호를 한번 더 입력해주세요." required style="width: 100%; padding-right: 40px;">
+                                <input type="password" id="confirm_password" name="confirm_password" placeholder="비밀번호를 한번 더 입력해주세요." required>
                                 <p><img src="${pageContext.request.contextPath}/resources/img/비밀번호표시.png" alt="비밀번호 보기" onclick="togglePassword('confirm_password')"></p>
                             </div>
                         </td>
@@ -60,8 +66,20 @@
                                     <option value="@nate.com">@nate.com</option>
                                     <option value="direct">직접입력</option>
                                 </select>
-                                <input type="text" id="custom_email_domain" placeholder="직접 입력">
+                                <input type="text" id="custom_email_domain" placeholder="직접 입력" style="display:none;">
                             </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>이메일 인증번호</td>
+                        <td>
+                            <div class="email-auth">
+                                <input type="text" id="auth_num_input" placeholder="인증번호 6자리를 입력해 주세요" disabled="disabled" maxlength="6" required>
+                                <button type="button" class="send-auth-code-btn" id="sendAuthCodeBtn">인증번호 전송</button>
+                            </div>
+                            <input type="button" id="confirm_email_btn" value="인증확인" class="dup-check-btn" disabled="disabled">
+                            <input type="hidden" name="result_confirm" id="result_confirm">
+                            <div id="resultEmail"></div>
                         </td>
                     </tr>
                     <tr>
@@ -94,6 +112,7 @@
         </div>
     </section>
 
+    <script src="${pageContext.request.contextPath}/resources/signup.js"></script>
     <script>
     // 비밀번호 표시/숨기기 기능
     function togglePassword(id) {
@@ -127,7 +146,7 @@
         }
     }
 
-    // 이메일 전체 주소 결합
+/*     // 이메일 전체 주소 결합
     document.querySelector('form').addEventListener('submit', function(event) {
         const emailPrefix = document.getElementById('email_prefix').value;
         const emailDomainSelect = document.getElementById('email_domain').value;
@@ -142,23 +161,27 @@
         emailInput.name = 'email';
         emailInput.value = fullEmail;
         this.appendChild(emailInput);
-    });
+    }); */
 
     // 연락처 입력 시 자동으로 '-' 추가 및 숫자만 입력 가능하게 처리
     document.getElementById('phone').addEventListener('input', function(event) {
-        let value = event.target.value.replace(/[^0-9]/g, '');
+        let value = event.target.value.replace(/[^0-9]/g, ''); // 숫자만 남기기
+
+        if (value.length > 11) {
+            value = value.slice(0, 11); // 11자리로 제한
+        }
 
         if (value.length > 3 && value.length <= 7) {
             value = value.slice(0, 3) + '-' + value.slice(3);
         } else if (value.length > 7) {
-            value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7, 11);
+            value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7);
         }
         event.target.value = value;
     });
-
+/*
     // 중복 확인 함수
     function checkDuplicate() {
-        const username = document.getElementById('memder_id').value;
+        const member_id = document.getElementById('member_id').value;
 
         // 중복 확인 요청을 서버로 보내기
         fetch('/checkDuplicate', {
@@ -166,7 +189,7 @@
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ memder_id: memder_id }),
+            body: JSON.stringify({ member_id: member_id }),
         })
         .then(response => response.json())
         .then(data => {
@@ -181,7 +204,9 @@
 
     // 중복확인 버튼에 이벤트 리스너 추가
     document.querySelector('.dup-check-btn').addEventListener('click', checkDuplicate);
-
+ */
+    
+    
     // 비밀번호 유효성 검사 함수
     function validatePassword() {
         const password = document.getElementById('password').value;

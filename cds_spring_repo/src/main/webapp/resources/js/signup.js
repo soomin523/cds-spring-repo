@@ -22,79 +22,92 @@ $(document).ready(function() {
         });
     });
 
-    // 아이디 중복 검사
-   // 아이디 중복 검사
-$("#checkId").on("click", function() {
-    const member_id = $("#member_id").val();
 
+// 아이디 중복 검사
+$("#check-btn").on("click", function() {
+    const member_id = $("#member_id").val();
+    
     if (member_id.length === 0) {
         alert("아이디가 입력되지 않았습니다.");
         $("#member_id").focus();
-    } else {
-        $.ajax({
-            type: "post",
-            url: "/member/checkId.do",  // 서버로 보낼 URL
-            data: { "member_id": member_id },
-            success: function(resData) {
-                console.log(resData); // 응답값 확인
-                const msg = $("#resultMsg");
-                msg.show();
-
-                if (resData.trim() === "PASS") {
-                    msg.html("사용 가능한 아이디입니다.").css("color", "green");
-
-                    // 중복 검사 버튼을 메일 인증 버튼으로 변경
-                    const checkIdBtn = $("#checkId");
-                    checkIdBtn.off("click").val("메일 인증").attr("id", "email_auth_btn").on("click", function() {
-                        msg.hide();
-                        sendEmail();  // 이메일 인증 함수 호출
-                    });
-
-                } else {
-                    msg.html("이미 사용중인 아이디입니다.").css("color", "red");
-                    $("#member_id").val("").trigger("focus");
-                }
-            },
-            error: function(error) {
-                console.log("아이디 중복 검사 중 에러 발생:", error);
-            }
-        });
-    }
+    }else{ 
+	    $.ajax({
+	        type: "post",
+	        url: "checkDuplicate",  // 서버로 보낼 URL
+	        data: { member_id: member_id },
+	        success: function(resData) {
+			    console.log(resData); // 응답값 확인
+			    //const msg = $("#resultMsg");
+			    //msg.show();
+			   
+			    if (resData.isDuplicate === false) {  // 중복이 아니라면
+			        //msg.html("사용 가능한 아이디입니다.").css("color", "green");
+			        alert('사용 가능한 아이디입니다.');
+			
+			        // 중복 검사 버튼을 메일 인증 버튼으로 변경
+			        //const checkIdBtn = $("#checkId");
+			        //checkIdBtn.off("click").val("메일 인증").attr("id", "email_auth_btn").on("click", function() {
+			            //msg.hide();
+			            //sendEmail();  // 이메일 인증 함수 호출
+			        //});
+			
+				    } else {  // 중복인 경우
+				        //msg.html("이미 사용중인 아이디입니다.").css("color", "red");
+				        alert('이미 사용 중인 아이디입니다.');
+				        $("#member_id").val("").trigger("focus");
+				    }
+				},
+	
+	            error: function(error) {
+	                console.log("아이디 중복 검사 중 에러 발생:", error);
+	            }
+	        });//end of ajax
+       }
+	
 });
 
-// 이메일 인증 함수
-function sendEmail() {
-    const email = $("#member_id").val();
+$("#sendAuthCodeBtn").on("click", function() {
+    console.log("인증번호 전송 버튼이 클릭되었습니다.");  // 버튼 클릭 여부 확인
+    const emailPrefix = $("#email_prefix").val();
+    const emailDomain = $("#email_domain").val();
+    let email = emailPrefix + emailDomain;
 
+    if (emailDomain === "direct") {
+        const customDomain = $("#custom_email_domain").val();
+        if (!customDomain) {
+            alert("도메인을 입력하세요.");
+            return;
+        }
+        email = emailPrefix + "@" + customDomain;
+    }
+
+    if (!emailPrefix || !emailDomain) {
+        alert("이메일을 입력하세요.");
+        return;
+    }
+
+    // AJAX로 이메일 인증 요청을 보냄
     $.ajax({
-        type: "post",
-        url: "/member/checkEmail.do",
-        data: { email: email },
+        type: "POST",
+        url: "checkEmail.do",
+        data: JSON.stringify({ email: email }),
+        contentType: "application/json",
         success: function(data) {
-            $("#auth_num_input").attr("disabled", false);  // 인증번호 입력란 활성화
-            code = data.trim();  // 서버에서 받은 인증번호 저장
-            alert("인증번호가 전송되었습니다.");
+            console.log("서버 응답 데이터:", data);  // 서버 응답 로그
+            if (data !== "ERROR") {
+                alert("인증번호가 전송되었습니다.");
+                $("#auth_num_input").attr("disabled", false);
+            } else {
+                alert("인증번호 전송 중 오류가 발생했습니다.");
+            }
         },
         error: function(e) {
-            console.log("인증번호 받기 중 에러 발생:", e);
+            console.log("AJAX 요청 에러:", e);
+            alert("서버 통신 중 문제가 발생했습니다.");
         }
     });
-}
+});
 
-    // 인증번호 확인
-    $("#confirm_email_btn").on("click", function() {
-        const inputCode = $("#auth_num_input").val();
-        const resultMsg = $("#resultEmail");
-        resultMsg.show();
-
-        if (inputCode === code) {  // 입력된 인증번호가 서버에서 받은 인증번호와 일치하는지 확인
-            resultMsg.html("정상적으로 인증되었습니다").css("color", "green");
-            $("#result_confirm").val("PASS");  // 인증 성공
-        } else {
-            resultMsg.html("인증번호가 일치하지 않습니다. 다시 확인해 주세요").css("color", "red");
-            $("#result_confirm").val("FAIL");  // 인증 실패
-        }
-    });
 
     // 입력 커서가 비밀번호 입력란에 놓이면 메시지 숨기기
     $("#member_pw").on("focus", function() {

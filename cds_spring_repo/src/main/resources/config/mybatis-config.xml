@@ -17,5 +17,4 @@
 		<typeAlias alias="AcommoImgVO" type="com.human.cds.vo.AcommoImgVO"/>
 	</typeAliases>
 	
-  
 </configuration>

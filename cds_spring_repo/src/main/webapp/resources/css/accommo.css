@@ -54,7 +54,7 @@
 }
 
 .accofoot ul {
-	color: white;
+	color: white !important;
 	font-weight: 500;
 	width:50%;
 }
@@ -147,6 +147,7 @@
 	border-radius: 15%;
 	/* 모서리 둥글게 설정 (선택 사항) */
 	flex-direction: column;
+		cursor:pointer;
 }
 
 .accodesbox>div>div {

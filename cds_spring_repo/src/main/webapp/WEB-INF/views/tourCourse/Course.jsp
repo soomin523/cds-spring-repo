@@ -18,7 +18,9 @@
 </head>
 
 <body>
+	<%@ include file="../main/header2.jsp" %>
 	<section>
+	
 		<div class="fullcourse">
 			<!-- 제목이 변경될 영역 -->
 			<h1 id="course-title">#전체</h1>
@@ -72,6 +74,7 @@
 			</div>
 		</div>
 	</section>
+		<jsp:include page="../main/footer.jsp" />
 
 
 	<!-- 모달 -->
@@ -106,7 +109,7 @@
 				<h3>거리정보</h3>
 				<p>거리 정보 없음</p>
 			</div>
-			<div class="tag">
+			<div class="tag" style="color: white;">
 				<h3>소요시간</h3>
 				<p>소요 시간 정보 없음</p>
 			</div>

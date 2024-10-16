@@ -33,34 +33,34 @@
     		
     		//화면 이동
     		$(".headerLogo").click(function(){
-                location.href = "index.do";
+                location.href = "../index.do";
             });
             $(".destination").click(function(){
-                location.href = "index.do";
+                location.href = "../index.do";
             });
             $(".festival").click(function(){
-                location.href = "festival/getFestivalList.do";
+                location.href = "../festival/getFestivalList.do";
             });
             $(".tourCourse").click(function(){
-                location.href = "tourCourse/Course.do";
+                location.href = "../tourCourse/Course.do";
             });
             $(".gift").click(function(){
-                location.href = "index.do";
+                location.href = "../index.do";
             });
             $(".accommodation").click(function(){
-                location.href = "accommodations/accommo.do";
+                location.href = "../accommodations/accommo.do";
             });
             $(".community").click(function(){
-                location.href = "index.do";
+                location.href = "../index.do";
             });
             $(".support").click(function(){
-                location.href = "support/support.do";
+                location.href = "../support/support.do";
             });
             $(".manager").click(function(){
-                location.href = "manager/manager.do";
+                location.href = "../manager/manager.do";
             });
             $(".log-login-btn").click(function(){
-                location.href = "member/login.do";
+                location.href = "../member/login.do";
             });
             
             //스크롤 시 배경 하얀색 채우기

@@ -180,7 +180,7 @@ $(function () {
             type: 'GET',
             dataType: 'json',
             success: function (festival) {
-                if (festival) {
+                if (festival && festival.f_firstimage != null) {
                     $('.festa h3').text('축제 :' + festival.f_title);
                     $('.festa img').attr('src', festival.f_firstimage);
                     $('.festa h4').text('시작일: ' + festival.f_eventstartdate);

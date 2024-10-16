@@ -13,6 +13,7 @@
 </head>
 
 <body>
+	<%@ include file="../main/header2.jsp"%>
 	<section>
 		<div class="accoheader">
 			<!-- 검색 박스 컨테이너 -->
@@ -35,35 +36,35 @@
 		<h5>여행지 별 숙소 현황을 확인하세요.</h5>
 		<br>
 		<div class="accodesbox">
-			<div>
+			<div class="region-btn" data-region="1">
 				<div data-region="1"></div>
 				<h3>서울</h3>
 			</div>
-			<div>
+			<div class="region-btn" data-region="4">
 				<div data-region="4"></div>
 				<h3>대구</h3>
 			</div>
-			<div>
+			<div class="region-btn" data-region="3">
 				<div data-region="3"></div>
 				<h3>대전</h3>
 			</div>
-			<div>
+			<div class="region-btn" data-region="6">
 				<div data-region="6"></div>
 				<h3>부산</h3>
 			</div>
-			<div>
+			<div class="region-btn"  data-region="7">
 				<div data-region="7"></div>
 				<h3>울산</h3>
 			</div>
-			<div>
+			<div class="region-btn" data-region="39">
 				<div data-region="39"></div>
 				<h3>제주</h3>
 			</div>
-			<div>
+			<div class="region-btn" data-region="5">
 				<div data-region="5"></div>
 				<h3>광주</h3>
 			</div>
-			<div>
+			<div class="region-btn" data-region="2">
 				<div data-region="2"></div>
 				<h3>인천</h3>
 			</div>
@@ -76,48 +77,72 @@
 			<div class="accodesbox2">
 				<button class="scroll-button left">◀</button>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<div>
-					<div></div><h3>타이틀 정보없음</h3><h4>조회수 정보없음</h4>
+					<div></div>
+					<h3>타이틀 정보없음</h3>
+					<h4>조회수 정보없음</h4>
 				</div>
 				<button class="scroll-button right">▶</button>
 			</div>
 		</div>
-	
-	<hr>
-	<div class="accofoot">
-	<ul>
-	<h2>• 떠나자 <br>&nbsp 숙소 안내</h2>
-	<li>Lorem ipum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
-	</ul>
-	
-	
-	</div>
+
+		<hr>
+		<div class="accofoot">
+			<ul>
+				<h2>
+					• 떠나자 <br>&nbsp 숙소 안내
+				</h2>
+				<li>Lorem ipum dolor sit amet, consectetur adipiscing elit. Sed
+					do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+					Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+			</ul>
+
+
+		</div>
 
 	</section>
+	<%@ include file="../main/footer.jsp" %>
 </body>
 
 </html>

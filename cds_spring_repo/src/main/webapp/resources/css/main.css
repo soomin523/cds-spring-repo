@@ -23,6 +23,7 @@ header {
 }
 header>.headerLogo {
     margin: 0;
+    cursor:pointer;
 }
 header>.headerLogo>img {
     height: 80px;

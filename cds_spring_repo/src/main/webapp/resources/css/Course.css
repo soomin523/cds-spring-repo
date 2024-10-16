@@ -24,6 +24,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    
 }
 
 /* 코스 이야기 스타일 */
@@ -86,10 +87,19 @@ body {
     background-color: #fff;
     margin: 10px 0;
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid rgba(0, 0, 0, 0.15); /* 연한 회색 테두리 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 좀 더 세련된 그림자 */
     border-radius: 5px;
-    cursor: pointer;
+    cursor: pointer;   
+    transition: all 0.3s ease-in-out; 
 }
+
+.course-item:hover{
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
+    transform: translateY(-5px); /* hover 시 살짝 위로 올라가는 효과 */
+	
+}
+
 
 .course-item img {
     width: 50px;
@@ -150,6 +160,12 @@ body {
     border: 1px solid #87bee584;
     cursor: pointer;
     border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 좀 더 세련된 그림자 */
+}
+
+.festa:hover{
+	box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
+	
 }
 
 .festa h2, .festa h3, .festa h4 {
@@ -178,6 +194,8 @@ body {
     padding: 10px;
     box-sizing: border-box;
     justify-content: flex-start;
+    border: white;
+    box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
 }
 
 /* 버튼 스타일 */
@@ -257,7 +275,7 @@ body {
 }
 
 .fixed-category-bar button {
-    background-color: #87bee586;
+    background-color: #87bee5;
     border: none;
     padding: 10px;
     border-radius: 5px;
@@ -336,12 +354,14 @@ hr {
 .tag {
     text-align: center;
     padding: 10px;
-    background-color: black;
-    color: white;
+    background-color: #87bee5;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     width: 100px;
     height: 100px;
+}
+.tag > h3, .tag > p {
+    color: white;
 }
 
 .mapbox {
@@ -417,6 +437,13 @@ hr {
     background-color: #fff;
     cursor: pointer;
     border-radius: 4px;
+    box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
+}
+
+.page-button:hover{
+	background-color: #1a3e5f;
+    color: #fff;
+    border: 1px solid #1a3e5f;	
 }
 
 .page-button.active {

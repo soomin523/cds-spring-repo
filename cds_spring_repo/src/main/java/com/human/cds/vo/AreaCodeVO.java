@@ -2,11 +2,6 @@ package com.human.cds.vo;
 
 import java.util.List;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public class AreaCodeVO {
 	
 	private Response response;
@@ -18,8 +13,6 @@ public class AreaCodeVO {
 		this.response = response;
 	}
 
-	@Data
-	@NoArgsConstructor
 	public static class Response{
 		private Header header;
 		private Body body;
@@ -38,8 +31,6 @@ public class AreaCodeVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class Header{
 		private String resultCode;
 		private String resultMsg;
@@ -58,8 +49,6 @@ public class AreaCodeVO {
 		}
 	}
 
-	@Data
-	@NoArgsConstructor
 	public static class Body{
 		private int numOfRows;
 		private int pageNo;
@@ -92,8 +81,6 @@ public class AreaCodeVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class Items{
 		private List<AreaCode> item;
 
@@ -105,8 +92,6 @@ public class AreaCodeVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class AreaCode{
 		private String code; //시군구 코드
 		private String name; //시군구명

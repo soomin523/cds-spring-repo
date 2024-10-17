@@ -15,8 +15,12 @@ import com.human.cds.vo.FestivalVO.Festival;
 @Repository
 public class FestivalDAO {
 	
-	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	public FestivalDAO(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 	
 	public static final String MAPPER = "com.human.cds.mapper.FestivalMapper";
 

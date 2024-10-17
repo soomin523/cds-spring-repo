@@ -18,8 +18,12 @@ import com.human.cds.vo.SupportVO;
 @RequestMapping("/support") //공통으로 적용되는 URL 정의
 public class SupportController {
 	
-	@Autowired
 	private  SupportService supportServiceImpl;
+	
+	@Autowired
+	public SupportController(SupportService supportServiceImpl) {
+		this.supportServiceImpl = supportServiceImpl;
+	}
 	
 	//redirect:/index.do
 	

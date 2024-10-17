@@ -203,9 +203,8 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 console.log("응답 데이터:", data);
-                
                 // 모달에 데이터 표시
-                $('#modalTitle').text(data.title);
+                $('#modalTitle').text(data.title.replace(/\s*\[.*?\]\s*/g, ''));
                 $('#modalImage').attr('src', data.first_image);
                 $('#modalAddress').text(data.addr1);
                 
@@ -248,7 +247,7 @@ $(document).ready(function () {
     };
 
     // 모달 닫기
-    $('.close').on('click', function () {
+    $('.mxbox').on('click', function () {
         modal.removeClass('show');
         $('.image-modal').fadeOut(); // 확대 모달도 닫기
     });

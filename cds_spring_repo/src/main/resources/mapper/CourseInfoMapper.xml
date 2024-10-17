@@ -58,7 +58,8 @@
 	<select id="getCoursesByRegionAndTheme" parameterType="map"
 		resultType="CourseInfoVO">
 		SELECT * FROM travel_course
-		WHERE area_code = #{areaCode} AND cat2 = #{cat2}
+		WHERE area_code = #{areaCode}
+		AND cat2 = #{cat2}
 	</select>
 
 	<select id="getCourseByContentId" resultType="CourseInfoVO">
@@ -80,6 +81,7 @@
 		SELECT *
 		FROM festival
 		WHERE f_firstimage IS NOT NULL
+		AND f_eventstartdate > '20241017'
 		ORDER BY RAND()
 		LIMIT 1;
 	</select>

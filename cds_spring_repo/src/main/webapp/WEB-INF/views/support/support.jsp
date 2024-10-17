@@ -23,7 +23,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	        <div class="supMainMid">
 	            <h3>1:1 문의</h3>
 	            <c:choose>
-		            <c:when test="${ not empty userID }">
+		            <c:when test="${ not empty member }">
 	                    <button>
 	                        <p>떠나자 문의 오픈채팅 시작하기</p>
 	                        <span>답변 시간 : 09:00~18:00</span>

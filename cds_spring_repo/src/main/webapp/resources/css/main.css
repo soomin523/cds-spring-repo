@@ -1,11 +1,11 @@
 @charset "UTF-8";
 * {
-    margin: 0 auto;
     padding: 0px;
     box-sizing: border-box;
     color: #000;
-    max-width: 1200px;
+    max-width: 1300px;
 }
+
 button{
     border: none;
     background-color: #fff0;

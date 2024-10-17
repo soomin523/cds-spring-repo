@@ -14,6 +14,8 @@
 <!-- 새로운 버튼을 위한 폼 -->
 <form id="updateCourseDetailsForm" method="post" action="updateCourseDetails.do">
 <button type="submit">선택한 항목 업데이트 (Course Details)</button>
+   <!-- updateCourseDetails.do 이건 거리 및 소요시간-->
+   <!-- updateOverview.do  설명 -->
    
    <!-- overview 입력 -->
    	<%-- <table border="1">
@@ -29,7 +31,7 @@
             <c:forEach var="course" items="${courseList}">
                 <tr>
                     <td>
-                        <input type="checkbox" name="contentId" value="${course['content_id']}">
+                        <input type="checkbox" name="contentIds" value="${course['content_id']}">
                     </td> <!-- 각 행의 체크박스에 content_id와 contenttypeid를 함께 전송 -->
                     <td>${course['title']}</td>
                     <td>${course['content_id']}</td>
@@ -74,7 +76,7 @@
 <script>
     // 전체 선택 체크박스 기능
     // 거리 소요시간입력
-    $(document).ready(function(){
+     $(document).ready(function(){
         $('#selectAll').click(function() {
             $('input[name="selectedItems"]').prop('checked', this.checked);
         });
@@ -88,17 +90,17 @@
     
  // 전체 선택 체크박스 기능
  // overview
-   /*  $(document).ready(function(){
+     /* $(document).ready(function(){
         $('#selectAll').click(function() {
-            $('input[name="content_id"]').prop('checked', this.checked);
+            $('input[name="contentIds"]').prop('checked', this.checked);
         });
 
-        $('input[name="content_id"]').click(function() {
+        $('input[name="contentIds"]').click(function() {
             if (!this.checked) {
                 $('#selectAll').prop('checked', false);
             }
         });
-    }); */
+    });  */
 </script>
 
 </body>

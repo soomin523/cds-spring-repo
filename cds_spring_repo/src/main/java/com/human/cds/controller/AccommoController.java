@@ -110,7 +110,11 @@ public class AccommoController {
 	@PostMapping("/accomoupdate.do")
 	public String accomoupdate(@RequestParam List<String> contentIds) {
 		try {
-			String serviceKey = "Kw%2BbWob0mUGRN8FWR2ORdZCaU94yAQKwmxuwVTcBFhWwkRqcSzJKM%2FZr56KCIYm8Ly9O%2F6eSz8pdP1cfMxObWA%3D%3D";
+			//문배 apikey
+			String serviceKey = "y%2BM4KcA3dU54OMX03WyfG7Vgskk1N4ti1JPnqNLJgfSxfGZDGpJzCXttag92jy9eIo3XD6a89LQXwVwD%2BM9RyQ%3D%3D";
+			
+			//선호 apikey
+			//String serviceKey = "Kw%2BbWob0mUGRN8FWR2ORdZCaU94yAQKwmxuwVTcBFhWwkRqcSzJKM%2FZr56KCIYm8Ly9O%2F6eSz8pdP1cfMxObWA%3D%3D";
 			for (String contentId : contentIds) {
 				// ApiExplorerDetail 클래스를 통해 상세 데이터를 가져옴
 				CourseInfoDTO2 detailData = ApiExplorerDetail.getDetailByContentId(serviceKey, contentId);

@@ -16,9 +16,13 @@ public class MemberDAO {
 	private static final String MAPPER = "com.human.cds.mapper.MemberMapper";
 
 	// MyBatis를 이용해서 DB작업을 하는데 핵심적인 역할을 하는 객체: SqlSession
-	@Autowired
 	private SqlSession sqlSession;
 
+	@Autowired
+	public MemberDAO(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
+	
 	// 회원 가입
 	public boolean insertMember(MemberVO member) {
 		System.out.println(member.getMember_id());

@@ -18,9 +18,13 @@ public class MemberServiceImpl implements MemberService {
 	
 	//static Logger logger = Logger.getLogger("MemberServiceImpl");
 
-	@Autowired
     private MemberDAO memberDAO;
 
+    @Autowired
+    public MemberServiceImpl(MemberDAO memberDAO) {
+    	this.memberDAO = memberDAO;
+    }
+    
     // 회원가입 처리
     @Override
     public boolean registerMember(MemberVO member) {

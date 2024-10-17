@@ -1,8 +1,5 @@
 package com.human.cds.vo;
 
-import lombok.Data;
-
-@Data
 public class CheckIdDTO {
     private String member_id;
 

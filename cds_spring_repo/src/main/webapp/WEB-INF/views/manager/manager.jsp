@@ -44,31 +44,28 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 				<div class="apiContainer container">
 					<div class="destination">
 						<h3>관광지</h3>
-						<a href="destination/DestinationList.do">관광지 리스트 등록</a><br>
-                        <a href="destination/DestinationNameList.do">관광지 지역 등록</a><br>
+						<a href="../destination/DestinationList.do">관광지 리스트 등록</a><br>
+                        <a href="../destination/DestinationNameList.do">관광지 지역 등록</a><br>
 					</div>
                     <div class="festival">
                     	<h3>축제/행사</h3>
-						<a href="festival/festival.do">축제 리스트 등록</a><br>
- 	                    <a href="festival/getAreaName.do">축제 리스트 지역 등록</a><br>
+						<a href="../festival/festival.do">축제 리스트 등록</a><br>
+ 	                    <a href="../festival/getAreaName.do">축제 리스트 지역 등록</a><br>
 					</div>
                     <div class="tourCourse">
 						<h3>코스</h3>
-						<a href="tourCourse/Insertcourse.do">코스데이터삽입</a><br>
-   	                    <a href="tourCourse/Courseitems.do">코스데이터 목록 조회 및 추가 삽입</a><br>
+						<a href="../tourCourse/Insertcourse.do">코스데이터삽입</a><br>
+   	                    <a href="../tourCourse/Courseitems.do">코스데이터 목록 조회 및 추가 삽입</a><br>
 					</div>
                     <div class="gift">
 						<h3>관광상품</h3>
 					</div>
                     <div class="accommodation">
 						<h3>숙박</h3>
-						<a href="accommodations/accommo.do">숙소</a><br>
-						<a href="accommodations/cityaccomo.do">숙소 목록</a><br>
-						<a href="accommodations/accommoitems.do">숙소데이터 목록 조회 및 추가 삽입</a><br>
-   	                    <a href="accommodations/Insertaccommo.do">숙소데이터삽입</a><br>
-					</div>
-                    <div class="transportation">
-						<h3>교통</h3>
+						<a href="../accommodations/accommo.do">숙소</a><br>
+						<a href="../accommodations/cityaccomo.do">숙소 목록</a><br>
+						<a href="../accommodations/accommoitems.do">숙소데이터 목록 조회 및 추가 삽입</a><br>
+   	                    <a href="../accommodations/Insertaccommo.do">숙소데이터삽입</a><br>
 					</div>
                 </div>
 	</c:when>

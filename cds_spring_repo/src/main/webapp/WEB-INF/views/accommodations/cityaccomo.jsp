@@ -19,8 +19,8 @@
 
 
 <body>
-	<%@ include file="../main/header2.jsp"%>
 	<section>
+	<%@ include file="../main/header2.jsp"%>
 		<div class="fullcity">
 			<div class="cityaccoheader">
 				<div class="h">
@@ -96,7 +96,7 @@
 		<!-- 모달 -->
 
 			<div class="accmodal">
-				<p class="close">&times;</p>
+				<div class="mxbox"><p class="x-mark"></p></div>
 				<div class="acmimg"><img id="modalImage" src="" alt="숙소 이미지"></div>
 				<h2 id="modalTitle">숙소 이름</h2>
 				<p id="modalAddress">숙소 주소</p>
@@ -108,8 +108,8 @@
     <img id="largeImage" src="" alt="확대된 이미지">
 </div>
 
-	</section>
 	<%@ include file="../main/footer.jsp"%>
+	</section>
 </body>
 
 </html>

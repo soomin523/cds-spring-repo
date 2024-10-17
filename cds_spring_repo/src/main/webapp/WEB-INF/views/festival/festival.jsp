@@ -14,6 +14,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
 </head>
 <body>
+<%@ include file="../main/header2.jsp"%>
     <div id="section">
         <div id="festivalMain">
             <div class="search">
@@ -85,7 +86,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         <div id="modalOverlay"></div>
         <div id="festivalModal"></div>
     </div>
-    
+    <%@ include file="../main/footer.jsp"%>
     <!-- <script>
         
           

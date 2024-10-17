@@ -26,6 +26,8 @@ public class MemberDAO {
 	// 회원 가입
 	public boolean insertMember(MemberVO member) {
 		System.out.println(member.getMember_id());
+		
+		member.setEmail(member.getEmail_prefix()+member.getEmail_domain());
 
 		try {
 			if (sqlSession.insert(MAPPER + ".insertMember", member) == 1)
@@ -41,8 +43,10 @@ public class MemberDAO {
 	// 아이디 중복검사: ajax통신
 	@ResponseBody
 	public boolean checkId(String member_id) {
+		int result = 0;
+		result = (Integer)sqlSession.selectOne(MAPPER + ".checkId", member_id);
 		try {
-			if ((Integer)sqlSession.selectOne(MAPPER + ".checkId", member_id) > 0)
+			if (result == 1)
 				return true;
 		} catch (Exception e) {
 			System.out.println("아이디 중복검사 중 예외 발생");

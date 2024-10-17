@@ -11,6 +11,8 @@ public class MemberVO {
     private String phone; // 전화번호
     private String name; // 이름
     private String email; // 이메일
+    private String email_prefix;
+    private String email_domain;
     private String gender; // 성별
     private boolean marketing_consent; // 마케팅 수신 동의 여부
     private String profile_image; // 프로필 이미지
@@ -59,6 +61,18 @@ public class MemberVO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public String getEmail_prefix() {
+		return email_prefix;
+	}
+	public void setEmail_prefix(String email_prefix) {
+		this.email_prefix = email_prefix;
+	}
+	public String getEmail_domain() {
+		return email_domain;
+	}
+	public void setEmail_domain(String email_domain) {
+		this.email_domain = email_domain;
 	}
 	public String getGender() {
 		return gender;

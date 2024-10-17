@@ -58,8 +58,8 @@
                         <td>이메일</td>
                         <td>
                             <div class="email-input">
-                                <input type="text" id="email_prefix" placeholder="이메일을 입력해주세요." required>
-                                <select id="email_domain" onchange="toggleEmailDomainInput()">
+                                <input type="text" id="email_prefix" name="email_prefix" placeholder="이메일을 입력해주세요." required>
+                                <select id="email_domain" name="email_domain" onchange="toggleEmailDomainInput()">
                                     <option value="@naver.com">@naver.com</option>
                                     <option value="@gmail.com">@gmail.com</option>
                                     <option value="@daum.net">@daum.net</option>
@@ -77,7 +77,7 @@
                                 <input type="text" id="auth_num_input" placeholder="인증번호 6자리를 입력해 주세요" disabled="disabled" maxlength="6" required>
                                 <button type="button" class="send-auth-code-btn" id="sendAuthCodeBtn">인증번호 전송</button>
                             </div>
-                            <input type="button" id="confirm_email_btn" value="인증확인" class="dup-check-btn" disabled="disabled">
+                            <button id="confirm_email_btn" class="dup-check-btn" disabled="disabled">인증확인</button>
                             <input type="hidden" name="result_confirm" id="result_confirm">
                             <div id="resultEmail"></div>
                         </td>

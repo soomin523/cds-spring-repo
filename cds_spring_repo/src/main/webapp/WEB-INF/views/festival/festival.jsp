@@ -11,10 +11,10 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/festival.css">
 <script src="../resources/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/festival.js"></script>
-<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
 </head>
 <body>
-<%@ include file="../main/header2.jsp"%>
+	<%@ include file="../main/header2.jsp"%>
     <div id="section">
         <div id="festivalMain">
             <div class="search">
@@ -70,6 +70,10 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <c:forEach var="item" items="${ festivalList }">
                 <div class="festivalitem">
                     <div class="itemImg" style="background-image: url(${ item.getF_firstimage() });">
+                    	<div class="like" data-contentid="${ item.f_contentid }">
+                    		<i class="fa-regular fa-heart emptyHeart"></i>
+                    		<i class="fa-solid fa-heart fullheart"></i>
+                    	</div>
                         <div class="hiddenItem">
                             <div>${ item.getF_areaname() } ${ item.getF_sigunguname() }</div>
                             <p>${ item.getF_eventstartdate() } ~ ${ item.getF_eventenddate() }</p>

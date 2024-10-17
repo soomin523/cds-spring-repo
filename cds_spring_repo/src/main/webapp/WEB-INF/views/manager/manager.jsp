@@ -14,6 +14,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="${pageContext.request.contextPath}/resources/js/manager.js"></script>
 </head>
 <body>
+	<%@ include file="../main/header2.jsp"%>
     <div id="section">
         <div id="managerPage">
             <aside>
@@ -83,6 +84,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             </section>
         </div>
     </div>
+    <%@ include file="../main/footer.jsp"%>
     
     <script>
     	$(function(){

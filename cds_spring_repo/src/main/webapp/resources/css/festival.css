@@ -138,7 +138,17 @@ button{
     background: no-repeat center center;
     background-size: cover;
     display: flex;
-    align-items: end;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+#festivalMain>.festivallist>.festivalitem>.itemImg>.like{
+	margin: 3%;
+	cursor: pointer;
+}
+#festivalMain>.festivallist>.festivalitem>.itemImg>.like>i{
+	color: #f00;
+	font-size: 22px;
 }
 #festivalMain>.festivallist>.festivalitem>.itemImg>.hiddenItem{
     display: flex;
@@ -240,7 +250,7 @@ button{
     height: 98%;
     display: flex;
     flex-direction: column;
-    padding: 5% 2%;
+    padding: 2%;
     position: absolute;
     top: 1%;
     right: 10%;
@@ -252,19 +262,43 @@ button{
 #festivalModal::-webkit-scrollbar{
 	display: none;
 }
+.festivalName>h1 {
+    white-space: nowrap; /* 줄 바꿈 방지 */
+}
 #festivalModal>.festivalName{
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-#festivalModal>.festivalName>button{
-    border-radius: 30px;
-    border: solid 1px #969696; 
-    padding: 0.5% 1%;
+.mxbox {
+    width: 100%;
+    height:50px;
+    position: relative; /* 부모 요소에 상대적인 위치 설정 */
 }
-#festivalModal>.festivalName>button>i{
-    font-size: 30px;
-    color: #6e6e6e;
+.x-mark {
+    position: absolute; /* 부모 요소 기준으로 절대 위치 지정 */
+    top: 3px; /* 상단 여백 */
+    right: 0; /* 오른쪽 여백 */
+    width: 30px;
+    height: 30px;
+    cursor: pointer; /* 클릭 가능 커서 추가 */
+}
+.x-mark::before, .x-mark::after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 15px;
+	height: 3px;
+	background-color: black;
+	border-radius: 3px;
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+.x-mark::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+.x-mark:hover {
+	background-color: lightgray;
 }
 #festivalModal>.modalDate{
     display: flex;
@@ -337,9 +371,9 @@ button{
 #festivalModal>.modalMap>h3{
     margin: 20px 0px;
 }
-#festivalModal>.modalMap>.map{
+#map{
     width: 100%;
-    height: 250px;
+    height: 400px;
     margin: 20px 0px 10px;
 }
 #festivalModal>.modalMap>.mapContent{

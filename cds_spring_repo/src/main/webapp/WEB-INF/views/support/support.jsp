@@ -14,6 +14,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="${pageContext.request.contextPath}/resources/js/support.js"></script>
 </head>
 <body>
+	<%@ include file="../main/header2.jsp"%>
 	<div id="section">
 	    <div id="supportMain">
 	        <div class="supMainTop">
@@ -24,13 +25,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	            <h3>1:1 문의</h3>
 	            <c:choose>
 		            <c:when test="${ not empty member }">
-	                    <button>
+	                    <button class="one">
 	                        <p>떠나자 문의 오픈채팅 시작하기</p>
 	                        <span>답변 시간 : 09:00~18:00</span>
 	                    </button>
 		            </c:when>
 		            <c:otherwise>
-	                    <button>
+	                    <button class="login">
 	                        <p>로그인하기</p>
 	                        <span>로그인 하고 문의하기</span>
 	                    </button>
@@ -95,5 +96,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	        </div>
 	    </div>
 	</div>
+	<%@ include file="../main/footer.jsp"%>
 </body>
 </html>

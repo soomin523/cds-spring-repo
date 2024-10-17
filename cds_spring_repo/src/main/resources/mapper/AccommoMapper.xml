@@ -1,70 +1,74 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.human.cds.mapper.AccomoMapper">
-	<!-- namespace: XML 파일에서 내용의 구분을 위해서 사용 -->
+    <!-- namespace: XML 파일에서 내용의 구분을 위해서 사용 -->
 
-	<insert id="insertaccommoInfo">
-		INSERT INTO accommodation (content_id, title, addr1,
-		addr2, area_code,
-		book_tour, cat1, cat2, cat3, content_type_id,
-		created_time,
-		first_image, first_image2, cpyrht_Div_Cd, map_x, map_y,
-		m_level,
-		modified_time, sigungu_code, tel, zipcode)
-		VALUES
-		(#{contentid}, #{title}, #{addr1}, #{addr2}, #{areacode},
-		#{booktour},
-		#{cat1}, #{cat2}, #{cat3}, #{contenttypeid},
-		#{createdtime},
-		#{firstimage}, #{firstimage2}, #{cpyrhtDivCd}, #{mapx}, #{mapy},
-		#{mlevel},
-		#{modifiedtime}, #{sigungucode}, #{tel}, #{zipcode});
-	</insert>
+    <insert id="insertaccommoInfo">
+        INSERT INTO accommodation (
+            content_id, title, addr1, addr2, area_code,
+            book_tour, cat1, cat2, cat3, content_type_id,
+            created_time, first_image, first_image2, cpyrht_Div_Cd, map_x, map_y,
+            m_level, modified_time, sigungu_code, tel, zipcode, overview, cnt
+        )
+        VALUES (
+            #{contentid}, #{title}, #{addr1}, #{addr2}, #{areacode},
+            #{booktour}, #{cat1}, #{cat2}, #{cat3}, #{contenttypeid},
+            #{createdtime}, #{firstimage}, #{firstimage2}, #{cpyrhtDivCd}, #{mapx}, #{mapy},
+            #{mlevel}, #{modifiedtime}, #{sigungucode}, #{tel}, #{zipcode}, #{overview}, #{cnt}
+        )
+    </insert>
 
+    <select id="getTitleAndContentId" resultType="map">
+        SELECT title, content_id, content_type_id
+        FROM accommodation
+    </select>
 
-	<select id="getTitleAndContentId" resultType="map">
-		SELECT title,
-		content_id, content_type_id
-		FROM accommodation
-	</select>
+    <update id="accomoupdate">
+        UPDATE accommodation
+        SET overview = #{overview}
+        WHERE content_id = #{contentId} AND content_type_id = '32'
+    </update>
 
-	<update id="accomoupdate">
-		UPDATE accommodation
-		SET overview = #{overview}
-		WHERE
-		content_id = #{contentId} and content_type_id = "32"
+    <insert id="insertRoomInfo">
+        INSERT INTO accommodationroom (
+            contentid, contenttypeid, roomtitle, roomcode, roomoffseasonminfee1,
+            roomimg1, roomimg1alt, roomimg2, roomimg2alt, roomimg3, roomimg3alt,
+            roomimg4, roomimg4alt, roomimg5, roomimg5alt
+        ) VALUES (
+            #{contentid}, #{contenttypeid}, #{roomtitle}, #{roomcode}, #{roomoffseasonminfee1},
+            #{roomimg1}, #{roomimg1alt}, #{roomimg2}, #{roomimg2alt}, #{roomimg3},
+            #{roomimg3alt}, #{roomimg4}, #{roomimg4alt}, #{roomimg5}, #{roomimg5alt}
+        )
+    </insert>
 
-	</update>
+    <select id="accoImg" resultType="AcommoImgVO">
+        SELECT *
+        FROM accommodation
+    </select>
 
-	<insert id="insertRoomInfo">
-		INSERT INTO accommodationroom (
-		contentid, contenttypeid, roomtitle, roomcode, roomoffseasonminfee1,
-		roomimg1, roomimg1alt, roomimg2, roomimg2alt, roomimg3, roomimg3alt,
-		roomimg4, roomimg4alt, roomimg5, roomimg5alt
-		) VALUES (
-		#{contentid}, #{contenttypeid}, #{roomtitle}, #{roomcode}, #{roomoffseasonminfee1},
-		#{roomimg1}, #{roomimg1alt}, #{roomimg2}, #{roomimg2alt}, #{roomimg3},
-		#{roomimg3alt},
-		#{roomimg4}, #{roomimg4alt}, #{roomimg5}, #{roomimg5alt}
-		)
+    <select id="getAccommodationsByRegion" resultType="AcommoImgVO">
+        SELECT *
+        FROM accommodation
+        WHERE area_code = #{areaCode}
+        <if test="cat3 != null">
+            AND cat3 = #{cat3}
+        </if>
+        LIMIT #{limit} OFFSET #{offset}
+    </select>
 
-	</insert>
+    <!-- 숙소 정보를 contentId로 조회하는 쿼리 -->
+    <select id="getAccommodationByContentId" resultType="AccommodationVO">
+        SELECT *
+        FROM accommodation
+        WHERE content_id = #{contentId}
+    </select>
 
-
-	<select id="accoImg" resultType="AcommoImgVO">
-		SELECT *
-		FROM accommodation
-	</select>
-
-	<select id="getAccommodationsByRegion" resultType="AcommoImgVO">
-		SELECT *
-		FROM accommodation
-		WHERE area_code = #{areaCode}
-		<if test="cat3 != null">
-			AND cat3 = #{cat3}
-		</if>
-		LIMIT #{limit} OFFSET #{offset}
-	</select>
-</mapper>	
+    <!-- 방 정보를 contentId로 조회하는 쿼리 -->
+    <select id="getRoomsByContentId" resultType="AccommodationRoomVO">
+        SELECT *
+        FROM accommodationroom
+        WHERE contentid = #{contentId}
+    </select>
+</mapper>

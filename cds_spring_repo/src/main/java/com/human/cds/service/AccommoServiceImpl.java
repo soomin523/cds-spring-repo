@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.human.cds.repository.AccommoDAO;
+import com.human.cds.vo.AccommodationRoomVO;
+import com.human.cds.vo.AccommodationVO;
 import com.human.cds.vo.AcommoImgVO;
 import com.human.cds.vo.AcommointroVO.Item;
 import com.human.cds.vo.CourseInfoDTO;
@@ -42,6 +44,19 @@ public class AccommoServiceImpl implements AccommoService {
 	    return accommoDAO.getAccommodationsByRegion(areacode, pageSize, offset, cat3);
 	}
 
+	
+	//모달숙소 띄우기 위한 데이터 불러오기 VO두개를 사용하는데 리스트를 사용해서 contentid가 같은값은 list에 저장
+	@Override
+	public AccommodationVO getAccommodationDetails(String contentId) {
+		// AccommodationVO 가져오기
+        AccommodationVO accommodation = accommoDAO.getAccommodationByContentId(contentId);
+        if (accommodation != null) {
+            // AccommodationRoomVO 리스트 가져오기
+            List<AccommodationRoomVO> rooms = accommoDAO.getRoomsByContentId(contentId);
+            accommodation.setRooms(rooms); // AccommodationVO에 방 정보 설정
+        }
+        return accommodation;
+    }
 	
 	
 }

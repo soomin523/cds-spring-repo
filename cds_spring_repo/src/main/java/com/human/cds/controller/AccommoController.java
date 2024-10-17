@@ -3,6 +3,7 @@ package com.human.cds.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,22 +17,27 @@ import com.human.cds.api.ApiExplorerDetail;
 import com.human.cds.api.ApiExplorerDetail3;
 import com.human.cds.repository.AccommoDAO;
 import com.human.cds.service.AccommoService;
+import com.human.cds.vo.AccommodationRoomVO;
+import com.human.cds.vo.AccommodationVO;
 import com.human.cds.vo.AcommoImgVO;
 import com.human.cds.vo.AcommointroVO;
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO2;
 
-import lombok.AllArgsConstructor;
-
 @Controller
 @RequestMapping("/accommodations") // 공통 URL 정의
-@AllArgsConstructor
 public class AccommoController {
 	
 	
 	private AccommoService accommoServiceImpl;
 	private AccommoDAO accommoDAO;
 
+	@Autowired
+	public AccommoController(AccommoService accommoServiceImpl, AccommoDAO accommoDAO) {
+		this.accommoServiceImpl = accommoServiceImpl;
+		this.accommoDAO = accommoDAO;
+	}
+	
 	@GetMapping("/accommo.do")
 	public String accommo(Model model) {
 
@@ -179,4 +185,23 @@ public class AccommoController {
     }
 	
 	
+	//모달에 띄울 숙소정보를 가져오기 위한 컨트롤러
+	@GetMapping("/getAccommodationDetails.do")
+	@ResponseBody
+	public AccommodationVO getAccommodationDetails(@RequestParam(value = "contentId", required = false) String contentId) {
+		if (contentId == null) {
+	        throw new IllegalArgumentException("contentId is required");
+	    }
+	    
+	    AccommodationVO accommodation = accommoDAO.getAccommodationByContentId(contentId);
+	    if (accommodation != null) {
+	        List<AccommodationRoomVO> rooms = accommoDAO.getRoomsByContentId(contentId);
+	        accommodation.setRooms(rooms); // 방 정보 설정
+	    } else {
+	        throw new IllegalArgumentException("Accommodation data not found for contentId: " + contentId);
+	    }
+	    
+	    return accommodation;
+	}
+
 }

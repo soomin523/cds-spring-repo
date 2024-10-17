@@ -2,6 +2,7 @@ package com.human.cds.service;
 
 import java.util.List;
 
+import com.human.cds.vo.AccommodationVO;
 import com.human.cds.vo.AcommoImgVO;
 import com.human.cds.vo.AcommointroVO.Item;
 import com.human.cds.vo.CourseInfoDTO;
@@ -16,6 +17,9 @@ public interface AccommoService {
 	void saveRoomInfo(Item item);
 
 	List<AcommoImgVO> getAccommodationsByRegion(int areacode, int page, int pageSize, String cat3);
+
+	AccommodationVO getAccommodationDetails(String contentId);
+
 
 
     	

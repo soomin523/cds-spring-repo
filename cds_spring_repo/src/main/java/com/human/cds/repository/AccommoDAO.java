@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.human.cds.vo.AccommodationRoomVO;
+import com.human.cds.vo.AccommodationVO;
 import com.human.cds.vo.AcommoImgVO;
 import com.human.cds.vo.AcommointroVO;
 import com.human.cds.vo.CourseInfoDTO;
@@ -72,6 +74,16 @@ public class AccommoDAO {
 	    params.put("offset", offset);
 	    params.put("cat3", cat3);
 	    return sqlSession.selectList(MAPPER + ".getAccommodationsByRegion", params);
+	}
+
+	public AccommodationVO getAccommodationByContentId(String contentId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(MAPPER + ".getAccommodationByContentId", contentId);
+	}
+
+	public List<AccommodationRoomVO> getRoomsByContentId(String contentId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(MAPPER + ".getRoomsByContentId", contentId);
 	}
 
 }

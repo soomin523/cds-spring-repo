@@ -15,6 +15,8 @@
 		<typeAlias alias="MemberVO" type="com.human.cds.vo.MemberVO"/>
 		<typeAlias alias="DestinationDBVO" type="com.human.cds.vo.DestinationDBVO"/>
 		<typeAlias alias="AcommoImgVO" type="com.human.cds.vo.AcommoImgVO"/>
+		<typeAlias alias="AccommodationRoomVO" type="com.human.cds.vo.AccommodationRoomVO"/>
+		<typeAlias alias="AccommodationVO" type="com.human.cds.vo.AccommodationVO"/>
 	</typeAliases>
 	
 </configuration>

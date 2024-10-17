@@ -267,6 +267,13 @@ $(function(){
 	    );    
     };
     festivalListHover();
+    
+    $(".fullheart").hide();
+    
+    //축제 좋아요 효과
+	$(".festivalitem > .itemImg > .like").click(function(){
+		$(this).children("i").toggle();
+	});
 
 	//선택에 따른 축제 리스트 html에 표시하기
     function loadingFestivalList(festivalList){
@@ -286,6 +293,10 @@ $(function(){
 	            htmlContent += `
 				    <div class='festivalitem'>
 				        <div class='itemImg' style='background-image: url(${item.f_firstimage});'>
+				        	<div class="like" data-contentid="${ item.f_contentid }">
+	                    		<i class="fa-regular fa-heart emptyHeart"></i>
+	                    		<i class="fa-solid fa-heart fullheart"></i>
+	                    	</div>
 				            <div class='hiddenItem'>
 				                <div>${item.f_areaname} ${item.f_sigunguname}</div>
 				                <p>${item.f_eventstartdate} ~ ${item.f_eventenddate}</p>
@@ -327,6 +338,14 @@ $(function(){
         });
         
         festivalListHover();
+        
+        $(".fullheart").hide();
+    
+	    //축제 좋아요 효과
+		$(".festivalitem > .itemImg > .like").click(function(){
+			$(this).children("i").toggle();
+		});
+		
     };
     
     
@@ -386,9 +405,7 @@ $(function(){
    		htmlContent += `
 		    <div class='festivalName'>
 		        <h1>${item.f_title}</h1>
-		        <button class='closeModal'>
-		            <i class="fa-solid fa-xmark"></i>
-		        </button>
+		        <div class="mxbox"><p class="x-mark"></p></div>
 		    </div>
 		    <div class='modalDate'>
 		        <p>${item.f_eventstartdate}</p>
@@ -454,7 +471,7 @@ $(function(){
             </div>
             <div class="modalContentBox">
                 <p class="modalContent">${item.overview}</p>
-                <button><i class="fa-solid fa-plus"></i> 더보기</button>
+                <button class="plusBtn"><i class="fa-solid fa-plus"></i> 더보기</button>
                 <div class="modalContentPlus">
                     <div class="plusLeft">
                         <p>예매처 : ${item.bookingplace}</p>
@@ -472,7 +489,7 @@ $(function(){
             <hr />
             <div class="modalMap">
                 <h3>길찾기</h3>
-                <div class="map"></div>
+                <div id="map"></div>
                 <div class="mapContent">
                     <p>${item.f_addr1} ${item.f_addr2}</p>
                     <p>${item.sponsor1} / ${item.sponsor2}</p>
@@ -486,8 +503,15 @@ $(function(){
         
         initMap(item.f_mapx, item.f_mapy);
         
+        $(".modalContentPlus").hide();
+        
+        //더보기 버튼으로 콘텐츠 열기
+        $(".plusBtn").click(function(){
+        	$(".modalContentPlus").toggle();
+        });
+        
         //모달 닫기
-        $(".closeModal").click(function(){
+        $(".mxbox").click(function(){
         	$("#festivalModal").hide();
             $("#modalOverlay").hide();
         });
@@ -496,14 +520,15 @@ $(function(){
     
     //지도 함수
     function initMap(mapx, mapy){
-		let mapContainer = $(".map")[0]; // 지도를 표시할 div
+    	console.log(mapx, mapy);
+		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 		var mapOption = {
 			center: new kakao.maps.LatLng(mapx, mapy), // 지도의 중심좌표
 			level: 6 // 지도의 확대 레벨
 		};
 
 		// 지도 생성
-		let map = new kakao.maps.Map(mapContainer, mapOption);
+		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
 
 		// 마커 생성
 		var markerPosition = new kakao.maps.LatLng(mapx, mapy);
@@ -626,6 +651,10 @@ $(function(){
 			htmlContent += `
 				<div class="festivalitem">
 	                    <div class="itemImg" style="background-image: url(${ item.f_firstimage });">
+	                    	<div class="like" data-contentid="${ item.f_contentid }">
+	                    		<i class="fa-regular fa-heart emptyHeart"></i>
+	                    		<i class="fa-solid fa-heart fullheart"></i>
+	                    	</div>
 	                        <div class="hiddenItem">
 	                            <div>${ item.f_areaname } ${ item.f_sigunguname }</div>
 	                            <p>${ item.f_eventstartdate } ~ ${ item.f_eventenddate }</p>
@@ -641,6 +670,13 @@ $(function(){
 		$(".festivallist").append(htmlContent);
 		
 		festivalListHover();
+		
+		$(".fullheart").hide();
+    
+	    //축제 좋아요 효과
+		$(".festivalitem > .itemImg > .like").click(function(){
+			$(this).children("i").toggle();
+		});
 		
 		$(".festivalitem > .itemImg > .hiddenItem > button").click(function(){
         	const contentid = $(this).val();

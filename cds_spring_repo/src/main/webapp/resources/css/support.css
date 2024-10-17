@@ -91,6 +91,12 @@
     justify-content: space-between;
     width: 100%;
 }
+#supportMain>.supMainBtm>div>.items>.item>.title{
+	width: 70%;
+	white-space: nowrap; /* 줄 바꿈 방지 */
+	overflow: hidden;
+	text-overflow: ellipsis; /* ...으로 표시하기 */
+}
 
 
 /* 고객센터 상세페이지 : supportDetail.jsp */

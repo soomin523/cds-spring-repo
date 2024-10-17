@@ -7,6 +7,17 @@ $(function () {
     	location.href=`supportDetail.do?select=${select}`;
     });
     
+	//로그인하기로 넘어가는 버튼 클릭
+	$(".login").click(function(){
+		location.href="member/login.do";
+	});
+	
+	//1:1 오픈채팅 버튼 클릭
+	$(".one").click(function(){
+		console.log("문의하기 버튼 클릭");
+		location.href="http://pf.kakao.com/_LcpIn";
+	});
+    
     //support 메인페이지 이동
     $("aside > h2").click(function(){
     	location.href="support.do";

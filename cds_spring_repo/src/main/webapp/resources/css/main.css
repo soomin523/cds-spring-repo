@@ -306,7 +306,7 @@ footer>.footerTop>span{
 #footerModal{
     width: 80%;
     height: 98%;
-    padding: 5% 2%;
+    padding: 2%;
     position: absolute;
     display: flex;
     flex-direction: column;

@@ -14,7 +14,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/js/cityaccomo.js"></script>
-</head>
+<script
+	src="${pageContext.request.contextPath}/resources/js/accmodal.js"></script></head>
 
 
 <body>
@@ -22,12 +23,13 @@
 	<section>
 		<div class="fullcity">
 			<div class="cityaccoheader">
-				<button class="accomobefore">◀</button>
-				<h2>지역 별 숙소</h2>
-				<div>
-					<button>돋보기</button>
-					<button>장바구니</button>
-					<!-- 검색 박스 추가 -->
+				<div class="h">
+					<button class="accomobefore">◀</button>
+				</div>
+				<div class="h">
+					<h2>지역 별 숙소</h2>
+				</div>
+				<div class="h">
 					<input type="text" id="searchInput" placeholder="숙소 제목이나 주소 검색" />
 				</div>
 			</div>
@@ -86,10 +88,25 @@
 			<hr>
 
 
-			<div class="citymiddle" id="citymiddle">
-			</div>
+			<div class="citymiddle" id="citymiddle"></div>
 
 		</div>
+		<button id="scrollToTopBtn">▲</button>
+
+		<!-- 모달 -->
+
+			<div class="accmodal">
+				<p class="close">&times;</p>
+				<div class="acmimg"><img id="modalImage" src="" alt="숙소 이미지"></div>
+				<h2 id="modalTitle">숙소 이름</h2>
+				<p id="modalAddress">숙소 주소</p>
+				<div id="modalRoomInfo">방 정보 표시</div>
+			</div>
+			
+			<div class="image-modal" style="display:none;">
+    <p class="close">&times;</p>
+    <img id="largeImage" src="" alt="확대된 이미지">
+</div>
 
 	</section>
 	<%@ include file="../main/footer.jsp"%>

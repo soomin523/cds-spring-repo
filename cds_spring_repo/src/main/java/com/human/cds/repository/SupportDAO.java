@@ -11,8 +11,12 @@ import com.human.cds.vo.SupportVO;
 @Repository
 public class SupportDAO {
 	
-	@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	public SupportDAO(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 	
 	public static final String MAPPER = "com.human.cds.mapper.SupportMapper";
 

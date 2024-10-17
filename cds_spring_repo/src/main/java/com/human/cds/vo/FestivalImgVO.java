@@ -2,11 +2,6 @@ package com.human.cds.vo;
 
 import java.util.List;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public class FestivalImgVO {
 	
 	private Response response;
@@ -18,8 +13,6 @@ public class FestivalImgVO {
 		this.response = response;
 	}
 
-	@Data
-	@NoArgsConstructor
 	public static class Response{
 		private Header header;
 		private Body body;
@@ -38,8 +31,6 @@ public class FestivalImgVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class Header{
 		private String  resultCode;
 		private String  resultMsg;
@@ -58,8 +49,6 @@ public class FestivalImgVO {
 		}
 	}
 
-	@Data
-	@NoArgsConstructor
 	public static class Body{
 		private int numOfRows;
 		private int pageNo;
@@ -92,8 +81,6 @@ public class FestivalImgVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class Items{
 		private List<FestivalImg> item;
 		public List<FestivalImg> getItem() {
@@ -104,8 +91,6 @@ public class FestivalImgVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class FestivalImg{
 		private String contentid; 		//콘텐츠ID
 		private String imgname;			//이미지명

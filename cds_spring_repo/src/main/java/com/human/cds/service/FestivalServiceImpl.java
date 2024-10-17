@@ -15,9 +15,13 @@ import com.human.cds.vo.FestivalVO;
 @Service
 public class FestivalServiceImpl implements FestivalService {
 	
-	@Autowired
 	private FestivalDAO dao;
 
+	@Autowired
+	public FestivalServiceImpl(FestivalDAO dao) {
+		this.dao = dao;
+	}
+	
 	@Override
 	public int insertFestival(FestivalVO data) {
 		return dao.insertFestival(data);

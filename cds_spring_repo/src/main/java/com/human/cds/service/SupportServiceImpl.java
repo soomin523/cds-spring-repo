@@ -11,9 +11,13 @@ import com.human.cds.vo.SupportVO;
 @Service
 public class SupportServiceImpl implements SupportService {
 	
-	@Autowired
 	private SupportDAO dao;
 
+	@Autowired
+	public SupportServiceImpl(SupportDAO dao) {
+		this.dao = dao;
+	}
+	
 	@Override
 	public List<SupportVO> getNoticeList() {
 		return dao.getNoticeList();

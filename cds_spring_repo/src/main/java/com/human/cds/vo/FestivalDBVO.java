@@ -1,11 +1,5 @@
 package com.human.cds.vo;
 
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public class FestivalDBVO {
 	
 	private String f_contentid;		//콘텐츠ID

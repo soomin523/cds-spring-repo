@@ -2,11 +2,6 @@ package com.human.cds.vo;
 
 import java.util.List;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
 public class FDetailIntroVO {
 	
 	private Response response;
@@ -18,8 +13,6 @@ public class FDetailIntroVO {
 		this.response = response;
 	}
 
-	@Data
-	@NoArgsConstructor
 	public static class Response{
 		private Header header;
 		private Body body;
@@ -38,8 +31,6 @@ public class FDetailIntroVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class Header{
 		private String resultCode;
 		private String resultMsg;
@@ -58,8 +49,6 @@ public class FDetailIntroVO {
 		}
 	}
 
-	@Data
-	@NoArgsConstructor
 	public static class Body{
 		private int numOfRows;
 		private int totalCount;
@@ -92,8 +81,6 @@ public class FDetailIntroVO {
 		}
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class Items{
 		private List<DetailIntro> item;
 		
@@ -106,8 +93,6 @@ public class FDetailIntroVO {
 
 	}
 	
-	@Data
-	@NoArgsConstructor
 	public static class DetailIntro{
 		private String discountinfofestival; 	//행사공연축제(15) : 할인정보
 		private String eventenddate; 			//행사공연축제(15) : 행사종료일

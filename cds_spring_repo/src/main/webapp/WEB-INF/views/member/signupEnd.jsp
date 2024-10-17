@@ -19,19 +19,21 @@
         <table class="info-table">
             <tr>
                 <td>이름</td>
-                <td><%= request.getParameter("name") %></td>
+                <td>${ joinMember.name }</td>
+                <%-- <td><%= request.getParameter("name") %></td> --%>
             </tr>
             <tr>
                 <td>연락처</td>
-                <td><%= request.getParameter("phone") %></td>
+                <td>${ joinMember.phone }</td>
+                <%-- <td><%= request.getParameter("phone") %></td> --%>
             </tr>
             <tr>
                 <td>이메일</td>
-                <td><%= request.getParameter("email") %></td>
+                <td>${ joinMember.email }</td>
             </tr>
         </table>
 
-        <a href="/" class="log-main-btn">메인으로</a> <!-- class 이름에 log- 접두사 추가 -->
+        <a href="../index.do" class="log-main-btn">메인으로</a> <!-- class 이름에 log- 접두사 추가 -->
     </div>
 </body>
 </html>

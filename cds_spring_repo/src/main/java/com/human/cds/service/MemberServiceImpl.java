@@ -21,8 +21,9 @@ public class MemberServiceImpl implements MemberService {
     private MemberDAO memberDAO;
 
     @Autowired
-    public MemberServiceImpl(MemberDAO memberDAO) {
+    public MemberServiceImpl(MemberDAO memberDAO, JavaMailSenderImpl mailSender) {
     	this.memberDAO = memberDAO;
+    	this.mailSender = mailSender;
     }
     
     // 회원가입 처리
@@ -47,16 +48,21 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	//메일인증 관련 메일전송 객체 의존자동주입 받기
-		@Autowired
 		private JavaMailSenderImpl mailSender;
+		
+		@Override
+		public String sendVerificationCode(String email) {
+			String VerificationCode = authEmail(email);		
+			return VerificationCode;
+		}
 
-			//메일인증
+		//메일인증
 		@Override
 		public String authEmail(String email) {
 			//메일인증 코드 6자리 생성하기: Math.random() (111111 <= r < 1000000)
 			int authNumber = (int)(Math.random()*888889)+111111;
 			
-			String setFrom = "humandev007@gmail.com";//송신자의 메일주소
+			String setFrom = "songseonho1235@gmail.com";//송신자의 메일주소
 			String toMail = email;//수신자의 메일주소
 			String title = "회원가입 인증 이메일입니다";//제목
 			String content = "홈페이지를 방문해주셔서 감사합니다. <br><br> "
@@ -69,6 +75,10 @@ public class MemberServiceImpl implements MemberService {
 
 		//이메일 전송 메소드
 		private void mailSend(String setFrom, String toMail, String title, String content) {
+			
+			
+			System.out.println("메일주소: "+toMail);
+			
 			MimeMessage message = mailSender.createMimeMessage();
 			
 			try {
@@ -82,9 +92,11 @@ public class MemberServiceImpl implements MemberService {
 				
 			} catch (Exception e) {
 				System.out.println("메일전송 중 예외발생");
+				e.printStackTrace();
 			}
 		}
 
+		//
 
 
 		//로그인
@@ -158,12 +170,6 @@ public class MemberServiceImpl implements MemberService {
 		public boolean getMemberById(String memberId) {
 			// TODO Auto-generated method stub
 			return false;
-		}
-
-		@Override
-		public String sendVerificationCode(String email) {
-			// TODO Auto-generated method stub
-			return null;
 		}
 
 		@Override

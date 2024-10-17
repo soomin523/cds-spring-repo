@@ -1,21 +1,19 @@
 package com.human.cds.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,10 +28,12 @@ import com.human.cds.vo.MemberVO;
 public class MemberController {
     
     private MemberService memberServiceImpl;
+    private JavaMailSenderImpl mailSender;
     
     @Autowired//생성자를 이용해서 필드에 의존 자동 주입함
-    public MemberController(MemberService memberServiceImpl) {
+    public MemberController(MemberService memberServiceImpl, JavaMailSenderImpl mailSender) {
         this.memberServiceImpl = memberServiceImpl;
+        this.mailSender = mailSender;
     }
 
     // 로그인 페이지
@@ -81,6 +81,7 @@ public class MemberController {
         boolean result = memberServiceImpl.registerMember(vo);
 
         if (result) {
+        	model.addAttribute("joinMember", vo);
             viewName = "member/signupEnd"; // 성공 시 회원가입 완료 페이지로 이동
         } else {
             model.addAttribute("message", "회원가입에 실패했습니다.");
@@ -91,16 +92,14 @@ public class MemberController {
     }
 
     
-    // 로그아웃 처리
-    @GetMapping("/logout.do")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (session != null) {
-            session.invalidate(); // 세션 무효화
-        }
-        return "redirect:/login.do"; // 로그아웃 후 로그인 페이지로 리다이렉트
-    }
-
+	/*
+	 * // 로그아웃 처리
+	 * 
+	 * @GetMapping("/logout.do") public String logout(HttpServletRequest request) {
+	 * HttpSession session = request.getSession(); if (session != null) {
+	 * session.invalidate(); // 세션 무효화 } return "redirect:/login.do"; // 로그아웃 후 로그인
+	 * 페이지로 리다이렉트 }
+	 */
     
     @RestController
     @CrossOrigin("*")
@@ -122,8 +121,8 @@ public class MemberController {
     //이메일 인증
     @PostMapping("/checkEmail.do")
     @ResponseBody
-    public String checkEmail(@RequestBody Map<String, String> request) {
-        String email = request.get("email");
+    public String checkEmail(String email) {
+    	    	   	
         try {
             String code = memberServiceImpl.sendVerificationCode(email);  // 인증번호 전송
             return code;  // 인증번호 반환
@@ -223,20 +222,94 @@ public class MemberController {
     @PostMapping("/checkDuplicate")
     @ResponseBody
     //public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestBody Map<String, String> request) {
-    public ResponseEntity<Map<String, Boolean>> checkDuplicate(String member_id) {
-    	
+    public String checkDuplicate(String member_id) {
+    	String result = "f";
     	
         //String memberId = request.get("member_id"); // 클라이언트에서 "member_id" 키로 데이터 수신
         
         System.out.println("member_id: "+member_id);
         
         boolean isDuplicate = memberServiceImpl.checkId(member_id);  // 서비스에서 중복 확인 로직 수행
+        if(!isDuplicate) {
+        	result = "ok";
+        }
 
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("isDuplicate", isDuplicate);
-
-        return ResponseEntity.ok(response); // 중복 여부를 클라이언트로 반환
+        return result; // 중복 여부를 클라이언트로 반환
     }
+    
+    //인증 코드 전송 로직
+    @PostMapping("/checkEmail")
+    @ResponseBody
+    public String sendVerificationCode(@RequestParam String email, Model model) {
+        try {
+            // 메일 인증 코드 생성 및 전송
+            String authCode = authEmail(email); // 메일 전송 메소드 호출
+            // 코드 저장 로직 추가 (예: Redis, 데이터베이스 등)
+            
+            return authCode; // 성공 시 응답
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR"; // 오류 발생 시
+        }
+    }
+
+    
+    private String authEmail(String email) {
+        // 6자리 랜덤 인증 코드 생성
+        int authNumber = (int)(Math.random() * 888889) + 111111; // 111111 <= r < 1000000
+
+        // 이메일 제목 및 내용 설정
+        String setFrom = "your_email@example.com"; // 송신자 이메일
+        String title = "회원가입 인증 이메일입니다"; // 이메일 제목
+        String content = "홈페이지를 방문해 주셔서 감사합니다.<br><br>"
+                       + "인증번호: " + authNumber + "<br>"
+                       + "해당 인증번호를 인증번호 확인란에 입력해 주세요."; // 이메일 내용
+
+        // 메일 전송
+        mailSend(setFrom, email, title, content);
+
+        // 생성된 인증 코드를 반환
+        return Integer.toString(authNumber);
+    }
+
+
+    private void mailSend(String setFrom, String email, String title, String content) {
+        try {
+            // MimeMessage 객체 생성
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+            // 이메일 설정
+            helper.setFrom(setFrom); // 송신자 이메일
+            helper.setTo(email); // 수신자 이메일
+            helper.setSubject(title); // 이메일 제목
+            helper.setText(content, true); // 이메일 내용 (HTML 형식)
+
+            // 이메일 전송
+            mailSender.send(message);
+        } catch (Exception e) {
+            e.printStackTrace(); // 예외 발생 시 스택 트레이스 출력
+        }
+    }
+    
+
+
+ // 인증 코드 확인 로직
+    @PostMapping("/verifyCode")
+    @ResponseBody
+    public String verifyCode(@RequestParam String enteredCode, @RequestParam String authcode) {
+
+        // 입력된 코드와 비교
+        if (enteredCode != null && enteredCode.equals(authcode)) {
+            // 인증 성공
+            return "ok";
+        } else {
+            // 인증 실패
+            return "fail";
+        }
+    }
+
+
 
     /*
     // 아이디 존재 여부 확인 처리

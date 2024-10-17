@@ -37,10 +37,11 @@ $("#check-btn").on("click", function() {
 	        data: { member_id: member_id },
 	        success: function(resData) {
 			    console.log(resData); // 응답값 확인
+			    console.log(typeof resData);
 			    //const msg = $("#resultMsg");
 			    //msg.show();
 			   
-			    if (resData.isDuplicate === false) {  // 중복이 아니라면
+			    if (resData.trim() == "ok") {  // 중복이 아니라면
 			        //msg.html("사용 가능한 아이디입니다.").css("color", "green");
 			        alert('사용 가능한 아이디입니다.');
 			
@@ -51,12 +52,12 @@ $("#check-btn").on("click", function() {
 			            //sendEmail();  // 이메일 인증 함수 호출
 			        //});
 			
-				    } else {  // 중복인 경우
-				        //msg.html("이미 사용중인 아이디입니다.").css("color", "red");
-				        alert('이미 사용 중인 아이디입니다.');
-				        $("#member_id").val("").trigger("focus");
-				    }
-				},
+			    } else {  // 중복인 경우
+			        //msg.html("이미 사용중인 아이디입니다.").css("color", "red");
+			        alert('이미 사용 중인 아이디입니다.');
+			        $("#member_id").val("").trigger("focus");
+			    }
+			},
 	
 	            error: function(error) {
 	                console.log("아이디 중복 검사 중 에러 발생:", error);
@@ -66,11 +67,13 @@ $("#check-btn").on("click", function() {
 	
 });
 
+//이메일 인증
 $("#sendAuthCodeBtn").on("click", function() {
     console.log("인증번호 전송 버튼이 클릭되었습니다.");  // 버튼 클릭 여부 확인
     const emailPrefix = $("#email_prefix").val();
     const emailDomain = $("#email_domain").val();
     let email = emailPrefix + emailDomain;
+    console.log(email);
 
     if (emailDomain === "direct") {
         const customDomain = $("#custom_email_domain").val();
@@ -78,7 +81,6 @@ $("#sendAuthCodeBtn").on("click", function() {
             alert("도메인을 입력하세요.");
             return;
         }
-        email = emailPrefix + "@" + customDomain;
     }
 
     if (!emailPrefix || !emailDomain) {
@@ -90,13 +92,14 @@ $("#sendAuthCodeBtn").on("click", function() {
     $.ajax({
         type: "POST",
         url: "checkEmail.do",
-        data: JSON.stringify({ email: email }),
-        contentType: "application/json",
+        data: { email: email },
         success: function(data) {
             console.log("서버 응답 데이터:", data);  // 서버 응답 로그
             if (data !== "ERROR") {
                 alert("인증번호가 전송되었습니다.");
                 $("#auth_num_input").attr("disabled", false);
+                $("#confirm_email_btn").attr("disabled", false);
+                $("#confirm_email_btn").val(data);
             } else {
                 alert("인증번호 전송 중 오류가 발생했습니다.");
             }
@@ -107,6 +110,41 @@ $("#sendAuthCodeBtn").on("click", function() {
         }
     });
 });
+
+// 인증 확인 버튼 클릭 이벤트 핸들러 추가
+$("#confirm_email_btn").on("click", function() {
+    const enteredCode = $("#auth_num_input").val(); // 사용자가 입력한 인증 코드
+    const authcode = $("#confirm_email_btn").val();
+ 
+    if (!enteredCode) {
+        alert("인증 코드를 입력해주세요.");
+        return;
+    }
+
+    // AJAX로 인증 코드 확인 요청
+    $.ajax({
+        type: "POST",
+        url: "verifyCode.do",  // 서버에 인증 코드 확인 요청
+        data: {
+            enteredCode: enteredCode,
+            authcode: authcode
+        },
+        success: function(response) {
+            console.log("서버 응답 데이터:", response);  // 서버 응답 로그
+            if (response === "ok") {
+                alert("인증이 완료되었습니다.");
+                $("#result_confirm").val("true"); // 인증 성공 시 결과 저장
+                $("#resultEmail").html("인증이 완료되었습니다."); // 결과 표시
+            } else {
+                alert("인증 코드가 일치하지 않습니다.");
+            }
+        },
+        error: function(e) {
+            console.log("AJAX 요청 에러:", e);
+            alert("서버 통신 중 문제가 발생했습니다.");
+        }
+    });
+ });   
 
 
     // 입력 커서가 비밀번호 입력란에 놓이면 메시지 숨기기

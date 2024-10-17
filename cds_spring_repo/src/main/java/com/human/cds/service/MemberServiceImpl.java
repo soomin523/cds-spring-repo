@@ -18,9 +18,13 @@ public class MemberServiceImpl implements MemberService {
 	
 	//static Logger logger = Logger.getLogger("MemberServiceImpl");
 
-	@Autowired
     private MemberDAO memberDAO;
 
+    @Autowired
+    public MemberServiceImpl(MemberDAO memberDAO) {
+    	this.memberDAO = memberDAO;
+    }
+    
     // 회원가입 처리
     @Override
     public boolean registerMember(MemberVO member) {
@@ -31,6 +35,16 @@ public class MemberServiceImpl implements MemberService {
 	public boolean isEmailAvailable(String email) {
 		return false;
 	}
+	
+	
+	//아이디 중복
+	@Override
+	public boolean checkId(String member_id) {
+        return memberDAO.checkId(member_id);
+	}
+
+
+
 	
 	//메일인증 관련 메일전송 객체 의존자동주입 받기
 		@Autowired
@@ -71,15 +85,10 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 
-		@Override
-		public boolean checkId(String member_id) {
-			return memberDAO.checkId(member_id); 
-		}
-		
+
 
 		//로그인
-		@Override
-		/*
+		/*@Override
 		 * public MemberVO login(String memberId, String password) { try (Connection
 		 * conn = ConnectionProvider.getConnection()) { MemberVO member =
 		 * memberDAO.selectById(memberId);
@@ -131,14 +140,7 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 
-		
-	
-		//아이디 중복
-		@Override
-		public boolean getMemberById1(String memberId) {
-			return memberDAO.checkId(memberId);
-			
-		}
+
 
 		@Override
 		public boolean isPhoneDuplicate(String phone) {
@@ -151,6 +153,25 @@ public class MemberServiceImpl implements MemberService {
 			// TODO Auto-generated method stub
 			return false;
 		}
+
+		@Override
+		public boolean getMemberById(String memberId) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public String sendVerificationCode(String email) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public boolean verifyCode(String email, String code) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 
 
 

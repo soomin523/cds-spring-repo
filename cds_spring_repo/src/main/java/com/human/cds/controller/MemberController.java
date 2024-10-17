@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.human.cds.service.MemberService;
 import com.human.cds.vo.MemberVO;
-
-import lombok.AllArgsConstructor;
 
 @Controller
 @RequestMapping("/member")
@@ -75,7 +74,7 @@ public class MemberController {
         // 이메일 중복 확인
         if (memberServiceImpl.isEmailDuplicate(vo.getEmail())) {
             model.addAttribute("message", "이미 사용 중인 이메일입니다.");
-            return "member/signup"; // 중복 시 회원가입 페이지로 되돌아감
+            return "member/checkEmail.do"; // 중복 시 회원가입 페이지로 되돌아감
         }
 
         // 회원가입 처리
@@ -95,7 +94,7 @@ public class MemberController {
     // 로그아웃 처리
     @GetMapping("/logout.do")
     public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession();
         if (session != null) {
             session.invalidate(); // 세션 무효화
         }
@@ -120,26 +119,59 @@ public class MemberController {
     }
     
     
+    //이메일 인증
+    @PostMapping("/checkEmail.do")
+    @ResponseBody
+    public String checkEmail(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        try {
+            String code = memberServiceImpl.sendVerificationCode(email);  // 인증번호 전송
+            return code;  // 인증번호 반환
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "ERROR";  // 이메일 전송 실패 시 오류 반환
+        }
+    }
+
+    //이메일 인증번호 확인
+    @PostMapping("/verifyEmailCode")
+    @ResponseBody
+    public boolean verifyEmailCode(@RequestParam("email") String email, @RequestParam("code") String code) {
+        return memberServiceImpl.verifyCode(email, code);  // 인증번호 확인
+    }
+    
+    
+    //회원가입 기능
+    @PostMapping("/signup")
+    public String signupSubmit(@ModelAttribute MemberVO member, Model model) {
+        try {
+        	memberServiceImpl.registerMember(member);  // 회원가입 처리
+            return "redirect:/member/login";  // 성공 시 로그인 페이지로 리다이렉트
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/signup";  // 실패 시 회원가입 페이지로 돌아감
+        }
+    }
     
 
     // 로그인 처리
-    @PostMapping("/login.do")
+    @PostMapping("/loginPass.do")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> loginMember(
+    public String loginMember(
         @RequestParam("member_id") String memberId,
-        @RequestParam("password") String password) {
+        @RequestParam("password") String password,
+        HttpServletRequest request) {
         
-        Map<String, Object> response = new HashMap<>();
+        String result = "f";
         MemberVO member = memberServiceImpl.login(memberId, password);
         
         if (member != null) {
-            response.put("success", true);
-        } else {
-            response.put("success", false);
-            response.put("message", "아이디나 비밀번호가 일치하지 않습니다.");
+        	HttpSession session = request.getSession();
+        	session.setAttribute("member", member);
+            result = "ok";
         }
 
-        return ResponseEntity.ok(response);
+        return result; 
     }
 
     /*
@@ -187,17 +219,23 @@ public class MemberController {
         return ResponseEntity.ok(response);
     }
     */
- // 아이디 중복 확인 처리
+    // 아이디 중복 확인 처리
     @PostMapping("/checkDuplicate")
     @ResponseBody
-    public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestBody Map<String, String> request) {
-        String username = request.get("username");
-        boolean isDuplicate = memberServiceImpl.checkId(username);  // 서비스에서 중복 확인 로직 수행
+    //public ResponseEntity<Map<String, Boolean>> checkDuplicate(@RequestBody Map<String, String> request) {
+    public ResponseEntity<Map<String, Boolean>> checkDuplicate(String member_id) {
+    	
+    	
+        //String memberId = request.get("member_id"); // 클라이언트에서 "member_id" 키로 데이터 수신
+        
+        System.out.println("member_id: "+member_id);
+        
+        boolean isDuplicate = memberServiceImpl.checkId(member_id);  // 서비스에서 중복 확인 로직 수행
 
         Map<String, Boolean> response = new HashMap<>();
         response.put("isDuplicate", isDuplicate);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response); // 중복 여부를 클라이언트로 반환
     }
 
     /*

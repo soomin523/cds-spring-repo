@@ -2,12 +2,6 @@ package com.human.cds.vo;
 
 import java.sql.Date;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-
-@Data
-@NoArgsConstructor
 public class MemberVO {
 	
 	private int id; // 회원 ID
@@ -20,19 +14,18 @@ public class MemberVO {
     private String gender; // 성별
     private boolean marketing_consent; // 마케팅 수신 동의 여부
     private String profile_image; // 프로필 이미지
-    private boolean withdrawal_request; // 탈퇴 요청 여부
+    private String withdrawal_request; // 탈퇴 요청 여부
     private String membership_level; // 회원 등급
     private Date created_at; // 가입일
-
+    
 	public int getId() {
 		return id;
 	}
-	public void setId(String id, String member_id) {
-	    this.member_id = member_id; // ID 값을 설정
+	public void setId(int id) {
+		this.id = id;
 	}
-
 	public String getMember_id() {
-		return member_id; //로그인 처리
+		return member_id;
 	}
 	public void setMember_id(String member_id) {
 		this.member_id = member_id;
@@ -85,10 +78,10 @@ public class MemberVO {
 	public void setProfile_image(String profile_image) {
 		this.profile_image = profile_image;
 	}
-	public boolean isWithdrawal_request() {
+	public String getWithdrawal_request() {
 		return withdrawal_request;
 	}
-	public void setWithdrawal_request(boolean withdrawal_request) {
+	public void setWithdrawal_request(String withdrawal_request) {
 		this.withdrawal_request = withdrawal_request;
 	}
 	public String getMembership_level() {
@@ -103,7 +96,6 @@ public class MemberVO {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
-
 		
 }
 	

@@ -47,7 +47,7 @@
 	<property name="host" value="smtp.gmail.com"/>
 	<property name="port" value="587"/>
 	<property name="username" value="songseonho1235@gmail.com"/>
-	<property name="password" value="obir uspa vvct txpn"/>
+	<property name="password" value="obiruspavvcttxpn"/>
 	
 	<!--  2단계 인증 앱 비밀번호  -->
 	<property name="javaMailProperties">

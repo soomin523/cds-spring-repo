@@ -19,5 +19,4 @@
 		<typeAlias alias="AccommodationVO" type="com.human.cds.vo.AccommodationVO"/>
 	</typeAliases>
 	
-  
 </configuration>

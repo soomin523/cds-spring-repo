@@ -1,8 +1,5 @@
 package com.human.cds.vo;
 
-import lombok.Data;
-
-@Data
 public class CheckEmailDTO {
 
     private String email;

@@ -68,7 +68,7 @@
     <!-- 로그인 -->
     <select id="login" parameterType="map" resultType="memberVO">
 		select * from member
-			where member_id = #{memberId] and password = #{password}
+			where member_id = #{memberId} and password = #{password}
     </select>
     
 </mapper>

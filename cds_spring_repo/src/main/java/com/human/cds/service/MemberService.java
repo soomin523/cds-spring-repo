@@ -12,17 +12,21 @@ public interface MemberService {
 
 	//MemberVO getMemberById1(String memberId); 원본1
 	
-	MemberVO login(String memberId, String password);
+	MemberVO login(String memberId, String password); //로그인
 
-	String authEmail(String email);
+	String authEmail(String email); 
 
-	boolean checkId(String member_id);
+	boolean checkId(String member_id); //아이디 중복
 
 	boolean isPhoneDuplicate(String phone);
 
 	boolean isEmailDuplicate(String email);
 	
-	boolean getMemberById1(String memberId); //수정1
+	boolean getMemberById(String memberId); //수정1
+
+	String sendVerificationCode(String email);
+
+	boolean verifyCode(String email, String code);
 	
 	
 /*	

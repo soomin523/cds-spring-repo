@@ -31,9 +31,12 @@ public class ProductsController {
 	private String srcUrlAreaCode = "https://apis.data.go.kr/B551011/KorService1/areaCode1";
     private String numOfRows = "50"; 
     		
-    @Autowired
     private ProductsService productsServiceImpl;
 
+    @Autowired
+    public ProductsController(ProductsService productsServiceImpl) {
+    	this.productsServiceImpl = productsServiceImpl;
+    }
     
     @GetMapping("/products.do")
     public String products(Model model) {

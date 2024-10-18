@@ -53,4 +53,9 @@ public class SupportServiceImpl implements SupportService {
 		dao.deleteSupport(s_idx);
 	}
 
+	@Override
+	public List<SupportVO> getSuppportList() {
+		return dao.getSupportList();
+	}
+
 }

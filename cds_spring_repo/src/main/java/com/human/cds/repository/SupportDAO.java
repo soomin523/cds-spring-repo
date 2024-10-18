@@ -48,5 +48,9 @@ public class SupportDAO {
 		sqlSession.update(MAPPER+".deleteSupport", s_idx);
 	}
 
+	public List<SupportVO> getSupportList() {
+		return sqlSession.selectList(MAPPER+".getSupportList");
+	}
+
 
 }

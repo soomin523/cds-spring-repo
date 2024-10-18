@@ -14,8 +14,12 @@ import com.human.cds.vo.ProductsVO.Products;
 @Repository
 public class ProductsDAO {
 
-    @Autowired
     private SqlSession sqlSession;
+    
+    @Autowired
+    public ProductsDAO(SqlSession sqlSession) {
+    	this.sqlSession = sqlSession;
+    }
 
     private static final String MAPPER = "com.human.cds.mapper.ProductsMapper";
 

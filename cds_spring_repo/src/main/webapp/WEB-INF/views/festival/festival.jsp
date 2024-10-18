@@ -5,13 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>축제행사</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/festival.css">
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" 
 integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
 crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/festival.css">
 <script src="../resources/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/festival.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
 </head>
 <body>
 	<%@ include file="../main/header2.jsp"%>
@@ -88,7 +88,48 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             <div class="recommend"></div>
         </div>
         <div id="modalOverlay"></div>
-        <div id="festivalModal"></div>
+        <div id="festivalModal">
+        	<div class='festivalName'>
+		        <h1></h1>
+		        <div class="mxbox"><p class="x-mark"></p></div>
+		    </div>
+		    <div class='modalDate'>
+		        <p></p>
+		        <p>~</p>
+		        <p></p>
+		    </div>
+		    <div class="modalStatus">
+        		<div class="modalIng"></div>
+        	</div>
+            <div class="modalMid"></div>
+            <div class="modalContentBox">
+                <p class="modalContent"></p>
+                <button class="plusBtn"><i class="fa-solid fa-plus"></i> 더보기</button>
+                <div class="modalContentPlus">
+                    <div class="plusLeft">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                    <div class="plusRight">
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="modalMap">
+                <h3>길찾기</h3>
+                <div class="mapbox" id="map"></div>
+                <div class="mapContent">
+                    <p></p>
+                    <p></p>
+                    <p></p>
+                </div>
+            </div>
+        </div>
     </div>
     <%@ include file="../main/footer.jsp"%>
     <!-- <script>

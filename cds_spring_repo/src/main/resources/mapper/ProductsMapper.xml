@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.cds.mapper.ProductsMapper">
+
+	
+	<insert id="insertProducts" parameterType="com.human.cds.vo.ProductsVO$Products">
+	    INSERT IGNORE INTO products (
+	        addr1, addr2, areacode, booktour, cat1, cat2, cat3, contentid, contenttypeid, 
+	        createdtime, firstimage, firstimage2, cpyrhtDivCd, mapx, mapy, mlevel, 
+	        modifiedtime, sigungucode, tel, title, zipcode
+	    ) VALUES (
+	        #{addr1}, #{addr2}, #{areacode}, #{booktour}, #{cat1}, #{cat2}, #{cat3}, 
+	        #{contentid}, #{contenttypeid}, #{createdtime}, #{firstimage}, #{firstimage2}, 
+	        #{cpyrhtDivCd}, #{mapx}, #{mapy}, #{mlevel}, #{modifiedtime}, #{sigungucode}, 
+	        #{tel}, #{title}, #{zipcode}
+	    );
+	</insert>
+	    
+	    
+	<select id="getProductsList" resultType="com.human.cds.vo.ProductsVO$Products">
+		    select *
+		    from products
+	</select>
+	    
+    
+	<update id="updateAreaName" parameterType="map">
+		update products
+			set areaname = #{areaName}, sigunguname = #{sigunguName}
+			where contentid = #{contentid}
+	</update>  
+	
+	<select id="getProductsPage" parameterType="map" resultType="com.human.cds.vo.ProductsVO$Products">
+    SELECT *
+    FROM products
+    LIMIT #{offset}, #{limit}
+</select>
+	  
+    
+
+	
+</mapper>

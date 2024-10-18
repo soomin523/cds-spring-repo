@@ -100,6 +100,8 @@
 				<div class="acmimg"><img id="modalImage" src="" alt="숙소 이미지"></div>
 				<h2 id="modalTitle">숙소 이름</h2>
 				<p id="modalAddress">숙소 주소</p>
+				<div id="modaltel"><h4>숙소전화번호</h4></div>
+				<div id="modaloverview"><h3>숙소 소개</h3></div>
 				<div id="modalRoomInfo">방 정보 표시</div>
 			</div>
 			

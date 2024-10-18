@@ -18,9 +18,9 @@
 </head>
 
 <body>
-	<%@ include file="../main/header2.jsp" %>
+	<%@ include file="../main/header2.jsp"%>
 	<section>
-	
+
 		<div class="fullcourse">
 			<!-- 제목이 변경될 영역 -->
 			<h1 id="course-title">#전체</h1>
@@ -74,7 +74,7 @@
 			</div>
 		</div>
 	</section>
-		<jsp:include page="../main/footer.jsp" />
+	<jsp:include page="../main/footer.jsp" />
 
 
 	<!-- 모달 -->
@@ -92,7 +92,7 @@
 			<button class="category-link" data-target=".overview">설명</button>
 			<button class="category-link" data-target=".commentbox">댓글란</button>
 		</div>
-		
+
 		<!-- 코스 이름 및 이미지 박스 -->
 		<div class="coursenamebox">
 			<hr>
@@ -125,21 +125,33 @@
 		<hr>
 
 		<!-- 댓글란 -->
+		<!-- 댓글란 -->
 		<div class="commentbox">
 			<div class="comment-title">댓글란</div>
-		</div>
-		<hr>
+			<div class="comment-count">
+				총 댓글 수: <span id="comment-count">0개</span>
+			</div>
 
-		<!-- 댓글 입력 -->
-		<div class="comment-input">
-			<textarea id="new-comment" placeholder="댓글을 작성하세요"></textarea>
-			<button id="add-comment">댓글 작성</button>
+			<!-- 기존 댓글들 (서버에서 로딩될 영역) -->
+			<div class="comment-thread" id="comment-thread">
+				<!-- 댓글이 여기에 로딩됩니다. -->
+			</div>
+			<hr>
+
+			<!-- 댓글 입력 폼 -->
+			<form id="comment-form">
+				<div class="comment-input">
+					<textarea id="new-comment" name="content" placeholder="댓글을 작성하세요"
+						rows="3" required></textarea>
+					<input type="hidden" id="contentId" name="contentId" value="123">
+					<!-- contentId 값을 숨겨서 전송 -->
+					<button type="submit" id="add-comment">댓글 작성</button>
+				</div>
+			</form>
+
 		</div>
+
 	</div>
-
-
-
-
 </body>
 
 </html>

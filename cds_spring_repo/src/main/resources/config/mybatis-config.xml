@@ -18,6 +18,7 @@
 		<typeAlias alias="AccommodationRoomVO" type="com.human.cds.vo.AccommodationRoomVO"/>
 		<typeAlias alias="AccommodationVO" type="com.human.cds.vo.AccommodationVO"/>
 		<typeAlias alias="ProductsVO" type="com.human.cds.vo.ProductsVO"/>
+		<typeAlias alias="CommentVO" type="com.human.cds.vo.CommentVO"/>
 	</typeAliases>
 	
 </configuration>

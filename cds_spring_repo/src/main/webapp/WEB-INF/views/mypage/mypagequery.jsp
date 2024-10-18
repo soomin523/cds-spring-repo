@@ -23,7 +23,7 @@
                 <div class="myquery-kakao">
                     <img src="${pageContext.request.contextPath}/resources/img/카카오톡문의.png">
                     <p>아래 버튼을 누르시면 카카오톡 채널로 이동합니다.</p>
-                    <a href="http://pf.kakao.com/_Lcpln"><button>떠나자 문의하기</button></a>
+                    <a href="http://pf.kakao.com/_LcpIn"><button>떠나자 문의하기</button></a>
                 </div>
 
             </div>

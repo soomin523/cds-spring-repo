@@ -23,9 +23,16 @@
     		<div class="support">고객센터</div>
     		<div class="manager">관리자</div>
     	</div>
+  <c:if test="${ not empty member }">
+  		<button class="mypage-btn"> 
+            <img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
+        </button>
+  </c:if>
+  <c:if test="${ empty member }">
         <button class="log-login-btn"> 
             <img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
         </button>
+  </c:if>
     </header>
     
     <script>
@@ -60,6 +67,9 @@
                 location.href = "../manager/manager.do";
             });
             $(".log-login-btn").click(function(){
+                location.href = "../member/login.do";
+            });
+            $(".mypage-btn").click(function(){
                 location.href = "../member/login.do";
             });
             

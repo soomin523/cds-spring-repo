@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="mystatus-button">
-            <button onclick="validateWithdrawal()">탈퇴</button>
+            <button onclick="location.href='cancelProcess'">탈퇴</button>
         </div>
     </div>
 </body>

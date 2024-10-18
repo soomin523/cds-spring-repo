@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class MemberVO {
 	
-	private int id; // 회원 ID
+	private int m_id; // 회원 ID
     private String member_id; // 아이디
     private String password; // 비밀번호
     private Date birth_date; // 생년월일
@@ -15,16 +15,16 @@ public class MemberVO {
     private String email_domain;
     private String gender; // 성별
     private boolean marketing_consent; // 마케팅 수신 동의 여부
-    private String profile_image; // 프로필 이미지
     private String withdrawal_request; // 탈퇴 요청 여부
     private String membership_level; // 회원 등급
     private Date created_at; // 가입일
+	
     
-	public int getId() {
-		return id;
+    public int getM_id() {
+		return m_id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setM_id(int m_id) {
+		this.m_id = m_id;
 	}
 	public String getMember_id() {
 		return member_id;
@@ -86,12 +86,6 @@ public class MemberVO {
 	public void setMarketing_consent(boolean marketing_consent) {
 		this.marketing_consent = marketing_consent;
 	}
-	public String getProfile_image() {
-		return profile_image;
-	}
-	public void setProfile_image(String profile_image) {
-		this.profile_image = profile_image;
-	}
 	public String getWithdrawal_request() {
 		return withdrawal_request;
 	}
@@ -110,6 +104,8 @@ public class MemberVO {
 	public void setCreated_at(Date created_at) {
 		this.created_at = created_at;
 	}
+    
+	
 		
 }
 	

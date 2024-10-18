@@ -6,8 +6,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>마이페이지</title>
+    <title>즐겨찾기</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/mypagelike.css">
+   	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mypagelike.js"></script>
 </head>
 
@@ -17,9 +18,9 @@
             <h2>즐겨찾기</h2>
         </div>
         <div class="mylike-category-button">
-            <button class="category-btn" id="redirectButton" data-category="코스">코스</button>
-            <button class="category-btn" data-category="축제">축제</button>
-            <button class="category-btn" data-category="상품">상품</button>
+            <button class="category-btn" id="redirectButton_course" data-category="코스">코스</button>
+            <button class="category-btn" id="redirectButton_festival" data-category="축제">축제</button>
+            <button class="category-btn" id="redirectButton_product" data-category="상품">상품</button>
         </div>
         <div class="mylike-totalnum">
             <p>총</p>
@@ -93,36 +94,36 @@
         </div>
         <div class="mylike-random-destination custom-slider">
             <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <img src="${desList[0].d_firstimage}">
+                <p>(${desList[0].d_areaname})${desList[0].d_title}</p>
             </div>
             <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <img src="${desList[534].d_firstimage}">
+                <p>(${desList[534].d_areaname})${desList[534].d_title}</p>
             </div>
             <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <img src="${desList[221].d_firstimage}">
+                <p>(${desList[534].d_areaname})${desList[534].d_title}</p>
             </div>
             <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <img src="${desList[19].d_firstimage}">
+                <p>(${desList[19].d_areaname})${desList[19].d_title}</p>
             </div>
-            <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+             <div class="custom-slider-item">
+                <img src="${desList[30].d_firstimage}">
+                <p>(${desList[30].d_areaname})${desList[30].d_title}</p>
             </div>
-            <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+             <div class="custom-slider-item">
+                <img src="${desList[5743].d_firstimage}">
+                <p>(${desList[5743].d_areaname})${desList[5743].d_title}</p>
             </div>
-            <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+             <div class="custom-slider-item">
+                <img src="${desList[2091].d_firstimage}">
+                <p>(${desList[2091].d_areaname})${desList[2091].d_title}</p>
             </div>
-            <div class="custom-slider-item">
-                <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+             <div class="custom-slider-item">
+                <img src="${desList[4718].d_firstimage}">
+                <p>(${desList[4718].d_areaname})${desList[4718].d_title}</p>
             </div>
         </div>
     </div>

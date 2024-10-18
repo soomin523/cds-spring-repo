@@ -3,11 +3,14 @@ package com.human.cds.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,12 +19,15 @@ import com.human.cds.api.ApiExplorerCourseinfo;
 import com.human.cds.api.ApiExplorerDetail;
 import com.human.cds.api.ApiExplorerDetail2;
 import com.human.cds.repository.CourseInfoDAO;
+import com.human.cds.service.CommentService;
 import com.human.cds.service.CourseInfoService;
+import com.human.cds.vo.CommentVO;
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO2;
 import com.human.cds.vo.CourseInfoDTO3;
 import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.FestivalDBVO;
+import com.human.cds.vo.MemberVO;
 
 @Controller
 @RequestMapping("/tourCourse") // 공통 URL 정의
@@ -29,11 +35,12 @@ public class CourseInfoController {
 
 	private CourseInfoService courseInfoServiceImpl;
 	private CourseInfoDAO courseInfoDAO;
-	
+	private CommentService courseServiceImpl;
 	@Autowired
-	public CourseInfoController(CourseInfoService courseInfoServiceImpl, CourseInfoDAO courseInfoDAO) {
+	public CourseInfoController(CourseInfoService courseInfoServiceImpl, CourseInfoDAO courseInfoDAO,CommentService courseServiceImpl) {
 		this.courseInfoServiceImpl = courseInfoServiceImpl;
 		this.courseInfoDAO = courseInfoDAO;
+		this.courseServiceImpl = courseServiceImpl;
 	}
 
 	@GetMapping("/Course.do")
@@ -176,5 +183,43 @@ public class CourseInfoController {
 	    public FestivalDBVO getRandomFestival() {
 	        return courseInfoServiceImpl.getRandomFestival();
 	    }
+	 
+	 @PostMapping("/addComment.do")
+	 @ResponseBody
+	 public String addComment(@RequestBody CommentVO commentVO, HttpSession session) {
+	     MemberVO member = (MemberVO) session.getAttribute("member"); // 세션에서 member 객체를 가져오기
+
+	     // commentVO가 null인지 확인하는 로그
+	     System.out.println("commentVO: " + commentVO);
+
+	     if (member == null) {
+	         return "belogin";
+	     }
+
+	     String memberId = member.getMember_id(); // member 객체에서 memberId 가져오기
+	     String gender = member.getGender();
+	     System.out.println("memberId: " + memberId);  // memberId 값도 확인
+	     commentVO.setMemberId(memberId); // 댓글 작성자 ID 설정
+	     commentVO.setGender(gender);
+	     boolean isAdded = courseServiceImpl.addComment(commentVO);
+	     return isAdded ? "success" : "fail";
+	 }
+	 
+	 
+	 @PostMapping("/checkLoginStatus.do")
+	 @ResponseBody
+	 public String checkLoginStatus(HttpSession session) {
+	     MemberVO member = (MemberVO) session.getAttribute("member"); // 세션에서 member 객체 가져오기
+	     return (member != null) ? "loggin" : "belogin";
+	 }
 	
+	 @PostMapping("/getComments.do")
+	 @ResponseBody
+	 public List<CommentVO> getComments(@RequestParam("contentId") String contentId) {
+	     // 코스 ID에 해당하는 댓글 목록 가져오기
+	     List<CommentVO> comments = courseServiceImpl.getCommentsByContentId(contentId);
+	     return comments; // 댓글 리스트를 JSON 형식으로 반환
+	 }
+
+	 
 }

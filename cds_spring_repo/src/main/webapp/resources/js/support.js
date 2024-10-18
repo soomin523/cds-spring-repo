@@ -9,7 +9,7 @@ $(function () {
     
 	//로그인하기로 넘어가는 버튼 클릭
 	$(".login").click(function(){
-		location.href="member/login.do";
+		location.href="../member/login.do";
 	});
 	
 	//1:1 오픈채팅 버튼 클릭

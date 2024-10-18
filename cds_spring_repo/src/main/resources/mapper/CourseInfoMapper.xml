@@ -5,6 +5,8 @@
 <mapper namespace="com.human.cds.mapper.CourseInfoMapper">
 	<!-- namespace: XML 파일에서 내용의 구분을 위해서 사용 -->
 
+	
+
 	<insert id="insertCourseInfo">
 		INSERT INTO travel_course (content_id, title, addr1,
 		addr2, area_code,
@@ -85,5 +87,28 @@
 		ORDER BY RAND()
 		LIMIT 1;
 	</select>
+	
+	<insert id="insertComment">
+        INSERT INTO course_comment (member_id, content, content_id, created_at, updated_at ,gender)
+        VALUES (#{memberId}, #{content}, #{contentId}, NOW(), NOW(),#{gender});
+    </insert>
+
+	<resultMap id="CommentResultMap" type="CommentVO">
+    <result property="c_idx" column="c_idx"/>
+    <result property="memberId" column="member_id"/>
+    <result property="content" column="content"/>
+    <result property="contentId" column="content_id"/>
+    <result property="createdAt" column="created_at"/>
+    <result property="updatedAt" column="updated_at"/>
+    <result property="isDeleted" column="is_deleted"/>
+    <result property="clike" column="clike"/>
+    <result property="unlike" column="unlike"/>
+</resultMap>
+
+<select id="getCommentsByContentId" resultMap="CommentResultMap">
+    SELECT *
+    FROM course_comment
+    WHERE content_id = #{contentId}
+</select>
 
 </mapper>	

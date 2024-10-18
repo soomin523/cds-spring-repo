@@ -401,36 +401,6 @@ $(function(){
     //모달에 html 태그 집어넣기
     function showFestivalModal(item){
     	let htmlContent = "";
-   
-   		htmlContent += `
-		    <div class='festivalName'>
-		        <h1>${item.f_title}</h1>
-		        <div class="mxbox"><p class="x-mark"></p></div>
-		    </div>
-		    <div class='modalDate'>
-		        <p>${item.f_eventstartdate}</p>
-		        <p>~</p>
-		        <p>${item.f_eventenddate}</p>
-		    </div>
-		    <div class="modalStatus">
-		`;
-		
-		//오늘 날짜 가져오기    
-		const today = new Date();
-		const TDate = today.toISOString().slice(0, 10).replace(/-/g, '');
-	
-		if(item.f_eventenddate < TDate){
-			htmlContent += `<div class="modalIng">진행종료</div>`;
-		}else if(item.f_eventstartdate > TDate){
-			htmlContent += `<div class="modalIng">진행예정</div>`;
-		}else{
-			htmlContent += `<div class="modalIng">진행중</div>`;
-		}
-
-		htmlContent += `	                
-            </div>
-            <div class="modalMid">
-        `;
                     
         //이미지 파일 가져오기
         const originimgurl = item.originimgurl;
@@ -466,78 +436,11 @@ $(function(){
                 </button>
         	`;
         }
-                        
-         htmlContent += `
-            </div>
-            <div class="modalContentBox">
-                <p class="modalContent">${item.overview}</p>
-                <button class="plusBtn"><i class="fa-solid fa-plus"></i> 더보기</button>
-                <div class="modalContentPlus">
-                    <div class="plusLeft">
-                        <p>예매처 : ${item.bookingplace}</p>
-                        <p>이용요금 : ${item.usetimefestival}</p>
-                        <p>할인정보 : ${item.discountinfofestival}</p>
-                    </div>
-                    <div class="plusRight">
-                        <p>행사홈페이지 : ${item.eventhomepage}</p>
-                        <p>행사장위치안내 : ${item.f_addr1} ${item.f_addr2}</p>
-                        <p>행사장소 : ${item.eventplace}</p>
-                        <p>행사프로그램 : ${item.program}</p>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div class="modalMap">
-                <h3>길찾기</h3>
-                <div id="map"></div>
-                <div class="mapContent">
-                    <p>${item.f_addr1} ${item.f_addr2}</p>
-                    <p>${item.sponsor1} / ${item.sponsor2}</p>
-                    <p>${item.sponsor1tel}</p>
-                </div>
-            </div>`;	
             
-        $("#festivalModal").html(htmlContent);
+        $("#festivalModal > .modalMid").html(htmlContent);
         
         modalImgSlide();
-        
-        initMap(item.f_mapx, item.f_mapy);
-        
-        $(".modalContentPlus").hide();
-        
-        //더보기 버튼으로 콘텐츠 열기
-        $(".plusBtn").click(function(){
-        	$(".modalContentPlus").toggle();
-        });
-        
-        //모달 닫기
-        $(".mxbox").click(function(){
-        	$("#festivalModal").hide();
-            $("#modalOverlay").hide();
-        });
     	
-    };
-    
-    //지도 함수
-    function initMap(mapx, mapy){
-    	console.log(mapx, mapy);
-		var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
-		var mapOption = {
-			center: new kakao.maps.LatLng(mapx, mapy), // 지도의 중심좌표
-			level: 6 // 지도의 확대 레벨
-		};
-
-		// 지도 생성
-		var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
-
-		// 마커 생성
-		var markerPosition = new kakao.maps.LatLng(mapx, mapy);
-		var marker = new kakao.maps.Marker({
-			position: markerPosition
-		});
-
-		// 마커 지도에 추가
-		marker.setMap(map);
     };
     
     
@@ -546,7 +449,6 @@ $(function(){
     	fontSize: "25px",
         fontWeight: "bold"
     });
-    
     
     
     //받아온 리스트 없을 때 기본적으로 숨기기
@@ -558,6 +460,26 @@ $(function(){
     //modal 기본적으로 숨기기
     $("#festivalModal").hide();
     $("#modalOverlay").hide();
+    $(".modalContentPlus").hide();
+    
+    //더보기 버튼으로 모달 안의 콘텐츠 열기
+    $(".modalContentBox > .plusBtn").click(function(){
+    	$(".modalContentPlus").toggle();
+    });
+    
+    //모달 닫기
+    $(".mxbox").click(function(){
+    	$("#festivalModal").hide();
+        $("#modalOverlay").hide();
+    });
+    
+    // ESC 키를 눌렀을 때 모달 닫기
+	$(document).on('keydown', function (event) {
+	    if (event.key === "Escape") {
+	        $("#festivalModal").hide();
+        	$("#modalOverlay").hide();
+	    }
+	});
     
     //모달 보이기
     function showModal(contentid){
@@ -576,7 +498,93 @@ $(function(){
             data:{ contentid: contentid },
             headers: {"Accept": "application/json"},
             success:function(item){
-                showFestivalModal(item);
+            	if(item){
+	                //모달 이미지 채우기
+	                showFestivalModal(item);
+	                
+	                //모달에 데이터 채우기
+	                $(".festivalName > h1").text(item.f_title);
+	                $(".modalDate > p:nth-child(1)").text(item.f_eventstartdate);
+	                $(".modalDate > p:nth-child(3)").text(item.f_eventenddate);
+	                
+                	const today = new Date();
+					const TDate = today.toISOString().slice(0, 10).replace(/-/g, '');
+					let statusText;
+					
+					if (item.f_eventenddate < TDate) {
+					    statusText = '진행종료';
+					} else if (item.f_eventstartdate > TDate) {
+					    statusText = '진행예정';
+					} else {
+					    statusText = '진행중';
+					}
+					
+					$(".modalStatus > .modalIng").text(statusText);
+	                $(".modalContentBox > .modalContent").text(item.overview);
+	                
+	                if (item.bookingplace) {
+					    $('.plusLeft > p:nth-child(1)').text(`예매처 : ${item.bookingplace}`);
+					} else {
+					    $('.plusLeft > p:nth-child(1)').remove(); 
+					}
+					if (item.usetimefestival) {
+					    $('.plusLeft > p:nth-child(2)').text(`이용요금 : ${item.usetimefestival}`);
+					} else {
+					    $('.plusLeft > p:nth-child(2)').remove(); 
+					}
+					if (item.discountinfofestival) {
+					    $('.plusLeft > p:nth-child(3)').text(`할인정보 : ${item.discountinfofestival}`);
+					} else {
+					    $('.plusLeft > p:nth-child(3)').remove(); 
+					}
+					if (item.eventhomepage) {
+					    $('.plusRight > p:nth-child(1)').text(`행사홈페이지 : ${item.eventhomepage}`);
+					} else {
+					    $('.plusRight > p:nth-child(1)').remove(); 
+					}
+					if (item.f_addr1 || item.f_addr2) {
+					    $('.plusRight > p:nth-child(2)').text(`행사장위치안내 : ${item.f_addr1} ${item.f_addr2}`);
+					} else {
+					    $('.plusRight > p:nth-child(2)').remove(); 
+					}
+					if (item.eventplace) {
+					    $('.plusRight > p:nth-child(3)').text(`행사장소 : ${item.eventplace}`);
+					} else {
+					    $('.plusRight > p:nth-child(3)').remove(); 
+					}
+					if (item.program) {
+					    $('.plusRight > p:nth-child(4)').text(`행사프로그램 : ${item.program}`);
+					} else {
+					    $('.plusRight > p:nth-child(4)').remove(); 
+					}
+					
+					
+					//지도 초기화
+					var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
+					var mapOption = {
+						center: new kakao.maps.LatLng(item.f_mapy, item.f_mapx), // 지도의 중심좌표
+						level: 6 // 지도의 확대 레벨
+					};
+			
+					// 지도 생성
+					var map = new kakao.maps.Map(mapContainer, mapOption); // 지도 생성 및 객체 리턴
+			
+					// 마커 생성
+					var markerPosition = new kakao.maps.LatLng(item.f_mapy, item.f_mapx);
+					var marker = new kakao.maps.Marker({
+						position: markerPosition
+					});
+			
+					// 마커 지도에 추가
+					marker.setMap(map);
+					
+	                $(".mapContent > p:nth-child(1)").text(item.f_addr2 ? item.f_addr1+' '+item.f_addr2 : item.f_addr1);
+	                $(".mapContent > p:nth-child(2)").text(item.sponsor2 ? item.sponsor1+' / '+item.sponsor2 : item.sponsor1);
+	                $(".mapContent > p:nth-child(3)").text(item.sponsor1tel);
+            	
+            	}else {
+            		alert("해당 축제를 불러오는 데 실패했습니다.");
+            	}
             },
             error:function(){
                 console.log("축제 상세보기를 불러오는 데 실패했습니다.");

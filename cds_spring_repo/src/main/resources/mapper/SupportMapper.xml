@@ -23,6 +23,12 @@
 			order by s_idx desc
 	</select>
 	
+	<select id="getSupportList" resultType="SupportVO">
+		select * from support
+			where s_status = 'N'
+			order by s_idx desc
+	</select>
+	
 	<insert id="insertSupport" parameterType="SupportVO">
 		insert into support (s_writer, s_category, s_title, s_content)
 			values (#{s_writer}, #{s_category}, #{s_title}, #{s_content})

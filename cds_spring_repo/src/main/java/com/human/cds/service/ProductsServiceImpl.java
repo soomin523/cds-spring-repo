@@ -14,9 +14,12 @@ import com.human.cds.vo.ProductsVO.Products;
 @Service
 public class ProductsServiceImpl implements ProductsService {
 
-    @Autowired
     private ProductsDAO dao;
 
+    @Autowired
+    public ProductsServiceImpl(ProductsDAO dao) {
+    	this.dao = dao;
+    }
 
 	@Override
 	public int insertProducts(ProductsVO data) {

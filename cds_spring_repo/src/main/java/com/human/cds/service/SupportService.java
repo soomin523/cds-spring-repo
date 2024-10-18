@@ -7,9 +7,9 @@ import com.human.cds.vo.SupportVO;
 public interface SupportService {
 
 	List<SupportVO> getNoticeList();
-
+	
 	List<SupportVO> getGuideList();
-
+	
 	List<SupportVO> getQuestionList();
 
 	int insertSupport(SupportVO vo);
@@ -19,6 +19,8 @@ public interface SupportService {
 	int updateSupport(SupportVO vo);
 
 	void deleteSupport(String s_idx);
+
+	List<SupportVO> getSuppportList();
 
 
 }

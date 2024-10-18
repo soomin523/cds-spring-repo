@@ -45,13 +45,13 @@ header>.pageLink>div {
 header>.pageLink>div:hover {
     color: #87bee5;
 }
-header>.log-login-btn {
+header>button {
     background: none;
     border: none;
     cursor: pointer;
     padding: 10px;
 }
-header>.log-login-btn>img {
+header>button>img {
     height: 40px; /* 프로필 이미지 높이 설정 */
     width: 40px;
 }   

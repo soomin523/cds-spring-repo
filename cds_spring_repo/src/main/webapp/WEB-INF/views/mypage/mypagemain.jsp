@@ -20,11 +20,11 @@
                 </div>
                 <div class="main-info">
                     <div class="myinfo-top">
-                        <p>회원이름</p>
+                        <p>${member.name}</p>
                         <button onclick="goAmendPage()"><img src="${pageContext.request.contextPath}/resources/img/정보수정.png" alt=""></button>
                     </div>
                     <div class="myinfo-sub">
-                        <p>userID@gmail.com</p>
+                        <p>${member.email}</p>
                     </div>
                 </div>
                 <!-- 마이페이지 카테고리 -->
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="main-logout">
-                    <button>로그아웃</button>
+                    <button onclick="location.href='logout.do'">로그아웃</button>
 
                 </div>
 

@@ -6,9 +6,11 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>회원탈퇴창</title>
+            <title>작성내역</title>
             <link rel="stylesheet" type="text/css"
                 href="${pageContext.request.contextPath}/resources/css/mypagewrite.css">
+       		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mypagewrite.js"></script>
         </head>
 
         <body>
@@ -17,8 +19,8 @@
                     <h2>작성내역</h2>
                 </div>
                 <div class="mywrite-category">
-                    <button>게시글</button>
-                    <button>댓글</button>
+                    <button id="redirectButton_post">게시글</button>
+                    <button id="redirectButton_comment">댓글</button>
                 </div>
                 <!-- 초기값 게시글 작성내역(카테고리별로 나뉨) -->
                 <div class="mywrite-content-none">

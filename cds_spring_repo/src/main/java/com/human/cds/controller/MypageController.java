@@ -1,14 +1,34 @@
 package com.human.cds.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.human.cds.service.MemberService;
+import com.human.cds.service.MypageService;
+import com.human.cds.vo.DestinationDBVO;
+import com.human.cds.vo.MemberVO;
 
 @Controller
 @RequestMapping("/mypage")//공통 url(폴더명)
 public class MypageController {
 
+	private MypageService mypageServiceImpl;
+	
+	@Autowired
+	public MypageController(MypageService mypageServiceImpl) {
+		this.mypageServiceImpl = mypageServiceImpl;
+	}
+	
+	
 	// /mypage/mypage.jsp 요청을 처리하는 메소드
 	@GetMapping("/mypagemain.do")
 	public String showMypage(Model model) {
@@ -24,7 +44,7 @@ public class MypageController {
 		public String showMypageAmend(Model model) {
 			  // 필요한 데이터를 모델에 추가할 수 있음 (예: 사용자 정보)
 	        // model.addAttribute("attributeName", attributeValue);
-			
+			//mypage.jsp 를 반환
 			//mypage.jsp 를 반환
 			return "mypage/mypageamend"; //view이름으로 jsp파일 경로 반환
 		}
@@ -34,7 +54,6 @@ public class MypageController {
 			  // 필요한 데이터를 모델에 추가할 수 있음 (예: 사용자 정보)
 	        // model.addAttribute("attributeName", attributeValue);
 			
-			//mypage.jsp 를 반환
 			return "mypage/mypagequery"; //view이름으로 jsp파일 경로 반환
 		
 		}
@@ -60,13 +79,75 @@ public class MypageController {
 		
 		}
 		
+		
 		@GetMapping("/mypagelike.do")
 		public String showMypagelike(Model model) {
 			  // 필요한 데이터를 모델에 추가할 수 있음 (예: 사용자 정보)
-	        // model.addAttribute("attributeName", attributeValue);
+	        // model.addAttribute("attributeName(키값(el문에서 씀))", attributeValue);
+			
+			
+			//관광지 정보들 조회
+			List<DestinationDBVO> desVo = mypageServiceImpl.getDestinationList();
+			model.addAttribute("desList", desVo);
 			
 			//mypage.jsp 를 반환
 			return "mypage/mypagelike"; //view이름으로 jsp파일 경로 반환
 		
 		}
+		
+
+		//회원정보 변경 처리 요청
+		@PostMapping("/amendUpdateProcess")
+		public String updateProcess(MemberVO vo, HttpServletRequest request, Model model) {
+			
+			String viewName = "mypage/mypageamend"; //회원정보변경 실패시 뷰이름
+			
+			int result = mypageServiceImpl.updateMyInfo(vo);
+			if(result == 1) {
+				HttpSession session = request.getSession();
+				session.removeAttribute("member");
+				session.setAttribute("member", vo);
+				viewName = "home";//마이페이지 재요청				
+			}else {//회원정보변경 실패
+				model.addAttribute("msg", "회원정보 변경시 오류가 발생했습니다. 변경내용을 확인해 주세요");
+			}
+			
+			return viewName;
+		}
+		
+		//회원탈퇴 요청
+		@GetMapping("/cancelProcess")
+		public String cancelProcess(HttpServletRequest request, Model model) {
+			HttpSession session = request.getSession();
+			MemberVO vo = (MemberVO)session.getAttribute("member");
+			int m_id = vo.getM_id();
+			
+			System.out.println("controller");
+			
+			int result = mypageServiceImpl.cancel(m_id);
+			
+			String viewName = "mypage/mypagestatus";//회원탈퇴 실패시 뷰이름
+	
+			if(result == 1) {//회원탈퇴 성공
+				session.invalidate();//세션 초기화
+				viewName = "redirect:/index.do";
+				
+			}else {//회원탈퇴 실패
+				String msg = "시스템에 오류가 발생했습니다. 빠른 시일 내에 시스템을 정상화하도록 하겠습니다.";
+				model.addAttribute("msg", msg);
+			}
+			
+			return viewName;
+		}
+		
+		@GetMapping("/logout.do")
+		public String logout(HttpServletRequest request) {
+			HttpSession session = request.getSession();
+			session.invalidate();//세션 초기화
+			
+			
+			return "redirect:/index.do";
+		}
+		
+		
 }

@@ -45,7 +45,7 @@
                 location.href = "tourCourse/Course.do";
             });
             $(".gift").click(function(){
-                location.href = "index.do";
+                location.href = "products/getProductsList.do";
             });
             $(".accommodation").click(function(){
                 location.href = "accommodations/accommo.do";

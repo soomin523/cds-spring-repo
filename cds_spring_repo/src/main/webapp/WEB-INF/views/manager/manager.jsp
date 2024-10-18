@@ -60,6 +60,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					</div>
                     <div class="gift">
 						<h3>관광상품</h3>
+						<a href="../products/insertProducts.do">관광상품 리스트 등록</a><br>
+ 	                    <a href="../products/getAreaName.do">관광상품 지역명 업데이트</a><br>						
 					</div>
                     <div class="accommodation">
 						<h3>숙박</h3>

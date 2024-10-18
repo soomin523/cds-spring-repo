@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>비밀번호 찾기</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member/passwordFind.css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <!-- 비밀번호 찾기 화면 -->
@@ -15,8 +16,8 @@
         <h2>등록된 이메일로 비밀번호 찾기</h2>
         <p>회원정보에 등록된 이메일 주소와 입력한 이메일 주소가 같아야 비밀번호 찾기가 가능합니다.</p>
         <div class="log-input-group"> 
-            <label for="username">아이디</label>
-            <input type="text" id="username" placeholder="아이디를 입력해주세요." required>
+            <label for="member_id">아이디</label>
+            <input type="text" id="member_id" placeholder="아이디를 입력해주세요." required>
         </div>
         <div class="log-input-group"> 
             <label for="name">이름</label>
@@ -46,11 +47,37 @@
     </div>
 
     <script>
+    //비밀번호 찾기
         function showPwResult() {
-            // 비밀번호 찾기 화면 숨기고 결과 화면 표시
-            document.getElementById('pwFindScreen').style.display = 'none';
-            document.getElementById('pwFindResultScreen').style.display = 'block';
-        }
+            const member_id = document.getElementById('member_id').value;
+        	const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            $.ajax({
+                type: 'post',
+                url: 'passwordFind', // 실제 서버 로그인 엔드포인트
+                data: {
+                    member_id: member_id,
+                	name: name,
+                    email: email
+                },
+                success: function(data) {
+                    if (data) {
+                    	console.log(data)
+                    	// 비밀번호 찾기 화면 숨기고 결과 화면 표시
+			            document.getElementById('pwFindScreen').style.display = 'none';
+			            document.getElementById('pwFindResultScreen').style.display = 'block';
+                        $(".log-user-id").text(data);
+                    } else {
+                    	alert("일치하는 계정이 없습니다."); // 오류 메시지 표시
+                    }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                    alert('서버 오류 발생. 다시 시도해주세요.');
+                }
+            });
+    	}
     </script>
 </body>
 </html>

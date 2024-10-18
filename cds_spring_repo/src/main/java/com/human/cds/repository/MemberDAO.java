@@ -67,6 +67,30 @@ public class MemberDAO {
 		return vo;
 	}
 
+	public MemberVO findMemberId(Map<String, String> map) {
+		MemberVO vo = null;
+		try {
+			vo = sqlSession.selectOne(MAPPER+".idFind", map);
+		} catch (Exception e) {
+			System.out.println("아이디 찾기 중 예외 발생");
+			e.printStackTrace();
+		}
+
+		return vo;
+	}
+
+	public MemberVO findMemberPassword(Map<String, String> map) {
+		MemberVO vo = null;
+		try {
+			vo = sqlSession.selectOne(MAPPER+".passwordFind", map);
+		} catch (Exception e) {
+			System.out.println("비밀번호 찾기 중 예외 발생");
+			e.printStackTrace();
+		}
+
+		return vo;
+	}
+
 
 
 }

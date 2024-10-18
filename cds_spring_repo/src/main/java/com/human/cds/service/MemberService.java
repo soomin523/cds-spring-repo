@@ -6,27 +6,30 @@ import com.human.cds.vo.MemberVO;  // MemberVO가 정의된 패키지를 import
 public interface MemberService {
 	
 	
-	boolean registerMember(MemberVO member);
+	boolean registerMember(MemberVO member); //회원등록
 
-	boolean isEmailAvailable(String email);
+	boolean isEmailAvailable(String email); //이메일 상요 가능 여부 확인 
 
 	//MemberVO getMemberById1(String memberId); 원본1
 	
 	MemberVO login(String memberId, String password); //로그인
 
-	String authEmail(String email); 
+	String authEmail(String email); //이메일 인증
 
 	boolean checkId(String member_id); //아이디 중복
 
 	boolean isPhoneDuplicate(String phone);
 
-	boolean isEmailDuplicate(String email);
+	boolean isEmailDuplicate(String email); //이메일 중복
+
+	String sendVerificationCode(String email); //이메일로 인증 코드 전송
+
+	boolean verifyCode(String email, String code); //인증 코드 검증
+
+	MemberVO findMemberId(String name, String email); //아이디 찾기
+
+	MemberVO findMemberPassword(String member_id, String name, String email);
 	
-	boolean getMemberById(String memberId); //수정1
-
-	String sendVerificationCode(String email);
-
-	boolean verifyCode(String email, String code);
 	
 	
 /*	
@@ -43,9 +46,7 @@ public interface MemberService {
     List<MemberVO> getAllMembers();
 
 
-	boolean isEmailAvailable(String email);
-
-	void updateMember1(MemberVO member);
+	
 
 	MemberVO getMemberById1(int id);
 

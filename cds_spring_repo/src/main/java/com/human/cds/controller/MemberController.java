@@ -1,11 +1,15 @@
 package com.human.cds.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -173,6 +177,48 @@ public class MemberController {
         return result; 
     }
 
+    
+    // 아이디 찾기 처리
+    @PostMapping("/idFind")
+    @ResponseBody
+    public String findId(
+        @RequestParam("name") String name,
+        @RequestParam("email") String email) {
+        
+        MemberVO member = null;
+        String member_id = null;
+        
+        member = memberServiceImpl.findMemberId(name,email);
+        
+        if(member != null) {
+        	member_id = member.getMember_id();
+        }
+        
+        return member_id;
+    }
+    
+    // 비밀번호 찾기 처리
+    @PostMapping("/passwordFind")
+    @ResponseBody
+    public String findPassword(
+        @RequestParam("member_id") String member_id,
+        @RequestParam("name") String name,
+        @RequestParam("email") String email) {
+        
+        MemberVO member = null;
+        String passwordFind = null;
+        
+        member = memberServiceImpl.findMemberPassword(member_id,name,email);
+        
+        if(member != null) {
+        	passwordFind = member.getPassword();
+        }
+        
+        return passwordFind;
+    }
+
+    
+    
     /*
     // 비밀번호 찾기 처리
     @PostMapping("/passwordFind")
@@ -196,28 +242,9 @@ public class MemberController {
         
         return ResponseEntity.ok(response);
     }
+*/
 
-    // 아이디 찾기 처리
-    @PostMapping("/idFind")
-    @ResponseBody
-    public ResponseEntity<Map<String, Object>> findId(
-        @RequestParam("name") String name,
-        @RequestParam("email") String email) {
-        
-        Map<String, Object> response = new HashMap<>();
-        MemberVO member = memberService.getMemberByEmail(email);
-        
-        if (member != null && member.getName().equals(name)) {
-            response.put("success", true);
-            response.put("id", member.getMember_id()); // Return found member ID
-        } else {
-            response.put("success", false);
-            response.put("message", "No matching member found.");
-        }
-        
-        return ResponseEntity.ok(response);
-    }
-    */
+    /*
     // 아이디 중복 확인 처리
     @PostMapping("/checkDuplicate")
     @ResponseBody

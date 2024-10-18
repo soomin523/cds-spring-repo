@@ -96,50 +96,7 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 
-		//
-
-
-		//로그인
-		/*@Override
-		 * public MemberVO login(String memberId, String password) { try (Connection
-		 * conn = ConnectionProvider.getConnection()) { MemberVO member =
-		 * memberDAO.selectById(memberId);
-		 * 
-		 * // 회원 정보가 없는 경우 예외 처리 if (member == null) { throw new
-		 * LoginFailException("Member not found"); }
-		 * 
-		 * // 비밀번호가 일치하지 않는 경우 예외 처리 if (!member.getPassword().equals(password)) { throw
-		 * new LoginFailException("Invalid password"); }
-		 * 
-		 * // 로그인 성공 시, 회원 객체 반환 return member; } catch (SQLException e) { throw new
-		 * RuntimeException(e); } }
-		 */
 		
-		
-		/* public MemberVO login(String memberId, String password) {
-		    try {
-		    	MemberVO member = new MemberVO();
-
-		        // 회원 정보가 없는 경우 예외 처리
-		        if (member == null) {
-		            System.out.println("Member not found");
-		            
-		        }
-
-		        // 비밀번호가 일치하지 않는 경우 예외 처리
-		        if (!member.getPassword().equals(password)) {
-		            System.out.println("Member not found");
-		        }
-
-		        // 로그인 성공 시, 회원 객체 반환
-				return member;
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-		    return null;
-		}
-		
-	*/
 		
 		// 로그인 처리
 		public MemberVO login(String memberId, String password) {
@@ -150,6 +107,31 @@ public class MemberServiceImpl implements MemberService {
 			
 			return memberDAO.login(map);
 		}
+		
+		//아이디 찾기
+		@Override
+		public MemberVO findMemberId(String name, String email) {
+		    
+			Map<String, String> map = new HashMap<>();
+			map.put("name", name);
+			map.put("email", email);
+			
+			return memberDAO.findMemberId(map);
+			
+		}
+		
+//비밀번호 찾기
+		@Override
+		public MemberVO findMemberPassword(String member_id, String name, String email) {
+			
+			Map<String, String> map = new HashMap<>();
+			map.put("member_id", member_id);
+			map.put("name", name);
+			map.put("email", email);
+			
+			return memberDAO.findMemberPassword(map);
+		}
+
 
 
 
@@ -167,16 +149,11 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		@Override
-		public boolean getMemberById(String memberId) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
 		public boolean verifyCode(String email, String code) {
 			// TODO Auto-generated method stub
 			return false;
 		}
+
 
 
 
@@ -245,4 +222,51 @@ public class MemberServiceImpl implements MemberService {
 		return false;
 	}
 */
+		//
+
+
+		//로그인
+		/*@Override
+		 * public MemberVO login(String memberId, String password) { try (Connection
+		 * conn = ConnectionProvider.getConnection()) { MemberVO member =
+		 * memberDAO.selectById(memberId);
+		 * 
+		 * // 회원 정보가 없는 경우 예외 처리 if (member == null) { throw new
+		 * LoginFailException("Member not found"); }
+		 * 
+		 * // 비밀번호가 일치하지 않는 경우 예외 처리 if (!member.getPassword().equals(password)) { throw
+		 * new LoginFailException("Invalid password"); }
+		 * 
+		 * // 로그인 성공 시, 회원 객체 반환 return member; } catch (SQLException e) { throw new
+		 * RuntimeException(e); } }
+		 */
+		
+		
+		/* public MemberVO login(String memberId, String password) {
+		    try {
+		    	MemberVO member = new MemberVO();
+
+		        // 회원 정보가 없는 경우 예외 처리
+		        if (member == null) {
+		            System.out.println("Member not found");
+		            
+		        }
+
+		        // 비밀번호가 일치하지 않는 경우 예외 처리
+		        if (!member.getPassword().equals(password)) {
+		            System.out.println("Member not found");
+		        }
+
+		        // 로그인 성공 시, 회원 객체 반환
+				return member;
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+		    return null;
+		}
+		
+	*/	
+		
+		
+		
 }

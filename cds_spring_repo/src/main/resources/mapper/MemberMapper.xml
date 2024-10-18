@@ -71,4 +71,16 @@
 			where member_id = #{memberId} and password = #{password}
     </select>
     
+    <!-- 아이디 찾기 -->
+    <select id="idFind" parameterType="map" resultType="memberVO">
+		select * from member
+			where name = #{name} and email = #{email}
+    </select>
+    
+    <!-- 비밀번호 찾기 -->
+    <select id="passwordFind" parameterType="map" resultType="memberVO">
+		select * from member
+			where member_id = #{member_id} and name = #{name} and email = #{email}
+    </select>
+    
 </mapper>

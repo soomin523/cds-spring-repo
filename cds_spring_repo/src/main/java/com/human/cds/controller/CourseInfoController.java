@@ -215,9 +215,15 @@ public class CourseInfoController {
 	
 	 @PostMapping("/getComments.do")
 	 @ResponseBody
-	 public List<CommentVO> getComments(@RequestParam("contentId") String contentId) {
-	     // 코스 ID에 해당하는 댓글 목록 가져오기
-	     List<CommentVO> comments = courseServiceImpl.getCommentsByContentId(contentId);
+	 public List<CommentVO> getComments(@RequestParam("contentId") String contentId, @RequestParam("page") int page) {
+	     int pageSize = 10;
+	     int offset = (page -1) * pageSize;
+		 
+		 
+		 // 코스 ID에 해당하는 댓글 목록 가져오기
+	     List<CommentVO> comments = courseServiceImpl.getCommentsByContentId(contentId,offset,pageSize);
+	     
+	     
 	     return comments; // 댓글 리스트를 JSON 형식으로 반환
 	 }
 

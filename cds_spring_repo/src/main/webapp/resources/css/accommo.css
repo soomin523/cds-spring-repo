@@ -1,35 +1,21 @@
+/* 기본 설정 */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	/* 패딩과 보더가 요소의 전체 너비와 높이에 포함되도록 설정 */
 }
 
 .hr {
 	margin-top: 20px;
 	margin-bottom: 20px;
 	width: 95%;
-	/* 너비 설정 */
 	border: none;
-	/* 기본 경계 제거 */
 	border-top: 2px solid #ccc;
-	/* 상단 경계 두께 및 색상 설정 */
-	align-items: center;
-	/* 정렬 속성은 hr 태그에 필요하지 않음 */
 	display: block;
-	/* 블록 요소로 설정 */
 	margin-left: auto;
-	/* 자동 좌우 마진 */
 	margin-right: auto;
-	/* 자동 좌우 마진 */
 }
 
-/* 전체박스 */
-.accofullbox {
-	display: flex;
-}
-
-/* 기존 배경 이미지 스타일 유지 */
 /* 숙소 헤더 */
 .accoheader {
 	background-image: url("../img/acoimg.png");
@@ -60,97 +46,79 @@
 }
 
 .accofoot ul li::before {
-	content: "• "; /* 앞에 추가할 기호 */
+	content: "• ";
 }
 
 /* 검색 박스 스타일 */
-/* 숙소 헤더내에 검색 박스 */
 .accoheaderbox {
-	background-color: rgba(255, 255, 255, 0.8);
-	padding: 63px 9px;
-	/* 패딩을 줄여서 입력 필드의 크기 조정 */
+	background-color: rgba(255, 255, 255, 0.7);
+	padding: 40px;
 	border-radius: 10px;
-	box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-	display: flex;
-	flex-direction: row;
-	/* 입력 필드를 가로로 배치 */
-	justify-content: space-between;
-	/* 필드 간 간격을 균일하게 */
-	align-items: center;
-	/* 필드 세로 정렬 */
+	box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.15);
+	width: 700px;
+	margin: 0 auto;
 }
 
-/* 입력 필드 스타일 */
 .input-group {
 	display: flex;
-	justify-content: space-between;
 	width: 100%;
-	/* Make inputs fill the container width */
-}
-
-.input-group input {
-	flex: 1;
-	height: 50px;
-	margin: 0 10px;
-	padding: 10px;
-	border-radius: 5px;
-	border: 1px solid #ccc;
-	font-size: 14px;
+	gap: 20px;
 }
 
 .headerbutton {
-	width: 100%;
 	display: flex;
-	justify-content: end;
+	width: 100%;
+	margin-top: 10px;
+	justify-content: flex-end;
 }
 
-/* 검색 버튼 스타일 */
-.accoheaderbox button {
-	margin-top: 15px;
-	padding: 10px 15px;
-	margin: 10px 10px;
-	background-color: #4CAF50;
+.custom-dropdown {
+	width: 100%;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 16px;
+	background-color: white;
+}
+
+.custom-button {
+	padding: 12px 25px;
+	background-color: #28a745;
 	color: white;
+	font-size: 16px;
 	border: none;
 	border-radius: 5px;
-	font-size: 14px;
 	cursor: pointer;
+	transition: background-color 0.3s ease;
+	height: 48px;
 }
 
-.accoheaderbox button:hover {
-	background-color: #45a049;
+.custom-button:hover {
+	background-color: #218838;
 }
 
-/* 여행지별 숙소 css */
+/* 여행지별 숙소 */
 .accodesbox {
 	width: 100%;
 	display: flex;
-	/* 자식 요소들을 가로로 배치 */
 	white-space: nowrap;
-	/* 자식 요소들이 줄 바꿈되지 않도록 설정 */
 	padding: 10px;
-	/* 박스 내부 여백 추가 (선택 사항) */
 	height: max-content;
 	justify-content: space-between;
 }
 
-.accodesbox>div {
+.accodesbox > div {
 	display: flex;
 	flex: 0 0 11%;
-	/* 각 사각 박스의 너비를 20%로 설정 */
 	height: 150px;
-	/* 사각 박스의 높이 설정 */
 	margin-right: 20px;
-	/* 박스 간 간격 (선택 사항) */
 	background-color: white;
-	/* 각 사각 박스 배경색 (선택 사항) */
 	border-radius: 15%;
-	/* 모서리 둥글게 설정 (선택 사항) */
 	flex-direction: column;
-		cursor:pointer;
+	cursor: pointer;
 }
 
-.accodesbox>div>div {
+.accodesbox > div > div {
 	display: flex;
 	background-size: cover;
 	width: 100%;
@@ -158,7 +126,7 @@
 	border-radius: 15%;
 }
 
-.accodesbox>div>h3 {
+.accodesbox > div > h3 {
 	padding: 10px;
 }
 
@@ -166,120 +134,71 @@
 .accodesbox2 {
 	width: 100%;
 	display: flex;
-	/* 자식 요소들을 가로로 배치 */
-	overflow-x: auto;
-	/* 가로 스크롤 활성화 */
 	white-space: nowrap;
-	/* 자식 요소들이 줄 바꿈되지 않도록 설정 */
 	padding: 10px;
-	/* 박스 내부 여백 추가 (선택 사항) */
 	height: max-content;
+	overflow: hidden; /* 가로 스크롤바 숨김 */
+	scroll-behavior: smooth; /* 부드러운 스크롤 효과 */
 }
 
-.accodesbox2>div {
-	flex: 0 0 30%;
-	/* 각 사각 박스의 너비를 20%로 설정 */
+.accodesbox2 > div {
+	flex: 0 0 20%; /* 간격을 줄이기 위해 30%에서 20%로 조정 */
 	width: 100px;
 	height: 300px;
-	flex-direction: column;
-	/* 세로 정렬 */
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-right: 10px;
+	margin-right: 10px; /* 간격 조정 */
 	background-color: white;
 	border-radius: 15%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	text-align: center;
 }
 
-.accodesbox2>div>div {
+.accodesbox2 > div > div {
 	display: flex;
-	background-color: red;
+	background-size: cover;
 	width: 80%;
 	height: 60%;
 	border-radius: 50%;
-	background-size: cover;
 	background-position: center;
 }
 
-/* 숙소 제목 스타일 */
-.accodesbox2>div>h3 {
-	margin-top: 10px; /* 위쪽 여백 조정 */
-	margin-bottom: 5px; /* 아래쪽 여백 조정 */
-	font-size: 18px; /* 폰트 크기 조정 */
-	font-weight: bold; /* 폰트 두께 조정 */
+.accodesbox2 > div > h3 {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	font-size: 18px;
+	font-weight: bold;
 	color: #333;
 	text-align: center;
-	max-width: 90%; /* 최대 너비 설정 */
-	word-wrap: break-word; /* 단어가 너무 길면 줄바꿈 */
-	word-break: break-word; /* 단어가 길면 줄바꿈 */
-	overflow-wrap: break-word; /* 단어가 길 때 줄바꿈 */
-	white-space: normal; /* 줄바꿈이 가능하도록 설정 */
+	max-width: 90%;
+	word-wrap: break-word;
+	word-break: break-word;
+	overflow-wrap: break-word;
+	white-space: normal;
 }
 
-.accodesbox2>div>h4 {
-	margin-top: 10px; /* 위쪽 여백 조정 */
-	margin-bottom: 5px; /* 아래쪽 여백 조정 */
-	font-size: 16px; /* 폰트 크기 조정 */
-	font-weight: bold; /* 폰트 두께 조정 */
+.accodesbox2 > div > h4 {
+	margin-top: 10px;
+	margin-bottom: 5px;
+	font-size: 16px;
+	font-weight: bold;
 	color: #333;
 	text-align: center;
-	max-width: 90%; /* 최대 너비 설정 */
-	word-wrap: break-word; /* 단어가 너무 길면 줄바꿈 */
-	word-break: break-word; /* 단어가 길면 줄바꿈 */
-	overflow-wrap: break-word; /* 단어가 길 때 줄바꿈 */
-	white-space: normal; /* 줄바꿈이 가능하도록 설정 */
+	max-width: 90%;
+	word-wrap: break-word;
+	word-break: break-word;
+	overflow-wrap: break-word;
+	white-space: normal;
 }
 
 /* 스크롤 컨테이너 스타일 */
 .scroll-container {
 	display: flex;
 	justify-content: center;
-	/* 중앙 정렬 */
 	position: relative;
 	width: 100%;
 	overflow: hidden;
-	/* 스크롤바 감추기 */
-}
-
-.accodesbox2 {
-	position: relative;
-	width: 100%;
-	/* 전체 폭의 90%로 설정 */
-	display: flex;
-	overflow-x: scroll;
-	/* 가로 스크롤 가능 */
-	scrollbar-width: none;
-	/* Firefox 스크롤바 숨기기 */
-	-ms-overflow-style: none;
-	/* IE 10+ 스크롤바 숨기기 */
-	padding: 10px 0;
-	/* 위아래 여백 */
-	scroll-behavior: smooth;
-	/* 부드러운 스크롤 효과 */
-}
-
-.accodesbox2::-webkit-scrollbar {
-	display: none;
-	/* Webkit (Chrome, Safari 등) 스크롤바 숨기기 */
-}
-
-.accodesbox2>div {
-	flex: 0 0 20%;
-	width: 100px;
-	height: 300px;
-	flex-direction: column;
-	margin-right: 10px;
-	background-color: white;
-	border-radius: 15%;
-}
-
-.accodesbox2>div>div {
-	display: flex;
-	background-size: cover;
-	width: 100%;
-	height: 70%;
-	border-radius: 50%;
 }
 
 .scroll-button {
@@ -289,20 +208,21 @@
 	font-size: 18px;
 	padding: 10px;
 	cursor: pointer;
-	position: sticky;
-	/* 부모 안에서 스크롤 시 고정 */
+	position: absolute;
 	top: 40%;
-	/* 부모 요소 높이의 중앙에 위치 */
+	transform: translateY(-50%);
 	z-index: 10;
-	height: max-content;
 }
 
 .scroll-button.left {
-	left: 0;
-	/* 왼쪽 정렬 */
+	left: 10px;
 }
 
 .scroll-button.right {
-	right: 0;
-	/* 오른쪽 정렬 */
+	right: 10px;
+}
+
+/* 스크롤바 숨기기 */
+.accodesbox2::-webkit-scrollbar {
+	display: none;
 }

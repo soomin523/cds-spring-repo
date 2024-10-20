@@ -447,6 +447,26 @@ hr {
         cursor: pointer;
     }
 
+#comment-thread {
+    max-height: 300px; /* 댓글 영역의 최대 높이 설정 (원하는 크기로 조정 가능) */
+    overflow-y: scroll; /* 세로 스크롤 활성화 */
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* 스크롤바 스타일 (선택 사항) */
+#comment-thread::-webkit-scrollbar {
+    width: 8px;
+}
+
+#comment-thread::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 10px;
+}
+
 .info-window {
     padding: 10px;
     background-color: #fff;

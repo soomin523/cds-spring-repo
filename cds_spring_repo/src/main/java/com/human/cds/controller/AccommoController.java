@@ -179,13 +179,19 @@ public class AccommoController {
             @RequestParam("area_code") int areacode,
             @RequestParam("page") int page,           // 페이지 번호
             @RequestParam("pageSize") int pageSize,
-            @RequestParam(value = "cat3", required = false, defaultValue = "all") String cat3) {  // 페이지당 데이터 수
+            @RequestParam(value = "cat3", required = false, defaultValue = "all") String cat3,
+            @RequestParam(value = "search", required = false, defaultValue = "") String search) {  // 페이지당 데이터 수
 		
 		if ("all".equals(cat3)) {
 	        cat3 = null;
 	    }
+		
+		if (!search.isEmpty()) {
+	        System.out.println("Search term: " + search);
+	    }
+		
 		System.out.println("Page: " + page + ", Page Size: " + pageSize);
-        return accommoServiceImpl.getAccommodationsByRegion(areacode, page, pageSize, cat3);
+        return accommoServiceImpl.getAccommodationsByRegion(areacode, page, pageSize, cat3,search);
     }
 	
 	

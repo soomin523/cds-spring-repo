@@ -1,6 +1,8 @@
 package com.human.cds.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +22,12 @@ public class CommentDAO {
         return sqlSession.insert(MAPPER + ".insertComment", commentVO);
     }
 
-	public List<CommentVO> getCommentsByContentId(String contentId) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(MAPPER+".getCommentsByContentId",contentId);
-	}
+    public List<CommentVO> getCommentsByContentId(String contentId, int offset, int pageSize) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("contentId", contentId);
+        params.put("offset", offset);
+        params.put("pageSize", pageSize);
+        return sqlSession.selectList(MAPPER+".getCommentsByContentId", params);
+    }
 
 }

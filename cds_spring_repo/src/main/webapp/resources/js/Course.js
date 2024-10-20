@@ -13,7 +13,11 @@ $(function () {
 
     $('.course-button').click(function () {
         var areaCode = $(this).data('region');
+        
+       //areaCode= "39"
         var regionName = $(this).data('rname');
+        
+        // regionName="제주"
         var coursecode = $(this).data('cat2');
 
         // 지역 버튼 클릭 시
@@ -154,24 +158,70 @@ $(function () {
 
     // 페이지네이션 버튼 설정
     function setupPagination(totalItems) {
-        $('#pagination').empty();  // 기존 페이지네이션 초기화
-        var totalPages = Math.ceil(totalItems / itemsPerPage);
+    $('#pagination').empty();  // 기존 페이지네이션 초기화
+    var totalPages = Math.ceil(totalItems / itemsPerPage);  // 총 페이지 수 계산
+    var maxVisiblePages = 5;  // 한 번에 표시할 최대 페이지 수
+    var startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));  // 시작 페이지 계산
+    var endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);  // 끝 페이지 계산
 
-        for (var i = 1; i <= totalPages; i++) {
-            var pageButton = $('<button class="page-button">' + i + '</button>');
-
-            if (i === currentPage) {
-                pageButton.addClass('active');
-            }
-
-            pageButton.click(function () {
-                currentPage = parseInt($(this).text());
-                displayCourses(courseData);
-            });
-
-            $('#pagination').append(pageButton);
-        }
+    // '처음' 버튼 추가
+    if (currentPage > 1) {
+        var firstButton = $('<button class="page-button"><<</button>');
+        firstButton.click(function () {
+            currentPage = 1;
+            displayCourses(courseData);
+        });
+        $('#pagination').append(firstButton);
     }
+
+    // '이전' 버튼 추가
+    if (currentPage > 1) {
+        var prevButton = $('<button class="page-button">이전</button>');
+        prevButton.click(function () {
+            currentPage = Math.max(1, currentPage - 5);  // 5 페이지씩 이동
+            displayCourses(courseData);
+        });
+        $('#pagination').append(prevButton);
+    }
+
+    // 페이지 버튼 생성
+    for (var i = startPage; i <= endPage; i++) {
+        var pageButton = $('<button class="page-button">' + i + '</button>');
+
+        if (i === currentPage) {
+            pageButton.addClass('active');
+        }
+
+        pageButton.click(function () {
+            currentPage = parseInt($(this).text());
+            displayCourses(courseData);
+        });
+
+        $('#pagination').append(pageButton);
+    }
+
+    // '다음' 버튼 추가
+    if (currentPage < totalPages) {
+        var nextButton = $('<button class="page-button">다음</button>');
+        nextButton.click(function () {
+            currentPage = Math.min(totalPages, currentPage + 5);  // 5 페이지씩 이동
+            displayCourses(courseData);
+        });
+        $('#pagination').append(nextButton);
+    }
+
+    // '마지막' 버튼 추가
+    if (currentPage < totalPages) {
+        var lastButton = $('<button class="page-button">>></button>');
+        lastButton.click(function () {
+            currentPage = totalPages;
+            displayCourses(courseData);
+        });
+        $('#pagination').append(lastButton);
+    }
+}
+
+
 
     // 랜덤 축제 데이터를 가져오는 함수
     function getRandomFestival() {

@@ -39,8 +39,14 @@ public class AccommoServiceImpl implements AccommoService {
     }
 
 	@Override
-	public List<AcommoImgVO> getAccommodationsByRegion(int areacode, int page, int pageSize,String cat3) {
+	public List<AcommoImgVO> getAccommodationsByRegion(int areacode, int page, int pageSize,String cat3,String search) {
 	    int offset = (page - 1) * pageSize; // OFFSET 계산
+	    
+	    if(search !=null && !search.isEmpty()) {
+	    	search = "%" + search.toLowerCase() + "%"; // 검색어를 위한 LIKE 패턴
+	        return accommoDAO.getFilteredAccommodationsByRegion(areacode, offset, pageSize, cat3, search);    	    	
+	    }
+	    
 	    return accommoDAO.getAccommodationsByRegion(areacode, pageSize, offset, cat3);
 	}
 

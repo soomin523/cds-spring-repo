@@ -109,6 +109,8 @@
     SELECT *
     FROM course_comment
     WHERE content_id = #{contentId}
+    ORDER BY created_at DESC
+    LIMIT #{pageSize} OFFSET #{offset}
 </select>
 
 </mapper>	

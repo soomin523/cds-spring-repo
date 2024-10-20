@@ -16,7 +16,7 @@ public interface AccommoService {
 
 	void saveRoomInfo(Item item);
 
-	List<AcommoImgVO> getAccommodationsByRegion(int areacode, int page, int pageSize, String cat3);
+	List<AcommoImgVO> getAccommodationsByRegion(int areacode, int page, int pageSize, String cat3,String search);
 
 	AccommodationVO getAccommodationDetails(String contentId);
 

@@ -19,7 +19,7 @@ $(document).ready(function () {
     // course-item 클릭 시 contentid를 서버로 보내 상세 정보 가져오기
     $(document).on('click', '.course-item', function () {
         var contentId = $(this).data('contentid');
-        loadComments(contentId);
+        loadComments(contentId, 1); // 첫 페이지의 댓글을 로드
         // AJAX 요청을 통해 contentid에 맞는 데이터 가져오기
         $.ajax({
             url: '/cds/tourCourse/getCourseDetails.do',
@@ -107,7 +107,7 @@ $(document).ready(function () {
                 if (response === "success") {
                     alert('댓글 작성 성공');
                     $('#new-comment').val('');  // 댓글 입력창 비우기
-                    loadComments(contentId);    // 댓글 다시 불러오기
+                    loadComments(contentId, 1);    // 첫 페이지 댓글 다시 불러오기
                 } else if (response === "belogin") {
                     alert('로그인 후 이용 가능합니다.');
                 } else {
@@ -139,18 +139,20 @@ $(document).ready(function () {
         }
     });
 
-
     // 댓글을 가져오는 함수
-    function loadComments(contentId) {
+    function loadComments(contentId, page) {
         $.ajax({
             url: '/cds/tourCourse/getComments.do', // 댓글을 불러올 API 엔드포인트
             type: 'POST',
-            data: { contentId: contentId }, // contentId를 서버로 전송
+            data: { 
+                contentId: contentId,
+                page: page // 페이지 번호 추가
+            }, // contentId와 페이지 번호를 서버로 전송
             dataType: 'json',
             success: function (comments) {
-                // 댓글 리스트를 성공적으로 가져왔을 때
                 console.log(comments);
-                displayComments(comments); // 댓글을 화면에 표시하는 함수 호출
+                displayComments(comments, page); // 페이지 정보를 전달
+                $('#comment-count').text(comments.length+"개");
             },
             error: function () {
                 alert('댓글을 가져오는 중 오류가 발생했습니다.');
@@ -159,24 +161,20 @@ $(document).ready(function () {
     }
 
     // 댓글을 화면에 표시하는 함수
-    function displayComments(comments) {
-        // 기존 댓글을 모두 지우고 새 댓글을 추가
-        
-        $('#comment-thread').empty();
+    function displayComments(comments, page) {
+        if (page === 1) {
+            $('#comment-thread').empty(); // 첫 페이지일 때 댓글 초기화
+        }
 
-        if (comments.length === 0) {
+        if (comments.length === 0 && page === 1) {
             $('#comment-thread').append('<p>댓글이 없습니다. 첫 댓글을 작성해보세요!</p>');
         } else {
             comments.forEach(function (comment) {
- 
-                // 각 댓글을 HTML 형태로 구성
                 var commentHtml = `
                 <div class="comment">
                     <div class="comment-author">
-                         
-           <img src="${comment.gender == 'F' ? '../resources/img/womanfile.png' : '../resources/img/manprofile.png'}" 
-            alt="프사" 
-            class="author-photo"/>
+                        <img src="${comment.gender == 'F' ? '../resources/img/womanfile.png' : '../resources/img/manprofile.png'}" 
+                            alt="프사" class="author-photo"/>
                         <span class="author-name">${comment.memberId}</span>
                         <span class="comment-date">${new Date(comment.createdAt).toLocaleString()}</span>
                     </div>
@@ -187,12 +185,21 @@ $(document).ready(function () {
                     </div>
                 </div>
             `;
-
-                // 댓글 HTML을 댓글 리스트에 추가
                 $('#comment-thread').append(commentHtml);
             });
+
+            // 페이지 번호 증가
+            $('#comment-thread').data('page', page + 1);
         }
     }
 
-
+    // 무한 스크롤 기능 추가
+    $('#comment-thread').on('scroll', function () {
+        var $commentThread = $(this);
+        if ($commentThread.scrollTop() + $commentThread.innerHeight() >= $commentThread[0].scrollHeight) {
+            var page = $commentThread.data('page') || 1;
+            var contentId = $('#add-comment').data('contentid');
+            loadComments(contentId, page); // 다음 페이지 댓글 로드
+        }
+    });
 });

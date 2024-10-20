@@ -20,8 +20,8 @@ public class CommentServiceImpl implements CommentService {
     }
 
 	@Override
-	public List<CommentVO> getCommentsByContentId(String contentId) {
+	public List<CommentVO> getCommentsByContentId(String contentId,int offset,int pageSize) {
 		// TODO Auto-generated method stub
-		return commentDAO.getCommentsByContentId(contentId);
+		return commentDAO.getCommentsByContentId(contentId, offset,pageSize);
 	}
 }

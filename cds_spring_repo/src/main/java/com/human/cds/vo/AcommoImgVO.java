@@ -11,6 +11,20 @@ public class AcommoImgVO {
     private String modified_time; // 수정된 시간
     private String cpyrht_div_cd; // 저작권 코드
     private String book_tour; // 예약 가능 여부
+	private String cat1; // 대분류 카테고리
+    private String sigungu_code; // 시군구 코드
+    private String tel; // 전화번호
+    private String title; // 숙소 이름
+    private String addr1; // 주소1
+    private String cat2; // 중분류 카테고리
+    private String cat3; // 소분류 카테고리
+    private String content_id; // 콘텐츠 ID
+    private String content_type_id; // 콘텐츠 유형 ID
+    private String created_time; // 생성된 시간
+    private String zipcode; // 우편번호
+    private String overview; // 개요
+    private int cnt; // 조회수
+    
     public String getFirst_image() {
 		return first_image;
 	}
@@ -149,19 +163,6 @@ public class AcommoImgVO {
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
 	}
-	private String cat1; // 대분류 카테고리
-    private String sigungu_code; // 시군구 코드
-    private String tel; // 전화번호
-    private String title; // 숙소 이름
-    private String addr1; // 주소1
-    private String cat2; // 중분류 카테고리
-    private String cat3; // 소분류 카테고리
-    private String content_id; // 콘텐츠 ID
-    private String content_type_id; // 콘텐츠 유형 ID
-    private String created_time; // 생성된 시간
-    private String zipcode; // 우편번호
-    private String overview; // 개요
-    private int cnt; // 조회수
         
 
 }

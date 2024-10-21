@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.human.cds.vo.CommentVO;
+import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.DestinationDBVO;
 import com.human.cds.vo.MemberVO;
 
@@ -39,6 +41,16 @@ public class MypageDAO {
 		int result = 0;
 		result = sqlSession.update(MAPPER+".cancel",m_id);
 		return result;
+	}
+
+	public List<CommentVO> getCommentsByMemberId(String memberId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(MAPPER+".getCommentsByMemberId", memberId);
+	}
+
+	public CourseInfoVO getCourseInfoByContentId(String contentId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(MAPPER+".getCourseInfoByContentId",contentId);
 	}
 	
 	

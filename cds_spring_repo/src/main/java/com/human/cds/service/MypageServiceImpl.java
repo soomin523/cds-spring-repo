@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.human.cds.repository.MypageDAO;
+import com.human.cds.vo.CommentVO;
+import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.DestinationDBVO;
 import com.human.cds.vo.MemberVO;
 
@@ -33,6 +35,18 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public int cancel(int m_id) {
 		return dao.cancel(m_id);
+	}
+
+	@Override
+	public List<CommentVO> getCommentsByMemberId(String memberId) {
+		// TODO Auto-generated method stub
+		return dao.getCommentsByMemberId(memberId);
+	}
+
+	@Override
+	public CourseInfoVO getCourseInfoByContentId(String contentId) {
+		// TODO Auto-generated method stub
+		return dao.getCourseInfoByContentId(contentId);
 	}
 
 }

@@ -1,44 +1,56 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-        <html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
 
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>작성내역</title>
-            <link rel="stylesheet" type="text/css"
-                href="${pageContext.request.contextPath}/resources/css/mypagewrite.css">
-       		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mypagewrite.js"></script>
-        </head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>작성내역</title>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/css/mypagewrite.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/mypagewrite.js"></script>
+</head>
 
-        <body>
-            <div class="background">
-                <div class="mywrite-title">
-                    <h2>작성내역</h2>
-                </div>
-                <div class="mywrite-category">
-                    <button id="redirectButton_post">게시글</button>
-                    <button id="redirectButton_comment">댓글</button>
-                </div>
-                <!-- 초기값 게시글 작성내역(카테고리별로 나뉨) -->
-                <div class="mywrite-content-none">
-                    <p>등록된 게시글이 없습니다</p>
-                </div>
-                <div class="mywrite-comment-none">
-                    <p>등록된 댓글이 없습니다.</p>
-                </div>
-                <!-- display none값으로 해논 댓글 작성내역 -->
-                <div class="mywrite-content-exist">
-                    <p>커뮤게시글 제목</p>
-                    <p>날짜</p>
-                </div>
-                <div class="mywrite-comment-exist">
-                    <p>댓글 내용</p>
-                    <p>날짜</p>
-                </div>
-            </div>
-        </body>
+<body>
+	<div class="background">
+		<div class="mywrite-title">
+			<h2>작성내역</h2>
+		</div>
+		<div class="mywrite-category">
+			<button id="redirectButton_post">게시글</button>
+			<button id="redirectButton_comment">댓글</button>
+		</div>
 
-        </html>
+		<!-- 게시글 작성 내역이 없을 때 -->
+		<div class="mywrite-content-none">
+			<p>등록된 게시글이 없습니다</p>
+		</div>
+
+		<!-- 댓글 작성 내역이 있을 때 -->
+		<div class="mywrite-comment-exist">
+			<div id="comment-list">
+				<!-- 댓글 리스트가 이곳에 추가됩니다 -->
+			</div>
+		</div>
+
+		<!-- 게시글 작성 내역이 있을 때 -->
+		<div class="mywrite-content-exist">
+			<p>커뮤게시글 제목</p>
+			<p>날짜</p>
+		</div>
+
+		<!-- 댓글 작성 내역이 있을 때 -->
+		<div class="mywrite-comment-exist">
+			<div id="comment-list">
+				<!-- 댓글 리스트가 이곳에 추가됩니다 -->
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

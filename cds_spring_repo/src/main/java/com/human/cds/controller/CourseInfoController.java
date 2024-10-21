@@ -21,6 +21,7 @@ import com.human.cds.api.ApiExplorerDetail2;
 import com.human.cds.repository.CourseInfoDAO;
 import com.human.cds.service.CommentService;
 import com.human.cds.service.CourseInfoService;
+import com.human.cds.vo.CommentLikeVO;
 import com.human.cds.vo.CommentVO;
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO2;
@@ -35,12 +36,12 @@ public class CourseInfoController {
 
 	private CourseInfoService courseInfoServiceImpl;
 	private CourseInfoDAO courseInfoDAO;
-	private CommentService courseServiceImpl;
+	private CommentService commentServiceImpl;
 	@Autowired
-	public CourseInfoController(CourseInfoService courseInfoServiceImpl, CourseInfoDAO courseInfoDAO,CommentService courseServiceImpl) {
+	public CourseInfoController(CourseInfoService courseInfoServiceImpl, CourseInfoDAO courseInfoDAO,CommentService commentServiceImpl) {
 		this.courseInfoServiceImpl = courseInfoServiceImpl;
 		this.courseInfoDAO = courseInfoDAO;
-		this.courseServiceImpl = courseServiceImpl;
+		this.commentServiceImpl = commentServiceImpl;
 	}
 
 	@GetMapping("/Course.do")
@@ -201,7 +202,7 @@ public class CourseInfoController {
 	     System.out.println("memberId: " + memberId);  // memberId 값도 확인
 	     commentVO.setMemberId(memberId); // 댓글 작성자 ID 설정
 	     commentVO.setGender(gender);
-	     boolean isAdded = courseServiceImpl.addComment(commentVO);
+	     boolean isAdded = commentServiceImpl.addComment(commentVO);
 	     return isAdded ? "success" : "fail";
 	 }
 	 
@@ -221,11 +222,64 @@ public class CourseInfoController {
 		 
 		 
 		 // 코스 ID에 해당하는 댓글 목록 가져오기
-	     List<CommentVO> comments = courseServiceImpl.getCommentsByContentId(contentId,offset,pageSize);
+	     List<CommentVO> comments = commentServiceImpl.getCommentsByContentId(contentId,offset,pageSize);
 	     
 	     
 	     return comments; // 댓글 리스트를 JSON 형식으로 반환
 	 }
 
-	 
+	 @PostMapping("/toggleLike.do")
+	 @ResponseBody
+	 public String toggleLike(@RequestParam("c_idx") int cIdx,
+	                          @RequestParam("actionType") String actionType, 
+	                          HttpSession session) {
+	     MemberVO member = (MemberVO) session.getAttribute("member");
+	     if (member == null) {
+	         return "belogin"; // 로그인되지 않은 상태일 경우
+	     }
+	     
+	     String memberId = member.getMember_id();
+	     System.out.println("memberId: " + memberId);
+	     
+	     CommentLikeVO likeStatus = commentServiceImpl.checkIfAlreadyLiked(cIdx, memberId);
+	     System.out.println("likeStatus: " + likeStatus);
+
+	     if (likeStatus == null) {
+	         // 처음 좋아요 또는 싫어요를 누르는 경우
+	         commentServiceImpl.addLike(cIdx, memberId, actionType);
+	         System.out.println("처음 " + actionType + "를 누름");
+	         return "success";
+	     } else {
+	         String currentActionType = likeStatus.getActionType();
+	         System.out.println("기존 actionType: " + currentActionType);
+	         System.out.println("새로운 actionType: " + actionType);
+
+	         // NullPointerException 방지: 현재 actionType이 null일 경우 처리
+	         if (currentActionType == null) {
+	             currentActionType = "none"; // 기본값으로 설정
+	         }
+
+	         // 이미 좋아요/싫어요를 누른 상태에서 취소 ('none'으로 처리)
+	         if (currentActionType.equals(actionType)) {
+	             // 동일한 액션을 취소하는 경우
+	             commentServiceImpl.removeLike(cIdx, memberId);  // 좋아요/싫어요 삭제
+	             System.out.println(actionType + " 취소");
+	             return "cancel";
+	         } else {
+	             // 좋아요/싫어요 상태 변경 (좋아요 -> 싫어요, 싫어요 -> 좋아요)
+	             commentServiceImpl.addLike(cIdx, memberId, actionType);
+	             System.out.println("좋아요/싫어요 상태 변경: " + actionType);
+	             return "success";
+	         }
+	     }
+	 }
+
+
+
+
+
+
+
+
 }
+

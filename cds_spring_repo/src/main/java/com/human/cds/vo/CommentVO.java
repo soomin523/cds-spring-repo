@@ -13,6 +13,22 @@ public class CommentVO {
     private int unlike;          // 싫어요 수
     private String contentId;    // 코스 ID (문자열)
     private String gender;
+    private String title;
+    private String firstimage;
+    
+    
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getFirstimage() {
+		return firstimage;
+	}
+	public void setFirstimage(String firstimage) {
+		this.firstimage = firstimage;
+	}
 	public String getGender() {
 		return gender;
 	}
@@ -73,6 +89,7 @@ public class CommentVO {
 	public void setContentId(String contentId) {
 		this.contentId = contentId;
 	}
+	
 
     // Getters and Setters
 }

@@ -1,5 +1,10 @@
 package com.human.cds.controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,11 +14,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,9 +34,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.human.cds.service.MemberService;
 import com.human.cds.vo.MemberVO;
+
+import java.util.Properties;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import lombok.Data;
 
 @Controller
 @RequestMapping("/member")
@@ -33,6 +50,11 @@ public class MemberController {
     
     private MemberService memberServiceImpl;
     private JavaMailSenderImpl mailSender;
+    
+    @Value("${172267091290-704rp9g9evbu8na2co56nmop1i13d1ul.apps.googleusercontent.com}")
+    private String googleClientId;
+    @Value("${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}")
+    private String googleClientPw;
     
     @Autowired//생성자를 이용해서 필드에 의존 자동 주입함
     public MemberController(MemberService memberServiceImpl, JavaMailSenderImpl mailSender) {
@@ -64,6 +86,12 @@ public class MemberController {
         return "member/passwordFind"; // passwordFind.jsp
     }
 
+    // 비밀번호 변경
+    @GetMapping("/passwordChange.do")
+    public String passwordChange() {
+        return "member/passwordChange"; // passwordChange
+    }
+    
  // 회원가입 처리
     @PostMapping("/signupProcess.do")
     public String registerMember(MemberVO vo, Model model) {
@@ -105,28 +133,12 @@ public class MemberController {
 	 * 페이지로 리다이렉트 }
 	 */
     
-    @RestController
-    @CrossOrigin("*")
-    public class LoginController {
-        @Value("${google.client.id}")
-        private String googleClientId;
-        @Value("${google.client.pw}")
-        private String googleClientPw;
 
-        @RequestMapping(value="/api/v1/oauth2/google", method = RequestMethod.POST)
-        public String loginUrlGoogle(){
-            String reqUrl = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + googleClientId
-                    + "&redirect_uri=http://localhost:8080/api/v1/oauth2/google&response_type=code&scope=email%20profile%20openid&access_type=offline";
-            return reqUrl;
-        }
-    }
     
-    
-    //이메일 인증
+ // 이메일 인증
     @PostMapping("/checkEmail.do")
     @ResponseBody
     public String checkEmail(String email) {
-    	    	   	
         try {
             String code = memberServiceImpl.sendVerificationCode(email);  // 인증번호 전송
             return code;  // 인증번호 반환
@@ -136,12 +148,23 @@ public class MemberController {
         }
     }
 
-    //이메일 인증번호 확인
+    // 이메일 인증번호 확인
     @PostMapping("/verifyEmailCode")
     @ResponseBody
     public boolean verifyEmailCode(@RequestParam("email") String email, @RequestParam("code") String code) {
         return memberServiceImpl.verifyCode(email, code);  // 인증번호 확인
     }
+
+    // 이메일 사용 가능 여부 체크
+    @PostMapping("/checkEmailAvailability")
+    @ResponseBody
+    public ResponseEntity<Map<String, Boolean>> checkEmailAvailability(@RequestParam String email) {
+        Map<String, Boolean> response = new HashMap<>();
+        boolean available = memberServiceImpl.isEmailAvailable(email); // 이메일 사용 가능 여부 확인
+        response.put("available", available);
+        return ResponseEntity.ok(response);
+    }
+
     
     
     //회원가입 기능
@@ -244,7 +267,7 @@ public class MemberController {
     }
 */
 
-    /*
+    
     // 아이디 중복 확인 처리
     @PostMapping("/checkDuplicate")
     @ResponseBody
@@ -263,7 +286,7 @@ public class MemberController {
 
         return result; // 중복 여부를 클라이언트로 반환
     }
-    
+    /*
     //인증 코드 전송 로직
     @PostMapping("/checkEmail")
     @ResponseBody
@@ -347,5 +370,4 @@ public class MemberController {
     }
 
     */
-
-}
+    }

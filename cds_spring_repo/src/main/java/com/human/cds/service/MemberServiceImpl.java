@@ -32,11 +32,6 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.insertMember(member);
     }
 
-	@Override
-	public boolean isEmailAvailable(String email) {
-		return false;
-	}
-	
 	
 	//아이디 중복
 	@Override
@@ -44,57 +39,59 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.checkId(member_id);
 	}
 
+	/*
+	 * // 이메일 사용 가능 여부 체크
+	 * 
+	 * @Override public boolean isEmailAvailable(String email) { MemberVO member =
+	 * memberRepository.findByEmail(email); return member == null; // null이면 사용 가능 }
+	 */
+	// 메일 인증 관련 메일 전송 객체 의존 자동 주입 받기
+	private JavaMailSenderImpl mailSender;
 
+	@Override
+	public String sendVerificationCode(String email) {
+	    if (!isEmailAvailable(email)) {
+	        return "EMAIL_ALREADY_EXISTS"; // 이메일이 이미 존재하는 경우
+	    }
+	    String verificationCode = authEmail(email);        
+	    return verificationCode;
+	}
 
-	
-	//메일인증 관련 메일전송 객체 의존자동주입 받기
-		private JavaMailSenderImpl mailSender;
-		
-		@Override
-		public String sendVerificationCode(String email) {
-			String VerificationCode = authEmail(email);		
-			return VerificationCode;
-		}
+	// 메일 인증
+	@Override
+	public String authEmail(String email) {
+	    int authNumber = (int)(Math.random()*888889)+111111;
+	    
+	    String setFrom = "songseonho1235@gmail.com"; // 송신자의 메일주소
+	    String toMail = email; // 수신자의 메일주소
+	    String title = "회원가입 인증 이메일입니다"; // 제목
+	    String content = "홈페이지를 방문해주셔서 감사합니다. <br><br> "
+	            + "인증번호: " + authNumber + "<br>"
+	            + "해당 인증번호를 인증번호 확인란에 입력해 주세요";
+	    mailSend(setFrom, toMail, title, content);
+	    
+	    return Integer.toString(authNumber);
+	}
 
-		//메일인증
-		@Override
-		public String authEmail(String email) {
-			//메일인증 코드 6자리 생성하기: Math.random() (111111 <= r < 1000000)
-			int authNumber = (int)(Math.random()*888889)+111111;
-			
-			String setFrom = "songseonho1235@gmail.com";//송신자의 메일주소
-			String toMail = email;//수신자의 메일주소
-			String title = "회원가입 인증 이메일입니다";//제목
-			String content = "홈페이지를 방문해주셔서 감사합니다. <br><br> "
-					+ "인증번호: "+authNumber+"<br>"
-					+ "해당 인증번호를 인증번호 확인란에 입력해 주세요";
-			mailSend(setFrom, toMail, title, content);
-			
-			return Integer.toString(authNumber);
-		}
-
-		//이메일 전송 메소드
-		private void mailSend(String setFrom, String toMail, String title, String content) {
-			
-			
-			System.out.println("메일주소: "+toMail);
-			
-			MimeMessage message = mailSender.createMimeMessage();
-			
-			try {
-				MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-				//true: multipart 형식의 메시지 전달
-				helper.setFrom(setFrom);
-				helper.setTo(toMail);
-				helper.setSubject(title);
-				helper.setText(content, true);//true: html형식으로 전송, true를 입력하지 않으면 text로 전송
-				mailSender.send(message);
-				
-			} catch (Exception e) {
-				System.out.println("메일전송 중 예외발생");
-				e.printStackTrace();
-			}
-		}
+	// 이메일 전송 메소드
+	private void mailSend(String setFrom, String toMail, String title, String content) {
+	    System.out.println("메일주소: " + toMail);
+	    
+	    MimeMessage message = mailSender.createMimeMessage();
+	    
+	    try {
+	        MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+	        helper.setFrom(setFrom);
+	        helper.setTo(toMail);
+	        helper.setSubject(title);
+	        helper.setText(content, true); // true: html형식으로 전송
+	        mailSender.send(message);
+	        
+	    } catch (Exception e) {
+	        System.out.println("메일 전송 중 예외 발생");
+	        e.printStackTrace();
+	    }
+	}
 
 		
 		
@@ -150,6 +147,12 @@ public class MemberServiceImpl implements MemberService {
 
 		@Override
 		public boolean verifyCode(String email, String code) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean isEmailAvailable(String email) {
 			// TODO Auto-generated method stub
 			return false;
 		}

@@ -1,178 +1,173 @@
 @charset "UTF-8";
-         body { 
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-        }
-        .container {
-            width: 40%;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 10px;
-            background-color: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
-            color: #333;
-        }
-        h4 {
-            font-size: 20px; /* 글자 크기를 키움 */
-            color: #4caff6; /* 하늘색으로 변경 */
-            margin-bottom: 10px;
-        }
-        table {
-            width: 100%;
-            margin-bottom: 20px;
-        }
-        table td { 
-            padding: 8px;
-        }
-        input[type="text"]{
-       		padding: 12px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            width: calc(60% - 30px); /* 아이콘 공간을 고려하여 고정 */
-        }
-        
-        
-        input[type="password"], input[type="tel"], input[type="email"] {
-            padding: 12px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-            width: calc(60% - 30px); /* 아이콘 공간을 고려하여 고정 */
-        }
-        input[type="submit"], button {
-            width: 120px;
-            background-color: #4caff6;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer; 
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-        input[type="submit"]:hover, button:hover {
-            background-color: #87bee585;
-        }
-        .checkbox-group {
-            margin-top: 20px;
-        }
-        .checkbox-group label {
-            display: block;
-            margin: 8px 0;
-            font-size: 14px;
-        }
-        .gender-group {
-            margin: 10px 0;
-        }
-        .note {
-            font-size: 12px;
-            color: gray;
-        }
-        .centered {
-            text-align: center;
-        }
-        .dup-check-btn {
-            padding: 6px 10px;
-            background-color: #87bee5;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-left: 10px;
-            font-size: 12px;
-            transition: background-color 0.3s ease;
-        }
-        .dup-check-btn:hover {
-            background-color: #87bee585;
-        }
-        .input-container {
-            position: relative;
-            width: calc(60% - 10px); /* 입력 칸의 너비를 고정시켜 아이콘 크기 변화 방지 */
-        }
-        .input-container input[type="password"] {
-            width: 100%; /* 아이콘을 고려하여 입력 필드 너비 100% */
-            padding-right: 40px; /* 아이콘 공간 확보 */
-            padding: 12px;
-            margin: 5px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        .input-container img {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-        }
-        .email-input {
-            display: flex;
-            align-items: center;
-        }
-        #email_prefix {
-            width: 50%;
-            margin-right: 10px;
-        }
-        #email_domain {
-            width: 120px;
-            height: 40px;
-        }
-        #custom_email_domain {
-            width: 120px;
-            margin-left: 10px;
-            display: none;
-        }
-        .separator-line {
-            border: none;
-            height: 1px;
-            background-color: #ddd;
-            margin: 20px 0;
-        }
-        .email-input, .email-auth {
+body { 
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5;
+}
+.container {
+    width: 40%;
+    margin: 0 auto;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #333;
+}
+h4 {
+    font-size: 20px;
+    color: #4caff6;
+    margin-bottom: 10px;
+}
+table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+table td { 
+    padding: 8px;
+}
+input[type="text"], input[type="tel"], input[type="email"] {
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    width: calc(70% - 30px); 
+}
+input[type="password"] {
+    padding: 12px;
+    margin: 3px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+}
+.input-container.confirm-password {
+    position: relative;
+}
+.input-container.confirm-password img {
+    position: absolute;
+    right: 50px; /* 아이콘을 오른쪽으로 이동 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    pointer-events: auto; /* 아이콘 클릭 가능 */
+}
+.input-container.confirm-password input[type="password"] {
+    width: calc(100% - 50px); /* 동일한 너비 설정 */
+    padding-right: 40px; /* 동일한 패딩 설정 */
+}
+.input-container input[type="password"] {
+    width: calc(100% - 50px); /* 길이를 더 늘리기 위해 수정 */
+    padding-right: 40px; /* 아이콘과 여백을 위해 오른쪽 패딩을 늘림 */
+}
+
+input[type="submit"], button {
+    width: 120px;
+    background-color: #4caff6;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+input[type="submit"]:hover, button:hover {
+    background-color: #87bee585;
+}
+.checkbox-group {
+    margin-top: 20px;
+}
+.checkbox-group label {
+    display: block;
+    margin: 8px 0;
+    font-size: 14px;
+}
+
+.gender-group {
+    margin: 10px 0;
+}
+.note {
+    font-size: 12px;
+    color: gray;
+}
+.centered {
+    text-align: center;
+}
+.dup-check-btn {
+    padding: 6px 10px;
+    background-color: #87bee5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+.dup-check-btn:hover {
+    background-color: #87bee585;
+}
+.input-container {
+    position: relative;
+    
+}
+
+.email-auth {
     display: flex;
     gap: 10px;
     align-items: center;
+    margin-top: 20px; /* 인증번호 입력 필드와 버튼을 아래로 이동 */
 }
 
+.input-container img {
+    position: absolute;
+    right: 60px; /* 아이콘을 오른쪽으로 이동 */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    pointer-events: auto; /* 아이콘 클릭 가능 */
+}
+.email-input {
+    display: flex;
+    align-items: center;
+}
+#email_prefix {
+    width: 50%;
+    margin-right: 10px;
+}
+#email_domain {
+    width: 120px;
+    height: 40px;
+}
+#custom_email_domain {
+    width: 120px;
+    margin-left: 10px;
+    display: none;
+}
+.separator-line {
+    border: none;
+    height: 1px;
+    background-color: #ddd;
+    margin: 20px 0;
+}
+.email-input, .email-auth {
+    display: flex;
+    gap: 10px;
+}
 #email_prefix, #custom_email_domain, #email_auth_code {
     width: 60%;
 }
-
 .send-auth-code-btn {
     padding: 8px 10px;
     cursor: pointer;
 }
-
-
-    /* 비밀번호 입력 필드와 관련된 스타일 */
-    .input-container {
-        position: relative; /* 자식 요소의 절대 위치를 설정할 수 있도록 함 */
-    }
-
-    input[type="password"], input[type="text"] {
-        width: 100%; /* 입력 필드의 너비를 100%로 설정 */
-        padding: 10px; /* 내부 여백 */
-        box-sizing: border-box; /* 여백과 테두리를 포함하여 전체 크기를 계산 */
-    }
-
-    .input-container img {
-        position: absolute; /* 아이콘을 절대 위치로 설정 */
-        right: 10px; /* 오른쪽에서 10px 떨어지게 설정 */
-        top: 50%; /* 세로 중앙 정렬 */
-        transform: translateY(-50%); /* 수직 중앙 정렬을 위한 변환 */
-        cursor: pointer; /* 커서를 포인터로 변경 */
-    }
-
-
-        

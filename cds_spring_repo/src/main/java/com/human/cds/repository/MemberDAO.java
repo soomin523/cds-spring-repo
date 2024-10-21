@@ -90,10 +90,22 @@ public class MemberDAO {
 
 		return vo;
 	}
-
-
-
 }
+/*
+ * @Repository public class MemberVO implements MemberDAO {
+ * 
+ * @Autowired private EntityManager entityManager; // JPA를 사용하기 위한 EntityManager
+ * 
+ * @Override public MemberVO getEmail(String email) { // JPQL 또는 Native Query를
+ * 사용하여 이메일로 회원 조회 try { return
+ * entityManager.createQuery("SELECT m FROM MemberVO m WHERE m.email = :email",
+ * MemberVO.class) .setParameter("email", email) .getSingleResult(); } catch
+ * (NoResultException e) { return null; // 결과가 없을 경우 null 반환 } }
+ * 
+ * }
+ * 
+ * }
+ */
 
 
 

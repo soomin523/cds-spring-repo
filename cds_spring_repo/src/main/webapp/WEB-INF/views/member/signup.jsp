@@ -234,6 +234,31 @@
             event.preventDefault();  // 조건에 맞지 않으면 폼 제출 막기
         }
     });
+    
+  //비밀번호 입력칸 및 표시 크기 고정
+    function togglePassword(inputId) {
+     const passwordInput = document.getElementById(inputId);
+ 	   
+ 	    //console.log(list);
+ 	    //const toggleIcon = passwordInput.nextElementSibling.querySelector('img');
+ 	    //const isPasswordVisible = passwordInput.type === 'text';
+ 	    
+ 	    //const passwordField = document.getElementById(inputId);
+     if (passwordInput.type === "password") {
+     	passwordInput.type = "text";
+     	passwordInput.setAttribute("style", "width: calc(100% - 50px)");
+         //toggleIcon.src ='../resources/img/비밀번호표시.png'
+     } else {
+     	passwordInput.type = "password";
+         //toggleIcon.src ='../resources/img/비밀번호표시.png'
+         
+ 	    }
+ 	
+ 	    // 비밀번호 타입 전환
+ 	    //passwordInput.type = isPasswordVisible ? 'password' : 'text';
+ 	    // 아이콘 변경
+ 	    //toggleIcon.src = isPasswordVisible ? '../resources/img/비밀번호표시.png' : '../resources/img/비밀번호표시.png';
+ 	}
     </script>
 </body>
 </html>

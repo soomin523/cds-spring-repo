@@ -67,7 +67,7 @@ $("#check-btn").on("click", function() {
 	
 });
 
-//이메일 인증
+// 이메일 인증
 $("#sendAuthCodeBtn").on("click", function() {
     console.log("인증번호 전송 버튼이 클릭되었습니다.");  // 버튼 클릭 여부 확인
     const emailPrefix = $("#email_prefix").val();
@@ -81,6 +81,7 @@ $("#sendAuthCodeBtn").on("click", function() {
             alert("도메인을 입력하세요.");
             return;
         }
+        email = emailPrefix + customDomain; // 사용자 정의 도메인 사용
     }
 
     if (!emailPrefix || !emailDomain) {
@@ -88,7 +89,28 @@ $("#sendAuthCodeBtn").on("click", function() {
         return;
     }
 
-    // AJAX로 이메일 인증 요청을 보냄
+    // AJAX로 이메일 존재 여부를 체크
+    $.ajax({
+        type: "POST",
+        url: "checkEmailAvailability.do", // 이메일 중복 체크 엔드포인트
+        data: { email: email },
+        success: function(data) {
+            if (data.available) { // 이메일 사용 가능
+                // 인증 번호 전송
+                sendAuthCode(email);
+            } else { // 이미 존재하는 이메일
+                alert("이미 등록된 이메일입니다. 다른 이메일을 사용하세요.");
+            }
+        },
+        error: function(e) {
+            console.log("AJAX 요청 에러:", e);
+            alert("서버 통신 중 문제가 발생했습니다.");
+        }
+    });
+});
+
+// 인증번호 전송 함수
+function sendAuthCode(email) {
     $.ajax({
         type: "POST",
         url: "checkEmail.do",
@@ -109,7 +131,8 @@ $("#sendAuthCodeBtn").on("click", function() {
             alert("서버 통신 중 문제가 발생했습니다.");
         }
     });
-});
+}
+
 
 // 인증 확인 버튼 클릭 이벤트 핸들러 추가
 $("#confirm_email_btn").on("click", function() {

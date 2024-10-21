@@ -75,8 +75,8 @@ h2 {
 .log-logo { 
     width: 100px;
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 5px;
+    left: 25px;
 }
 
 /* 로그인 버튼 스타일 */
@@ -139,7 +139,7 @@ h2 {
 .log-login-form input[type="text"], .log-login-form input[type="password"] { 
     width: 100%;
     padding: 12px;
-    margin: 10px 0;
+    margin: 15px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;

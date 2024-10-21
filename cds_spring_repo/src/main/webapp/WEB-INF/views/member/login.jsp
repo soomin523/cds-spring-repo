@@ -68,7 +68,7 @@
             </button>
             
             <!-- 구글 로그인 버튼 -->
-            <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=172267091290-704rp9g9evbu8na2co56nmop1i13d1ul.apps.googleusercontent.com&redirect_uri=http://localhost:9090/web/member/login.do&response_type=code&scope=songseonho1235@gmail.com">
+            <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=172267091290-704rp9g9evbu8na2co56nmop1i13d1ul.apps.googleusercontent.com&redirect_uri=http://localhost:9090/cds/index.do&response_type=code&scope=openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile">
                 <button class="log-google-login">
                     <div class="log-social-icons">
                         <img src="${pageContext.request.contextPath}/resources/img/google.png" alt="구글 아이콘"/>구글로 시작하기
@@ -157,13 +157,6 @@
         document.getElementById('log-passwordInput').value = ''; 
     }
 
-    // 모달 외부 클릭 시 모달 닫기
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('log-loginModal')) { 
-            closeModal();
-        }
-    }
-
     // 카카오 로그인 요청 URL 생성 및 리다이렉트
     function redirectToKakaoLogin() {
         window.Kakao.init("9dc9962fd8d9c313d5ca5a57212228ab");
@@ -181,7 +174,28 @@
             }
         });
     }
+
+    // 폼 제출 방지 (엔터 키로 인한 모달 닫힘 현상 방지)
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 폼 제출을 막고 모달이 닫히는 것을 방지
+    });
+
+    // 엔터 키 눌렀을 때 로그인 버튼 클릭
+    function submitOnEnter(event) {
+        if (event.keyCode === 13) { // 엔터 키 코드 13
+            event.preventDefault(); // 기본 엔터 키 동작 방지
+            document.getElementById('loginButton').click(); // 로그인 버튼 클릭
+        }
+    }
+
+    // 아이디와 비밀번호 입력 칸에 엔터 키 감지 이벤트 추가
+    document.getElementById('log-emailInput').addEventListener('keydown', submitOnEnter);
+    document.getElementById('log-passwordInput').addEventListener('keydown', submitOnEnter);
+
 </script>
+
+
+
 
 </body>
 </html>

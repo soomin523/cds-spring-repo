@@ -37,12 +37,11 @@
         <div class="log-divider"></div> 
         <div class="log-result-container"> 
             <div class="log-user-id">****</div> 
-            <a href="#">비밀번호 변경하기</a>
         </div>
         <div class="log-divider"></div> 
         <div class="log-btn-group"> 
-            <button class="log-btn-small" onclick="location.href='login.jsp'">로그인</button> 
-            <button class="log-btn-small primary" onclick="location.href='passwordChange.jsp'">비밀번호 변경</button> 
+		<button class="log-btn-small" onclick="location.href='login.do'">로그인</button>
+		<button class="log-btn-small primary" onclick="location.href='passwordChange.do'">비밀번호 변경</button>
         </div>
     </div>
 

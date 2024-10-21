@@ -67,11 +67,11 @@ header>button>img {
     background: url("../img/mainTopbackimg.png") no-repeat center center;
     background-size: cover;
     display: flex;
-    padding: 13% 0px 0px 4%;
+    padding: 13% 0px 0px 5%;
 }
 #mainSection>.mainTop>.topIntro{ /* 떠나자 간단소개 */
     width: 38%;
-    margin-top: 10%;
+    margin-top: 7%;
 }
 #mainSection>.mainTop>.topIntro>h2{
     color: #fff;
@@ -94,16 +94,24 @@ header>button>img {
 }
 #mainSection>.mainTop>.imgSlider{ /* 지역코드별 관광지 */
 	width:65%;
+	overflow: hidden;
 }
 #mainSection>.mainTop>.imgSlider>.imgContainer>.imgList{
 	display: flex;
 }
 #mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem{
+	flex: 0 0 200px;
 	display: flex;
     flex-direction: column;
     justify-content: center;
+    border: solid 4px #cecece; 
+    border-radius: 20px;
+    margin-right: 3%;
 }
-
+#mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem>img{
+	background: no-repeat center center;
+    background-size: cover;
+}
 #mainSection>.mainTop>.imgSlider>.imgButton>button>i{ /* 슬라이드 버튼 */
 	color: #fff;
     font-size: 25px;

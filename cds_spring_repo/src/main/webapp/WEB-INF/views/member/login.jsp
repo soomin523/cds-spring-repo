@@ -41,24 +41,11 @@
             </div>
 
             <!-- 네이버 로그인 버튼 -->
-            <%
-                String clientId = "4IZekkKFksLclCpboj2G"; // 애플리케이션 클라이언트 아이디값
-                String redirectURI = URLEncoder.encode("http://localhost:9090/cds_prjt2/index/main.jsp", "UTF-8");
-                SecureRandom random = new SecureRandom();
-                String state = new BigInteger(130, random).toString();
-                String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code"
-                     + "&client_id=" + clientId
-                     + "&redirect_uri=" + redirectURI
-                     + "&state=" + state;
-                session.setAttribute("state", state);
-            %>
-            <a href="<%=apiURL%>">
-                <button class="log-naver-login">
-                    <div class="log-social-icons">
-                        <img src="${pageContext.request.contextPath}/resources/img/naver-icon.png" alt="네이버 아이콘"/>네이버로 시작하기
-                    </div>
-                </button>
-            </a>
+            <button class="log-naver-login">
+                <div class="log-social-icons">
+                    <img src="${pageContext.request.contextPath}/resources/img/naver-icon.png" alt="네이버 아이콘"/>네이버로 시작하기
+                </div>
+            </button>
 
             <!-- 카카오 로그인 버튼 -->
             <button class="log-kakao-login" onclick="redirectToKakaoLogin()"> 
@@ -68,13 +55,11 @@
             </button>
             
             <!-- 구글 로그인 버튼 -->
-            <a href="https://accounts.google.com/o/oauth2/v2/auth?client_id=172267091290-704rp9g9evbu8na2co56nmop1i13d1ul.apps.googleusercontent.com&redirect_uri=http://localhost:9090/cds/index.do&response_type=code&scope=openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile">
-                <button class="log-google-login">
-                    <div class="log-social-icons">
-                        <img src="${pageContext.request.contextPath}/resources/img/google.png" alt="구글 아이콘"/>구글로 시작하기
-                    </div>
-                </button>
-            </a>
+            <button class="log-google-login">
+                <div class="log-social-icons">
+                    <img src="${pageContext.request.contextPath}/resources/img/google.png" alt="구글 아이콘"/>구글로 시작하기
+                </div>
+            </button>
 
             <div class="log-footer-links"> 
                 <a href="${pageContext.request.contextPath}/member/idFind.do">아이디 찾기</a> |

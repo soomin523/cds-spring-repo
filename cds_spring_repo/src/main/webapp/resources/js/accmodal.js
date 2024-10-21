@@ -19,7 +19,16 @@ $(document).ready(function () {
         $('#modalTitle').text(data.title.replace(/\s*\[.*?\]\s*/g, ''));
         $('#modalImage').attr('src', data.first_image);
         $('#modalAddress').text(data.addr1);
-
+		$('#accmap').css(
+		{'width':'100%',
+		 'height':'400px',
+		 'margin-top':'10px',
+		 'margin-bottom':'10px',
+		 'border': '2px solid #000',
+		 'border-radius':'15px'
+		 }
+		 );
+       
         if (data.tel == null || data.tel === "") {
             $('#modaltel h4').text("전화번호 정보없음");
         } else {
@@ -27,6 +36,32 @@ $(document).ready(function () {
         }
 
         $('#modaloverview h3').text(data.overview);
+        
+        if(data.map_x && data.map_y){
+        	var mapContainer = document.getElementById('accmap');
+        	var mapOption={
+        		center: new kakao.maps.LatLng(data.map_y,data.map_x),
+        		level:3,
+        		scrollwheel: false
+        	};
+        	var map = new kakao.maps.Map(mapContainer,mapOption);
+        	        	
+        }
+        
+        
+        var markerPosition= new kakao.maps.LatLng(data.map_y,data.map_x);
+        var marker = new kakao.maps.Marker({
+        	position:markerPosition
+        });
+        marker.setMap(map);
+        
+        var infoContent = '<div class="info-window">' + data.title + '</div>';
+                        var infoWindow = new kakao.maps.InfoWindow({
+                            content: infoContent,
+                        });
+                        
+                        infoWindow.open(map,marker);
+        
 
         // 방 정보 표시
         let roomInfoHtml = '';

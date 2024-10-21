@@ -12,8 +12,6 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-
-
 }
 
 .mywrite-title {
@@ -25,11 +23,9 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-
-
 }
 
-.mywrite-title>h2 {
+.mywrite-title > h2 {
     font-size: 20px;
 }
 
@@ -40,19 +36,17 @@
     align-items: center;
     display: flex;
     background-color: white;
-    ;
 }
 
-.mywrite-category>button {
+.mywrite-category > button {
     width: 70px;
     height: 40px;
     border: solid 1px rgb(0, 0, 0, 0.3);
     border-radius: 30px;
     background-color: white;
-
 }
 
-.mywrite-category>button:hover {
+.mywrite-category > button:hover {
     width: 70px;
     height: 40px;
     border: solid 1px rgb(0, 0, 0, 0.3);
@@ -61,35 +55,12 @@
     text-decoration: rgba(0, 0, 0, 0.3);
 }
 
-
-.mywrite-category>button:nth-child(1) {
+.mywrite-category > button:nth-child(1) {
     margin: 0px 10px 0px 30px;
 }
 
-.mywrite-category>button:nth-child(2) {
+.mywrite-category > button:nth-child(2) {
     margin: 0px 10px 0px 0px;
-}
-
-.mywrite-content-none {
-    display: flex;
-    background-color: white;
-    width: 800px;
-    height: 100%;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-
-
-
-
-}
-
-.mywrite-content-none>p{
-    font-size: 13px;
-    margin: 0 auto;
-    color: rgb(0, 0, 0, 0.5);
-    padding-top: 100px;
-    padding-bottom: 100px;
 }
 
 .mywrite-comment-none {
@@ -100,19 +71,17 @@
     justify-content: center;
     text-align: center;
     align-items: center;
-
 }
 
-.mywrite-comment-none>p{
+.mywrite-comment-none > p {
     font-size: 13px;
     margin: 0 auto;
     color: rgb(0, 0, 0, 0.5);
     padding-top: 100px;
     padding-bottom: 100px;
-
 }
 
-.mywrite-content-exist{
+.mywrite-content-exist {
     display: none;
     background-color: white;
     width: 800px;
@@ -120,59 +89,10 @@
     justify-content: space-between;
     text-align: center;
     align-items: center;
-	border-bottom:solid 1px rgba(0,0,0,0.5);
-
+    border-bottom: solid 1px rgba(0, 0, 0, 0.5);
 }
 
-.mywrite-content-exist>p:nth-child(1){
-    font-size: 15px;
-    padding-left:30px;
-    margin-top:10px;
-    margin-bottom:10px;
-    
-}
-
-.mywrite-content-exist>p:nth-child(1):hover{
-    font-size: 15px;
-    padding-left:30px;
-    margin-top:10px;
-    margin-bottom:10px;
-    cursor: pointer;
-    text-decoration: underline solid 1px rgba(0, 0, 0, 0.8);
-}
-
-.mywrite-content-exist>p:nth-child(2){
-    font-size: 13px;
-    padding-right:30px;
-    margin-top:10px;
-    margin-bottom:10px;
-}
-
-.mywrite-comment-exist>p:nth-child(1){
-    font-size: 15px;
-    padding-left:30px;
-    margin-top:10px;
-    margin-bottom:10px;
-}
-
-.mywrite-comment-exist>p:nth-child(1):hover{
-    font-size: 15px;
-    padding-left:30px;
-    margin-top:10px;
-    margin-bottom:10px;
-    cursor: pointer;
-    text-decoration: underline solid 1px rgba(0, 0, 0, 0.8);
-}
-
-.mywrite-comment-exist>p:nth-child(2){
-    font-size: 13px;
-    padding-right:30px;
-    margin-top:10px;
-    margin-bottom:10px;
-}
-
-
-.mywrite-comment-exist{
+.mywrite-comment-exist {
     display: none;
     background-color: white;
     width: 800px;
@@ -180,9 +100,63 @@
     justify-content: space-between;
     text-align: center;
     align-items: center;
-    border-bottom:solid 1px rgba(0,0,0,0.5);
-    
-    
-
+    border-bottom: solid 1px rgba(0, 0, 0, 0.5);
 }
+
+#comment-list {
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+}
+
+.comment-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.comment-header {
+    display: flex;
+    align-items: flex-start; /* 이미지와 텍스트의 수직 정렬 */
+}
+
+.comment-image img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 15px;
+    object-fit: cover;
+}
+
+.comment-info {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.comment-content {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.comment-date {
+    font-size: 12px;
+    color: #888;
+    text-align: right; /* 작성 날짜를 우측에 정렬 */
+}
+
 

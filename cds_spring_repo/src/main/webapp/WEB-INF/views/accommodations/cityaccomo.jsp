@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>지역별 숙소</title>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/accommo.css">
 <link rel="stylesheet" type="text/css"
@@ -102,6 +104,7 @@
 				<p id="modalAddress">숙소 주소</p>
 				<div id="modaltel"><h4>숙소전화번호</h4></div>
 				<div id="modaloverview"><h3>숙소 소개</h3></div>
+				<div id="accmap">맵정보 표시</div>
 				<div id="modalRoomInfo">방 정보 표시</div>
 			</div>
 			

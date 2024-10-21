@@ -113,4 +113,52 @@
     LIMIT #{pageSize} OFFSET #{offset}
 </select>
 
+<!-- 좋아요/싫어요 상태 확인 -->
+<select id="getLikeStatus" resultType="CommentLikeVO">
+    SELECT c_idx, member_id, action_type AS actionType
+    FROM comment_like 
+    WHERE c_idx = #{c_idx} AND member_id = #{member_id}
+</select>
+
+
+<!-- 좋아요/싫어요 추가 -->
+<insert id="addLike">
+    INSERT INTO comment_like (c_idx, member_id, action_type)
+    VALUES (#{c_idx}, #{member_id}, #{action_type})
+</insert>
+
+<!-- 좋아요/싫어요 제거 -->
+<delete id="removeLike">
+    DELETE FROM comment_like WHERE c_idx = #{c_idx} AND member_id = #{member_id}
+</delete>
+
+<!-- 좋아요 수 증가 -->
+<update id="incrementLikeCount">
+    UPDATE course_comment SET clike = clike + 1 WHERE c_idx = #{c_idx}
+</update>
+
+<!-- 싫어요 수 증가 -->
+<update id="incrementDislikeCount">
+    UPDATE course_comment SET unlike = unlike + 1 WHERE c_idx = #{c_idx}
+</update>
+
+<!-- 좋아요 수 감소 -->
+<update id="decrementLikeCount">
+    UPDATE course_comment SET clike = clike - 1 WHERE c_idx = #{c_idx}
+</update>
+
+<!-- 싫어요 수 감소 -->
+<update id="decrementDislikeCount">
+    UPDATE course_comment SET unlike = unlike - 1 WHERE c_idx = #{c_idx}
+</update>
+
+<update id="updateLike">
+    UPDATE comment_like
+    SET action_type = #{action_type}
+    WHERE c_idx = #{c_idx} AND member_id = #{member_id};
+</update>
+
+
+
+
 </mapper>	

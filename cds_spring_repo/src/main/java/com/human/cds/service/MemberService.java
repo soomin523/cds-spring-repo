@@ -29,6 +29,10 @@ public interface MemberService {
 	MemberVO findMemberId(String name, String email); //아이디 찾기
 
 	MemberVO findMemberPassword(String member_id, String name, String email);
+
+	int googleLogin(MemberVO member); //구글 로그인
+
+	int kakaoLogin(MemberVO vo); //카카오 로그인
 	
 	
 	

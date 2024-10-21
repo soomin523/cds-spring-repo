@@ -14,6 +14,7 @@ public class MemberDAO {
 
 	// MemberMapper.xml파일을 구분하기 위한 네임스페이스
 	private static final String MAPPER = "com.human.cds.mapper.MemberMapper";
+	private int number = 1;
 
 	// MyBatis를 이용해서 DB작업을 하는데 핵심적인 역할을 하는 객체: SqlSession
 	private SqlSession sqlSession;
@@ -89,6 +90,21 @@ public class MemberDAO {
 		}
 
 		return vo;
+	}
+
+	public int googleLogin(MemberVO member) {
+		
+		member.setMember_id("google"+number);
+		number++;
+		
+		return sqlSession.insert(MAPPER+".googleLogin", member);
+	}
+
+	public int kakaoLogin(MemberVO vo) {
+		vo.setMember_id("kakao"+number);
+		number++;
+		
+		return sqlSession.insert(MAPPER+".kakaoLogin", vo);
 	}
 }
 /*

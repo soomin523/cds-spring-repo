@@ -128,6 +128,17 @@ public class MemberServiceImpl implements MemberService {
 			
 			return memberDAO.findMemberPassword(map);
 		}
+		
+		//구글 간편 회원가입
+		@Override
+		public int googleLogin(MemberVO member) {
+			return memberDAO.googleLogin(member);
+		}
+		//카카오 간편 회원가입
+		@Override
+		public int kakaoLogin(MemberVO vo) {
+			return memberDAO.kakaoLogin(vo);
+		}
 
 
 
@@ -156,6 +167,9 @@ public class MemberServiceImpl implements MemberService {
 			// TODO Auto-generated method stub
 			return false;
 		}
+
+		
+
 
 
 

@@ -83,4 +83,15 @@
 			where member_id = #{member_id} and name = #{name} and email = #{email}
     </select>
     
+    <!-- 구글로그인 -->
+    <insert id="googleLogin" parameterType="memberVO">
+    	insert into member (member_id,name,email)
+        VALUES (#{member_id}, #{name}, #{email})
+    </insert>
+    <!-- 카카오로그인 -->
+    <insert id="kakaoLogin" parameterType="memberVO">
+    	insert into member (member_id,name,email)
+        VALUES (#{member_id}, #{name}, #{email})
+    </insert>
+    
 </mapper>

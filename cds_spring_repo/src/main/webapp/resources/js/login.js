@@ -36,5 +36,29 @@ $(function() {
         });//end of ajax
         
     });
+    
+    //네이버 로그인
+    $(".log-naver-login").on('click', function() {
+	    const naverClientId = "4IZekkKFksLclCpboj2G";
+	    const redirectUri = "http://localhost:9090/cds/member/naverLogin.do";
+	    const state = "cds_prtj";
+	
+	    window.location.href = `https://nid.naver.com/oauth2.0/authorize?client_id=${naverClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&state=${state}`;
+	});
+    
+    //카카오 로그인
+    $(".log-kakao-login").on('click', function() {
+	    const kakaoClientId = "c07530622585d316fcad9f90e1d935b5";
+	    const redirectUri = "http://localhost:9090/cds/member/kakaoLogin.do";
+	
+	    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`;
+	});
+    
+    //구글 로그인
+    $(".log-google-login").on('click', function() {
+    	window.location.href = "/cds/member/googleLogin.do";
+    });
+    
+    
 });
 

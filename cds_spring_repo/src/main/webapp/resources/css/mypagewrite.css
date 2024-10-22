@@ -5,13 +5,35 @@
     padding: 0;
 }
 
+.section {
+    width: 1300px; /* 부모 요소는 100% 너비로 설정 */
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-direction: column; /* 자식 요소들을 세로로 배치 */
+    padding: 20px; /* 여백을 줘서 중앙으로 배치 */
+}
+
 .background {
-    width: 100%;
-    background: rgb(233, 233, 231);
+    width: 800px; /* 고정 너비 설정 */
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
+    border: 2px solid #6495ED; /* 테두리 설정 */
+    padding: 40px;
+    border-radius: 15px;
+}
+
+
+.background > hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width:98%;
+    border: none; /* 기본 테두리 제거 */
+    height: 2px; /* 선의 두께를 5px로 설정 (원하는 두께로 변경 가능) */
+    background-color: #6495ED; /* 선의 색상 설정 */
 }
 
 .mywrite-title {
@@ -31,7 +53,7 @@
 
 .mywrite-category {
     width: 800px;
-    height: 100px;
+    height: 50px;
     justify-content: start;
     align-items: center;
     display: flex;
@@ -100,7 +122,9 @@
     justify-content: space-between;
     text-align: center;
     align-items: center;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.5);
+    border: 2px solid #6495ED; /* 테두리 설정 */
+    padding: 5px;
+    border-radius:15px;
 }
 
 #comment-list {
@@ -120,7 +144,16 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* 트랜지션 추가 */
+    cursor:pointer;
 }
+
+.comment-card:hover {
+    transform: translateY(-5px); /* 위로 5px 이동 */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 더 강한 그림자 */
+    border:solid 1px lightblue;
+}
+
 
 .comment-header {
     display: flex;
@@ -158,5 +191,54 @@
     color: #888;
     text-align: right; /* 작성 날짜를 우측에 정렬 */
 }
+
+#redirectButton_comment{
+	cursor:pointer;	
+}
+
+#redirectButton_post{
+	cursor:pointer;	
+}
+
+#redirectButton_comment:hover{
+	background-color:lightblue;
+}
+
+#redirectButton_post:hover{
+	background-color:lightblue;
+}
+
+.homebt {
+    width: 40px;
+    height: 40px;
+    background-image: url("../img/homebt.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease; /* 크기 변화를 위한 부드러운 전환 */
+}
+
+/* 마우스를 올렸을 때 흔들리는 애니메이션 */
+.homebt:hover {
+    animation: shake 0.5s ease;
+    animation-iteration-count: 2; /* 애니메이션이 두 번 반복되도록 */
+}
+
+/* 버튼 흔들흔들 애니메이션 정의 */
+@keyframes shake {
+    0% { transform: translate(0, 0); } /* 제자리 */
+    50% { transform: translate(0, -2px); } /* 위로 이동 */
+    100% { transform: translate(0, 0); } /* 제자리 */
+}
+
+/* 클릭했을 때 크기 작아짐 */
+.homebt:active {
+    transform: scale(0.9); /* 버튼이 90% 크기로 작아짐 */
+    transition: transform 0.1s ease; /* 클릭 후 크기 변화를 부드럽게 전환 */
+}
+
+
 
 

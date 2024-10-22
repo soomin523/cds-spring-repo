@@ -158,6 +158,11 @@
     WHERE c_idx = #{c_idx} AND member_id = #{member_id};
 </update>
 
+<select id="getRandomCourses" parameterType="int" resultType="CourseInfoVO">
+        SELECT * 
+        FROM course_info
+        ORDER BY RAND()
+    </select>
 
 
 

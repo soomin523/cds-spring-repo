@@ -2,7 +2,18 @@ $(function () {
     var courseData = [];  // 전체 코스를 저장할 변수
     var currentPage = 1;  // 현재 페이지
     var itemsPerPage = 8;  // 페이지당 항목 수
-
+	let contentId = getParameterByName('contentId');
+	
+    function getParameterByName(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    
     // 페이지 로드 시 전체 데이터를 먼저 불러오기
     loadCoursesByRegion('all', '');
 

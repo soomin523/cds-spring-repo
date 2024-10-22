@@ -21,18 +21,22 @@
     		<div class="accommodation">숙소</div>
     		<div class="community">여행공유</div>
     		<div class="support">고객센터</div>
+  <c:if test="${ not empty member && member.membership_level == 3 }">
     		<div class="manager">관리자</div>
+  </c:if>
     	</div>
-  <c:if test="${ not empty member }">
+<c:choose>
+  <c:when test="${ not empty member }">
   		<button class="mypage-btn"> 
             <img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
         </button>
-  </c:if>
-  <c:if test="${ empty member }">
+  </c:when>
+  <c:otherwise>
         <button class="log-login-btn"> 
             <img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
         </button>
-  </c:if>
+  </c:otherwise>
+</c:choose>
     </header>
     
     <script>

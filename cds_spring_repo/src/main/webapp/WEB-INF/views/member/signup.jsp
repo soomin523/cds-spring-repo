@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,7 +25,12 @@
                     </tr>
                     <tr>
                         <td>연락처</td>
-                        <td><input type="tel" name="phone" id="phone" placeholder="010-1234-5678" required maxlength="13"></td>
+                        <td>
+	                        <input type="tel" name="phone" id="phone" placeholder="010-1234-5678" required maxlength="13">
+	                        <c:if test="${ not empty message }">
+	                        	<br>${ message }
+	                        </c:if>
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2"><h4>회원정보 입력</h4></td>

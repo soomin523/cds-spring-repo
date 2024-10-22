@@ -156,16 +156,30 @@ header>button>img {
     margin: 0px 2%;
     font-size: 16px;
 }
-#mainSection>.mainCategory>.cateSelect>.imgBox{
+#mainSection>.mainCategory>.cateSelect>.selectimgBox{
 	width: 70%;
 	display: flex;
 	justify-content: space-between;
 	margin-top: 15px;
 }
-#mainSection>.mainCategory>.cateSelect>.imgBox>img{
-	width: 33%;
+#mainSection>.mainCategory>.cateSelect>.selectimgBox>div{
+	width: 32%;
 	height: 200px;
-	background-color: #555;
+	background: no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: end;
+    cursor: pointer;
+}
+#mainSection>.mainCategory>.cateSelect>.selectimgBox>div>p{
+	color: #fff;
+	background-color: #0005;
+	margin: 0px 3%;
+	padding: 2%;
+	border-radius: 10px;
+	white-space: nowrap; /* 줄 바꿈 방지 */
+	overflow: hidden;
+	text-overflow: ellipsis; /* ...으로 표시하기 */
 }
 #mainSection>.mainReview{
 	width: 100%;
@@ -232,11 +246,27 @@ header>button>img {
 	width: 100%;
 	padding: 0px 4%;
 	height: 300px;
+	display: flex;
 }
-#mainSection>.mainCourse>.courseImg>img{
-    width: 25%;
-    height: 200px;
-	background-color: #87bee5;
+#mainSection>.mainCourse>.courseImg>div{
+    width: 12%;
+    height: 280px;
+	margin: 0px 1%;
+	background: no-repeat center center;
+    background-size: cover;
+    display: flex;
+	align-items: end;
+    cursor: pointer;
+}
+#mainSection>.mainCourse>.courseImg>div>p{
+	color: #fff;
+	background-color: #0005;
+	margin: 0px 3%;
+	padding: 2%;
+	border-radius: 10px;
+	white-space: nowrap; /* 줄 바꿈 방지 */
+	overflow: hidden;
+	text-overflow: ellipsis; /* ...으로 표시하기 */
 }
 #mainSection>.mainSupport{
 	display: flex;
@@ -271,6 +301,7 @@ header>button>img {
 	white-space: nowrap; /* 줄 바꿈 방지 */
 	overflow: hidden;
 	text-overflow: ellipsis; /* ...으로 표시하기 */
+	cursor: pointer;
 }
 #mainSection>.mainSupport>.supportBox>.supportList>.supportItem>span{
 	margin: 0px 2%;

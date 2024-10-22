@@ -40,8 +40,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
         </div>
         <div class="log-divider"></div> 
         <div class="log-btn-group"> 
-            <button class="log-btn-small" onclick="location.href='passwordFind.jsp'">비밀번호 찾기</button> 
-            <button class="log-btn-small primary" onclick="location.href='login.jsp'">로그인</button> 
+            <button class="log-btn-small" onclick="location.href='passwordFind.do'">비밀번호 찾기</button> 
+            <button class="log-btn-small primary" onclick="location.href='login.do'">로그인</button> 
         </div>
     </div>
 

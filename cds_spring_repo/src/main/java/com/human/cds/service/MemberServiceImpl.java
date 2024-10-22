@@ -29,24 +29,30 @@ public class MemberServiceImpl implements MemberService {
     // 회원가입 처리
     @Override
     public boolean registerMember(MemberVO member) {
+    	System.out.println("회원가입서비스");
         return memberDAO.insertMember(member);
     }
-
 	
 	//아이디 중복
 	@Override
 	public boolean checkId(String member_id) {
         return memberDAO.checkId(member_id);
 	}
+	
+	//전화번호 중복
+	@Override
+	public boolean isPhoneDuplicate(String phone) {
+		return memberDAO.isPhoneDuplicate(phone);
+	}
 
-	/*
-	 * // 이메일 사용 가능 여부 체크
-	 * 
-	 * @Override public boolean isEmailAvailable(String email) { MemberVO member =
-	 * memberRepository.findByEmail(email); return member == null; // null이면 사용 가능 }
-	 */
 	// 메일 인증 관련 메일 전송 객체 의존 자동 주입 받기
 	private JavaMailSenderImpl mailSender;
+	
+	//이메일 중복 확인
+	@Override
+	public boolean isEmailAvailable(String email) {
+		return memberDAO.isEmailAvailable(email);
+	}
 
 	@Override
 	public String sendVerificationCode(String email) {
@@ -93,197 +99,56 @@ public class MemberServiceImpl implements MemberService {
 	    }
 	}
 
+	
+	
+	// 로그인 처리
+	public MemberVO login(String memberId, String password) {
 		
+		Map<String, String> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("password", password);
 		
-		// 로그인 처리
-		public MemberVO login(String memberId, String password) {
-			
-			Map<String, String> map = new HashMap<>();
-			map.put("memberId", memberId);
-			map.put("password", password);
-			
-			return memberDAO.login(map);
-		}
-		
-		//아이디 찾기
-		@Override
-		public MemberVO findMemberId(String name, String email) {
-		    
-			Map<String, String> map = new HashMap<>();
-			map.put("name", name);
-			map.put("email", email);
-			
-			return memberDAO.findMemberId(map);
-			
-		}
-		
-//비밀번호 찾기
-		@Override
-		public MemberVO findMemberPassword(String member_id, String name, String email) {
-			
-			Map<String, String> map = new HashMap<>();
-			map.put("member_id", member_id);
-			map.put("name", name);
-			map.put("email", email);
-			
-			return memberDAO.findMemberPassword(map);
-		}
-		
-		//구글 간편 회원가입
-		@Override
-		public int googleLogin(MemberVO member) {
-			return memberDAO.googleLogin(member);
-		}
-		//카카오 간편 회원가입
-		@Override
-		public int kakaoLogin(MemberVO vo) {
-			return memberDAO.kakaoLogin(vo);
-		}
-
-
-
-
-
-		@Override
-		public boolean isPhoneDuplicate(String phone) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean isEmailDuplicate(String email) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean verifyCode(String email, String code) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public boolean isEmailAvailable(String email) {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		
-
-
-
-
-
-
-		
-
-
- /*   
-    // 회원 정보 수정 처리
-    @Override
-    public void updateMember1(MemberVO member) {
-        memberDAO.updateMember(member);
-    }
-
-    // 회원 ID로 회원 정보 조회
-    @Override
-    public MemberVO getMemberById(int id) {
-        return memberDAO.getMemberById(id);
-    }
-
-    // 이메일로 회원 정보 조회
-    @Override
-    public MemberVO getMemberByEmail(String email) {
-        return memberDAO.selectMemberByEmail(email);
-    }
-
-    // 이메일 중복 여부 확인
-    @Override
-    public boolean isEmailAvailable(String email) {
-        return memberDAO.isEmailAvailable(email);
-    }
-
-    // 회원 정보 수정 처리
-    @Override
-    public void updateMember(MemberVO member) {
-        memberDAO.updateMember(member);
-    }
-
-    // 전체 회원 목록 조회
-    @Override
-    public List<MemberVO> getAllMembers() {
-        return mapper.selectAllMembers();  
-    }
-
-    // 회원 ID로 회원 정보 조회 (다른 방법으로 사용될 수 있는 메서드)
-    @Override
-    public MemberVO getMemberById1(int id) {
-        return memberDAO.getMemberById(id);  
-    }
-
-    // 회원 아이디 존재 여부 확인
-    @Override
-    public String getExistsId(String memberId) {
-        return mapper.selectExistsId(memberId);  
-    }
-
-    // 회원 등록 처리
-    @Override
-    public int registerMember(MemberVO member) {
-        return mapper.insertMember(member); 
-    }
-
-	@Override
-	public boolean isUsernameTaken(String username) {
-		// TODO Auto-generated method stub
-		return false;
+		return memberDAO.login(map);
 	}
-*/
-		//
-
-
-		//로그인
-		/*@Override
-		 * public MemberVO login(String memberId, String password) { try (Connection
-		 * conn = ConnectionProvider.getConnection()) { MemberVO member =
-		 * memberDAO.selectById(memberId);
-		 * 
-		 * // 회원 정보가 없는 경우 예외 처리 if (member == null) { throw new
-		 * LoginFailException("Member not found"); }
-		 * 
-		 * // 비밀번호가 일치하지 않는 경우 예외 처리 if (!member.getPassword().equals(password)) { throw
-		 * new LoginFailException("Invalid password"); }
-		 * 
-		 * // 로그인 성공 시, 회원 객체 반환 return member; } catch (SQLException e) { throw new
-		 * RuntimeException(e); } }
-		 */
+	
+	//아이디 찾기
+	@Override
+	public MemberVO findMemberId(String name, String email) {
+	    
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		map.put("email", email);
 		
+		return memberDAO.findMemberId(map);
 		
-		/* public MemberVO login(String memberId, String password) {
-		    try {
-		    	MemberVO member = new MemberVO();
-
-		        // 회원 정보가 없는 경우 예외 처리
-		        if (member == null) {
-		            System.out.println("Member not found");
-		            
-		        }
-
-		        // 비밀번호가 일치하지 않는 경우 예외 처리
-		        if (!member.getPassword().equals(password)) {
-		            System.out.println("Member not found");
-		        }
-
-		        // 로그인 성공 시, 회원 객체 반환
-				return member;
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-		    return null;
-		}
+	}
+	
+	//비밀번호 찾기
+	@Override
+	public MemberVO findMemberPassword(String member_id, String name, String email) {
 		
-	*/	
+		Map<String, String> map = new HashMap<>();
+		map.put("member_id", member_id);
+		map.put("name", name);
+		map.put("email", email);
 		
-		
+		return memberDAO.findMemberPassword(map);
+	}
+	
+	//구글 간편 회원가입
+	@Override
+	public int googleLogin(MemberVO member) {
+		return memberDAO.googleLogin(member);
+	}
+	//카카오 간편 회원가입
+	@Override
+	public int kakaoLogin(MemberVO vo) {
+		return memberDAO.kakaoLogin(vo);
+	}
+	//네이버 간편 회원가입
+	@Override
+	public int naverLogin(MemberVO member) {
+		return memberDAO.naverLogin(member);
+	}
 		
 }

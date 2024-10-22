@@ -69,14 +69,14 @@
 			where f_contentid not in <foreach item="id" collection="list" open="(" separator="," close=")">
 										#{id}
 									</foreach>
-				and f_firstimage is not null
+				and f_firstimage != ''
 			order by rand()
 			limit 3
 	</select>
 	
 	<select id="getFestivalAllRandomList" resultType="FestivalDBVO">
 		select * from festival
-			where f_firstimage is not null
+			where f_firstimage != ''
 			order by rand()
 			limit 3
 	</select>

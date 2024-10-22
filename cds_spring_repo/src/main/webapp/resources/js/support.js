@@ -3,8 +3,12 @@ $(function () {
     //supportDetail 페이지 이동
     $(".select > button").click(function(){
     	let select = $(this).val();
-    
-    	location.href=`supportDetail.do?select=${select}`;
+    	
+    	if(select == "oneByone"){
+    		location.href=`http://pf.kakao.com/_LcpIn`;
+    	}else{
+    		location.href=`supportDetail.do?select=${select}`;
+    	}
     });
     
 	//로그인하기로 넘어가는 버튼 클릭
@@ -17,8 +21,14 @@ $(function () {
 		console.log("문의하기 버튼 클릭");
 		location.href="http://pf.kakao.com/_LcpIn";
 	});
+	
+	//support에서 각 아이템 누르면 supportDetail로 넘어가기
+	$(".select > .items > .item").click(function(){
+		let select = $(this).data('category');
+		location.href=`supportDetail.do?select=${select}`;
+	});
     
-    //support 메인페이지 이동
+    //supportDetail에서 support 메인페이지 이동
     $("aside > h2").click(function(){
     	location.href="support.do";
     });

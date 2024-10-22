@@ -18,7 +18,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     <div id="section">
         <div id="managerPage">
             <aside>
-                <h2>떠나자</h2>
+                <h2>관리</h2>
                 <hr>
                 <div class="select">
                     <button value="member">회원관리</button>
@@ -79,8 +79,39 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	</c:when>
 	<c:otherwise>
 				<div class="memberContainer container">
-                    
-                </div>
+					<table>
+						<tr>
+							<td>회원 번호</td>
+							<td>아이디</td>
+							<td>이름</td>
+							<td>이메일</td>
+							<td>전화번호</td>
+							<td>성별</td>
+							<td>탈퇴 여부</td>
+							<td>가입일</td>
+							<td>삭제</td>
+						</tr>
+		<c:if test="${ not empty memberList }">
+			<c:forEach var="item" items="${ memberList }">
+						<tr>
+							<td>${ item.m_id }</td>
+							<td>${ item.member_id }</td>
+							<td>${ item.name }</td>
+							<td>${ item.email }</td>
+							<td>${ item.phone }</td>
+							<td>${ item.gender }</td>
+							<td>${ item.withdrawal_request }</td>
+							<td>${ item.created_at }</td>
+							<td>
+				<c:if test="${ item.withdrawal_request eq 'Y' }">
+							<i class="fa-solid fa-trash-can deleteMember" data-id="${ item.m_id }"></i>
+				</c:if>
+							</td>
+						</tr>
+			</c:forEach>
+		</c:if>
+					</table>
+				</div>
 	</c:otherwise>
 </c:choose>				
             </section>
@@ -88,14 +119,5 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
     </div>
     <%@ include file="../main/footer.jsp"%>
     
-    <script>
-    	$(function(){
-    		
-    		$("aside > h2").click(function(){
-    			location.href = "../index.do";
-    		});
-    		
-    	});
-    </script>
 </body>
 </html>

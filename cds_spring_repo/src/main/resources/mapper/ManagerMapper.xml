@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.human.cds.mapper.ManagerMapper">
+
+    <!-- 모든 회원 정보 조회 -->
+    <select id="getMemberList" resultType="MemberVO">
+        SELECT * FROM member
+	        where membership_level = 1
+	        order by membership_level desc, m_id
+    </select>
+    
+    <delete id="deleteMember">
+    	delete from member
+    		where m_id = #{m_id}
+    </delete>
+
+</mapper>

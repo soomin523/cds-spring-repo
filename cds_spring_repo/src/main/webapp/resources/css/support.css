@@ -5,7 +5,6 @@
     box-sizing: border-box;
     color: #000;
 }
-
 /* 고객센터 메인 화면 : support.jsp */
 #supportMain{
     width: 100%;
@@ -90,6 +89,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+    cursor: pointer;
 }
 #supportMain>.supMainBtm>div>.items>.item>.title{
 	width: 70%;
@@ -140,7 +140,8 @@
     width: 90%;
     padding: 10px 2%;
 }
-#supportDetail>section> hr{
+#supportDetail>section> hr,
+#supportDetail>section>.contentBox> hr{
     border: solid 0.5px #87bee585;
 }
 #supportDetail>section>.sectionTop{ /* 카테고리 */
@@ -155,40 +156,43 @@
 	font-size: 30px;
 	font-weight: bold;
 }
-#supportDetail>section>.content{ /* 콘텐츠 박스 */
+#supportDetail>section>.contentBox{
+    min-height: 350px;
+}
+#supportDetail>section>.contentBox>.content{ /* 콘텐츠 박스 */
 	width: 100%;
     padding: 2%;
 }
-#supportDetail>section>.content>.contentTitle{ /* 콘텐츠 제목 */
+#supportDetail>section>.contentBox>.content>.contentTitle{ /* 콘텐츠 제목 */
     display: flex;
     justify-content: space-between;
     cursor: pointer;
 }
-#supportDetail>section>.content>.contentTitle>div{
+#supportDetail>section>.contentBox>.content>.contentTitle>div{
 	font-size: 18px;
 	font-weight: 550;
 }
-#supportDetail>section>.content>.contentTitle>i{
+#supportDetail>section>.contentBox>.content>.contentTitle>i{
 	font-size: 25px;
 	font-weight: 550;
 	color: #6e6e6e;
 }
-#supportDetail>section>.content>.contentText{ /* 콘텐츠 내용 */
+#supportDetail>section>.contentBox>.content>.contentText{ /* 콘텐츠 내용 */
 	margin: 2% 2% 0px;
 	display: flex;
 	flex-direction: column;
 }
-#supportDetail>section>.content>.contentText>p{
+#supportDetail>section>.contentBox>.content>.contentText>p{
 	white-space: pre-wrap; /* 줄바꿈은 유지하고 자동 줄바꿈도 지원 */
     word-wrap: break-word;
 }
-#supportDetail>section>.content>.contentText>div{
+#supportDetail>section>.contentBox>.content>.contentText>div{
 	margin-top: 10px;
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 }
-#supportDetail>section>.content>.contentText>div>div>button, #supportDetail>section>.newContent>button{
+#supportDetail>section>.contentBox>.content>.contentText>div>div>button, #supportDetail>section>.newContent>button{
 	border: none;
 	background-color: #fff0;
 	cursor: pointer;

@@ -87,8 +87,14 @@ public class CommunityServiceImpl implements CommunityService { // abstract 제�
         }
     }
 
-	@Override
-	public List<CommunityVO> getCommunityList() {
-		return communityDAO.getCommunityList();
-	}
+    @Override
+    public List<CommunityVO> getCommunityList() {
+        return communityDAO.getCommunityList();
+    }
+
+    @Override
+    public void savePost(String title, String content, String region, String location, int rating,
+            MultipartFile[] images) {
+        // 필요 시 구현 추가
+    }
 }

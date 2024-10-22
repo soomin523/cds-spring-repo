@@ -20,6 +20,7 @@
 		<typeAlias alias="ProductsVO" type="com.human.cds.vo.ProductsVO"/>
 		<typeAlias alias="CommentVO" type="com.human.cds.vo.CommentVO"/>
 		<typeAlias alias="CommentLikeVO" type="com.human.cds.vo.CommentLikeVO"/>
+		<typeAlias alias="CommunityVO" type="com.human.cds.vo.CommunityVO"/>
 	</typeAliases>
 	
 </configuration>

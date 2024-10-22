@@ -1,125 +1,144 @@
 @charset "UTF-8";
-       body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
 
-        .commu-upload-container {
-            width: 80%;
-            max-width: 900px;
-            margin: 20px auto;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-        h2 {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        
-        .commu-label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
+.commu-upload-container {
+    width: 80%;
+    max-width: 900px;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-       .commu-input, .commu-textarea, .commu-select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #269ff6;
-            border-radius: 5px;
-            box-sizing: border-box; /* 패딩 포함한 너비 계산 */
-            padding-right: 15px; /* 오른쪽 여백 추가 */
-        }
+h2 {
+    text-align: left;
+    margin-bottom: 20px;
+}
 
-        .commu-textarea {
-            height: 150px;
-            resize: none;
-        }
+.commu-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
-        .commu-upload-images {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+.commu-input,
+.commu-textarea,
+.commu-select,
+.commu-location-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #269ff6;
+    border-radius: 5px;
+    box-sizing: border-box; /* 패딩 포함한 너비 계산 */
+}
 
-        .commu-upload-images img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
+.commu-textarea {
+    height: 150px;
+    resize: none;
+}
 
-        .commu-file-input {
-            margin-bottom: 20px;
-        }
+.commu-upload-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-        .commu-button {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #4caff6;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+.commu-upload-images img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
 
-        .commu-button:hover {
-            background-color: #369fd5;
-        }
+.commu-file-input {
+    margin-bottom: 20px; /* 아래쪽 여백 */
+    margin-top: 10px; /* 위쪽 여백 추가 */
+}
 
-        .commu-button-container {
-            text-align: right;
-        }
-        /* 위치 추가 필드 스타일 */
-        .commu-location-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #269ff6;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-        /* 추가된 위치 스타일 */
-        .location-tag {
-            display: inline-block;
-            background-color: #e0e0e0;
-            border-radius: 15px;
-            padding: 5px 10px;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            font-size: 14px;
-            position: relative;
-        }
-        
-        .location-tag .remove-location {
-            margin-left: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            color: red;
-        }
-        
-        .remove-location-button {
-            background-color: #4caff6; /* 하늘색 배경 */
-            color: white; /* 흰색 글자 */
-            border: none; /* 테두리 없음 */
-            border-radius: 5px; /* 모서리 둥글게 */
-            padding: 5px 10px; /* 패딩 추가 */
-            cursor: pointer; /* 커서 모양 변경 */
-            font-weight: bold; /* 글자 두껍게 */
-            margin-left: 10px; /* 버튼과 글자 간격 추가 */
-        }
-        
-        .remove-location-button:hover {
-            background-color: #b4e0ff; /* 호버 시 색 변경 */
-        }
 
-        a {
-            text-decoration: none; /* 링크에 밑줄 제거 */
-        }
+.commu-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4caff6;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.commu-button:hover {
+    background-color: #369fd5;
+}
+
+.commu-button-container {
+    text-align: right;
+}
+
+/* 위치 추가 필드 스타일 */
+.commu-location-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* 추가된 위치 스타일 */
+.location-tag {
+    display: inline-flex; /* 인라인 플렉스 컨테이너 */
+    align-items: center;
+    background-color: #e9f7ff;
+    border: 1px solid #007bff;
+    border-radius: 5px; /* 모서리 둥글게 */
+    padding: 2px 5px; /* 패딩 조정 (세로 패딩을 줄임) */
+    margin: 5px; /* 태그 간의 간격 */
+    font-size: 12px; /* 글자 크기 조정 */
+    position: relative;
+    white-space: nowrap; /* 텍스트가 줄 바꿈 없이 가로로 흐르도록 설정 */
+    height: 25px; /* 태그 높이 설정 */
+}
+
+/* X 버튼 스타일 */
+.remove-location-button {
+    background-color: transparent; /* 배경 투명 */
+    color: #ff0000; /* 빨간색 글자 */
+    border: none; /* 테두리 없음 */
+    margin-left: 5px; /* 태그와 버튼 간격 조정 */
+    cursor: pointer; /* 커서 모양 변경 */
+}
+
+.location-tag .remove-location {
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: red;
+}
+
+.remove-location-button:hover {
+    background-color: #b4e0ff; /* 호버 시 색 변경 */
+}
+
+.modal-container {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    z-index: 1000; /* 모달이 다른 요소 위에 오도록 조정 */
+    position: absolute; /* 버튼 오른쪽에 위치하도록 설정 */
+    top: 30px; /* 버튼 아래에 위치하도록 조정 */
+    left: 210px; /* 버튼 오른쪽에 위치하도록 조정 (버튼 넓이에 맞게 조절) */
+    display: none; /* 처음에 보이지 않도록 설정 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈 없이 가로로 흐르도록 설정 */
+    overflow-x: auto; /* 내용이 넘칠 경우 수평 스크롤 */
+}
+
+a {
+    text-decoration: none; /* 링크에 밑줄 제거 */
+}

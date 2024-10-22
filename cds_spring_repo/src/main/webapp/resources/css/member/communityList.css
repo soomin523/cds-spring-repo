@@ -1,0 +1,92 @@
+@charset "UTF-8";
+/* 기본 스타일 설정 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9; /* 배경 색상 */
+    margin: 0;
+    padding: 20px; /* 페이지 여백 */
+}
+
+header {
+    background-color: #4CAF50; /* 헤더 배경 색상 */
+    color: white; /* 헤더 글자 색상 */
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* 컨테이너 설정 */
+.container {
+    max-width: 800px; /* 최대 폭 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+/* 게시물 목록 스타일 */
+.post-list {
+    background-color: #ffffff; /* 게시물 목록 배경 색상 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    padding: 20px; /* 패딩 */
+}
+
+/* 개별 게시물 스타일 */
+.post-item {
+    border-bottom: 1px solid #ddd; /* 구분선 */
+    padding: 15px 0; /* 패딩 */
+    display: flex; /* 플렉스 박스 사용 */
+    align-items: center; /* 세로 정렬 */
+    transition: background-color 0.3s; /* 배경색 변화 애니메이션 */
+}
+
+.post-item:last-child {
+    border-bottom: none; /* 마지막 게시물 구분선 제거 */
+}
+
+.post-item:hover {
+    background-color: #f1f1f1; /* 호버 시 배경 색상 변화 */
+}
+
+/* 이미지 스타일 */
+.post-image {
+    margin-right: 15px; /* 이미지와 텍스트 간격 */
+}
+
+.post-image img {
+    border-radius: 4px; /* 이미지 모서리 둥글게 */
+}
+
+/* 제목 스타일 */
+.post-item h3 {
+    margin: 0 0 10px; /* 제목과 아래 요소 간격 */
+    font-size: 1.5em; /* 제목 크기 */
+}
+
+.post-item a {
+    text-decoration: none; /* 링크 밑줄 제거 */
+    color: #4CAF50; /* 링크 색상 */
+}
+
+.post-item a:hover {
+    text-decoration: underline; /* 링크 호버 시 밑줄 */
+}
+
+/* 작성자 및 작성일 스타일 */
+.post-item p {
+    margin: 5px 0; /* 간격 */
+    color: #555; /* 글자 색상 */
+}
+
+/* 별점 스타일 */
+.post-rating {
+    font-size: 1.2em; /* 별점 크기 */
+    margin: 5px 0; /* 간격 */
+}
+
+/* 좋아요 및 댓글 아이콘 스타일 */
+.post-actions {
+    font-size: 1.2em; /* 아이콘 크기 */
+    margin-top: 10px; /* 위쪽 간격 */
+}
+
+.post-actions span {
+    margin-right: 15px; /* 아이콘 간격 */
+}

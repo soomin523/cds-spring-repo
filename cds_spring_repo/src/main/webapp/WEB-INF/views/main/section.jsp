@@ -10,7 +10,6 @@ integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1c
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
 <script src="../resources/js/jquery-3.7.1.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/section.js"></script>
 </head>
 <body>
 	<div id="section">
@@ -106,19 +105,14 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 				<div class="supportBox">
 					<div class="supportIntro">
 						<h2>공지사항</h2>
-						<div><button>더보기 <i class="fa-solid fa-plus"></i></button></div>
+						<button>더보기 <i class="fa-solid fa-plus"></i></button>
 					</div>
 					<div class="supportList">
-<c:forEach var="i" begin="0" end="${ supportList.size() > 6 ? 6 : supportList.size()-1 }" varStatus="status">
 						<div class="supportItem">
-							<div>${ supportList[i].s_category }</div>
+							<div>카테고리</div>
 							<span>|</span>
-							<div>${ supportList[i].s_title }</div>
+							<div>고객센터 글 제목</div>
 						</div>
-	<c:if test="${ status.index < 5 }">
-						<hr>
-	</c:if>
-</c:forEach>
 					</div>
 				</div>
 			</div>

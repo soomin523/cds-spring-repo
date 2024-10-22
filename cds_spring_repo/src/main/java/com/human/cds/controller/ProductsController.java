@@ -13,10 +13,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.cds.api.AreaCodeApiExplorer;
+import com.human.cds.api.DetailInfoApiExplorer;
+import com.human.cds.api.LeportsDetailCommonApiExplorer;
 import com.human.cds.api.ProductsAreaBasedListApiExplorer;
+import com.human.cds.api.ProductsIntroApiExplorer;
 import com.human.cds.service.ProductsService;
 import com.human.cds.vo.AreaCodeVO;
 import com.human.cds.vo.AreaCodeVO.AreaCode;
+import com.human.cds.vo.DetailCommonVO;
+import com.human.cds.vo.DetailInfoVO;
+import com.human.cds.vo.ProductsDetailIntroVO;
+import com.human.cds.vo.ProductsDetailIntroVO.ProductsDetailIntro;
 import com.human.cds.vo.ProductsVO;
 
 
@@ -29,19 +36,21 @@ public class ProductsController {
     private String serviceKey = "FuwMUFZUntQUUD1GcyAcTAoz7EihmI5dxJj5Bd8FgRyKWqVr5ESL/j/cwogqgbuliXCqklKwumwuM60AZ5MHeQ==";
     private String srcUrl = "http://apis.data.go.kr/B551011/KorService1/areaBasedList1";
 	private String srcUrlAreaCode = "https://apis.data.go.kr/B551011/KorService1/areaCode1";
+	private String srcUrlDetailCommon = "https://apis.data.go.kr/B551011/KorService1/detailCommon1";
+	private String srcUrlProductsIntro = "https://apis.data.go.kr/B551011/KorService1/detailIntro1";
+	private String srcUrlDetailInfo = "http://apis.data.go.kr/B551011/KorService1/detailInfo1";
     private String numOfRows = "50"; 
     		
+    @Autowired
     private ProductsService productsServiceImpl;
 
-    @Autowired
-    public ProductsController(ProductsService productsServiceImpl) {
-    	this.productsServiceImpl = productsServiceImpl;
-    }
     
     @GetMapping("/products.do")
     public String products(Model model) {
-    			return "products/products";}
-    
+        List<ProductsVO.Products> initialProducts = productsServiceImpl.getProductsPage(1, 16);
+        model.addAttribute("initialProducts", initialProducts);
+        return "products/products";
+    }
     
     @GetMapping("/insertProducts.do")
     @ResponseBody
@@ -64,14 +73,17 @@ public class ProductsController {
 				if(!morePages) break;
                 
               
-                List<ProductsVO.Products> filteredItems = data.getResponse().getBody().getItems().getItem().stream()
-                    .filter(item -> 
-                        (item.getCat2().equals("A0202") || item.getCat2().equals("A0203") || 
-                         item.getCat2().equals("A0207") || item.getCat2().equals("A0208")) ||
-                        (item.getCat1().equals("A03") || item.getCat3().equals("A04010700"))
-                    )
-                    .collect(Collectors.toList());
-                
+				List<ProductsVO.Products> filteredItems = data.getResponse().getBody().getItems().getItem().stream()
+					    .filter(item -> 
+					        ((item.getCat2().equals("A0202") || item.getCat2().equals("A0203") || 
+					          item.getCat2().equals("A0207") || item.getCat2().equals("A0208") || 
+					          item.getCat1().equals("A03")) &&
+					         !(item.getCat3().equals("A02020200") || item.getCat3().equals("A02020700")) &&
+					         (item.getContenttypeid() == "12" || item.getContenttypeid() == "15" || item.getContenttypeid() == "28") && 
+					         (item.getFirstimage() != null && !item.getFirstimage().isEmpty())) // firstimage가 비어있지 않은 조건 추가
+					    )
+					    .collect(Collectors.toList());
+
                 data.getResponse().getBody().getItems().setItem(filteredItems);
                 
                 result += productsServiceImpl.insertProducts(data);
@@ -156,8 +168,8 @@ public class ProductsController {
   	}
   	
   	
-    @GetMapping("/getProductsList.do")
-    public String getProducts(Model model) {
+    @GetMapping("/getProductsList")
+    public String getProductsList(Model model) {
         List<ProductsVO.Products> productsList = productsServiceImpl.getProductsList();
 		if(productsList != null) {
 			 model.addAttribute("productsList", productsList);
@@ -168,14 +180,212 @@ public class ProductsController {
         return "products/products";
     }
   	
+    
     @GetMapping("/getMoreProducts")
     @ResponseBody
     public List<ProductsVO.Products> getMoreProducts(@RequestParam int page, @RequestParam int size) {
         return productsServiceImpl.getProductsPage(page, size);
     }
 
-  	
-  	
+    
+    @GetMapping("/updateProductInfo.do")
+    public String updateProductInfo(Model model) {
+    	try {
+    		List<ProductsVO.Products> allProducts = productsServiceImpl.getProductsList();
+             
+             for (ProductsVO.Products product : allProducts) {
+                 String contentid = product.getContentid();
+                 String contenttypeid = product.getContenttypeid();
+                 
+                 Class<DetailInfoVO> infovo = DetailInfoVO.class;
+                 
+                 DetailInfoVO infodata = DetailInfoApiExplorer.getApiJsonData(serviceKey, srcUrlDetailInfo,
+                         contentid, contenttypeid, infovo);
+
+                     if (infodata.getResponse().getBody().getItems() == null ||
+                             infodata.getResponse().getBody().getItems().getItem().isEmpty()) {
+                        // System.out.println("No info items found for contentid: " + contentid);
+                         continue;  // 비어 있으면 다음 제품으로 넘어갑니다.
+                     }
+                     
+                     // Get the list of items from the response
+                     List<DetailInfoVO.DetailInfo> infoItems = infodata.getResponse().getBody().getItems().getItem();
+                     
+                     for (DetailInfoVO.DetailInfo infoItem : infoItems) {
+                         String serialnum = infoItem.getSerialnum();
+ 
+
+                         switch (serialnum) {
+                             case "0":
+                                 product.setInfoname1(infoItem.getInfoname());
+                                 product.setInfotext1(infoItem.getInfotext());
+                                 break;
+                             case "1":
+                                 product.setInfoname2(infoItem.getInfoname());
+                                 product.setInfotext2(infoItem.getInfotext());
+                                 break;
+                             case "2":
+                                 product.setInfoname3(infoItem.getInfoname());
+                                 product.setInfotext3(infoItem.getInfotext());
+                                 break;
+                             case "3":
+                                 product.setInfoname4(infoItem.getInfoname());
+                                 product.setInfotext4(infoItem.getInfotext());
+                                 break;
+                             case "4":
+                                 product.setInfoname5(infoItem.getInfoname());
+                                 product.setInfotext5(infoItem.getInfotext());
+                                 break;
+                             case "5":
+                            	 product.setInfoname6(infoItem.getInfoname());
+                            	 product.setInfotext6(infoItem.getInfotext());
+                            	 break;
+                             case "6":
+                            	 product.setInfoname7(infoItem.getInfoname());
+                            	 product.setInfotext7(infoItem.getInfotext());
+                            	 break;
+                         }
+                     }
+
+ 
+    		
+    	
+    	 productsServiceImpl.updateProductInfo(product);
+    	 }
+
+        System.out.println("All product details have been updated successfully.");
+
+    } catch (Exception e) {
+        System.out.println("Error occurred while updating product details: " + e.getMessage());
+        e.printStackTrace();
+    }
+
+    return "home";
+}
+    	
+    
+    @GetMapping("/updateProductDetails.do")
+    public String updateProductDetails(Model model) {
+        try {
+            List<ProductsVO.Products> allProducts = productsServiceImpl.getProductsList();
+            
+            for (ProductsVO.Products product : allProducts) {
+                String contentid = product.getContentid();
+                String contenttypeid = product.getContenttypeid();
+                
+                Class<DetailCommonVO> dcomvo = DetailCommonVO.class;
+                Class<ProductsDetailIntroVO> introvo = ProductsDetailIntroVO.class;
+              
+
+                // Fetch and set additional details
+                DetailCommonVO comdata = LeportsDetailCommonApiExplorer.getApiJsonData(serviceKey, 
+                                            srcUrlDetailCommon, contentid, contenttypeid, dcomvo);
+                
+                if (comdata.getResponse().getBody().getItems() == null ||
+                        comdata.getResponse().getBody().getItems().getItem().isEmpty()) {
+                        System.out.println("No items found for contentid: " + contentid);
+                        continue;  // 비어 있으면 다음 제품으로 넘어갑니다.
+                    }
+                
+                DetailCommonVO.Item item = comdata.getResponse().getBody().getItems().getItem().get(0);
+                product.setHomepage(item.getHomepage());
+                
+               
+                
+                
+                ProductsDetailIntroVO intdata = ProductsIntroApiExplorer.getApiJsonData(serviceKey, 
+                                            srcUrlProductsIntro, contentid, contenttypeid, introvo);
+                
+                if (intdata.getResponse().getBody().getItems() == null ||
+                        intdata.getResponse().getBody().getItems().getItem().isEmpty()) {
+                 //System.out.println("No intro items found for contentid: " + contentid);
+                        continue;  // 비어 있으면 다음 제품으로 넘어갑니다.
+                    }
+                
+                ProductsDetailIntro intItem = intdata.getResponse().getBody().getItems().getItem().get(0);
+                
+		
+		             // 정보가 있는지 체크하고, 해당 값이 존재하면 처리하도록 함
+                	//레포츠
+		             if (intItem.getInfocenterleports() != null) {
+		                 product.setInfo(intItem.getInfocenterleports());
+		             }
+		             if (intItem.getOpenperiod() != null) {
+		                 product.setOpendate(intItem.getOpenperiod());
+		             }
+		             if (intItem.getRestdateleports() != null) {
+		                 product.setRestdate(intItem.getRestdateleports());
+		             }
+		             if (intItem.getUsefeeleports() != null) {
+		                 product.setPrice(intItem.getUsefeeleports());
+		             }
+		             if (intItem.getUsetimeleports() != null) {
+		                 product.setUsetime(intItem.getUsetimeleports());
+		             }
+		
+		             // 축제
+		             if (intItem.getProgram() != null) {
+		                 product.setInfo(intItem.getProgram());
+		             }
+		             if (intItem.getEventstartdate() != null) {
+		                 product.setOpendate(intItem.getEventstartdate());
+		             }
+		             if (intItem.getEventenddate() != null) {
+		                 product.setEnddate(intItem.getEventenddate());
+		             }
+		             if (intItem.getUsetimefestival() != null) {
+		                 product.setPrice(intItem.getUsetimefestival());
+		             }
+		             if (intItem.getPlaytime() != null) {
+		                 product.setUsetime(intItem.getPlaytime());
+		             }
+		
+		             // 관광지
+		             if (intItem.getExpguide() != null) {
+		                 product.setInfo(intItem.getExpguide());
+		             }
+		             if (intItem.getOpendate() != null) {
+		                 product.setOpendate(intItem.getOpendate());
+		             }
+		             if (intItem.getRestdate() != null) {
+		                 product.setRestdate(intItem.getRestdate());
+		             }
+		      
+		             if (intItem.getUsetime() != null) {
+		                 product.setUsetime(intItem.getUsetime());
+		             }
+
+                // Update the product details in the database
+                productsServiceImpl.updateProductDetails(product);
+                
+               // System.out.println("Product details updated successfully for contentid: " + contentid);
+            }
+
+            System.out.println("All product details have been updated successfully.");
+
+        } catch (Exception e) {
+            System.out.println("Error occurred while updating product details: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        return "home";
+    }
+
+    
+//    검색
+    @GetMapping("/searchProducts")
+    @ResponseBody
+    public List<ProductsVO.Products> searchProducts(@RequestParam String searchTerm) {
+        return productsServiceImpl.searchProducts(searchTerm);
+    }
+
+    //무작위 3개의 공연전시 데이터
+    @GetMapping("/getEventProducts")
+    @ResponseBody
+    public List<ProductsVO.Products> getEventProducts() {
+        return productsServiceImpl.getEventProducts();
+    }
+
   	
   	
 }

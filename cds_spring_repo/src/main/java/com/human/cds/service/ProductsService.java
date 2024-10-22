@@ -2,6 +2,7 @@ package com.human.cds.service;
 
 import java.util.List;
 
+
 import com.human.cds.vo.ProductsVO;
 import com.human.cds.vo.ProductsVO.Products;
 
@@ -14,5 +15,13 @@ public interface ProductsService {
 
 	List<ProductsVO.Products> getProductsPage(int page, int size);
 
+	Products getProducts(String contentid);
+	
+	int updateProductDetails(ProductsVO.Products product);
+	
+	int updateProductInfo(ProductsVO.Products product);
 
+	List<Products> searchProducts(String searchTerm);
+
+	List<Products> getEventProducts();
 }

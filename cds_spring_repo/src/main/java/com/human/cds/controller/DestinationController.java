@@ -31,6 +31,11 @@ public class DestinationController {
 	private DestinationService DestinationServiceImpl;
 	
 	
+	@GetMapping("/destination.do")
+	public String destination() {
+		
+		 return "destination/destination_main"; //view이름으로 jsp파일 경로 반환
+	}
 	
 	//festival 리스트 DB에 저장하기
 	@GetMapping("/DestinationList.do")

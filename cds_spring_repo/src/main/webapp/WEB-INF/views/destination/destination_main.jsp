@@ -1,170 +1,189 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>여행지 둘러보기</title>
-        <link rel="stylesheet" type="text/css"
-            href="${pageContext.request.contextPath}/destination/destination_main.css">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <title>여행지 둘러보기</title>
+    <!-- CSS 연결 -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/destination_main.css">
+    <!-- jQuery 및 JS 파일 연결 -->
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/destination_main.js"></script>
+</head>
 
-    <body>
-        <section>
-            <div id="des1">
-                <div class="desheader">
-                    <div class="desheader_1">
-                        <div class="desheader_1a">
-                            <h2>국내 여행지 정보</h2>
-                            <p>얼마나 알고 있니?</p>
-                        </div>
-                        <div class="desheader_2">
-                            <span>&lt;</span>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>서울</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>인천</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>경기</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>부산</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>울산</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>대전</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>광주</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>세종</p>
-                            </div>
-                            <div>
-                                <div class="desheader_circle" style="background-image: url(prjt-이미지circle.jpg);"></div>
-                                <p>청양</p>
-                            </div>
-                            <span>&gt;</span>
-
-                        </div>
+<body>
+    <section>
+        <div id="des1">
+            <div class="desheader">
+                <div class="desheader_1">
+                    <div class="desheader_1a">
+                        <h2>국내 여행지 정보</h2>
+                        <p>얼마나 알고 있니?</p>
                     </div>
-                    <div class="desselect">
-                        <h3>서울시</h3>
-                        <select name="" id="">
-                            <option value="">금천구</option>
-                            <option value="">구로구</option>
-                            <option value="">광진구</option>
-                            <option value="">강서구</option>
-                        </select>
-                        
-                        <input type="text" placeholder="검색창">
-                        
+                    <div class="desheader_2">
+                        <!-- 왼쪽 스크롤 버튼 -->
+                        <span class="nav-left">&lt;</span>
+
+                        <!-- 원들이 들어있는 컨테이너 -->
+                        <div class="region-container">
+                            <div class="region-circles">
+                                <div class="circle-item" data-region = "1" data-rname="서울">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>서울</p>
+                                </div>
+                                <div class="circle-item" data-region = "2" data-rname="인천">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>인천</p>
+                                </div>
+                                <div class="circle-item" data-region = "3" data-rname="대전">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>대전</p>
+                                </div>
+                                <div class="circle-item" data-region = "4" data-rname="대구">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>대구</p>
+                                </div>
+                                <div class="circle-item" data-region = "5" data-rname="광주">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>광주</p>
+                                </div>
+                                <div class="circle-item" data-region = "6" data-rname="부산">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>부산</p>
+                                </div>
+                                <div class="circle-item" data-region = "7" data-rname="울산">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>울산</p>
+                                </div>
+                                <div class="circle-item" data-region = "31" data-rname="경기도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>경기</p>
+                                </div>
+                                <div class="circle-item" data-region = "32" data-rname="강원도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>강원</p>
+                                </div>
+                                <div class="circle-item" data-region = "33" data-rname="충청북도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>충북</p>
+                                </div>
+                                <div class="circle-item" data-region = "34" data-rname="충청남도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>충남</p>
+                                </div>
+                                <div class="circle-item" data-region = "35" data-rname="경상북도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>경북</p>
+                                </div>
+                                <div class="circle-item" data-region = "36" data-rname="경상남도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>경남</p>
+                                </div>
+                                <div class="circle-item" data-region = "37" data-rname="전라북도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>전북</p>
+                                </div>
+                                <div class="circle-item" data-region = "38" data-rname="전라남도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>전남</p>
+                                </div>
+                                <div class="circle-item" data-region = "39" data-rname="제주도">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>제주</p>
+                                </div>
+                                <div class="circle-item" data-region = "8" data-rname="세종">
+                                    <div class="desheader_circle"
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                    <p>세종</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 오른쪽 스크롤 버튼 -->
+                        <span class="nav-right">&gt;</span>
                     </div>
-
-
-                    <div class="desimg1">
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                        <div>
-                            <div class="desimg2" style="background-image:url(prjt-이미지01.jpg) ;"></div>
-                            <div>설명 1</div>
-                        </div>
-                    </div>
-
-                    <div class="desplacepagebutton">
-                        <button type="submit">1</button>
-                        <button type="submit">2</button>
-                        <button type="submit">3</button>
-                        <button type="submit">></button>
-                    </div>
-                    <div class="desslogan" style="background-image: url(des슬로건.png);"></div>
-
-
-
-
-
-
                 </div>
 
+                <!-- 나머지 코드 유지 -->
             </div>
-        </section>
-        <script>
-                            // 좌우로 스크롤 할 수 있는 상태 설정
-                let scrollPosition = 0; // 현재 스크롤 위치
-                const scrollStep = 100; // 한 번에 이동하는 거리
-                const regionCircles = document.querySelector(".region-circles");
+        </div>
 
-                // 왼쪽으로 스크롤
-                document.querySelector("span:first-child").addEventListener("click", function() {
-                    if (scrollPosition > 0) {
-                        scrollPosition -= scrollStep;
-                        regionCircles.style.transform = `translateX(-${scrollPosition}px)`;
-                    }
-                });
+        <div class="desselect">
+            <h3>서울</h3>
+            <select name="sigunguselect" id="sigunguselect">
+                <option>종로구</option>
+                <option>용산구</option>
+                <option>영등포구</option>
+                <option>동작구</option>
+                <option>양천구</option>
+                <option>중랑구</option>
+                <option>서초구</option>
+                <option>동대문구</option>
+                <option>도봉구</option>
+                <option>광진구</option>
+                <option>중구</option>
+                <option>강북구</option>
+                <option>송파구</option>
+                <option>서대문구</option>
+                <option>강동구</option>
+                <option>마포구</option>
+                <option>강남구</option>
+                <option>강서구</option>
+                <option>성북구</option>
+                <option>관악구</option>
+                <option>은평구</option>
+                <option>성동구</option>
+                <option>노원구</option>
+                <option>구로구</option>
+            </select>
+            <input type="text" placeholder="검색창">
+        </div>
+        <div class="desimg1 desList">
+        <div class="desList"></div>
+        </div>
+        <!-- 상세보기 모달창 -->
+		<div class="modal-background" id="myModal"><!-- 배경 -->
+            <div class="modalbox"><!-- 모달메인창 -->
+                <span class="close-btn">&times;</span>
+                <div>
+                    <h2 id="modal-title"># 제목</h2>
+                    <p id="modal-description"># 설명</p>
+                </div>
+                <div><!-- 이미지 -->
+                    <img id="modal-image" >
+                </div>
+                <div>
+                    <h2>상세정보</h2>
+                    <p>상세 설명 등 추가될 정보</p>
+                </div>
+                <div>
+                    카카오지도
+                </div>
+                <div>
+                    세부사항등
+                </div>
+            </div>
+        </div>
+        <div class="desslogan" style="background-image: url(${pageContext.request.contextPath}/resources/img/des슬로건.png);"></div>
+    </section>
+</body>
 
-                // 오른쪽으로 스크롤
-                document.querySelector("span:last-child").addEventListener("click", function() {
-                    if (scrollPosition < regionCircles.scrollWidth - regionCircles.clientWidth) {
-                        scrollPosition += scrollStep;
-                        regionCircles.style.transform = `translateX(-${scrollPosition}px)`;
-                    }
-                });
-
-        </script>
-    </body>
-
-    </html>
+</html>

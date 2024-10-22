@@ -39,4 +39,18 @@ public class DestinationServiceImpl implements DestinationService {
 		
 	}
 
+	@Override
+	public List<DestinationDBVO> getSigunguName(String areacode) {
+		return dao.getSigunguName(areacode);
+	}
+
+	
+	//지역코드와 시군구 코드에 맞게 리스트 뽑기
+	@Override
+	public List<DestinationDBVO> getDesList(String areacode, String sigungucode) {
+		return dao.getDesList(areacode, sigungucode);
+	}
+
+
+
 }

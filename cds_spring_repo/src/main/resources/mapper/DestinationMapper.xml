@@ -22,6 +22,22 @@
         SET d_areaname = #{areaname}, d_sigunguname = #{sigunguname}
         WHERE d_contentid = #{contentid}
 	</update>
+	
+	
+	<!-- 셀렉트창 시군구 뽑기 -->
+	<select id="DestinationSigungu" resultType="DestinationDBVO">
+		select d_sigungucode, d_sigunguname from destination
+		where #{areacode} = d_areacode
+		GROUP BY d_sigunguname , d_sigungucode
+	
+	</select>
+	
+	<!-- 지역코드와 시군구코드에 맞게 정보 불러오기 -->
+	<select id="DesList" resultType="DestinationDBVO" parameterType="map">
+		select * from destination
+		where  d_areacode = #{areacode} and d_sigungucode = #{sigungucode} 
+	</select>
+	
 </mapper>
 
 

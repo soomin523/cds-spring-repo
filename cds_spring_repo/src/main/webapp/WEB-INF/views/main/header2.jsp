@@ -62,7 +62,7 @@
                 location.href = "../accommodations/accommo.do";
             });
             $(".community").click(function(){
-                location.href = "../index.do";
+                location.href = "../community/commu";
             });
             $(".support").click(function(){
                 location.href = "../support/support.do";

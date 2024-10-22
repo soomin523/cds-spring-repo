@@ -1,4 +1,16 @@
 $(function() {
+
+	$(document).on('click','.comment-card', function(){
+		let contentId=$(this).data('contentid');
+		
+			window.location.href='/cds/tourCourse/Course.do?contentId='+contentId;
+									
+	});
+
+
+
+
+
     $('#redirectButton_comment').on('click', function() {
         $('.mywrite-comment-none').css('display', 'none');
         $('.mywrite-comment-exist').css('display', 'flex');
@@ -15,9 +27,9 @@ $(function() {
                 
                 // 댓글 목록을 카드 형식으로 추가
                 $.each(data, function(index, item) {
-                	console.log(item);
+                	console.log(item.contentId);
                     var commentHtml = `
-                        <div class="comment-card">
+                        <div class="comment-card" data-contentid=${item.contentId}>
                             <div class="comment-header">
                                 <div class="comment-image">
                                     <img src="${item.firstimage}" alt="이미지" />

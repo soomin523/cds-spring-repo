@@ -1,25 +1,40 @@
 $(document).ready(function () {
-    // 페이지 로드 시 로그인 상태 확인
-    $.ajax({
-        url: '/cds/tourCourse/checkLoginStatus.do',
-        type: 'POST',
-        success: function (response) {
-            if (response === "belogin") {
-                $('#add-comment').prop('disabled', true); // 버튼 비활성화
-                $('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.'); // 안내 메시지 변경
-                $('#new-comment').prop('disabled', true);
-            }
-        },
-        error: function () {
-            console.error('로그인 상태 확인 중 오류가 발생했습니다.');
-        }
-    });
+    let contentId = getParameterByName('contentId');
+    let markers = [];
+    let infoWindows = []; // 정보 창을 저장할 배열
+    let openInfoWindow = null; // 현재 열린 정보창을 저장
 
-    // course-item 클릭 시 contentid를 서버로 보내 상세 정보 가져오기
-    $(document).on('click', '.course-item', function () {
-        var contentId = $(this).data('contentid');
+    function getParameterByName(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // 로그인 상태 확인
+    function checkLoginStatus() {
+        $.ajax({
+            url: '/cds/tourCourse/checkLoginStatus.do',
+            type: 'POST',
+            success: function (response) {
+                if (response === "belogin") {
+                    $('#add-comment').prop('disabled', true);
+                    $('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
+                    $('#new-comment').prop('disabled', true);
+                }
+            },
+            error: function () {
+                console.error('로그인 상태 확인 중 오류가 발생했습니다.');
+            }
+        });
+    }
+
+    // 코스 정보 및 댓글 로드
+    function loadCourseDetails(contentId) {
         loadComments(contentId, 1); // 첫 페이지의 댓글을 로드
-        // AJAX 요청을 통해 contentid에 맞는 데이터 가져오기
         $.ajax({
             url: '/cds/tourCourse/getCourseDetails.do',
             type: 'GET',
@@ -27,35 +42,8 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data) {
-                    $('.coursenamebox .first-image').attr('src', data.first_image).css('display', 'block');
-                    $('.coursenamebox .course-title').text(data.title);
-                    $('.tagbox .tag:nth-child(1) p').text(data.distance || '거리 정보 없음');
-                    $('.tagbox .tag:nth-child(2) p').text(data.taketime || '소요 시간 정보 없음');
-                    $('.overview').text(data.overview || '설명 없음');
-                    $('#add-comment').data('contentid', contentId);
-                    $('.coursemodal').addClass('show');
-
-                    if (data.map_x && data.map_y) {
-                        var mapContainer = document.getElementById('map');
-                        var mapOption = {
-                            center: new kakao.maps.LatLng(data.map_y, data.map_x),
-                            level: 3
-                        };
-                        var map = new kakao.maps.Map(mapContainer, mapOption);
-                        var markerPosition = new kakao.maps.LatLng(data.map_y, data.map_x);
-                        var marker = new kakao.maps.Marker({
-                            position: markerPosition
-                        });
-                        marker.setMap(map);
-
-                        var infoContent = '<div class="info-window">' + data.title + '</div>';
-                        var infoWindow = new kakao.maps.InfoWindow({
-                            content: infoContent,
-                        });
-                        infoWindow.open(map, marker);
-                    } else {
-                        console.error("좌표 정보가 부족합니다.");
-                    }
+                    updateCourseModal(data);
+                    history.replaceState(null, '', '/cds/tourCourse/Course.do');
                 } else {
                     alert('해당 코스 정보를 가져올 수 없습니다.');
                 }
@@ -65,6 +53,126 @@ $(document).ready(function () {
                 alert('코스 정보를 가져오는 중 오류가 발생했습니다.');
             }
         });
+    }
+
+    // 코스 모달 업데이트
+    function updateCourseModal(data) {
+        $('.coursenamebox .first-image').attr('src', data.first_image).css('display', 'block');
+        $('.coursenamebox .course-title').text(data.title);
+        $('.tagbox .tag:nth-child(1) p').text(data.distance || '거리 정보 없음');
+        $('.tagbox .tag:nth-child(2) p').text(data.taketime || '소요 시간 정보 없음');
+        $('.overview').text(data.overview || '설명 없음');
+        $('#add-comment').data('contentid', data.contentId || contentId);
+        $('.coursemodal').addClass('show');
+
+        if (data.map_x && data.map_y) {
+            initializeMap(data.map_y, data.map_x, data.title);
+        } else {
+            console.error("좌표 정보가 부족합니다.");
+        }
+    }
+
+    // 맵 초기화
+    function initializeMap(map_y, map_x, title) {
+        var mapContainer = document.getElementById('map');
+        var mapOption = {
+            center: new kakao.maps.LatLng(map_y, map_x),
+            level: 3
+        };
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 마커 생성
+        var markerPosition = new kakao.maps.LatLng(map_y, map_x);
+        var marker = new kakao.maps.Marker({
+            position: markerPosition
+        });
+        marker.setMap(map);
+
+        // 정보창 생성
+        var infoContent = '<div class="info-window">' + title + '</div>';
+        var infoWindow = new kakao.maps.InfoWindow({
+            content: infoContent,
+        });
+        infoWindows.push(infoWindow);
+        infoWindow.open(map, marker);
+
+        // 카테고리 버튼 클릭 시 장소 검색
+        $('.category-btn').off('click').on('click', function () {
+            var category = $(this).data('category');
+            searchCategory(category, map_y, map_x, map);
+        });
+    }
+
+    // 카테고리 검색
+    function searchCategory(category, map_y, map_x, map) {
+        var places = new kakao.maps.services.Places();  
+        var location = new kakao.maps.LatLng(map_y, map_x); 
+
+        places.categorySearch(category, function (data, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                clearMarkers(); 
+                clearInfoWindows(); 
+                for (var i = 0; i < data.length; i++) {
+                    displayMarker(data[i], map);
+                }
+            } else {
+                console.error('카테고리 검색 실패:', status);
+            }
+        }, {location: location, radius: 3000}); 
+    }
+
+    // 마커 표시 함수
+    function displayMarker(place, map) {
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(place.y, place.x) 
+        });
+        markers.push(marker);
+
+        var infoWindow = new kakao.maps.InfoWindow({
+            content: '<div style="padding:5px;font-size:12px; item-align:center;">' + place.place_name + '</div>'
+        });
+        infoWindows.push(infoWindow);
+
+        // 마커 클릭 시 정보창 토글
+        kakao.maps.event.addListener(marker, 'click', function() {
+            if (openInfoWindow) {
+                openInfoWindow.close(); // 열려있는 정보창을 닫음
+            }
+            if (openInfoWindow === infoWindow) {
+                openInfoWindow = null; // 이미 열린 상태였으면 null로 설정
+            } else {
+                infoWindow.open(map, marker);
+                openInfoWindow = infoWindow; // 새로운 정보창을 설정
+            }
+        });
+    }
+
+    // 기존 마커 및 정보 창 제거
+    function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
+    }
+
+    function clearInfoWindows() {
+        for (var i = 0; i < infoWindows.length; i++) {
+            infoWindows[i].close();
+        }
+        infoWindows = [];
+        openInfoWindow = null; // 모든 정보창 닫았으므로 null로 초기화
+    }
+
+    // 초기 페이지 로드에서 contentId가 있을 경우 코스 정보 로드
+    if (contentId) {
+        loadCourseDetails(contentId);
+    }
+
+    // course-item 클릭 시 contentid를 서버로 보내 상세 정보 가져오기
+    $(document).on('click', '.course-item', function () {
+        var contentId = $(this).data('contentid');
+        loadCourseDetails(contentId);
     });
 
     // 댓글 작성
@@ -92,11 +200,11 @@ $(document).ready(function () {
                 if (response === "success") {
                     alert('댓글 작성 성공');
                     $('#new-comment').val('');
-                    loadComments(contentId, 1); // 첫 페이지 댓글 다시 불러오기
+                    loadComments(contentId, 1); 
                 } else if (response === "belogin") {
                     alert('로그인 후 이용 가능합니다.');
                 } else {
-                    alert('어떠한 문제로 댓글 작성에 실패했습니다.');
+                    alert('댓글 작성에 실패했습니다.');
                 }
             },
             error: function () {
@@ -122,6 +230,7 @@ $(document).ready(function () {
         }
     });
 
+    // 댓글 로드 함수
     function loadComments(contentId, page) {
         $.ajax({
             url: '/cds/tourCourse/getComments.do',
@@ -141,6 +250,7 @@ $(document).ready(function () {
         });
     }
 
+    // 댓글 표시
     function displayComments(comments, page) {
         if (page === 1) {
             $('#comment-thread').empty();
@@ -170,62 +280,4 @@ $(document).ready(function () {
             $('#comment-thread').data('page', page + 1);
         }
     }
-
-    // 좋아요/싫어요 버튼 클릭 이벤트 핸들러
-    $(document).on('click', '.like-btn, .dislike-btn', function () {
-        var commentId = $(this).closest('.comment').data('comment-id');
-        var actionType = $(this).hasClass('like-btn') ? 'like' : 'dislike';
-
-        $.ajax({
-            url: '/cds/tourCourse/toggleLike.do',
-            type: 'POST',
-            data: {
-                c_idx: commentId,
-                actionType: actionType
-            },
-            success: function (response) {
-                var $comment = $('.comment[data-comment-id="' + commentId + '"]');
-                var $likeCount = $comment.find('.like-count');
-                var $dislikeCount = $comment.find('.dislike-count');
-
-                if (response === "success") {
-                    // 좋아요/싫어요가 성공적으로 등록되었을 때
-                    if (actionType === 'like') {
-                        var currentLikeCount = parseInt($likeCount.text()) || 0;
-                        $likeCount.text(currentLikeCount + 1);
-                    } else if (actionType === 'dislike') {
-                        var currentDislikeCount = parseInt($dislikeCount.text()) || 0;
-                        $dislikeCount.text(currentDislikeCount + 1);
-                    }
-                } else if (response === "cancel") {
-                    // 좋아요나 싫어요가 취소되면 감소시킴
-                    if (actionType === 'like') {
-                        var currentLikeCount = parseInt($likeCount.text()) || 0;
-                        $likeCount.text(currentLikeCount - 1);
-                    } else if (actionType === 'dislike') {
-                        var currentDislikeCount = parseInt($dislikeCount.text()) || 0;
-                        $dislikeCount.text(currentDislikeCount - 1);
-                    }
-                } else if (response === "belogin") {
-                    alert("로그인 후 이용 가능한 서비스입니다.");
-                }
-
-                // 좋아요/싫어요 상태 업데이트 후 댓글 다시 불러오기
-                loadComments($('#add-comment').data('contentid'), 1);
-            },
-            error: function () {
-                alert('좋아요/싫어요 처리 중 오류가 발생했습니다.');
-            }
-        });
-    });
-
-    // 댓글 무한 스크롤 로딩
-    $('#comment-thread').on('scroll', function () {
-        var $commentThread = $(this);
-        if ($commentThread.scrollTop() + $commentThread.innerHeight() >= $commentThread[0].scrollHeight) {
-            var page = $commentThread.data('page') || 1;
-            var contentId = $('#add-comment').data('contentid');
-            loadComments(contentId, page); // 다음 페이지 댓글 로드
-        }
-    });
 });

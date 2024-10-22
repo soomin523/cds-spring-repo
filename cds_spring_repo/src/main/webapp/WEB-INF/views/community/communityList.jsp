@@ -1,29 +1,39 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
+    <meta charset="UTF-8">
     <title>커뮤니티 게시물 목록</title>
-    <link rel="stylesheet" type="text/css" href="resources/css/community.css">
-    <script src="resources/js/community.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member/communityList.css">
+    <script src="${pageContext.request.contextPath}/resources/js/community.js"></script>
 </head>
 <body>
-    <header>
-        <h1>커뮤니티 게시판</h1>
-        <div class="commu-header">
-            <input type="text" id="searchBox" placeholder="게시물 검색" onkeyup="searchPosts()">
-            <button class="commu-post-button" onclick="window.location.href='uploadPost.jsp'">게시물 올리기</button>
-        </div>
-    </header>
-    
-    <div class="container">
-        <div class="post-list">
-            <c:forEach var="post" items="${postList}">
-                <div class="post-item">
-                    <h3><a href="communityDetail.jsp?id=${post.id}">${post.title}</a></h3>
-                    <p>작성자: ${post.author}</p>
-                    <p>작성일: ${post.date}</p>
-                </div>
-            </c:forEach>
-        </div>
+<!-- <header>
+    <div class="commu-header">
+        헤더 내용 추가
     </div>
+</header> -->
+
+<div class="container">
+    <div class="post-list">
+        <c:forEach var="community" items="${communityList}">
+            <div class="post-item">
+                <div class="post-image">
+                    <img src="${community.imagePath}" alt="게시물 이미지" width="100" height="100">
+                </div>
+                <p>작성자: ${community.memberId}</p>
+                <p>작성일: ${community.createdAt}</p>
+                <div class="post-rating">
+                    <span>⭐ ${community.rating}</span>
+                </div>
+                <div class="post-actions">
+                    <span>👍 ${community.likes}</span>
+                    <span>💬 ${community.comments}</span>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+</div>
 </body>
 </html>

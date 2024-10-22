@@ -54,39 +54,39 @@
         <div class="mylike-random-festival custom-slider">
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)축제이름</p>
+                <p>(지역)${festivalList[2].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역)${festivalList[35].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역)${festivalList[35].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역)${festivalList[35].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역)${festivalList[35].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역)${festivalList[35].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역)${festivalList[35].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역)${festivalList[35].f_title}</p>
             </div>
             <div class="custom-slider-item">
                 <img src="${pageContext.request.contextPath}/resources/img/정보수정.png">
-                <p>(지역)관광지이름</p>
+                <p>(지역))${festivalList[35].f_title}</p>
             </div>
         </div>
         <div class="mylike-random-destination-title">

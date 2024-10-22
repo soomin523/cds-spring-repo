@@ -43,7 +43,7 @@
                 location.href = "index.do";
             });
             $(".destination").click(function(){
-                location.href = "index.do";
+                location.href = "destination/destination.do";
             });
             $(".festival").click(function(){
                 location.href = "festival/getFestivalList.do";

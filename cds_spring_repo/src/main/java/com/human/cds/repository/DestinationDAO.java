@@ -1,5 +1,6 @@
 package com.human.cds.repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,4 +55,18 @@ public class DestinationDAO {
 		return sqlSession.update(MAPPER+".DestinationName",map);
 	}
 
+
+	public List<DestinationDBVO> getSigunguName(String areacode) {
+		return sqlSession.selectList(MAPPER+".DestinationSigungu",areacode);
+	}
+
+
+	public List<DestinationDBVO> getDesList(String areacode , String sigungucode) {
+		Map<String, String> map = new HashMap<>();
+		map.put("areacode", areacode);
+		map.put("sigungucode", sigungucode);
+		System.out.println(map);
+		return sqlSession.selectList(MAPPER+".DesList", map);
+	}
+	
 }

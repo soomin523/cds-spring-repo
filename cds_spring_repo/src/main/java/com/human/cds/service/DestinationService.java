@@ -14,4 +14,8 @@ public interface DestinationService {
 
 	int updateAreaName(String areaName, String sigunguName, String contentid);
 
+	List<DestinationDBVO> getSigunguName(String areacode);
+
+	List<DestinationDBVO> getDesList(String areacode, String sigungucode);
+
 }

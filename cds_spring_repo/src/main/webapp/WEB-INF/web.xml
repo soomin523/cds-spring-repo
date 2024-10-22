@@ -30,6 +30,11 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 세션 만료 시간 지정 -->
+	<session-config>
+        <session-timeout>30</session-timeout> <!-- 타임아웃을 30분으로 설정 -->
+    </session-config>
+	
 	<!-- 한글 처리 필터 -->
 	<filter>
 		<filter-name>HangulEncoding</filter-name>

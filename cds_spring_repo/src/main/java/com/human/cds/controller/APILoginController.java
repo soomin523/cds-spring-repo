@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -53,81 +55,107 @@ public class APILoginController {
 	}
 	
 	
-//	//네이버 회원가입/로그인을 위함
-//	private String naverClientId = "4IZekkKFksLclCpboj2G";
-//	private String naverClientPw = "y0PcRKsVJv";
-//    private String naverUri = "http://localhost:9090/cds/member/naverLogin.do";
-//    private String state = "cds_prtj";
-//	
-//    @RequestMapping(value="/member/naverLogin.do", method = RequestMethod.GET)
-//    public String loginNaver(@RequestParam("code") String code, HttpServletRequest request){
-//    	// 1. 인가 코드 받기 -> @RequestParam String code
-//        
-//        // 2. 접근 토큰 발급 요청
-//        String accessToken = getAccessToken(code, state);
-//        System.out.println("accessToken = " + accessToken);
-//        
-//        // 3. 사용자 정보 받기
-//        NaverUserVO userInfo = getUserInfo2(accessToken);
-//        
-//        MemberVO member = memberServiceImpl.findMemberId(vo.getName(), vo.getEmail());
-//    	
-//    	
-//    	return "redirect:/index.do";
-//    }
-//	
-//	
-//    public String getAccessToken(String code, String state)
-//    {
-//        String reqUrl = "https://nid.naver.com/oauth2.0/token";
-//        RestTemplate restTemplate = new RestTemplate();
-//        
-//        // HttpHeader Object
-//        HttpHeaders headers = new HttpHeaders();
-//        
-//        // HttpBody Object
-//        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-//        params.add("grant_type", "authorization_code");
-//        params.add("client_id", naverClientId);
-//        params.add("client_secret", naverClientPw);
-//        params.add("code", code);
-//        params.add("state", state);
-//        
-//        // http body params 와 http headers 를 가진 엔티티
-//        HttpEntity<MultiValueMap<String, String>> naverTokenRequest = new HttpEntity<>(params, headers);
-//        
-//        // reqUrl로 Http 요청, POST 방식
-//        ResponseEntity<String> response = restTemplate.exchange(reqUrl,
-//                                                  HttpMethod.POST,
-//                                                  naverTokenRequest,
-//                                                  String.class);
-//        
-//        String responseBody = response.getBody();
-//        JsonObject asJsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
-//        return asJsonObject.get("access_token").getAsString();
-//    }
-//	
-//    public NaverUserVO getUserInfo2(String accessToken){
-//        String reqUrl = "https://openapi.naver.com/v1/nid/me";
-//        
-//        RestTemplate restTemplate = new RestTemplate();
-//        
-//        // HttpHeader 오브젝트
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Authorization", "Bearer " + accessToken);
-//        
-//        HttpEntity<MultiValueMap<String, String>> naverProfileRequest = new HttpEntity<>(headers);
-//        
-//        ResponseEntity<String> response = restTemplate.exchange(reqUrl,
-//                                                  HttpMethod.POST,
-//                                                  naverProfileRequest,
-//                                                  String.class);
-//        
-//        System.out.println("response = " + response);
-//        NaverUserVO naverProfile = new NaverUserVO(response.getBody());
-//        
-//        return naverProfile;
-//    }
+	//네이버 회원가입/로그인을 위함
+	private String naverClientId = "4IZekkKFksLclCpboj2G";
+	private String naverClientPw = "y0PcRKsVJv";
+    private String naverUri = "http://localhost:9090/cds/member/naverLogin.do";
+    private String state = "cds_prtj";
+	
+    @RequestMapping(value="/member/naverLogin.do", method = RequestMethod.GET)
+    public String loginNaver(@RequestParam("code") String code, HttpServletRequest request){
+    	// 1. 인가 코드 받기 -> @RequestParam String code
+        
+        // 2. 접근 토큰 발급 요청
+        String accessToken = getAccessToken(code, state);
+        System.out.println("accessToken = " + accessToken);
+        
+        // 3. 사용자 정보 받기
+        NaverUserVO userInfo = getUserInfo2(accessToken);
+        
+        HttpSession session = request.getSession();
+        MemberVO member = memberServiceImpl.findMemberId(userInfo.getName(), userInfo.getEmail());
+        
+        if(member != null) {
+        	session.setAttribute("member", member);
+        	
+        }else {
+        	member = new MemberVO();
+        	member.setName(userInfo.getName());
+        	member.setEmail(userInfo.getEmail());
+        	member.setGender(userInfo.getGender());
+        	String birthday = userInfo.getBirthyear()+"-"+userInfo.getBirthday();
+        	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        	java.util.Date utilDate;
+			try {
+				utilDate = format.parse(birthday);
+				java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime()); // java.util.Date를 java.sql.Date로 변환
+				member.setBirth_date(sqlDate); // java.sql.Date를 설정
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} // java.util.Date로 파싱
+			member.setPhone(userInfo.getMobile());
+        	int result = memberServiceImpl.naverLogin(member);
+        	if(result == 1) {
+        		session.setAttribute("member", member);
+        	}
+        }
+        
+    	return "redirect:/index.do";
+    }
+	
+	
+    public String getAccessToken(String code, String state)
+    {
+        String reqUrl = "https://nid.naver.com/oauth2.0/token";
+        RestTemplate restTemplate = new RestTemplate();
+        
+        // HttpHeader Object
+        HttpHeaders headers = new HttpHeaders();
+        
+        // HttpBody Object
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type", "authorization_code");
+        params.add("client_id", naverClientId);
+        params.add("client_secret", naverClientPw);
+        params.add("code", code);
+        params.add("state", state);
+        
+        // http body params 와 http headers 를 가진 엔티티
+        HttpEntity<MultiValueMap<String, String>> naverTokenRequest = new HttpEntity<>(params, headers);
+        
+        // reqUrl로 Http 요청, POST 방식
+        ResponseEntity<String> response = restTemplate.exchange(reqUrl,
+                                                  HttpMethod.POST,
+                                                  naverTokenRequest,
+                                                  String.class);
+        
+        String responseBody = response.getBody();
+        JsonObject asJsonObject = JsonParser.parseString(responseBody).getAsJsonObject();
+        return asJsonObject.get("access_token").getAsString();
+    }
+	
+    public NaverUserVO getUserInfo2(String accessToken){
+        String reqUrl = "https://openapi.naver.com/v1/nid/me";
+        
+        RestTemplate restTemplate = new RestTemplate();
+        
+        // HttpHeader 오브젝트
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+        
+        HttpEntity<MultiValueMap<String, String>> naverProfileRequest = new HttpEntity<>(headers);
+        
+        ResponseEntity<String> response = restTemplate.exchange(reqUrl,
+                                                  HttpMethod.POST,
+                                                  naverProfileRequest,
+                                                  String.class);
+        
+        System.out.println("response = " + response);
+        NaverUserVO naverProfile = new NaverUserVO(response.getBody());
+        
+        return naverProfile;
+    }
 
 	
 	//카카오 회원가입/로그인을 위함

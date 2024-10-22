@@ -27,7 +27,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <hr>
                     <button value="question">자주묻는질문</button>
                     <hr>
-                    <button value="question">1:1문의</button>
+                    <button value="oneByone">1:1문의</button>
                     <hr>
                 </div>
             </aside>
@@ -41,45 +41,47 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 						</c:choose>          
                     </h1>
                 </div>
-<%-- <c:if test="${ membership_level == 3 }"> --%>
+<c:if test="${ member.membership_level == 3 }">
                 <div class="newContent">
                 	<button>새글쓰기</button>
                 </div>
-<%-- </c:if> --%>
+</c:if>
                 <hr>
+                <div class="contentBox">
 <c:if test="${ not empty support }">
 	<c:forEach var="item" items="${ support }">
-                <div class="content">
-                    <div class="contentTitle">
-                        <div>${ item.s_title }</div>
-                        <i class="fa-solid fa-angle-up"></i>
-                        <i class="fa-solid fa-angle-down"></i>
-                    </div>
-                    <div class="contentText">
-                    	<p>${ item.s_content }</p>
-                    	<div>
-		<fmt:formatDate value="${ item.update_date }" pattern="yyyy-MM-dd HH:mm:ss" />
-<%-- <c:if test="${ membership_level == 3 }"> --%>
-							<div>
-		                    	<button class="update" data-sidx="${ item.s_idx }" data-category="${ item.s_category }">
-		                    		수정하기</button>
-		                    	<span>|</span>
-		                    	<button class="delete" data-sidx="${ item.s_idx }" data-category="${ item.s_category }">
-		                    		삭제하기</button>
-							</div>
-<%-- </c:if> --%>
-                    	</div>
-                    </div>
-                </div>
-                <hr>
+	                <div class="content">
+	                    <div class="contentTitle">
+	                        <div>${ item.s_title }</div>
+	                        <i class="fa-solid fa-angle-up"></i>
+	                        <i class="fa-solid fa-angle-down"></i>
+	                    </div>
+	                    <div class="contentText">
+	                    	<p>${ item.s_content }</p>
+	                    	<div>
+			<fmt:formatDate value="${ item.update_date }" pattern="yyyy-MM-dd HH:mm:ss" />
+		<c:if test="${ member.membership_level == 3 }">
+								<div>
+			                    	<button class="update" data-sidx="${ item.s_idx }" data-category="${ item.s_category }">
+			                    		수정하기</button>
+			                    	<span>|</span>
+			                    	<button class="delete" data-sidx="${ item.s_idx }" data-category="${ item.s_category }">
+			                    		삭제하기</button>
+								</div>
+		</c:if>
+	                    	</div>
+	                    </div>
+	                </div>
+	                <hr>
 	</c:forEach>
 </c:if>
+				</div>
 				<div id="modalOverlay"></div>
 				<div class="newContentPage">
 				    <h2>새 글 작성</h2>
 				    <h2 style="color: #fff0;">띄우기</h2>
 	               <form name="newContent" action="insertSupport.do" method="post">
-	                   <input type="text" name="s_writer" value="manager" readonly><br>
+	                   <input type="text" name="s_writer" value="${ member.member_id }" readonly><br>
 	                   <select name="s_category">
 	                       <option value="notice">공지사항</option>
 	                       <option value="guide">이용안내</option>

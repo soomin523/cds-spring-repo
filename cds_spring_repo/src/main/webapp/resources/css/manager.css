@@ -22,9 +22,6 @@
 	padding-bottom: 30px;
     margin-left: 5%;
 }
-#managerPage>aside>h2:hover{
-    cursor: pointer;
-}
 #managerPage>aside>h2+hr{
 	border: solid 4px #87bee5;
     border-radius: 10px;
@@ -64,115 +61,20 @@
 	font-size: 30px;
 	font-weight: bold;
 }
-#managerPage>section>.content{ /* 콘텐츠 박스 */
-	width: 100%;
-    padding: 2%;
+#managerPage>section>.container{
+	min-height: 350px;
 }
-#managerPage>section>.content>.contentTitle{ /* 콘텐츠 제목 */
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
-}
-#managerPage>section>.content>.contentTitle>div{
-	font-size: 18px;
-	font-weight: 550;
-}
-#managerPage>section>.content>.contentTitle>i{
-	font-size: 25px;
-	font-weight: 550;
-	color: #6e6e6e;
-}
-#managerPage>section>.content>.contentText{ /* 콘텐츠 내용 */
-	margin: 2% 2% 0px;
-	display: flex;
-	flex-direction: column;
-}
-#managerPage>section>.content>.contentText>p{
-	white-space: pre-wrap; /* 줄바꿈은 유지하고 자동 줄바꿈도 지원 */
-    word-wrap: break-word;
-}
-#managerPage>section>.content>.contentText>div{
-	margin-top: 10px;
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-}
-#managerPage>section>.content>.contentText>div>div>button, #managerPage>section>.newContent>button{
-	border: none;
-	background-color: #fff0;
-	cursor: pointer;
-}
-#managerPage>section>.newContent{
-	display: flex;
-	justify-content: flex-end;
-	margin-right: 1%;
-	margin-bottom: 10px;
-}
-#managerPage>section>#modalOverlay{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #00000075;
-}
-#managerPage>section>.newContentPage, #managerPage>section>.updateContentPage{
-	width: 70%;
-    height: 98%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 5% 2%;
-    position: absolute;
-    top: 1%;
-    right: 10%;
-    background-color: #fff;
-    border: solid 1px #969696; 
-    border-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-#managerPage>section>.newContentPage>h2
-#managerPage>section>.updateContentPage>h2{
+#managerPage>section>.memberContainer>table{
 	width: 100%;
 	text-align: center;
-	color: #333;
-	margin-bottom: 30px;
 }
-#managerPage>section>.newContentPage input[type="text"],
-#managerPage>section>.newContentPage textarea,
-#managerPage>section>.newContentPage select,
-#managerPage>section>.updateContentPage input[type="text"],
-#managerPage>section>.updateContentPage textarea,
-#managerPage>section>.updateContentPage select {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 15px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-size: 16px;
+#managerPage>section>.memberContainer>table>tbody>tr>th,
+#managerPage>section>.memberContainer>table>tbody>tr>td{
+    padding: 12px 0px;
+    border-bottom: 1px solid #ddd;
 }
-#managerPage>section>.newContentPage input[type="text"]:focus,
-#managerPage>section>.newContentPage textarea:focus,
-#managerPage>section>.newContentPage select:focus,
-#managerPage>section>.updateContentPage input[type="text"]:focus,
-#managerPage>section>.updateContentPage textarea:focus,
-#managerPage>section>.updateContentPage select:focus {
-    border-color: #87bee5;
-    box-shadow: 0 0 5px rgba(135, 190, 229, 0.5);
-    outline: none;
-}
-#managerPage>section>.newContentPage input[type="submit"],
-#managerPage>section>.newContentPage input[type="reset"], 
-#managerPage>section>.newContentPage input[type="button"],
-#managerPage>section>.updateContentPage input[type="submit"],
-#managerPage>section>.updateContentPage input[type="reset"], 
-#managerPage>section>.updateContentPage input[type="button"] {
-	background-color: #87bee5;
-	color: white;
-	border: none;
-	padding: 10px 15px;
-	border-radius: 5px;
-	cursor: pointer;
-	font-size: 16px;
-	transition: background-color 0.3s;
+
+#managerPage>section>.memberContainer>table>tbody>tr>th{
+    background-color: #4CAF50;
+    color: white;
 }

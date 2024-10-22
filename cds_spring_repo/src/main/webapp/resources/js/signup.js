@@ -6,17 +6,18 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/member/signup.do', // 서버에서 처리하는 경로
+            url: '/member/signupProcess.do', // 서버에서 처리하는 경로
             data: $(this).serialize(), // 폼 데이터를 직렬화
             success: function(response) {
-                if (response.success) {
+                if (response.trim() == "ok") {
                     alert('회원가입 성공');
-                    window.location.href = '/login'; // 로그인 페이지로 리다이렉트
+                    window.location.href = '/index.do'; // 로그인 페이지로 리다이렉트
                 } else {
-                    alert('회원가입 실패: ' + response.message);
+                    alert('회원가입 실패: ' + response.trim());
                 }
             },
-            error: function() {
+            error: function(jqXHR, textStatus, errorThrown) {
+            	console.error("AJAX 오류:", textStatus, errorThrown);
                 alert('서버 오류. 다시 시도해주세요.');
             }
         });
@@ -45,13 +46,6 @@ $("#check-btn").on("click", function() {
 			        //msg.html("사용 가능한 아이디입니다.").css("color", "green");
 			        alert('사용 가능한 아이디입니다.');
 			
-			        // 중복 검사 버튼을 메일 인증 버튼으로 변경
-			        //const checkIdBtn = $("#checkId");
-			        //checkIdBtn.off("click").val("메일 인증").attr("id", "email_auth_btn").on("click", function() {
-			            //msg.hide();
-			            //sendEmail();  // 이메일 인증 함수 호출
-			        //});
-			
 			    } else {  // 중복인 경우
 			        //msg.html("이미 사용중인 아이디입니다.").css("color", "red");
 			        alert('이미 사용 중인 아이디입니다.');
@@ -73,7 +67,6 @@ $("#sendAuthCodeBtn").on("click", function() {
     const emailPrefix = $("#email_prefix").val();
     const emailDomain = $("#email_domain").val();
     let email = emailPrefix + emailDomain;
-    console.log(email);
 
     if (emailDomain === "direct") {
         const customDomain = $("#custom_email_domain").val();
@@ -95,7 +88,7 @@ $("#sendAuthCodeBtn").on("click", function() {
         url: "checkEmailAvailability.do", // 이메일 중복 체크 엔드포인트
         data: { email: email },
         success: function(data) {
-            if (data.available) { // 이메일 사용 가능
+            if (data.trim() == "ok") { // 이메일 사용 가능
                 // 인증 번호 전송
                 sendAuthCode(email);
             } else { // 이미 존재하는 이메일
@@ -116,7 +109,6 @@ function sendAuthCode(email) {
         url: "checkEmail.do",
         data: { email: email },
         success: function(data) {
-            console.log("서버 응답 데이터:", data);  // 서버 응답 로그
             if (data !== "ERROR") {
                 alert("인증번호가 전송되었습니다.");
                 $("#auth_num_input").attr("disabled", false);
@@ -147,7 +139,7 @@ $("#confirm_email_btn").on("click", function() {
     // AJAX로 인증 코드 확인 요청
     $.ajax({
         type: "POST",
-        url: "verifyCode.do",  // 서버에 인증 코드 확인 요청
+        url: "verifyEmailCode.do",  // 서버에 인증 코드 확인 요청
         data: {
             enteredCode: enteredCode,
             authcode: authcode

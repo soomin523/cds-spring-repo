@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 /* Java 1.8 샘플 코드 */
-	//지역기반 관광정보조회
+
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -14,22 +14,22 @@ import java.net.URLEncoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ProductsAreaBasedListApiExplorer {
-    public static <T extends Object> T getApiJsonData( String serviceKey, String srcUrl,
-    													String pageNo, String numOfRows, 
-    													//String contentTypeId,
-    													Class<T> vo) 
-    													throws IOException, URISyntaxException {
+public class ProductsIntroApiExplorer {
+    public static <T extends Object> T getApiJsonData( String serviceKey, String srcUrl, 
+											    		//String pageNo, String numOfRows,
+											    		String contentId, String contentTypeId, 
+    													 Class<T> vo) throws IOException, URISyntaxException  {
         StringBuilder urlBuilder = new StringBuilder(srcUrl); /*URL*/
         urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=" + serviceKey); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8")); /*페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8"));
+        //urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(pageNo, "UTF-8")); /*페이지 번호*/
+        //urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode(numOfRows, "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("_type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
         urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*OS 구분*/
         urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("cds", "UTF-8")); /*어플명*/
-        //urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8")); /*관광타입*/
+        urlBuilder.append("&" + URLEncoder.encode("contentId","UTF-8") + "=" + URLEncoder.encode(contentId, "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("contentTypeId","UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8"));
 
-
+            
             //공공데이터 요청
             URL url = new URI(urlBuilder.toString()).toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -59,8 +59,6 @@ public class ProductsAreaBasedListApiExplorer {
             
             rd.close();
             conn.disconnect();
-            
-            System.out.println("Server Response: " + sb.toString());
             
             //서버에서 받은 데이터를 Jackson API를 이용해서 자바DTO에 세팅하기
             ObjectMapper objectMapper = new ObjectMapper();

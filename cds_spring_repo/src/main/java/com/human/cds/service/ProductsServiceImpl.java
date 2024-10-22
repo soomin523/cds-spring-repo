@@ -8,18 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.human.cds.repository.ProductsDAO;
+
 import com.human.cds.vo.ProductsVO;
 import com.human.cds.vo.ProductsVO.Products;
 
 @Service
 public class ProductsServiceImpl implements ProductsService {
 
+    @Autowired
     private ProductsDAO dao;
 
-    @Autowired
-    public ProductsServiceImpl(ProductsDAO dao) {
-    	this.dao = dao;
-    }
 
 	@Override
 	public int insertProducts(ProductsVO data) {
@@ -48,6 +46,32 @@ public class ProductsServiceImpl implements ProductsService {
 	    return dao.getProductsPage(page, size);
 	}
 
+	@Override
+	public Products getProducts(String contentid) {
+		return dao.getProducts(contentid);
+	}
 
+	@Override
+	public int updateProductDetails(ProductsVO.Products product) {
+	    return dao.updateProductDetails(product);
+	}
+
+	@Override
+	public int updateProductInfo(ProductsVO.Products product) {
+		return dao.updateProductInfo(product);
+	}
+
+
+	@Override
+	public List<Products> searchProducts(String searchTerm) {
+		return dao.searchProducts(searchTerm);
+	}
+	
+	@Override
+	public List<Products> getEventProducts() {
+	    return dao.getEventProducts();
+	}
+
+	
 
 }

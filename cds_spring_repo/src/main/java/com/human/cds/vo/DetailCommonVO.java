@@ -1,12 +1,9 @@
 package com.human.cds.vo;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Data
-@NoArgsConstructor
+
 public class DetailCommonVO {
     private Response response;
 
@@ -17,8 +14,7 @@ public class DetailCommonVO {
 		this.response = response;
 	}
 
-	@Data
-    @NoArgsConstructor
+	
     public static class Response {
         private Header header;
         private Body body;
@@ -36,8 +32,7 @@ public class DetailCommonVO {
 		}
     }
 
-    @Data
-    @NoArgsConstructor
+   
     public static class Header {
         private String resultCode;
         private String resultMsg;
@@ -55,8 +50,6 @@ public class DetailCommonVO {
 		}
     }
 
-    @Data
-    @NoArgsConstructor
     public static class Body {
         private Items items;
         private int numOfRows;
@@ -88,8 +81,7 @@ public class DetailCommonVO {
 		}
     }
 
-    @Data
-    @NoArgsConstructor
+
     public static class Items {
         private List<Item> item;
 		public List<Item> getItem() {
@@ -100,8 +92,7 @@ public class DetailCommonVO {
 		}
     }
 
-    @Data
-    @NoArgsConstructor
+
     public static class Item {
         private String contentid;		//콘텐츠ID
         private String contenttypeid;	//콘텐츠타입ID
@@ -138,5 +129,42 @@ public class DetailCommonVO {
 		public void getHomepage(String homepage) {
 			this.homepage = homepage;
 		}
+		public String getBooktour() {
+			return booktour;
+		}
+		public void setBooktour(String booktour) {
+			this.booktour = booktour;
+		}
+		public String getCreatedtime() {
+			return createdtime;
+		}
+		public void setCreatedtime(String createdtime) {
+			this.createdtime = createdtime;
+		}
+		public String getModifiedtime() {
+			return modifiedtime;
+		}
+		public void setModifiedtime(String modifiedtime) {
+			this.modifiedtime = modifiedtime;
+		}
+		public String getTel() {
+			return tel;
+		}
+		public void setTel(String tel) {
+			this.tel = tel;
+		}
+		public String getTelname() {
+			return telname;
+		}
+		public void setTelname(String telname) {
+			this.telname = telname;
+		}
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
+		
     }
 }

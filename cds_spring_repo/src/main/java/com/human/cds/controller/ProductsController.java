@@ -289,6 +289,7 @@ public class ProductsController {
                 
                 DetailCommonVO.Item item = comdata.getResponse().getBody().getItems().getItem().get(0);
                 product.setHomepage(item.getHomepage());
+                product.setOverview(item.getOverview());
                 
                
                 

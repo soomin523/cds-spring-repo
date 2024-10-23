@@ -62,6 +62,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 						<h3>관광상품</h3>
 						<a href="../products/insertProducts.do">관광상품 리스트 등록</a><br>
  	                    <a href="../products/getAreaName.do">관광상품 지역명 업데이트</a><br>						
+ 	                    <a href="../products/updateProductDetails.do">관광상품 상세정보 업데이트</a><br>						
+ 	                    <a href="../products/updateProductInfo.do">관광상품 반복정보 업데이트</a><br>						
 					</div>
                     <div class="accommodation">
 						<h3>숙박</h3>

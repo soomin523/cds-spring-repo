@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const regionCircles = document.querySelector(".region-circles");
     const scrollStep = 80;
+    
+    
+    
 
     // 왼쪽으로 스크롤 (첫 번째 원을 마지막으로 이동)
     document.querySelector(".nav-left").addEventListener("click", function () {
@@ -98,14 +101,15 @@ document.addEventListener("DOMContentLoaded", function () {
         function renderDesList(data) {
             let htmlList = '';
             data.forEach(function(desList) {
-                htmlList += `
-                  <div class="desList" data-contentid="${desList.d_contentid}" data-title="${desList.d_title}" data-image="${desList.d_firstimage}">
-			            <div class="desimg-container">
-			                <img src="${desList.d_firstimage}" alt="${desList.d_title}">
-			                <p>${desList.d_title}</p>
-			            </div>
-			            
-			     </div>`;
+               htmlList += `
+				  <div class="desList" data-contentid="${desList.d_contentid}" data-title="${desList.d_title}" data-image="${desList.d_firstimage}">
+				    <div class="desimg-container">
+				        <img src="${desList.d_firstimage}" alt="${desList.d_title}">
+				    </div>
+				    <div class="des-title">
+				        <p>${desList.d_title}</p>
+				    </div>
+				  </div>`;
             });
                $('.desimg1').html(htmlList);
     
@@ -151,27 +155,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 <span class="close-btn">&times;</span>
                 <div class="boxtitle">
                     <h2>${data.d_title}</h2>
-                    <p>${data.d_addr1}</p>
+                    <p>${data.d_areaname} ${data.d_sigunguname}</p>
                 </div>
                 <div>
                     <img src="${data.d_firstimage}">
                 </div>
-                <div>
-                    <h2>상세정보</h2>
-                    <p>${data.overview}</p>
+                <div class="boxoverview">
+                    <h2>설명</h2>
+                </div>
+                <div class="boxoverviewtext">
+                	<p>${data.overview}</p>
                 </div>
                 <div>
-                    카카오지도
                     <div id="map" style="width:100%;height:300px;"></div>
                 </div>
-                <div>
-                   상세주소 : ${data.d_addr1}<br>
-                   문의 :  ${data.infocenter}<br>
-                   쉬는 날 : ${data.restdate}<br>
-                   이용시간 : ${data.usetime}<br>
-                   주차시설 : ${data.parking}<br>
-                   유모차대여정보 : ${data.chkbabycarriage}<br>
-                   애완동물동반가능정보 :${data.chkpet}<br>
+                <div class="boxaddr">
+                   <p>상세주소 : ${data.d_addr1}</p>
+                </div>
+                <div class="boxdetailinfo">
+                	<h2>상세정보</h2>
+                	<p>(관광지별 상세정보의 유무가 다르니 유의해주시길 바랍니다)</p>
+                </div>
+                <div class="boxdetailinfotext">
+                	<div class="detailtext1">
+	                  <p> 문의 :  ${data.infocenter} </p>
+	                  <p> 쉬는 날 : ${data.restdate}</p>
+	                  <p> 이용시간 : ${data.usetime} </p>
+                   	</div>
+                   	<div class="detailtext2">
+	                  <p> 	주차시설 : ${data.parking} </p>
+	                  <p> 유모차대여정보 : ${data.chkbabycarriage} </p>
+	                  <p> 애완동물동반가능정보 :${data.chkpet}</p>
+                   	</div>
+                   
                 </div>
             </div>`;
 

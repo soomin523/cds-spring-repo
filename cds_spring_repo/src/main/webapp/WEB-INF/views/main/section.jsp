@@ -9,7 +9,11 @@
 integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" 
 crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
-<script src="../resources/js/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/section.js"></script>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 </head>
 <body>
 	<div id="section">
@@ -60,9 +64,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 						<button>전시/공연</button>
 					</div>
 					<div class="imgBox">
-						<img src="" alt="테마별이미지">
-						<img src="" alt="테마별이미지">
-						<img src="" alt="테마별이미지">
+						<img src="" alt="테마별이미지" id="eventImage1">
+						<img src="" alt="테마별이미지" id="eventImage2">
+						<img src="" alt="테마별이미지" id="eventImage3">
 					</div>
 				</div>
 			</div>

@@ -47,7 +47,7 @@ public class ProductsController {
     
     @GetMapping("/products.do")
     public String products(Model model) {
-        List<ProductsVO.Products> initialProducts = productsServiceImpl.getProductsPage(1, 16);
+        List<ProductsVO.Products> initialProducts = productsServiceImpl.getProductsPage(1, 12);
         model.addAttribute("initialProducts", initialProducts);
         return "products/products";
     }

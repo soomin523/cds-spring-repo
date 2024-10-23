@@ -129,7 +129,15 @@
 				<button class="category-btn" data-category="CE7">카페</button>
 				<button class="category-btn" data-category="CS2">편의점</button>
 			</div>
-
+			
+			<!-- 새로운 날씨 정보 패널 -->
+    <div id="weather-info-panel">
+    <h3>날씨 정보</h3>
+    <div id="weather-content">
+        <!-- 기본 텍스트를 한국어로 변경 -->
+        <p>위치를 선택하면 날씨 정보를 볼 수 있습니다.</p>
+    </div>
+</div>
 		</div>
 
 
@@ -139,7 +147,6 @@
 		<div class="overview">설명 없음</div>
 		<hr>
 
-		<!-- 댓글란 -->
 		<!-- 댓글란 -->
 		<div class="commentbox">
 			<div class="comment-title">댓글란</div>

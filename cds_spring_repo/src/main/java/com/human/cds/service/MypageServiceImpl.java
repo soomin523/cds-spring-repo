@@ -38,9 +38,9 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public List<CommentVO> getCommentsByMemberId(String memberId) {
+	public List<CommentVO> getCommentsByMemberId(String name) {
 		// TODO Auto-generated method stub
-		return dao.getCommentsByMemberId(memberId);
+		return dao.getCommentsByMemberId(name);
 	}
 
 	@Override

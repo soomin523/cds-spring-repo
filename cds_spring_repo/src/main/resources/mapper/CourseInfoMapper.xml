@@ -89,13 +89,13 @@
 	</select>
 	
 	<insert id="insertComment">
-        INSERT INTO course_comment (member_id, content, content_id, created_at, updated_at ,gender)
-        VALUES (#{memberId}, #{content}, #{contentId}, NOW(), NOW(),#{gender});
+        INSERT INTO course_comment (name, content, content_id, created_at, updated_at ,gender)
+        VALUES (#{name}, #{content}, #{contentId}, NOW(), NOW(),#{gender});
     </insert>
 
 	<resultMap id="CommentResultMap" type="CommentVO">
     <result property="c_idx" column="c_idx"/>
-    <result property="memberId" column="member_id"/>
+    <result property="name" column="name"/>
     <result property="content" column="content"/>
     <result property="contentId" column="content_id"/>
     <result property="createdAt" column="created_at"/>
@@ -115,21 +115,21 @@
 
 <!-- 좋아요/싫어요 상태 확인 -->
 <select id="getLikeStatus" resultType="CommentLikeVO">
-    SELECT c_idx, member_id, action_type AS actionType
+    SELECT c_idx, name, action_type AS actionType
     FROM comment_like 
-    WHERE c_idx = #{c_idx} AND member_id = #{member_id}
+    WHERE c_idx = #{c_idx} AND name = #{name}
 </select>
 
 
 <!-- 좋아요/싫어요 추가 -->
 <insert id="addLike">
-    INSERT INTO comment_like (c_idx, member_id, action_type)
-    VALUES (#{c_idx}, #{member_id}, #{action_type})
+    INSERT INTO comment_like (c_idx, name, action_type)
+    VALUES (#{c_idx}, #{name}, #{action_type})
 </insert>
 
 <!-- 좋아요/싫어요 제거 -->
 <delete id="removeLike">
-    DELETE FROM comment_like WHERE c_idx = #{c_idx} AND member_id = #{member_id}
+    DELETE FROM comment_like WHERE c_idx = #{c_idx} AND name = #{name}
 </delete>
 
 <!-- 좋아요 수 증가 -->
@@ -155,7 +155,7 @@
 <update id="updateLike">
     UPDATE comment_like
     SET action_type = #{action_type}
-    WHERE c_idx = #{c_idx} AND member_id = #{member_id};
+    WHERE c_idx = #{c_idx} AND name = #{name};
 </update>
 
 <select id="getRandomCourses" parameterType="int" resultType="CourseInfoVO">
@@ -164,6 +164,10 @@
         ORDER BY RAND()
         limit 4
     </select>
+    
+    <delete id="deleteComment">
+    DELETE FROM course_comment WHERE c_idx = #{c_idx}
+</delete>
 
 
 

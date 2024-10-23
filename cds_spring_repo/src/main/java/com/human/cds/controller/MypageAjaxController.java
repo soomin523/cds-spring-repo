@@ -64,10 +64,10 @@ public class MypageAjaxController {
 	@ResponseBody
 	public List<CommentVO> getMemberComments(HttpSession session) {
 	    MemberVO member = (MemberVO) session.getAttribute("member");
-	    String memberId = member.getMember_id();
+	    String name = member.getName();
 
 	    // 댓글 목록 가져오기
-	    List<CommentVO> comments = mypageServiceImpl.getCommentsByMemberId(memberId);
+	    List<CommentVO> comments = mypageServiceImpl.getCommentsByMemberId(name);
 
 	    // 각 댓글에 contentId로 여행 코스 정보를 가져옴
 	    for (CommentVO comment : comments) {

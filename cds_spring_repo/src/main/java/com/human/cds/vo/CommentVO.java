@@ -4,9 +4,9 @@ import java.sql.Timestamp;
 
 public class CommentVO {
     private int c_idx;          // 댓글 ID
-    private String memberId;     // 작성자 ID (문자열로 변경)
+    private String name;     // 작성자 ID (문자열로 변경)
     private String content;      // 댓글 내용
-    private Timestamp createdAt; // 댓글 작성 시간
+	private Timestamp createdAt; // 댓글 작성 시간
     private Timestamp updatedAt; // 댓글 수정 시간
     private boolean isDeleted;   // 삭제 여부
     private int clike;           // 좋아요 수
@@ -16,6 +16,12 @@ public class CommentVO {
     private String title;
     private String firstimage;
     
+    public String getName() {
+    	return name;
+    }
+    public void setName(String name) {
+    	this.name = name;
+    }
     
 	public String getTitle() {
 		return title;
@@ -40,12 +46,6 @@ public class CommentVO {
 	}
 	public void setC_idx(int c_idx) {
 		this.c_idx = c_idx;
-	}
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
 	}
 	public String getContent() {
 		return content;

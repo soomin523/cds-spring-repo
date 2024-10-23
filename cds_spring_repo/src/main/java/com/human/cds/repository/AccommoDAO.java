@@ -100,4 +100,9 @@ public class AccommoDAO {
 		return sqlSession.selectList(MAPPER+ ".getFilteredAccommodationsByRegion",params);
 	}
 
+	public void incrementcnt(String contentId) {
+		sqlSession.update(MAPPER+".incrementcnt",contentId);
+		
+	}
+
 }

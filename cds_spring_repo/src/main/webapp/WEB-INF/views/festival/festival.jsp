@@ -69,18 +69,18 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
             <div class="festivallist">
 <c:forEach var="item" items="${ festivalList }">
                 <div class="festivalitem">
-                    <div class="itemImg" style="background-image: url(${ item.getF_firstimage() });">
+                    <div class="itemImg" style="background-image: url(${ item.f_firstimage });">
                     	<div class="like" data-contentid="${ item.f_contentid }">
                     		<i class="fa-regular fa-heart emptyHeart"></i>
                     		<i class="fa-solid fa-heart fullheart"></i>
                     	</div>
                         <div class="hiddenItem">
-                            <div>${ item.getF_areaname() } ${ item.getF_sigunguname() }</div>
-                            <p>${ item.getF_eventstartdate() } ~ ${ item.getF_eventenddate() }</p>
+                            <div>${ item.f_areaname } ${ item.f_sigunguname }</div>
+                            <p>${ item.f_eventstartdate } ~ ${ item.f_eventenddate }</p>
                             <button value="${ item.f_contentid }">바로가기</button>
                         </div>
                     </div>
-                    <div>${ item.getF_title() }</div>
+                    <div>${ item.f_title }</div>
                 </div>
 </c:forEach>
             </div>

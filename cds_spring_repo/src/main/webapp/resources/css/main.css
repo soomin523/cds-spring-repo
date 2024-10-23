@@ -71,11 +71,12 @@ header>button>img {
 }
 #mainSection>.mainTop>.topIntro{ /* 떠나자 간단소개 */
     width: 38%;
-    margin-top: 7%;
+    margin-top: 10%;
 }
 #mainSection>.mainTop>.topIntro>h2{
     color: #fff;
     font-size: 30px;
+    margin: 10px 0px;
 }
 #mainSection>.mainTop>.topIntro>h2>span{
 	color: #fff;
@@ -98,19 +99,33 @@ header>button>img {
 }
 #mainSection>.mainTop>.imgSlider>.imgContainer>.imgList{
 	display: flex;
+	height: 300px;
 }
 #mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem{
-	flex: 0 0 200px;
+	flex: 0 0 170px;
 	display: flex;
     flex-direction: column;
     justify-content: center;
-    border: solid 4px #cecece; 
-    border-radius: 20px;
     margin-right: 3%;
 }
-#mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem>img{
+#mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem>div{
 	background: no-repeat center center;
     background-size: cover;
+    cursor: pointer;
+    width: 100%;
+    height: 200px;
+    border: solid 4px #cecece;
+    border-radius: 20px;
+    height: 200px;
+}
+#mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem>h4{
+	margin: 10px 0px;
+	color: #333;
+}
+#mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem>h3{
+	margin: 0px;
+	color: #fff;
+	align-self: center;
 }
 #mainSection>.mainTop>.imgSlider>.imgButton>button>i{ /* 슬라이드 버튼 */
 	color: #fff;
@@ -181,19 +196,6 @@ header>button>img {
 	overflow: hidden;
 	text-overflow: ellipsis; /* ...으로 표시하기 */
 }
-.imgBox {
-    display: flex; /* 이미지들을 가로로 나열 */
-    justify-content: center; /* 중앙 정렬 */
-    gap: 10px; /* 이미지 간격 조정 */
-}
-
-.imgBox img {
-    max-width: 100%; /* 부모 요소의 최대 너비에 맞추어 조정 */
-    max-height: 300px; /* 최대 높이를 200px로 설정 */
-    object-fit: cover; /* 비율 유지하며 잘림 방지 */
-    border-radius: 5px; /* 모서리 둥글게 처리 */
-}
-
 #mainSection>.mainReview{
 	width: 100%;
     display: flex;

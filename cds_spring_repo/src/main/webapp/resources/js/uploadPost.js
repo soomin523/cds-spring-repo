@@ -23,6 +23,7 @@ function submitPost() {
     locations.forEach((location, index) => {
         formData.append(`location[${index}]`, location);
     });
+    
 
     Array.from(files).forEach(file => {
         formData.append('images', file);

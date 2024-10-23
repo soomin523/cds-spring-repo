@@ -153,6 +153,14 @@
 		  	<version>1.2.17</version>
 		</dependency>
 		
+		<!-- 파일 업로드 관련 의존모듈 추가 -->
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency>
+		
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

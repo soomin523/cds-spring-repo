@@ -16,12 +16,13 @@
 </head>
 
 <body>
+	<%@ include file="../main/header2.jsp"%>
     <section>
         <div id="des1">
             <div class="desheader">
                 <div class="desheader_1">
                     <div class="desheader_1a">
-                        <h2>국내 여행지 정보</h2>
+                        <h2>국내 관광지 정보</h2>
                         <p>얼마나 알고 있니?</p>
                     </div>
                     <div class="desheader_2">
@@ -33,87 +34,87 @@
                             <div class="region-circles">
                                 <div class="circle-item" data-region="1" data-rname="서울">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/서울.PNG);"></div>
                                     <p>서울</p>
                                 </div>
                                 <div class="circle-item" data-region="2" data-rname="인천">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/인천.PNG);"></div>
                                     <p>인천</p>
                                 </div>
                                 <div class="circle-item" data-region="3" data-rname="대전">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/대전.PNG);"></div>
                                     <p>대전</p>
                                 </div>
                                 <div class="circle-item" data-region="4" data-rname="대구">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/대구.PNG);"></div>
                                     <p>대구</p>
                                 </div>
                                 <div class="circle-item" data-region="5" data-rname="광주">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/광주.png);"></div>
                                     <p>광주</p>
                                 </div>
                                 <div class="circle-item" data-region="6" data-rname="부산">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/부산.PNG);"></div>
                                     <p>부산</p>
                                 </div>
                                 <div class="circle-item" data-region="7" data-rname="울산">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/울산.PNG);"></div>
                                     <p>울산</p>
                                 </div>
-                                <div class="circle-item" data-region="31" data-rname="경기도">
+                                <div class="circle-item" data-region="31" data-rname="경기">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/경기.PNG);"></div>
                                     <p>경기</p>
                                 </div>
-                                <div class="circle-item" data-region="32" data-rname="강원도">
+                                <div class="circle-item" data-region="32" data-rname="강원">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/강원.PNG);"></div>
                                     <p>강원</p>
                                 </div>
-                                <div class="circle-item" data-region="33" data-rname="충청북도">
+                                <div class="circle-item" data-region="33" data-rname="충북">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/충북.PNG);"></div>
                                     <p>충북</p>
                                 </div>
-                                <div class="circle-item" data-region="34" data-rname="충청남도">
+                                <div class="circle-item" data-region="34" data-rname="충남">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/충남.PNG);"></div>
                                     <p>충남</p>
                                 </div>
-                                <div class="circle-item" data-region="35" data-rname="경상북도">
+                                <div class="circle-item" data-region="35" data-rname="경북">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/경북.PNG);"></div>
                                     <p>경북</p>
                                 </div>
-                                <div class="circle-item" data-region="36" data-rname="경상남도">
+                                <div class="circle-item" data-region="36" data-rname="경남">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/경남.PNG);"></div>
                                     <p>경남</p>
                                 </div>
-                                <div class="circle-item" data-region="37" data-rname="전라북도">
+                                <div class="circle-item" data-region="37" data-rname="전북">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/전북.PNG);"></div>
                                     <p>전북</p>
                                 </div>
-                                <div class="circle-item" data-region="38" data-rname="전라남도">
+                                <div class="circle-item" data-region="38" data-rname="전남">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/전남.PNG);"></div>
                                     <p>전남</p>
                                 </div>
-                                <div class="circle-item" data-region="39" data-rname="제주도">
+                                <div class="circle-item" data-region="39" data-rname="제주">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/제주도.PNG);"></div>
                                     <p>제주</p>
                                 </div>
                                 <div class="circle-item" data-region="8" data-rname="세종">
                                     <div class="desheader_circle"
-                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/prjt-이미지circle.jpg);"></div>
+                                        style="background-image: url(${pageContext.request.contextPath}/resources/img/세종.PNG);"></div>
                                     <p>세종</p>
                                 </div>
                             </div>
@@ -129,7 +130,7 @@
         <!-- 선택 옵션 및 검색 -->
         <div class="desselect">
             <h3>서울</h3>
-            <select name="sigunguselect" id="sigunguselect">
+            <select name="sigunguselect" id="sigunguselect" class="select-container">
                 <option>종로구</option>
                 <option>용산구</option>
                 <option>영등포구</option>
@@ -166,8 +167,11 @@
             <div id="myModal"></div>
         </div>
 
-        <div class="desslogan" style="background-image: url(${pageContext.request.contextPath}/resources/img/des슬로건.png);"></div>
+        <div class="desslogan">
+        <img src="${pageContext.request.contextPath}/resources/img/banner-1.png">
+        </div>
     </section>
+    <%@ include file="../main/footer.jsp"%>
 </body>
 
 </html>

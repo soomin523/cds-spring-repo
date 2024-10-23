@@ -59,6 +59,82 @@ $(function() {
     	window.location.href = "/cds/member/googleLogin.do";
     });
     
-    
 });
+
+function openModal() {
+    console.log("openModal called");
+        document.getElementById('log-loginModal').style.display = 'block'; 
+        resetModal(); 
+    }
+
+    // 모달 닫기 함수
+    function closeModal() {
+        document.getElementById('log-loginModal').style.display = 'none'; 
+    }
+
+    // 로그인 선택 화면으로 돌아가기
+    function goBack() {
+        document.querySelector('.log-login-form').style.display = 'none'; 
+        document.querySelector('.log-login-options').style.display = 'block'; 
+    }
+
+    // 일반 로그인 화면 보여주기
+    function showLoginForm() {
+        document.querySelector('.log-login-options').style.display = 'none'; 
+        document.querySelector('.log-login-form').style.display = 'block'; 
+    }
+
+    // 비밀번호 표시/숨기기 기능
+    function togglePassword(id) {
+        const passwordField = document.getElementById(id);
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+
+    // 모달 초기화
+    function resetModal() {
+        document.querySelector('.log-login-form').style.display = 'none'; 
+        document.querySelector('.log-login-options').style.display = 'block'; 
+        document.getElementById('log-emailInput').value = ''; 
+        document.getElementById('log-passwordInput').value = ''; 
+    }
+
+    // 카카오 로그인 요청 URL 생성 및 리다이렉트
+    function redirectToKakaoLogin() {
+        window.Kakao.init("9dc9962fd8d9c313d5ca5a57212228ab");
+        window.Kakao.Auth.login({
+            scope: 'account_email',
+            success: function(authObj) {
+                console.log(authObj);
+                window.Kakao.API.request({
+                    url: '/v2/user/me',
+                    success: res => {
+                        const kakao_account = res.kakao_account;
+                        console.log(kakao_account);
+                    }
+                });
+            }
+        });
+    }
+
+    // 폼 제출 방지 (엔터 키로 인한 모달 닫힘 현상 방지)
+    document.querySelector('form').addEventListener('submit', function(event) {
+        event.preventDefault(); // 폼 제출을 막고 모달이 닫히는 것을 방지
+    });
+
+    // 엔터 키 눌렀을 때 로그인 버튼 클릭
+    function submitOnEnter(event) {
+        if (event.keyCode === 13) { // 엔터 키 코드 13
+            event.preventDefault(); // 기본 엔터 키 동작 방지
+            document.getElementById('loginButton').click(); // 로그인 버튼 클릭
+        }
+    }
+
+    // 아이디와 비밀번호 입력 칸에 엔터 키 감지 이벤트 추가
+    document.getElementById('log-emailInput').addEventListener('keydown', submitOnEnter);
+    document.getElementById('log-passwordInput').addEventListener('keydown', submitOnEnter);
+    
 

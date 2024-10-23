@@ -118,6 +118,11 @@
 	cursor: pointer;
 }
 
+.accodesbox > div:hover{
+	transform: translateY(-2px); /* 살짝 위로 올라가는 효과 */
+	border: 2px solid #6495ED;	
+}
+
 .accodesbox > div > div {
 	display: flex;
 	background-size: cover;
@@ -153,6 +158,19 @@
 	justify-content: center;
 	align-items: center;
 	text-align: center;
+	cursor:pointer;
+	transition: all 0.3s ease;
+}
+
+.accodesbox2 > div:hover{
+	transform: translateY(-2px); /* 살짝 위로 올라가는 효과 */
+	border: 2px solid #6495ED;
+	
+}
+
+.accodesbox2 > div:active{
+	transform: scale(0.95); /* 95% 크기로 축소 */
+    transition: transform 0.1s ease; /* 부드럽게 축소/복구되도록 애니메이션 적용 */
 }
 
 .accodesbox2 > div > div {

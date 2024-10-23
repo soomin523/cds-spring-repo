@@ -15,7 +15,7 @@ public interface MypageService {
 
 	int cancel(int m_id);
 
-	List<CommentVO> getCommentsByMemberId(String memberId);
+	List<CommentVO> getCommentsByMemberId(String name);
 
 	CourseInfoVO getCourseInfoByContentId(String contentId);
 

@@ -21,6 +21,7 @@ public interface CourseInfoService {
 
 	FestivalDBVO getRandomFestival();
 
+	List<CourseInfoVO> getCoursesRandomList();
 
     
     	

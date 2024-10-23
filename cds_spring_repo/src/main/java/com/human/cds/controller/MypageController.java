@@ -1,6 +1,8 @@
 package com.human.cds.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,9 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.human.cds.service.MemberService;
 import com.human.cds.service.MypageService;
 import com.human.cds.vo.DestinationDBVO;
 import com.human.cds.vo.MemberVO;
@@ -93,26 +96,6 @@ public class MypageController {
 			//mypage.jsp 를 반환
 			return "mypage/mypagelike"; //view이름으로 jsp파일 경로 반환
 		
-		}
-		
-
-		//회원정보 변경 처리 요청
-		@PostMapping("/amendUpdateProcess")
-		public String updateProcess(MemberVO vo, HttpServletRequest request, Model model) {
-			
-			String viewName = "mypage/mypageamend"; //회원정보변경 실패시 뷰이름
-			
-			int result = mypageServiceImpl.updateMyInfo(vo);
-			if(result == 1) {
-				HttpSession session = request.getSession();
-				session.removeAttribute("member");
-				session.setAttribute("member", vo);
-				viewName = "home";//마이페이지 재요청				
-			}else {//회원정보변경 실패
-				model.addAttribute("msg", "회원정보 변경시 오류가 발생했습니다. 변경내용을 확인해 주세요");
-			}
-			
-			return viewName;
 		}
 		
 		//회원탈퇴 요청

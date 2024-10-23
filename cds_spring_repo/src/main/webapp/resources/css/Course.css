@@ -169,7 +169,12 @@ body {
 }
 
 .festa h2, .festa h3, .festa h4 {
+	margin-top:15px;
     text-align: center;
+}
+
+.mapicon{
+	margin: 0;	
 }
 
 .festaimgbox {
@@ -357,17 +362,45 @@ hr {
     background-color: #87bee5;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
 }
 .tag > h3, .tag > p {
     color: white;
 }
 
 .mapbox {
+    position: relative;
     width: 100%;
-    height: 300px;
-    margin-top: 20px;
+    height: 450px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+/* 카테고리 버튼을 지도 위의 좌측 상단에 고정 */
+#category-buttons {
+    position: absolute;
+    top: 10px; /* 지도 위에서 10px 아래 */
+    left: 10px; /* 지도 좌측에서 10px 오른쪽 */
+    display: flex;
+    gap: 10px; /* 버튼들 간의 간격 */
+    z-index: 100; /* 지도 위에 표시되도록 z-index 설정 */
+}
+
+/* 카테고리 버튼 스타일 */
+.category-btn {
+    padding: 10px;
+    background-color: #4facfe;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.category-btn:hover {
+    background-color: #00f2fe;
 }
 
 .commentbox {
@@ -421,7 +454,7 @@ hr {
         align-items: center;
         gap: 10px;
     }
-    .like-btn, .dislike-btn, .edit-comment, .delete-comment {
+    .like-btn, .dislike-btn, .edit-comment, .delete-comment, .delete-btn{
         background: none;
         border: none;
         color: #007bff;
@@ -504,4 +537,56 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* 날씨 정보 패널 스타일 */
+#weather-info-panel {
+    position: absolute;
+    right: 10px; /* 지도 우측에 고정 */
+    top: 10px; /* 지도 상단에서 10px 아래 */
+    width: 150px; /* 패널 너비 */
+    background-color: rgba(135, 206, 235, 0.8); /* 반투명 하늘색 배경 */
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    font-family: Arial, sans-serif;
+    color: #333;
+    z-index: 1000; /* 지도 위에 표시되도록 */
+    overflow: hidden; /* 내용이 넘치지 않도록 */
+}
+
+#weather-info-panel h3 {
+    font-size: 18px;
+    margin: 0;
+    color: #007bff; /* 파란색 포인트 */
+}
+
+#weather-content p {
+    margin: 0;
+    padding: 5px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* 날씨 아이콘 스타일 */
+#weather-content img {
+    width: 30px;
+    height: 30px;
+}
+
+#weather-content .temperature {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+#weather-content .description {
+    font-size: 14px;
+    font-style: italic;
+    color: #555;
+}
+
+#weather-content .extra-info {
+    margin-top: 10px;
+    font-size: 13px;
 }

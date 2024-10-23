@@ -1,25 +1,40 @@
 $(document).ready(function () {
-    // 페이지 로드 시 로그인 상태 확인
-    $.ajax({
-        url: '/cds/tourCourse/checkLoginStatus.do',
-        type: 'POST',
-        success: function (response) {
-            if (response === "belogin") {
-                $('#add-comment').prop('disabled', true); // 버튼 비활성화
-                $('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.'); // 안내 메시지 변경
-                $('#new-comment').prop('disabled', true);
-            }
-        },
-        error: function () {
-            console.error('로그인 상태 확인 중 오류가 발생했습니다.');
-        }
-    });
+    let contentId = getParameterByName('contentId');
+    let markers = [];
+    let infoWindows = []; // 정보 창을 저장할 배열
+    let openInfoWindow = null; // 현재 열린 정보창을 저장
 
-    // course-item 클릭 시 contentid를 서버로 보내 상세 정보 가져오기
-    $(document).on('click', '.course-item', function () {
-        var contentId = $(this).data('contentid');
+    function getParameterByName(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // 로그인 상태 확인
+    function checkLoginStatus() {
+        $.ajax({
+            url: '/cds/tourCourse/checkLoginStatus.do',
+            type: 'POST',
+            success: function (response) {
+                if (response === "belogin") {
+                    $('#add-comment').prop('disabled', true);
+                    $('#new-comment').attr('placeholder', '로그인 후 이용 가능합니다.');
+                    $('#new-comment').prop('disabled', true);
+                }
+            },
+            error: function () {
+                console.error('로그인 상태 확인 중 오류가 발생했습니다.');
+            }
+        });
+    }
+
+    // 코스 정보 및 댓글 로드
+    function loadCourseDetails(contentId) {
         loadComments(contentId, 1); // 첫 페이지의 댓글을 로드
-        // AJAX 요청을 통해 contentid에 맞는 데이터 가져오기
         $.ajax({
             url: '/cds/tourCourse/getCourseDetails.do',
             type: 'GET',
@@ -27,35 +42,8 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data) {
-                    $('.coursenamebox .first-image').attr('src', data.first_image).css('display', 'block');
-                    $('.coursenamebox .course-title').text(data.title);
-                    $('.tagbox .tag:nth-child(1) p').text(data.distance || '거리 정보 없음');
-                    $('.tagbox .tag:nth-child(2) p').text(data.taketime || '소요 시간 정보 없음');
-                    $('.overview').text(data.overview || '설명 없음');
-                    $('#add-comment').data('contentid', contentId);
-                    $('.coursemodal').addClass('show');
-
-                    if (data.map_x && data.map_y) {
-                        var mapContainer = document.getElementById('map');
-                        var mapOption = {
-                            center: new kakao.maps.LatLng(data.map_y, data.map_x),
-                            level: 3
-                        };
-                        var map = new kakao.maps.Map(mapContainer, mapOption);
-                        var markerPosition = new kakao.maps.LatLng(data.map_y, data.map_x);
-                        var marker = new kakao.maps.Marker({
-                            position: markerPosition
-                        });
-                        marker.setMap(map);
-
-                        var infoContent = '<div class="info-window">' + data.title + '</div>';
-                        var infoWindow = new kakao.maps.InfoWindow({
-                            content: infoContent,
-                        });
-                        infoWindow.open(map, marker);
-                    } else {
-                        console.error("좌표 정보가 부족합니다.");
-                    }
+                    updateCourseModal(data);
+                    history.replaceState(null, '', '/cds/tourCourse/Course.do');
                 } else {
                     alert('해당 코스 정보를 가져올 수 없습니다.');
                 }
@@ -65,6 +53,245 @@ $(document).ready(function () {
                 alert('코스 정보를 가져오는 중 오류가 발생했습니다.');
             }
         });
+    }
+
+    // 코스 모달 업데이트
+    function updateCourseModal(data) {
+    // 날씨 패널 초기화
+    $('#weather-content').html('<p>날씨 정보를<br> 확인하려면 마커를 클릭하세요.</p>');
+
+    $('.coursenamebox .first-image').attr('src', data.first_image).css('display', 'block');
+    $('.coursenamebox .course-title').text(data.title);
+    $('.tagbox .tag:nth-child(1) p').text(data.distance || '거리 정보 없음');
+    $('.tagbox .tag:nth-child(2) p').text(data.taketime || '소요 시간 정보 없음');
+    $('.overview').text(data.overview || '설명 없음');
+    $('#add-comment').data('contentid', data.content_id || content_id);
+    $('.coursemodal').addClass('show');
+
+    if (data.map_x && data.map_y) {
+        initializeMap(data.map_y, data.map_x, data.title);
+    } else {
+        console.error("좌표 정보가 부족합니다.");
+    }
+}
+
+    // 맵 초기화
+function initializeMap(map_y, map_x, title) {
+    var mapContainer = document.getElementById('map');
+    var mapOption = {
+        center: new kakao.maps.LatLng(map_y, map_x),
+        level: 3
+    };
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+
+    // 마커 생성
+    var markerPosition = new kakao.maps.LatLng(map_y, map_x);
+    var marker = new kakao.maps.Marker({
+        position: markerPosition,
+        map: map
+    });
+
+    // InfoWindow 생성 - title 값으로 초기화
+    var infoWindow = new kakao.maps.InfoWindow({
+        content: `<div style="padding:5px; max-width:170px; word-wrap:break-word;">${title}</div>`
+    });
+	infoWindow.open(map, marker);
+    // 마커 클릭 시 InfoWindow와 날씨 및 미세먼지 데이터를 동시에 표시
+    kakao.maps.event.addListener(marker, 'click', function () {
+        console.log("Initial marker clicked at:", map_y, map_x);
+
+        // InfoWindow를 열어서 마커 위에 설명을 표시
+
+        // 날씨 및 미세먼지 데이터를 병렬로 가져오기 위한 좌표
+        var lat = map_y;
+        var lon = map_x;
+
+        // Promise.all을 사용하여 날씨 데이터와 미세먼지 데이터를 병렬로 가져옴
+        Promise.all([getWeatherData(lat, lon), getAirPollutionData(lat, lon)])
+            .then(function([weatherData, airData]) {
+                // 날씨 정보 처리
+                var temp = weatherData.main.temp;
+                var weather = weatherData.weather[0].description;
+                var icon = weatherData.weather[0].icon;
+                var humidity = weatherData.main.humidity;
+                var windSpeed = weatherData.wind.speed;
+
+                // 미세먼지 정보 처리
+                var aqi = airData.list[0].main.aqi;
+                var pm2_5 = airData.list[0].components.pm2_5;
+                var pm10 = airData.list[0].components.pm10;
+
+                // AQI 값에 따른 설명을 객체로 정의
+                var aqiDescriptions = {
+                    1: "좋음",
+                    2: "양호",
+                    3: "보통",
+                    4: "나쁨",
+                    5: "매우 나쁨"
+                };
+                var aqiDescription = aqiDescriptions[aqi] || "미세먼지 정보없음";
+
+                // 날씨 및 미세먼지 정보를 패널에 추가
+                var weatherAndAirQualityHtml = `
+                    <div style="padding:2px; font-size:12px;">
+                        <p>온도: ${temp}℃</p>
+                        <p>날씨: <br>${weather}<img src="http://openweathermap.org/img/wn/${icon}.png" alt="날씨 아이콘" class="mapicon"/></p>
+                        <p>습도: ${humidity}%</p>
+                        <p>풍속: ${windSpeed} m/s</p>
+                        <br>
+                        <p>공기질 지수 (AQI): ${aqiDescription}</p>
+                        <p>미세먼지 (PM2.5): ${pm2_5} μg/m³</p>
+                        <p>초미세먼지 (PM10): ${pm10} μg/m³</p>
+                    </div>
+                `;
+
+                // 우측 패널에 날씨와 미세먼지 정보를 동시에 표시
+                $('#weather-content').html(weatherAndAirQualityHtml);
+            })
+            .catch(function(error) {
+                console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+            });
+    });
+
+    // 카테고리 버튼 클릭 시 장소 검색
+    $('.category-btn').off('click').on('click', function () {
+        var category = $(this).data('category');
+        searchCategory(category, map_y, map_x, map);
+    });
+}
+
+
+
+    // 카테고리 검색
+    function searchCategory(category, map_y, map_x, map) {
+        var places = new kakao.maps.services.Places();  
+        var location = new kakao.maps.LatLng(map_y, map_x); 
+
+        places.categorySearch(category, function (data, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                clearMarkers(); 
+                clearInfoWindows(); 
+                for (var i = 0; i < data.length; i++) {
+                    displayMarker(data[i], map);
+                }
+            } else {
+                console.error('카테고리 검색 실패:', status);
+            }
+        }, {location: location, radius: 3000}); 
+    }
+
+    // 마커 표시 함수
+    // 마커 표시 함수 (미세먼지 추가)
+function displayMarker(place, map) {
+    var marker = new kakao.maps.Marker({
+        map: map,
+        position: new kakao.maps.LatLng(place.y, place.x)
+    });
+
+    markers.push(marker);
+
+    // 마커 클릭 시 날씨 및 미세먼지 정보 표시
+    // 마커 클릭 이벤트 추가 (초기 마커에도 날씨 및 미세먼지 데이터를 표시)
+kakao.maps.event.addListener(marker, 'click', function () {
+    console.log("Initial marker clicked at:", map_y, map_x); // 클릭 로그 추가
+
+    // 날씨 및 미세먼지 데이터를 병렬로 가져오기 위한 좌표
+    var lat = map_y;
+    var lon = map_x;
+
+    // Promise.all을 사용하여 날씨 데이터와 미세먼지 데이터를 병렬로 가져옴
+    Promise.all([getWeatherData(lat, lon), getAirPollutionData(lat, lon)])
+        .then(function([weatherData, airData]) {
+            // 날씨 정보 처리
+            var temp = weatherData.main.temp; // 온도
+            var weather = weatherData.weather[0].description; // 날씨 설명
+            var icon = weatherData.weather[0].icon; // 날씨 아이콘
+            var humidity = weatherData.main.humidity; // 습도
+            var windSpeed = weatherData.wind.speed; // 풍속
+
+            // 미세먼지 정보 처리
+            var aqi = airData.list[0].main.aqi; // 공기질 지수 (AQI)
+            var pm2_5 = airData.list[0].components.pm2_5; // PM2.5 농도
+            var pm10 = airData.list[0].components.pm10;  // PM10 농도
+
+            // AQI 값에 따른 설명을 객체로 정의
+            var aqiDescriptions = {
+                1: "좋음",
+                2: "양호",
+                3: "보통",
+                4: "나쁨",
+                5: "매우 나쁨"
+            };
+            var aqiDescription = aqiDescriptions[aqi] || "미세먼지 정보없음";
+
+            // 날씨 및 미세먼지 정보를 패널에 추가
+            var weatherAndAirQualityHtml = `
+                <div style="padding:2px; font-size:12px;">
+                    <p>온도: ${temp}℃</p>
+                    <p><span>날씨: <br>${weather}<img src="http://openweathermap.org/img/wn/${icon}.png" alt="날씨 아이콘" class="mapicon"/></p>
+                    <p>습도: ${humidity}%</p>
+                    <p>풍속: ${windSpeed} m/s</p>
+                    <br>
+                    <p>공기질 지수 (AQI): ${aqiDescription}</p>
+                    <p>미세먼지 (PM2.5): ${pm2_5} μg/m³</p>
+                    <p>초미세먼지 (PM10): ${pm10} μg/m³</p>
+                </div>
+            `;
+
+            // 우측 패널에 날씨와 미세먼지 정보를 동시에 표시
+            $('#weather-content').html(weatherAndAirQualityHtml);
+        })
+        .catch(function(error) {
+            console.error("데이터를 가져오는 중 오류가 발생했습니다.", error);
+        });
+});
+
+}
+
+
+
+    // 날씨 데이터를 가져오는 함수
+    function getWeatherData(lat, lon) {
+        var apiKey = 'd230d08fe6ad082f54615c077bf76b16'; // OpenWeatherMap API 키
+        var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=kr`;
+
+        return $.getJSON(url);
+    }
+    
+    function getAirPollutionData(lat, lon) {
+    var apiKey = 'd230d08fe6ad082f54615c077bf76b16';  // OpenWeatherMap API 키
+    var url = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+
+    return $.getJSON(url);
+    }
+    
+    
+
+    // 기타 함수들 (마커 초기화 등)
+    function clearMarkers() {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(null);
+        }
+        markers = [];
+    }
+
+    function clearInfoWindows() {
+        for (var i = 0; i < infoWindows.length; i++) {
+            infoWindows[i].close();
+        }
+        infoWindows = [];
+        openInfoWindow = null; // 모든 정보창 닫았으므로 null로 초기화
+    }
+
+    // 초기 페이지 로드에서 contentId가 있을 경우 코스 정보 로드
+    if (contentId) {
+        loadCourseDetails(contentId);
+    }
+
+    // course-item 클릭 시 contentid를 서버로 보내 상세 정보 가져오기
+    $(document).on('click', '.course-item', function () {
+        var contentId = $(this).data('contentid');
+        loadCourseDetails(contentId);
     });
 
     // 댓글 작성
@@ -72,7 +299,9 @@ $(document).ready(function () {
         event.preventDefault();
         var contentId = $(this).data('contentid');
         var commentContent = $('#new-comment').val().trim();
-
+		
+		console.log(contentId);
+		
         if (commentContent === "") {
             alert("댓글을 입력해주세요.");
             return;
@@ -92,11 +321,11 @@ $(document).ready(function () {
                 if (response === "success") {
                     alert('댓글 작성 성공');
                     $('#new-comment').val('');
-                    loadComments(contentId, 1); // 첫 페이지 댓글 다시 불러오기
+                    loadComments(contentId, 1); 
                 } else if (response === "belogin") {
                     alert('로그인 후 이용 가능합니다.');
                 } else {
-                    alert('어떠한 문제로 댓글 작성에 실패했습니다.');
+                    alert('댓글 작성에 실패했습니다.');
                 }
             },
             error: function () {
@@ -122,6 +351,7 @@ $(document).ready(function () {
         }
     });
 
+    // 댓글 로드 함수
     function loadComments(contentId, page) {
         $.ajax({
             url: '/cds/tourCourse/getComments.do',
@@ -141,6 +371,7 @@ $(document).ready(function () {
         });
     }
 
+    // 댓글 표시
     function displayComments(comments, page) {
         if (page === 1) {
             $('#comment-thread').empty();
@@ -155,13 +386,14 @@ $(document).ready(function () {
                     <div class="comment-author">
                         <img src="${comment.gender == 'F' ? '../resources/img/womanfile.png' : '../resources/img/manprofile.png'}" 
                             alt="프사" class="author-photo"/>
-                        <span class="author-name">${comment.memberId}</span>
+                        <span class="author-name">${comment.name}</span>
                         <span class="comment-date">${new Date(comment.createdAt).toLocaleString()}</span>
                     </div>
                     <div class="comment-content">${comment.content}</div>
                     <div class="comment-meta">
                         <button class="like-btn">👍 좋아요 <span class="like-count">${comment.clike}</span></button>
                         <button class="dislike-btn">👎 싫어요 <span class="dislike-count">${comment.unlike}</span></button>
+                        <button class="delete-btn" data-c_idx="${comment.c_idx}">🗑️ 댓글삭제</button>                 
                     </div>
                 </div>`;
                 $('#comment-thread').append(commentHtml);
@@ -170,8 +402,7 @@ $(document).ready(function () {
             $('#comment-thread').data('page', page + 1);
         }
     }
-
-    // 좋아요/싫어요 버튼 클릭 이벤트 핸들러
+// 좋아요/싫어요 버튼 클릭 이벤트 핸들러
     $(document).on('click', '.like-btn, .dislike-btn', function () {
         var commentId = $(this).closest('.comment').data('comment-id');
         var actionType = $(this).hasClass('like-btn') ? 'like' : 'dislike';
@@ -228,4 +459,30 @@ $(document).ready(function () {
             loadComments(contentId, page); // 다음 페이지 댓글 로드
         }
     });
+    
+    $(document).on('click', '.delete-btn', function () {
+    // 댓글 ID 가져오기
+    var c_idx = $(this).data('c_idx');
+    
+    if (confirm('댓글을 삭제하시겠습니까?')) {
+        // AJAX 요청으로 댓글 삭제
+        $.ajax({
+            url: '/cds/tourCourse/deleteComment.do',  // 댓글 삭제를 처리할 서버 경로
+            type: 'POST',
+            data: { c_idx: c_idx },  // c_idx를 서버로 전송
+            success: function (response) {
+                if (response === 'success') {
+                    alert('댓글이 삭제되었습니다.');
+                    // 댓글 목록을 다시 로드하거나 해당 댓글을 DOM에서 제거
+                    loadComments(contentId, 1);  // 다시 댓글을 로드하는 함수
+                } else {
+                    alert('댓글 삭제에 실패했습니다.');
+                }
+            },
+            error: function () {
+                alert('서버 요청 중 오류가 발생했습니다.');
+            }
+        });
+    }
+});
 });

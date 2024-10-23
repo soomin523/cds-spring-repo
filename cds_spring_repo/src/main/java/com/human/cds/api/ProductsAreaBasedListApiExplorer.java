@@ -60,6 +60,8 @@ public class ProductsAreaBasedListApiExplorer {
             rd.close();
             conn.disconnect();
             
+            System.out.println("Server Response: " + sb.toString());
+            
             //서버에서 받은 데이터를 Jackson API를 이용해서 자바DTO에 세팅하기
             ObjectMapper objectMapper = new ObjectMapper();
             T data = objectMapper.readValue(sb.toString(), vo);

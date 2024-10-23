@@ -12,7 +12,6 @@ import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.CourseInfoDTO.Item;
 import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.FestivalDBVO;
-import com.human.cds.vo.FestivalVO;
 
 @Repository
 public class CourseInfoDAO {
@@ -107,6 +106,10 @@ public class CourseInfoDAO {
 	public FestivalDBVO getRandomFestival() {
         return sqlSession.selectOne(MAPPER + ".getRandomFestival");
     }
+
+	public List<CourseInfoVO> getCoursesRandomList() {
+		return sqlSession.selectList(MAPPER+".getRandomCourses");
+	}
 
 
 

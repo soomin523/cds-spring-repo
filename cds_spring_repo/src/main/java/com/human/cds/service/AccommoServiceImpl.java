@@ -50,19 +50,24 @@ public class AccommoServiceImpl implements AccommoService {
 	    return accommoDAO.getAccommodationsByRegion(areacode, pageSize, offset, cat3);
 	}
 
-	
-	//모달숙소 띄우기 위한 데이터 불러오기 VO두개를 사용하는데 리스트를 사용해서 contentid가 같은값은 list에 저장
 	@Override
-	public AccommodationVO getAccommodationDetails(String contentId) {
-		// AccommodationVO 가져오기
-        AccommodationVO accommodation = accommoDAO.getAccommodationByContentId(contentId);
-        if (accommodation != null) {
-            // AccommodationRoomVO 리스트 가져오기
-            List<AccommodationRoomVO> rooms = accommoDAO.getRoomsByContentId(contentId);
-            accommodation.setRooms(rooms); // AccommodationVO에 방 정보 설정
-        }
-        return accommodation;
+    public AccommodationVO getAccommodationByContentId(String contentId) {
+        // DAO 호출하여 숙소 정보 가져오기
+        return accommoDAO.getAccommodationByContentId(contentId);
     }
+
+    @Override
+    public List<AccommodationRoomVO> getRoomsByContentId(String contentId) {
+        // DAO 호출하여 방 정보 가져오기
+        return accommoDAO.getRoomsByContentId(contentId);
+    }
+
+	@Override
+	public void incrementcnt(String contentId) {
+		accommoDAO.incrementcnt(contentId);
+		
+	}
+
 	
 	
 }

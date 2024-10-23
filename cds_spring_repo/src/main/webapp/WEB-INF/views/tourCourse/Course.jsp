@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/css/Course.css">
 <script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab"></script>
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9dc9962fd8d9c313d5ca5a57212228ab&libraries=services"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/Course.js"></script>
 <script
@@ -47,12 +47,12 @@
 						<div class="course-button" data-region="5" data-rname="광주">광주</div>
 						<div class="course-button" data-region="6" data-rname="부산">부산</div>
 						<div class="course-button" data-region="7" data-rname="울산">울산</div>
-						
-						
+
+
 						<div class="course-button" data-region="39" data-rname="제주">제주</div>
-						
-						
-						
+
+
+
 						<hr>
 						<div class="course-button" data-cat2="C0112" data-rname="가족코스">가족코스</div>
 						<div class="course-button" data-cat2="C0113" data-rname="나홀로코스">나홀로코스</div>
@@ -122,14 +122,31 @@
 		<hr>
 
 		<!-- 지도 박스 -->
-		<div class="mapbox" id="map"></div>
+		<div class="mapbox" id="map">
+			<div id="category-buttons">
+				<button class="category-btn" data-category="PK6">주차장</button>
+				<button class="category-btn" data-category="FD6">음식점</button>
+				<button class="category-btn" data-category="CE7">카페</button>
+				<button class="category-btn" data-category="CS2">편의점</button>
+			</div>
+			
+			<!-- 새로운 날씨 정보 패널 -->
+    <div id="weather-info-panel">
+    <h3>날씨 정보</h3>
+    <div id="weather-content">
+        <!-- 기본 텍스트를 한국어로 변경 -->
+        <p>위치를 선택하면 날씨 정보를 볼 수 있습니다.</p>
+    </div>
+</div>
+		</div>
+
+
 		<hr>
 
 		<!-- 설명 -->
 		<div class="overview">설명 없음</div>
 		<hr>
 
-		<!-- 댓글란 -->
 		<!-- 댓글란 -->
 		<div class="commentbox">
 			<div class="comment-title">댓글란</div>

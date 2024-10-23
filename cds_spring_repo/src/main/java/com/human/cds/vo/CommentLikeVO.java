@@ -1,7 +1,7 @@
 package com.human.cds.vo;
 public class CommentLikeVO {
     private int c_idx; // 댓글 ID
-    private String memberId; // 좋아요/싫어요를 누른 회원 ID
+    private String name; // 좋아요/싫어요를 누른 회원 ID
     private String actionType; // 'like' 또는 'dislike'
     private String createdAt; // 기록 생성 시간
 
@@ -17,15 +17,15 @@ public class CommentLikeVO {
         this.c_idx = c_idx;
     }
 
-    public String getMemberId() {
-        return memberId;
-    }
+    public String getName() {
+		return name;
+	}
 
-    public void setMemberId(String memberId) {
-        this.memberId = memberId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public String getActionType() {
+	public String getActionType() {
         return actionType;
     }
 

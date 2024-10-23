@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>떠나자</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/main.css">
+
 <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>

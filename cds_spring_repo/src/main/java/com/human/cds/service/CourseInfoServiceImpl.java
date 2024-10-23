@@ -65,5 +65,11 @@ public class CourseInfoServiceImpl implements CourseInfoService {
 		return courseInfoDAO.getRandomFestival();
 	}
 
+	@Override
+	public List<CourseInfoVO> getCoursesRandomList() {
+		// TODO Auto-generated method stub
+		return courseInfoDAO.getCoursesRandomList();
+	}
+
 
 }

@@ -98,7 +98,7 @@ $('.scroll-button.right').on('click', function () {
 
             popularContainer.empty(); // 기존 내용을 비움
 
-            // 상위 5개의 인기 숙소만 표시하도록 설정
+            // 상위 8개의 인기 숙소만 표시하도록 설정
             let topData = data.slice(0, 8);
 
             topData.forEach(function (item) {

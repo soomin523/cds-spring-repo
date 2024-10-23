@@ -1,12 +1,16 @@
 package com.human.cds.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,10 +64,10 @@ public class MypageAjaxController {
 	@ResponseBody
 	public List<CommentVO> getMemberComments(HttpSession session) {
 	    MemberVO member = (MemberVO) session.getAttribute("member");
-	    String memberId = member.getMember_id();
+	    String name = member.getName();
 
 	    // 댓글 목록 가져오기
-	    List<CommentVO> comments = mypageServiceImpl.getCommentsByMemberId(memberId);
+	    List<CommentVO> comments = mypageServiceImpl.getCommentsByMemberId(name);
 
 	    // 각 댓글에 contentId로 여행 코스 정보를 가져옴
 	    for (CommentVO comment : comments) {
@@ -79,5 +83,26 @@ public class MypageAjaxController {
 
 	    return comments;
 	}
+	
+	
+	//회원정보 변경 처리 요청
+	@PostMapping("/amendUpdateProcess")
+	public Map<String, String> updateProcess( MemberVO vo, HttpServletRequest request) {
+		Map<String, String> resMap = new HashMap<>();
+		
+		int result = mypageServiceImpl.updateMyInfo(vo);
+		if(result == 1) {
+			HttpSession session = request.getSession();
+			session.removeAttribute("member");
+			session.setAttribute("member", vo);
+			resMap.put("res", "SUCCESS");
+		}else {//회원정보변경 실패
+			//model.addAttribute("msg", "회원정보 변경시 오류가 발생했습니다. 변경내용을 확인해 주세요");
+			resMap.put("res","FAIL");
+		}
+		
+		return resMap;
+	}
+	
 
 }

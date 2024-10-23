@@ -32,13 +32,13 @@ public class CommentDAO {
     }
 
     // 좋아요/싫어요 상태 확인
-    public CommentLikeVO getLikeStatus(int cIdx, String memberId) {
-        return sqlSession.selectOne(MAPPER + ".getLikeStatus", Map.of("c_idx", cIdx, "member_id", memberId));
+    public CommentLikeVO getLikeStatus(int cIdx, String name) {
+        return sqlSession.selectOne(MAPPER + ".getLikeStatus", Map.of("c_idx", cIdx, "name", name));
     }
 
     // 좋아요/싫어요 추가
-    public void addLike(int cIdx, String memberId, String actionType) {
-        sqlSession.insert(MAPPER + ".addLike", Map.of("c_idx", cIdx, "member_id", memberId, "action_type", actionType));
+    public void addLike(int cIdx, String name, String actionType) {
+        sqlSession.insert(MAPPER + ".addLike", Map.of("c_idx", cIdx, "name", name, "action_type", actionType));
     }
 
     // 좋아요 수 증가
@@ -62,17 +62,22 @@ public class CommentDAO {
     }
 
     // 좋아요/싫어요 업데이트
-    public void updateLike(int cIdx, String memberId, String actionType) {
+    public void updateLike(int cIdx, String name, String actionType) {
         Map<String, Object> params = new HashMap<>();
         params.put("c_idx", cIdx);
-        params.put("member_id", memberId);
+        params.put("name", name);
         params.put("action_type", actionType); // 취소 시 'none'으로 업데이트
 
         sqlSession.update(MAPPER + ".updateLike", params);
     }
 
 
-    public void removeLike(int cIdx, String memberId) {
-        sqlSession.delete(MAPPER + ".removeLike", Map.of("c_idx", cIdx, "member_id", memberId));
+    public void removeLike(int cIdx, String name) {
+        sqlSession.delete(MAPPER + ".removeLike", Map.of("c_idx", cIdx, "name", name));
     }
+
+	public int deleteComment(int c_idx) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(MAPPER + ".deleteComment", c_idx);
+	}
 }

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.human.cds.api.AreaCodeApiExplorer;
 import com.human.cds.api.DetailInfoApiExplorer;
-import com.human.cds.api.LeportsDetailCommonApiExplorer;
 import com.human.cds.api.ProductsAreaBasedListApiExplorer;
+import com.human.cds.api.ProductsDetailCommonApiExplorer;
 import com.human.cds.api.ProductsIntroApiExplorer;
 import com.human.cds.service.ProductsService;
 import com.human.cds.vo.AreaCodeVO;
@@ -278,7 +278,7 @@ public class ProductsController {
               
 
                 // Fetch and set additional details
-                DetailCommonVO comdata = LeportsDetailCommonApiExplorer.getApiJsonData(serviceKey, 
+                DetailCommonVO comdata = ProductsDetailCommonApiExplorer.getApiJsonData(serviceKey, 
                                             srcUrlDetailCommon, contentid, contenttypeid, dcomvo);
                 
                 if (comdata.getResponse().getBody().getItems() == null ||

@@ -1,8 +1,5 @@
 package com.human.cds.vo;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
 
 	//지역기반 관광정보조회
@@ -67,6 +64,7 @@ public class ProductsVO {
         private Items items;
         private int numOfRows;
         private int pageNo;
+        private int totalCount;
         public Items getItems() {
 			return items;
 		}
@@ -91,7 +89,6 @@ public class ProductsVO {
 		public void setTotalCount(int totalCount) {
 			this.totalCount = totalCount;
 		}
-		private int totalCount;
     }
 
      

@@ -43,9 +43,9 @@ public class MypageDAO {
 		return result;
 	}
 
-	public List<CommentVO> getCommentsByMemberId(String memberId) {
+	public List<CommentVO> getCommentsByMemberId(String name) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(MAPPER+".getCommentsByMemberId", memberId);
+		return sqlSession.selectList(MAPPER+".getCommentsByMemberId", name);
 	}
 
 	public CourseInfoVO getCourseInfoByContentId(String contentId) {

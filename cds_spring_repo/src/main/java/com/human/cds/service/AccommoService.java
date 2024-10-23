@@ -2,6 +2,7 @@ package com.human.cds.service;
 
 import java.util.List;
 
+import com.human.cds.vo.AccommodationRoomVO;
 import com.human.cds.vo.AccommodationVO;
 import com.human.cds.vo.AcommoImgVO;
 import com.human.cds.vo.AcommointroVO.Item;
@@ -18,7 +19,12 @@ public interface AccommoService {
 
 	List<AcommoImgVO> getAccommodationsByRegion(int areacode, int page, int pageSize, String cat3,String search);
 
-	AccommodationVO getAccommodationDetails(String contentId);
+	AccommodationVO getAccommodationByContentId(String contentId);
+
+	List<AccommodationRoomVO> getRoomsByContentId(String contentId);
+
+	void incrementcnt(String contentId);
+
 
 
 

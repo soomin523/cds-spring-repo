@@ -26,17 +26,17 @@ public class CommentServiceImpl implements CommentService {
 	}
 	
 	@Override
-	public CommentLikeVO checkIfAlreadyLiked(int cIdx, String memberId) {
-	    return commentDAO.getLikeStatus(cIdx, memberId);
+	public CommentLikeVO checkIfAlreadyLiked(int cIdx, String name) {
+	    return commentDAO.getLikeStatus(cIdx, name);
 	}
 
 	@Override
-	public void addLike(int cIdx, String memberId, String actionType) {
-	    CommentLikeVO likeStatus = commentDAO.getLikeStatus(cIdx, memberId);
+	public void addLike(int cIdx, String name, String actionType) {
+	    CommentLikeVO likeStatus = commentDAO.getLikeStatus(cIdx, name);
 
 	    if (likeStatus == null) {
 	        // 처음 좋아요 또는 싫어요를 누르는 경우
-	        commentDAO.addLike(cIdx, memberId, actionType);
+	        commentDAO.addLike(cIdx, name, actionType);
 	        if ("like".equals(actionType)) {
 	            commentDAO.incrementLikeCount(cIdx);
 	        } else if ("dislike".equals(actionType)) {
@@ -48,7 +48,7 @@ public class CommentServiceImpl implements CommentService {
 	        
 	        if (currentAction.equals(actionType)) {
 	            // 같은 액션을 다시 눌렀을 때: 취소 (none으로 변경)
-	            commentDAO.updateLike(cIdx, memberId, "none");
+	            commentDAO.updateLike(cIdx, name, "none");
 	            if ("like".equals(actionType)) {
 	                commentDAO.decrementLikeCount(cIdx);
 	            } else if ("dislike".equals(actionType)) {
@@ -67,7 +67,7 @@ public class CommentServiceImpl implements CommentService {
 	                    commentDAO.decrementLikeCount(cIdx); // 좋아요 -1 (이미 활성화된 경우에만 감소)
 	                }
 	            }
-	            commentDAO.updateLike(cIdx, memberId, actionType); // 새로운 액션 업데이트
+	            commentDAO.updateLike(cIdx, name, actionType); // 새로운 액션 업데이트
 	        }
 	    }
 	}
@@ -77,22 +77,28 @@ public class CommentServiceImpl implements CommentService {
 
 
 	@Override
-	public void removeLike(int cIdx, String memberId) {
+	public void removeLike(int cIdx, String name) {
 	    // 좋아요/싫어요 상태 확인
-	    CommentLikeVO likeStatus = commentDAO.getLikeStatus(cIdx, memberId);
+	    CommentLikeVO likeStatus = commentDAO.getLikeStatus(cIdx, name);
 	    
 	    // 로그: likeStatus 확인
 	    System.out.println("removeLike 호출됨");
 	    
 	    if (likeStatus != null) {
 	        // actionType을 'none'으로 업데이트하여 취소 처리
-	        commentDAO.updateLike(cIdx, memberId, "none");
+	        commentDAO.updateLike(cIdx, name, "none");
 	        if ("like".equals(likeStatus.getActionType())) {
 	            commentDAO.decrementLikeCount(cIdx);
 	        } else if ("dislike".equals(likeStatus.getActionType())) {
 	            commentDAO.decrementDislikeCount(cIdx);
 	        }
 	    }
+	}
+
+	@Override
+	public int deleteComment(int c_idx) {
+		// TODO Auto-generated method stub
+		return commentDAO.deleteComment(c_idx);
 	}
 
 

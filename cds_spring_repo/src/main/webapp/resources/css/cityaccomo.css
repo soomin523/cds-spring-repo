@@ -19,6 +19,11 @@
 	margin: 0;
 }
 
+.h > h2{
+	margin:0;
+	
+}
+
 .cityaccoheader {
 	width: 100%;
 	display: flex;

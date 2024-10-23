@@ -10,9 +10,11 @@ public interface CommentService {
 
 	List<CommentVO> getCommentsByContentId(String contentId,int offset,int pageSize);
 
-	CommentLikeVO checkIfAlreadyLiked(int cIdx, String memberId);
+	CommentLikeVO checkIfAlreadyLiked(int cIdx, String name);
 
-	void addLike(int cIdx, String memberId, String actionType);
+	void addLike(int cIdx, String name, String actionType);
 
-	void removeLike(int cIdx, String memberId);
+	void removeLike(int cIdx, String name);
+
+	int deleteComment(int c_idx);
 }

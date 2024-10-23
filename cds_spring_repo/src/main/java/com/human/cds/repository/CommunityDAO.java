@@ -55,6 +55,7 @@ public class CommunityDAO {
 		}
 		
 		return 0;
+		
 	}
 
 	public List<CommunityVO> getLocationList(String location) {

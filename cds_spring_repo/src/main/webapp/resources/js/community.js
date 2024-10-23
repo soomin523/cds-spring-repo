@@ -49,6 +49,7 @@ $(function () {
 	});
 	
 	
+	
 	var currentPage = 1;
 	var postsPerPage = 12;
 	

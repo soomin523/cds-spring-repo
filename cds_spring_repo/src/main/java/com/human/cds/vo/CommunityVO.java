@@ -22,6 +22,7 @@ public class CommunityVO {
     public int getC_idx() {
         return c_idx;
     }
+    
 
     public void setC_idx(int c_idx) {
         this.c_idx = c_idx;

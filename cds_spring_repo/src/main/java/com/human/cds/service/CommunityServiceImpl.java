@@ -38,3 +38,4 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityDAO.getLocationList(location);
 	}
 }
+

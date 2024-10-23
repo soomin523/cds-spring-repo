@@ -51,6 +51,7 @@
                             <p>
                             	작성일: <fmt:formatDate value="${community.created_at}" type="date" pattern="yyyy-MM-dd" />
                             </p>
+                            
                         </div>
                     </c:forEach>
             </div>

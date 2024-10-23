@@ -15,3 +15,4 @@ public interface CommunityService {
 
 	List<CommunityVO> getLocationList(String location);
 }
+

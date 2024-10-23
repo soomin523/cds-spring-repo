@@ -50,6 +50,7 @@
     		values(#{postId}, #{imagePath})
     </insert>
     
+    
     <!-- 지역별 게시물 조회 -->
     <select id="getLocationList" resultType="CommunityVO">
     	select * from community

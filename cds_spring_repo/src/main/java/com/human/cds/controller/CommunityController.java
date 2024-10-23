@@ -46,6 +46,7 @@ public class CommunityController {
     	return viewName;
     }
     
+    
     @GetMapping("/getLocationList.do")
     public String getLocationList(String location, Model model) {
     	

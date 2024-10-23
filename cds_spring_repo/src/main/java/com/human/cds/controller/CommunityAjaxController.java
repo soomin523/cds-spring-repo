@@ -21,4 +21,5 @@ public class CommunityAjaxController {
     	return communityService.getCommunity(id);
     }
 
+    
 }

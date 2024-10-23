@@ -19,8 +19,9 @@ public class DestinationModalVO {
      private String infocenter; //문의및 안내
      private String restdate; //쉬는날
      private String usetime; //이용시간
+     private String parking; //주차시설
      //CourseInfoDTO
-     private String overivew;//상세정보
+     private String overview;//상세정보
 	public String getD_contentid() {
 		return d_contentid;
 	}
@@ -117,13 +118,22 @@ public class DestinationModalVO {
 	public void setUsetime(String usetime) {
 		this.usetime = usetime;
 	}
-	public String getOverivew() {
-		return overivew;
+	public String getParking() {
+		return parking;
 	}
-	public void setOverivew(String overivew) {
-		this.overivew = overivew;
+	public void setParking(String parking) {
+		this.parking = parking;
 	}
-
+	public String getOverview() {
+		return overview;
+	}
+	public void setOverview(String overview) {
+		this.overview = overview;
+	}
+     
+     
+     
+	
      
 
 

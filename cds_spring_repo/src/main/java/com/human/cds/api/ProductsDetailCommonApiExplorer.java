@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.cfg.CoercionAction;
 import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
 import com.human.cds.vo.DetailCommonVO;
 
-public class LeportsDetailCommonApiExplorer {
+public class ProductsDetailCommonApiExplorer {
     
     public static <T extends Object> T getApiJsonData(String serviceKey, String srcUrl, String contentId, String contentTypeId,
                                                        Class<T> vo ) throws IOException, URISyntaxException {

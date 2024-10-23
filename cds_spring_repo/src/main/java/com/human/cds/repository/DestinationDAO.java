@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.DestinationDBVO;
+import com.human.cds.vo.DestinationModalVO;
 
 
 @Repository
@@ -67,6 +68,15 @@ public class DestinationDAO {
 		map.put("sigungucode", sigungucode);
 		System.out.println(map);
 		return sqlSession.selectList(MAPPER+".DesList", map);
+	}
+
+	public List<DestinationDBVO> getDesNoList() {
+		return sqlSession.selectList(MAPPER+".DesNoList");
+	}
+
+	public DestinationModalVO getDestinationInfoList(String contentid) {
+		System.out.println("오버뷰 아이디가 안들어와");
+		return sqlSession.selectOne(MAPPER+".DestinationInfoList", contentid);
 	}
 	
 }

@@ -38,6 +38,16 @@
 		where  d_areacode = #{areacode} and d_sigungucode = #{sigungucode} 
 	</select>
 	
+	<select id="DesNoList" resultType="DestinationDBVO">
+		select * from destination
+		order by rand()
+		limit 20
+	</select>
+	
+	<select id="DestinationInfoList" resultType="DestinationModalVO">
+		select * from destination
+			where d_contentid = #{contentid}
+	</select>
 </mapper>
 
 

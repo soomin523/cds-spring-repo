@@ -99,6 +99,7 @@ public class ProductsDAO {
 	        params.put("price", product.getPrice());
 	        params.put("usetime", product.getUsetime());
 	        params.put("homepage", product.getHomepage());
+	        params.put("overview", product.getOverview());
 	        params.put("contentid", product.getContentid());
 
 	        result = sqlSession.update(MAPPER + ".updateProductDetails", params);

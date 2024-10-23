@@ -108,8 +108,7 @@ public class CourseInfoDAO {
     }
 
 	public List<CourseInfoVO> getCoursesRandomList() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(MAPPER,".getRandomCourses");
+		return sqlSession.selectList(MAPPER+".getRandomCourses");
 	}
 
 

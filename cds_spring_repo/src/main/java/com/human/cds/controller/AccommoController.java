@@ -132,7 +132,7 @@ public class AccommoController {
 		return "redirect:/home"; // 업데이트 후 리스트 페이지로 리다이렉트
 	}
 	
-	
+	//숙소 데이터
 	@PostMapping("/accomoroomupdate.do")
 	public String updateAccommodationDetails(String[] selectedItems) {
 	    String serviceKey = "y%2BM4KcA3dU54OMX03WyfG7Vgskk1N4ti1JPnqNLJgfSxfGZDGpJzCXttag92jy9eIo3XD6a89LQXwVwD%2BM9RyQ%3D%3D"; // API 서비스 키
@@ -202,10 +202,12 @@ public class AccommoController {
 		if (contentId == null) {
 	        throw new IllegalArgumentException("contentId is required");
 	    }
+		
+		accommoServiceImpl.incrementcnt(contentId);
 	    
-	    AccommodationVO accommodation = accommoDAO.getAccommodationByContentId(contentId);
+	    AccommodationVO accommodation = accommoServiceImpl.getAccommodationByContentId(contentId);
 	    if (accommodation != null) {
-	        List<AccommodationRoomVO> rooms = accommoDAO.getRoomsByContentId(contentId);
+	        List<AccommodationRoomVO> rooms = accommoServiceImpl.getRoomsByContentId(contentId);
 	        accommodation.setRooms(rooms); // 방 정보 설정
 	    } else {
 	        throw new IllegalArgumentException("Accommodation data not found for contentId: " + contentId);

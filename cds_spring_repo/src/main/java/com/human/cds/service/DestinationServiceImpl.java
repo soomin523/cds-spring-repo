@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.human.cds.repository.DestinationDAO;
 import com.human.cds.vo.CourseInfoDTO;
 import com.human.cds.vo.DestinationDBVO;
+import com.human.cds.vo.DestinationModalVO;
 
 @Service
 public class DestinationServiceImpl implements DestinationService {
@@ -49,6 +50,16 @@ public class DestinationServiceImpl implements DestinationService {
 	@Override
 	public List<DestinationDBVO> getDesList(String areacode, String sigungucode) {
 		return dao.getDesList(areacode, sigungucode);
+	}
+
+	@Override
+	public List<DestinationDBVO> getDesNoList() {
+		return dao.getDesNoList();
+	}
+
+	@Override
+	public DestinationModalVO getDestinationInfoList(String contentid) {
+		return dao.getDestinationInfoList(contentid);
 	}
 
 

@@ -55,7 +55,7 @@ $(document).ready(function () {
         });
         marker.setMap(map);
         
-        var infoContent = '<div class="info-window">' + data.title + '</div>';
+        var infoContent = '<div style="padding:5px; max-width:170px; word-wrap:break-word; text-align:center;">' + data.title.replace(/\s*\[.*?\]\s*/g, '') + '</div>';
                         var infoWindow = new kakao.maps.InfoWindow({
                             content: infoContent,
                         });
@@ -158,6 +158,20 @@ $(document).ready(function () {
     $(document).on('keydown', function (e) {
         if (e.key === "Escape") {
             imageModal.fadeOut();
+        }
+    });
+    
+    $(document).on('keydown', function (e) {
+        if (e.key === "Escape") {
+            modal.css({
+            'opacity': '0',
+            'transform': 'translate(-50%, -50%) scale(0.95)'
+        });
+
+        setTimeout(function () {
+            modal.removeClass('show');
+        }, 300);
+        $('.image-modal').fadeOut();
         }
     });
 

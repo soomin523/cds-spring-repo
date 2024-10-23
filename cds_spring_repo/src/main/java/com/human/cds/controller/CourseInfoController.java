@@ -191,16 +191,17 @@ public class CourseInfoController {
 	     MemberVO member = (MemberVO) session.getAttribute("member"); // 세션에서 member 객체를 가져오기
 
 	     // commentVO가 null인지 확인하는 로그
-	     System.out.println("commentVO: " + commentVO);
+	     System.out.println("commentVO: " + commentVO.getContentId());
 
 	     if (member == null) {
 	         return "belogin";
 	     }
 
-	     String memberId = member.getMember_id(); // member 객체에서 memberId 가져오기
+	     String name = member.getName(); // member 객체에서 memberId 가져오기
 	     String gender = member.getGender();
-	     System.out.println("memberId: " + memberId);  // memberId 값도 확인
-	     commentVO.setMemberId(memberId); // 댓글 작성자 ID 설정
+	     System.out.println("name: " + name);  // memberId 값도 확인
+	     System.out.println("content_id: " + commentVO.getContentId());  // memberId 값도 확인	     
+	     commentVO.setName(name); // 댓글 작성자 ID 설정
 	     commentVO.setGender(gender);
 	     boolean isAdded = commentServiceImpl.addComment(commentVO);
 	     return isAdded ? "success" : "fail";
@@ -238,15 +239,15 @@ public class CourseInfoController {
 	         return "belogin"; // 로그인되지 않은 상태일 경우
 	     }
 	     
-	     String memberId = member.getMember_id();
-	     System.out.println("memberId: " + memberId);
+	     String name = member.getName();
+	     System.out.println("memberId: " + name);
 	     
-	     CommentLikeVO likeStatus = commentServiceImpl.checkIfAlreadyLiked(cIdx, memberId);
+	     CommentLikeVO likeStatus = commentServiceImpl.checkIfAlreadyLiked(cIdx, name);
 	     System.out.println("likeStatus: " + likeStatus);
 
 	     if (likeStatus == null) {
 	         // 처음 좋아요 또는 싫어요를 누르는 경우
-	         commentServiceImpl.addLike(cIdx, memberId, actionType);
+	         commentServiceImpl.addLike(cIdx, name, actionType);
 	         System.out.println("처음 " + actionType + "를 누름");
 	         return "success";
 	     } else {
@@ -262,21 +263,29 @@ public class CourseInfoController {
 	         // 이미 좋아요/싫어요를 누른 상태에서 취소 ('none'으로 처리)
 	         if (currentActionType.equals(actionType)) {
 	             // 동일한 액션을 취소하는 경우
-	             commentServiceImpl.removeLike(cIdx, memberId);  // 좋아요/싫어요 삭제
+	             commentServiceImpl.removeLike(cIdx, name);  // 좋아요/싫어요 삭제
 	             System.out.println(actionType + " 취소");
 	             return "cancel";
 	         } else {
 	             // 좋아요/싫어요 상태 변경 (좋아요 -> 싫어요, 싫어요 -> 좋아요)
-	             commentServiceImpl.addLike(cIdx, memberId, actionType);
+	             commentServiceImpl.addLike(cIdx, name, actionType);
 	             System.out.println("좋아요/싫어요 상태 변경: " + actionType);
 	             return "success";
 	         }
 	     }
 	 }
 
-
-
-
+	 @PostMapping("/deleteComment.do")
+	 @ResponseBody
+	 public String deleteComment(int c_idx) {
+		 String viewName = "tourCourse/view";//글삭제 실패시 뷰이름
+			int result = commentServiceImpl.deleteComment(c_idx);
+			if(result == 1) {//글삭제 성공
+				viewName = "redirect:/index.do";
+			}
+			return viewName;
+		 
+	 }
 
 
 

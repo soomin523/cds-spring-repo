@@ -89,4 +89,11 @@
 		FROM accommodationroom
 		WHERE contentid = #{contentId}
 	</select>
+	
+	<update id="incrementcnt">
+		update accommodation
+		set cnt =cnt + 1
+		where content_id =#{contentId}
+	
+	</update>
 </mapper>

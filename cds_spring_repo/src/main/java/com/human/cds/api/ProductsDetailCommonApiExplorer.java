@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.cfg.CoercionAction;
 import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
 import com.human.cds.vo.DetailCommonVO;
 
-public class LeportsDetailCommonApiExplorer {
+public class ProductsDetailCommonApiExplorer {
     
     public static <T extends Object> T getApiJsonData(String serviceKey, String srcUrl, String contentId, String contentTypeId,
                                                        Class<T> vo ) throws IOException, URISyntaxException {
@@ -27,6 +27,7 @@ public class LeportsDetailCommonApiExplorer {
         urlBuilder.append("&" + URLEncoder.encode("contentId", "UTF-8") + "=" + URLEncoder.encode(contentId, "UTF-8")); /* 콘텐츠ID */
         urlBuilder.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "=" + URLEncoder.encode(contentTypeId, "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("defaultYN", "UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("overviewYN","UTF-8") + "=" + URLEncoder.encode("Y", "UTF-8")); 
         
         
         // 공공데이터 요청

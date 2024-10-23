@@ -127,7 +127,18 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    
+    transition: all 0.3s ease; /* 애니메이션 부드럽게 */
+}
+
+
+.main-category>a>div:hover{
+	transform: translateY(-2px); /* 살짝 위로 올라가는 효과 */
+	border: 2px solid #6495ED;
+}
+
+.main-category>a>div:active{
+	transform: translateY(0); /* 클릭 시 다시 원위치 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 클릭 시 그림자 원래대로 */
 }
 
 .main-category>a>div>img{

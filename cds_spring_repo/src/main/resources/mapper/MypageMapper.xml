@@ -42,12 +42,12 @@
 
 	<select id="getCommentsByMemberId" parameterType="String"
 		resultMap="commentResultMap">
-		SELECT c_idx, member_id, content, created_at, updated_at,
+		SELECT c_idx, name, content, created_at, updated_at,
 		is_deleted, clike,
 		unlike, content_id, gender
 		FROM course_comment
 		WHERE
-		member_id = #{memberId}
+		name = #{name}
 	</select>
 
 	<select id="getCourseInfoByContentId" parameterType="String"

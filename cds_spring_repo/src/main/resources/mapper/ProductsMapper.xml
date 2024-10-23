@@ -44,7 +44,8 @@
         enddate = #{enddate}, 
         restdate = #{restdate}, 
         price = #{price}, 
-        usetime = #{usetime}
+        usetime = #{usetime},
+        overview = #{overview}
     WHERE contentid = #{contentid}
 </update>
 	

@@ -160,8 +160,9 @@
 
 <select id="getRandomCourses" parameterType="int" resultType="CourseInfoVO">
         SELECT * 
-        FROM course_info
+        FROM travel_course
         ORDER BY RAND()
+        limit 4
     </select>
 
 

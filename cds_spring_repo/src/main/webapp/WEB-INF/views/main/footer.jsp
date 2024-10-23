@@ -39,8 +39,8 @@
 		</div>
 	</div>
 	
-	<div id="footerOverlay"></div>
-    <div id="footerModal">
+	<div id="footerOverlay"  style="display: none;"></div>
+    <div id="footerModal"  style="display: none;">
     	<button>닫기</button>
     	<div class="footerPrivacy">
     		<p>(주)코등생컴퍼니 떠나자(이하 "회사")는 고객의 개인정보를 소중히 여기며, 「개인정보 보호법」 등 관련 법령을 준수하고 있습니다. 본 개인정보 처리방침은 회사가 제공하는 서비스(이하 "서비스")를 이용하는 고객의 개인정보가 어떤 용도와 방식으로 이용되고 있으며, 개인정보보호를 위해 어떤 조치가 취해지고 있는지 안내드립니다.</p>

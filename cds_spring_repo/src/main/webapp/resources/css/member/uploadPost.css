@@ -132,8 +132,8 @@ h2 {
     padding: 10px;
     z-index: 1000; /* 모달이 다른 요소 위에 오도록 조정 */
     position: absolute; /* 버튼 오른쪽에 위치하도록 설정 */
-    top: 30px; /* 버튼 아래에 위치하도록 조정 */
-    left: 210px; /* 버튼 오른쪽에 위치하도록 조정 (버튼 넓이에 맞게 조절) */
+    top: 80px; /* 버튼 아래에 위치하도록 조정 */
+    left: 500px; /* 버튼 오른쪽에 위치하도록 조정 (버튼 넓이에 맞게 조절) */
     display: none; /* 처음에 보이지 않도록 설정 */
     white-space: nowrap; /* 텍스트가 줄 바꿈 없이 가로로 흐르도록 설정 */
     overflow-x: auto; /* 내용이 넘칠 경우 수평 스크롤 */
@@ -141,4 +141,14 @@ h2 {
 
 a {
     text-decoration: none; /* 링크에 밑줄 제거 */
+}
+
+.star {
+	font-size: 24px;
+	color: #ccc; /* 기본 별 색상 */
+    cursor: pointer;
+}
+
+.star.filled {
+    color: #ffcc00; /* 채워진 별 색상 */
 }

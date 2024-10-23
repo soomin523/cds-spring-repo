@@ -1,51 +1,76 @@
-// 게시물 검색 기능
-function searchPosts() {
-    var searchQuery = document.getElementById('searchBox').value.toLowerCase(); // 검색어 가져오기
-    var posts = document.querySelectorAll('.post-item'); // 모든 게시물 요소 선택
+$(function () {
+	
+	closeModal();
+	
+	//게시물의 세부 정보를 모달 창에 표시하는 역할
+	$(".post-item").click(function(){
+		let id = $(this).data("id");
+		
+		$.ajax({ 
+	        type:"get",
+	        url:"/cds/community/getcommunity.do",
+	        data:{ id: id },
+	        headers: {"Accept": "application/json"},
+	        success:function(data){
+	            
+			    $("#commu-modalUserId").text(data.memberId); // 아이디
+			    $("#commu-modalLocation").text("위치: " + data.location); // 위치
+			    $("#commu-modalLikes").text(data.likes); // 좋아요 수
+			    $("#commu-modalCommentsCount").text(data.comments); // 댓글 수
+			    const createdAt = new Date(data.created_at); // 밀리초를 Date 객체로 변환
+			    $("#commu-modalMeta").text("작성일: " + createdAt.toLocaleString()); // 원하는 형식으로 출력
+			    $("#commu-modalTitle").text(data.title); // 제목
+			    $("#commu-modalDescription").text(data.content); // 내용
+	        },
+	        error:function(){
+	            console.log("커뮤니티 세부목록을 불러오는데 실패했습니다.");
+	        }
+	    });
+		
+		// 모달 열기
+	    $("#commu-modal").show();
+	});
+	
+	//모달 닫기 기능
+	function closeModal() {
+		$("#commu-modal").hide();
+	}
+	
+	$(".commu-modal-close").click(function(){
+		closeModal();
+	});
+	
+	//지역별 게시물 보기
+	$(".commu-button-container > .commu-button").click(function(){
+		let area = $(this).val();
+		console.log(area);
+		
+		location.href=`getLocationList.do?location=${area}`;
+	});
+	
+	
+	var currentPage = 1;
+	var postsPerPage = 12;
+	
+	//게시물 목록 페이지네이션 버튼
+	function displayPagination(filteredPosts) {
+	    var paginationDiv = document.getElementById("commu-pagination");
+	    paginationDiv.innerHTML = "";
+	    var totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+	
+	    for (var i = 1; i <= totalPages; i++) {
+	        var button = document.createElement("button");
+	        button.innerText = i;
+	        if (i === currentPage) {
+	            button.className = "commu-active";
+	        }
+	        button.addEventListener("click", function () {
+	            currentPage = parseInt(this.innerText);
+	            displayPosts(currentPage, filteredPosts);
+	        });
+	        paginationDiv.appendChild(button);
+	    }
+	};
+	
     
-    posts.forEach(function(post) {
-        var title = post.querySelector('h3').textContent.toLowerCase(); // 게시물 제목 가져오기
-        if (title.includes(searchQuery)) { // 제목에 검색어 포함 여부 확인
-            post.style.display = ''; // 포함되면 게시물 보이기
-        } else {
-            post.style.display = 'none'; // 포함되지 않으면 게시물 숨기기
-        }
-    });
-}
-
-// 게시물 업로드 기능 (Ajax)
-function uploadPost() {
-    var title = document.getElementById('title').value; // 제목 가져오기
-    var content = document.getElementById('content').value; // 내용 가져오기
-    var region = document.getElementById('region').value; // 지역 가져오기
-    var files = document.getElementById('fileUpload').files; // 업로드할 파일 가져오기
-
-    // 모든 필드가 입력되었는지 확인
-    if (!title || !content || !region || files.length === 0) {
-        alert('모든 필드를 입력해주세요.'); // 필드 미입력 시 경고 메시지
-        return;
-    }
-
-    var formData = new FormData(); // FormData 객체 생성
-    formData.append('title', title); // 제목 추가
-    formData.append('content', content); // 내용 추가
-    formData.append('region', region); // 지역 추가
-    for (var i = 0; i < files.length; i++) {
-        formData.append('files', files[i]); // 파일 추가
-    }
-
-    fetch('/community/uploadPost', { // AJAX 요청 보내기
-        method: 'POST',
-        body: formData // FormData를 본문으로 설정
-    })
-    .then(response => response.json()) // 응답을 JSON으로 변환
-    .then(data => {
-        if (data.success) {
-            alert('게시물이 업로드되었습니다.'); // 성공 시 알림
-            location.reload(); // 페이지 새로고침
-        } else {
-            alert('업로드에 실패했습니다.'); // 실패 시 알림
-        }
-    })
-    .catch(error => console.error('Error:', error)); // 에러 로그 출력
-}
+});

@@ -6,20 +6,23 @@
     <meta charset="UTF-8">
     <title>커뮤니티 게시물 업로드</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member/uploadPost.css">
+    <script src="../resources/js/jquery-3.7.1.min.js"></script>
     <script>
-    let locations = []; // 위치를 저장할 배열
+    let locations = []; // 태그를 저장할 배열
     let rating = 0; // 평점을 저장할 변수
     let imageFiles = []; // 이미지 파일을 저장할 배열
 
-    // 위치 추가 함수
+    // 태그 추가 함수
     function addLocation() {
-        const locationInput = document.getElementById('location');
+        const locationInput = document.getElementById('location2');
         const locationValue = locationInput.value.trim();
 
         if (locationValue && !locations.includes(locationValue)) {
             locations.push(locationValue); // 위치 추가
             displayLocations(); // 화면에 위치 표시
             locationInput.value = ''; // 입력 필드 초기화
+            
+            $("#tag").val(locations.join(',')); 
         } else if (locations.includes(locationValue)) {
             alert("이미 추가된 위치입니다."); // 중복 경고
         } else {
@@ -29,7 +32,7 @@
 
     // 이미지 미리보기 및 저장 함수
     function previewImages() {
-        const fileInput = document.getElementById('images');
+        const fileInput = document.getElementById('imagePath');
         const fileList = fileInput.files;
         const previewContainer = document.getElementById('image-preview');
 
@@ -76,7 +79,7 @@
     // 이미지 제거 함수
     function removeImage(index) {
         imageFiles.splice(index, 1); // 해당 인덱스의 이미지 파일 제거
-        const fileInput = document.getElementById('images');
+        const fileInput = document.getElementById('imagePath');
         const dataTransfer = new DataTransfer();
         imageFiles.forEach(file => dataTransfer.items.add(file)); // 남은 파일을 DataTransfer에 추가
         fileInput.files = dataTransfer.files; // input 요소의 files 업데이트
@@ -86,7 +89,7 @@
    
     // 위치 추가 함수
     function addLocation() {
-        const locationInput = document.getElementById('location');
+        const locationInput = document.getElementById('location2');
         const locationValue = locationInput.value.trim();
 
         if (locationValue && !locations.includes(locationValue)) {
@@ -102,14 +105,14 @@
     
     // DOMContentLoaded 이벤트를 사용하여 페이지가 로드되었을 때 이벤트 리스너 추가
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('images').addEventListener('change', previewImages);
+        document.getElementById('imagePath').addEventListener('change', previewImages);
     });
 
-    // 위치를 화면에 표시하는 함수
+    // 태그를 화면에 표시하는 함수
     function displayLocations() {
         const modalContainer = document.getElementById('modal-container');
         modalContainer.innerHTML = ''; // 모달 초기화
-        modalContainer.style.display = 'block'; // 모달 표시
+        modalContainer.style.display = 'flex'; // 모달 표시
 
         locations.forEach((location, index) => {
             const locationTag = document.createElement('div');
@@ -159,53 +162,25 @@
         stars.forEach((star, index) => {
             star.classList.toggle('filled', index < rating); // 1점 단위로 별 채우기
         });
+        $(".starnumber").val(rating);
     }
 
-    // 게시하기 함수 (예시로 추가, 필요한 경우 실제 로직으로 변경)
-    function submitPost() {
-        // 게시물 제출 로직 추가
-        alert("게시물이 제출되었습니다.\n평점: " + rating + "점\n위치: " + locations.join(", ")); // 예시 알림
-    }
 </script>
 
-    <style>
-        .modal-container {
-            border: 1px solid #007bff;
-            border-radius: 5px;
-            background-color: #f1f1f1;
-            padding: 10px;
-            z-index: 1000; // 모달이 다른 요소 위에 오도록 조정
-            position: absolute; // 버튼 오른쪽에 위치하도록 설정
-            top: 30px; // 버튼 아래에 위치하도록 조정
-            left: 210px; // 버튼 오른쪽에 위치하도록 조정 (버튼 넓이에 맞게 조절)
-            display: none; // 처음에 보이지 않도록 설정
-        }
-
-        .location-tag {
-            display: flex;
-            align-items: center;
-            padding: 5px 10px;
-            margin: 2px;
-        }
-
-        .star {
-            font-size: 24px;
-            color: #ccc; /* 기본 별 색상 */
-            cursor: pointer;
-        }
-
-        .star.filled {
-            color: #ffcc00; /* 채워진 별 색상 */
-        }
-    </style>
 </head>
 <body>
     <div class="commu-upload-container">
-        <h2>게시물 올리기📝</h2>
-
-        <form id="uploadForm">
+        <h2>
+        	게시물 올리기📝&nbsp;
+   <c:if test="${ not empty msg }">
+        	<span class="failupload">${ msg }</span>
+   </c:if>
+        </h2>
+		
+        <form id="uploadForm" action="uploadPost.do" method="post">
             <label class="commu-label" for="title">제목</label>
             <input type="text" id="title" name="title" class="commu-input commu-placeholder" required placeholder="제목을 입력하세요.">
+			<input type="hidden" id="memberId" name="memberId" value="${ member.member_id }">
 
             <label class="commu-label" for="content">내용</label>
             <textarea id="content" name="content" class="commu-textarea commu-placeholder" required placeholder="내용을 입력하세요."></textarea>
@@ -213,8 +188,8 @@
             <div style="display: flex; gap: 10px; position: relative;">
                 <!-- 지역 선택 필드 -->
                 <div style="flex: 1;">
-                    <label class="commu-label" for="region">지역 선택</label>
-                    <select id="region" name="region" class="commu-select" style="width: 50%;" required>
+                    <label class="commu-label" for="location">지역 선택</label>
+                    <select id="location" name="location" class="commu-select" style="width: 50%;" required>
                         <option value="서울">서울</option>
                         <option value="경기">경기</option>
                         <option value="인천">인천</option>
@@ -236,17 +211,16 @@
 
                 <!-- 위치 추가 필드 -->
                 <div style="flex: 1; display: flex; align-items: center;">
-                    <label class="commu-label" for="location" style="width: auto; margin-right: 10px; margin-top: 10px;">위치 추가</label>
-                    <input type="text" id="location" name="location" class="commu-location-input" placeholder="위치를 입력하세요." style="flex: 1; margin-top: 20px;">
+                    <label class="commu-label" for="location2" style="width: auto; margin-right: 10px; margin-top: 10px;">위치 추가</label>
+                    <input type="text" id="location2" name="location2" class="commu-location-input" placeholder="위치를 입력하세요." style="flex: 1; margin-top: 20px;">
                     <button type="button" class="commu-button" onclick="addLocation()" style="margin-left: 10px;">추가</button>
+					<input type="hidden" id="tag" name="tag">
+		            <!-- 위치 태그 모달 -->
+		            <div id="modal-container" class="modal-container"></div>
                 </div>
-		
-                <!-- 추가된 위치를 표시하는 영역 -->
-                <div id="location-list" style="display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px;"></div>
+                
             </div>
 
-            <!-- 위치 태그 모달 -->
-            <div id="modal-container" class="modal-container"></div>
 
            <label class="commu-label">평점</label>
 			<div style="margin-bottom: 10px;">
@@ -256,19 +230,18 @@
 			    <span class="star" onclick="selectRating(4)">&#9733;</span>
 			    <span class="star" onclick="selectRating(5)">&#9733;</span>
 			</div>
+			<input type="hidden" class="starnumber" id="rating" name="rating">
 
-        </form>
-
-       <label class="commu-label" for="images">이미지 업로드</label>
+       <label class="commu-label" for="imagePath">이미지 업로드</label>
 <div class="image-upload-container">
-    <input type="file" id="images" name="images" class="commu-file-input" accept="image/*" multiple required style="display: none;">
-    <label class="upload-button" for="images" style="cursor: pointer; display: flex; flex-direction: column; align-items: center;">
+    <input type="file" id="imagePath" name="imagePath" class="commu-file-input" accept="image/*" multiple required style="display: none;">
+    <label class="upload-button" for="imagePath" style="cursor: pointer; display: flex; flex-direction: column; align-items: center;">
         <img src="${pageContext.request.contextPath}/resources/img/사진첨부.png" alt="사진 아이콘" style="width: 60px; height: 60px; vertical-align: middle;">
         <span style="margin-top: 5px;">사진 추가</span>
     </label>
+    
 </div>
 
-<!-- 미리보기 이미지 컨테이너 추가 -->
 <div id="image-preview" style="display: flex; flex-wrap: wrap; margin-top: 10px;"></div>
 
 
@@ -276,8 +249,12 @@
             <a href="${pageContext.request.contextPath}/community/commu.do">
                 <button type="button" class="commu-button">커뮤니티 보기</button>
             </a>
-            <button type="button" class="commu-button" onclick="submitPost()">게시하기</button>
+            <button type="submit" class="commu-button">게시하기</button>
         </div>
+        </form>
+
+
+<!-- 미리보기 이미지 컨테이너 추가 -->
     </div>
 </body>
 </html>

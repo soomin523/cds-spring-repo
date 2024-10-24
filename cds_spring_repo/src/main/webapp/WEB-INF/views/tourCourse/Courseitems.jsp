@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1>코스 제목과 ID</h1>
+<h1>코스 거리</h1>
 
 <!-- 새로운 버튼을 위한 폼 -->
 <form id="updateCourseDetailsForm" method="post" action="updateCourseDetails.do">

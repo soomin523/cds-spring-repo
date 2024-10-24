@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<h1>숙소 제목과 ID</h1>
+<h1>숙소 방</h1>
 
 <!-- 새로운 버튼을 위한 폼 -->
 <form id="updateAccommoDetailsForm" method="post" action="accomoroomupdate.do">

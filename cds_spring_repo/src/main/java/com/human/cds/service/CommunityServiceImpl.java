@@ -69,5 +69,14 @@ public class CommunityServiceImpl implements CommunityService {
 	public CommunityContentVO getComment(int c_idx) {
 		return communityDAO.getComment(c_idx);
 	}
+
+	@Override
+	public int insertLike(String memberId, String c_idx) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("c_idx", c_idx);
+		
+		return communityDAO.insertLike(map);
+	}
 }
 

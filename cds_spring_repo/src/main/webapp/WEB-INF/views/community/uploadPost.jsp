@@ -12,26 +12,6 @@
     let rating = 0; // 평점을 저장할 변수
     let imageFiles = []; // 이미지 파일을 저장할 배열
 
-    // 태그 추가 함수
-    function addLocation() {
-        const locationInput = document.getElementById('location2');
-        const locationValue = locationInput.value.trim();
-
-        if (locationValue && !locations.includes(locationValue)) {
-            locations.push(locationValue); // 위치 추가
-            $("#tag").val(locations.join(',')); 
-            alert($("#tag").val());
-            
-            displayLocations(); // 화면에 위치 표시
-            locationInput.value = ''; // 입력 필드 초기화
-        } else if (locations.includes(locationValue)) {
-            alert("이미 추가된 위치입니다."); // 중복 경고
-        } else {
-            alert("위치를 입력하세요."); // 비어있을 때 경고
-        } 
-        
-    }
-
     // 이미지 미리보기 및 저장 함수
     function previewImages() {
         const fileInput = document.getElementById('imagenames');
@@ -88,21 +68,24 @@
         previewImages(); // 미리보기 갱신
     }
 
-   
-    // 위치 추가 함수
+    // 태그 추가 함수
     function addLocation() {
         const locationInput = document.getElementById('location2');
         const locationValue = locationInput.value.trim();
 
         if (locationValue && !locations.includes(locationValue)) {
             locations.push(locationValue); // 위치 추가
+            $("#tag").val(locations.join(','));
+            console.log($("#tag").val());
+            
             displayLocations(); // 화면에 위치 표시
             locationInput.value = ''; // 입력 필드 초기화
         } else if (locations.includes(locationValue)) {
             alert("이미 추가된 위치입니다."); // 중복 경고
         } else {
             alert("위치를 입력하세요."); // 비어있을 때 경고
-        }
+        } 
+        
     }
     
     // DOMContentLoaded 이벤트를 사용하여 페이지가 로드되었을 때 이벤트 리스너 추가
@@ -164,7 +147,7 @@
         stars.forEach((star, index) => {
             star.classList.toggle('filled', index < starnum); // 1점 단위로 별 채우기
         });
-        $(".starnumber").val(starnum);
+        $(".starnumber").val(value);
     }
 
 </script>

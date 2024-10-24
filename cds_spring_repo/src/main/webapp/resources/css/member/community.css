@@ -106,6 +106,10 @@
     display: flex;
     align-items: center;
     gap: 5px; /* 아이콘과 숫자 사이 간격 설정 */
+    margin-right: 10px;
+}
+.commu-likes-comments .commu-likeBtn{
+	cursor: pointer;
 }
 
 .commu-pagination {
@@ -170,6 +174,17 @@
     margin-top: 10px;
     text-align: left;
 }
+
+.post-item .postlocation {
+	height: 28px;
+	padding: 5px;
+    background-color: #333;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 5px;	
+    margin: 0px;
+}
+
 		/* 게시물 컨테이너 스타일 */
 .post-item {
     border: 1px solid #e0e0e0;
@@ -192,6 +207,7 @@
 .post-item p {
     font-size: 14px;
     color: #555;
+    
 }
 
 /* 평점 스타일 */
@@ -220,11 +236,6 @@
     height: 100%; 
     overflow: auto; 
     background-color: rgba(0, 0, 0, 0.5); /* 배경 어둡게 */
-}
-
-
-.commu-post-button:hover {
-    background-color: #00BFFF;
 }
 
 /* 게시물 그리드 스타일 */
@@ -269,7 +280,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    padding: 10px 10px;
+    padding: 10px;
 }
 
 
@@ -393,10 +404,6 @@
     font-size: 14px;
 }
 
-.commu-modal-meta .commu-likes-comments .commu-icon {
-    margin-right: 10px;
-}
-
 .commu-modal-meta .commu-post-date {
     font-size: 12px;
     color: #777; /* 회색 글자 */
@@ -515,12 +522,20 @@ font-size: 12px; /* 글자 크기 줄임 */
 }
 
 /* 댓글 스타일 수정 */
-.commu-modal-comments p {
+.commu-modal-comments div {
     text-align: left; /* 댓글을 왼쪽으로 정렬 */
-display: flex;
-justify-content: space-between; /* 댓글과 삭제 버튼 간격 조절 */
+    display: flex;
+    justify-content: space-between; /* 댓글과 날짜 간격 조절 */
     margin-bottom: 10px;
+    align-items: center; /* 수직 중앙 정렬 */
+    width:100%;
 }
+
+.comment-date {
+    color: gray; /* 날짜 색상 조정 (선택 사항) */
+    font-size: 0.9em; /* 날짜 크기 조정 (선택 사항) */
+}
+
 .commu-comment-delete {
     margin-left: 10px; /* 삭제 버튼을 오른쪽에 밀착 */
     cursor: pointer;
@@ -542,20 +557,20 @@ justify-content: space-between; /* 댓글과 삭제 버튼 간격 조절 */
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 이미지에 그림자 추가 */
 }
 
-#commu-modalComments {
-    max-height: 200px; /* 원하는 최대 높이 설정 */
-    overflow-y: auto; /* 세로 스크롤 가능 */
-    border: 1px solid #ccc; /* 선택 사항: 테두리 추가 */
-    padding: 10px; /* 선택 사항: 패딩 추가 */
-}
-
-
 /* 큰 버튼 스타일 */
 .commu-post-button-large {
     display: flex;
     justify-content: center; /* 버튼을 중앙에 배치 */
     margin-top: 18px;
 }
+
+#commu-modalComments {
+    max-height: 200px; /* 원하는 높이로 설정 */
+    overflow-y: auto; /* 세로 스크롤 가능 */
+    border: 1px solid #fff; /* 테두리 추가 (선택 사항) */
+    padding: 10px; /* 패딩 추가 (선택 사항) */
+}
+
 
 .commu-post-button-large button {
     width: 100%; /* 가로 길이를 90%로 조정 (원하는 길이로 수정 가능) */

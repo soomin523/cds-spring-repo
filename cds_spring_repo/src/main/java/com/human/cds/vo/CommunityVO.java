@@ -18,6 +18,8 @@ public class CommunityVO {
     private List<String> imagenames;
     private List<CommunityContentVO> comments;
     private int commentNum;
+    private List<CommunityLikeVO> likes;
+    private int likeNum;
     
 	public int getC_idx() {
 		return c_idx;
@@ -102,6 +104,18 @@ public class CommunityVO {
 	}
 	public void setCommentNum(int commentNum) {
 		this.commentNum = commentNum;
+	}
+	public List<CommunityLikeVO> getLikes() {
+		return likes;
+	}
+	public void setLikes(List<CommunityLikeVO> likes) {
+		this.likes = likes;
+	}
+	public int getLikeNum() {
+		return likeNum;
+	}
+	public void setLikeNum(int likeNum) {
+		this.likeNum = likeNum;
 	}
 
 }

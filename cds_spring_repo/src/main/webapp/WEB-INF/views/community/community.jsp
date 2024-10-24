@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,8 +36,8 @@
                     <c:forEach var="community" items="${communityList}">
                         <div class="post-item" data-id="${ community.c_idx }">
                             <div class="post-image" style="background-image: url('${community.imagePaths[0].imagePath}');">
-	                            <p>작성자 : ${community.memberId}</p>
-                            	<p>지역 : ${community.location}</p>
+	                            <p class= "postlocation">작성자 : ${community.memberId}</p>
+                            	<p class= "postlocation">${community.location}</p>
                             </div>
                             <p>제목: ${community.title}</p>
                             <div class="post-rating">
@@ -44,8 +45,13 @@
                             </div>
                             
                             <div class="post-actions">
-                                <span>👍 0</span>
-                                <span>💬 ${ community.commentNum }</span>
+                                <span>
+                                	<c:if test="${ not empty community.tag }">
+	                                	<c:forEach var="tag" items="${fn:split(community.tag, ',')}">
+						                    #${tag.trim()} 
+						                </c:forEach>
+					                </c:if>
+                                </span>
                             </div>
                             <p>
                             	작성일: <fmt:formatDate value="${community.created_at}" type="date" pattern="yyyy-MM-dd" />
@@ -93,10 +99,10 @@
             
             <!-- 이미지 추가 -->
             <p style="position: relative;">
-                <img src="${pageContext.request.contextPath}/resources/img/후기.png" class="log-logo" style="width: 100%; position: absolute;">
+                <img src="${pageContext.request.contextPath}/resources/img/후기.png" class="log-logo2" style="width: 100%; position: absolute;">
 <c:if test="${ not empty member }">
                 <a href="${pageContext.request.contextPath}/community/upload.do">
-                    <button class="commu-post-button" style="position: relative; margin: 96% 27% 0px; font-size:12px;">게시물 올리기</button>
+                    <button class="commu-post-button" style="position: relative; margin: 96% 30% 0px; font-size:12px;">게시물 올리기</button>
                 </a>
 </c:if>
             </p>
@@ -125,8 +131,8 @@
             <!-- 좋아요 수, 댓글 수, 작성일을 사진 아래로 이동 -->
             <div class="commu-modal-meta"> 
                 <div class="commu-likes-comments">
-                    <span class="commu-icon" onclick="toggleLike()">👍 <span id="commu-modalLikes"></span></span>
-                    <span class="commu-icon">💬 <span id="commu-modalCommentsCount"></span></span>
+                    <div class="commu-icon commu-likeBtn">👍 <span id="commu-modalLikes"></span></div>
+                    <div class="commu-icon">💬 <span id="commu-modalCommentsCount"></span></div>
                 </div>
                 <span id="commu-modalMeta" class="commu-post-date"></span>
             </div>
@@ -135,6 +141,7 @@
             <p class="commu-modal-description" id="commu-modalDescription"></p>
 
             <div id="commu-modalComments" class="commu-modal-comments"></div>
+
             
             <!-- 댓글 작성 영역 추가 -->
             <div class="commu-comment-box" data-name='${member.member_id}'>

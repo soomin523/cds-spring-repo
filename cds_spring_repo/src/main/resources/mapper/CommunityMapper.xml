@@ -7,7 +7,7 @@
 
     <!-- 커뮤니티 게시물 목록 조회 -->
     <select id="getCommunityList" resultType="CommunityVO">
-        SELECT c.c_idx, c.memberId, c.title, c.content, c.location, c.likes, c.comments, 
+        SELECT c.c_idx, c.memberId, c.title, c.content, c.location, c.comments, 
                c.tag, c.created_at, c.updated_at, GROUP_CONCAT(ip.imagePath) AS imagePaths
         FROM community c 
         LEFT JOIN image_paths ip ON c.c_idx = ip.postId
@@ -15,7 +15,7 @@
         ORDER BY c.created_at DESC
     </select>
     
-    <select id="getImagePathList" parameterType="_int" resultType="CommunityVO">
+    <select id="getImagePathList" parameterType="_int" resultType="com.human.cds.vo.CommunityImgVO">
     	select * from image_paths
     		where postId = #{idx}
     </select>
@@ -27,7 +27,7 @@
 
     <!-- 게시물 상세 조회 -->
     <select id="getPostById" parameterType="int" resultType="CommunityVO">
-        SELECT c.c_idx AS id, c.memberId, c.title, c.content, c.location, c.likes, c.comments, 
+        SELECT c.c_idx AS id, c.memberId, c.title, c.content, c.location, c.comments, 
                c.tag, c.created_at, c.updated_at, GROUP_CONCAT(ip.imagePath) AS imagePaths
         FROM community c
         LEFT JOIN image_paths ip ON c.c_idx = ip.postId
@@ -50,13 +50,52 @@
     		values(#{postId}, #{imagePath})
     </insert>
     
-    
-    <!-- 지역별 게시물 조회 -->
+     <!-- 지역별 게시물 조회 -->
     <select id="getLocationList" resultType="CommunityVO">
     	select * from community
     		where location = #{location}
     </select>
-
+    
+    <!-- 최신/평점순 +지역별 게시물 조회 -->
+    <!-- 최신순 지역별 조회 -->
+	<select id="getlatestarea" parameterType="java.util.Map" resultType="CommunityVO">
+	    SELECT * FROM Community
+	    WHERE location = #{area}
+	    ORDER BY created_at DESC
+	</select>
+	
+	<!-- 평점순 지역별 조회 -->
+	<select id="getratingarea" parameterType="java.util.Map" resultType="CommunityVO">
+	    SELECT * FROM Community
+	    WHERE location = #{area}
+	    ORDER BY rating DESC
+	</select>
+	
+	<!-- 최신순 전체 조회 -->
+	<select id="getlatest" parameterType="java.util.Map" resultType="CommunityVO">
+	    SELECT * FROM Community
+	    ORDER BY created_at DESC
+	</select>
+	
+	<!-- 평점순 전체 조회 -->
+	<select id="getrating" parameterType="java.util.Map" resultType="CommunityVO">
+	    SELECT * FROM Community
+	    ORDER BY rating DESC
+	</select>
+	
+	<!-- 검색어로(제목, id)로 게시물 조회-->
+	<select id="getSeachList" resultType="CommunityVO">
+		select * From community
+		where memberId like concat ('%', #{search}, '%') or
+				title like concat ('%', #{search}, '%')
+	</select>
+	
+	
+	
+	
+	
+	
+	<!--아직 안슨거  -->
     <!-- 게시물 수정 -->
     <update id="updatePost" parameterType="CommunityVO">
         UPDATE community

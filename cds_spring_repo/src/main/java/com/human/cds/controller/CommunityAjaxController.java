@@ -1,5 +1,7 @@
 package com.human.cds.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,12 @@ public class CommunityAjaxController {
     @GetMapping("/getcommunity.do")
     public CommunityVO getCommunity(@RequestParam int id){
     	return communityService.getCommunity(id);
+    }
+
+    @GetMapping("/getSearchList.do")
+    public List<CommunityVO> getSearchList(@RequestParam String search) {
+    	System.out.println("search: "+search);
+    	return communityService.getSearchList(search);
     }
 
     

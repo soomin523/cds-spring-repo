@@ -17,7 +17,7 @@ $(function() {
         
         $.ajax({
             type: 'post',
-            url: 'loginPass.do', // 실제 서버 로그인 엔드포인트
+            url: `/cds/member/loginPass.do`, // 실제 서버 로그인 엔드포인트
             data: {
                 member_id: member_id,
                 password: password

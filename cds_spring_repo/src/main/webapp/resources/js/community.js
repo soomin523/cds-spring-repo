@@ -39,13 +39,67 @@ $(function () {
 	$(".commu-modal-close").click(function(){
 		closeModal();
 	});
+
 	
 	//지역별 게시물 보기
 	$(".commu-button-container > .commu-button").click(function(){
 		let area = $(this).val();
-		console.log(area);
 		
 		location.href=`getLocationList.do?location=${area}`;
+	});
+	
+	//최신순, 평점순 게시물 보기
+	$(".commu-sort-options > .commu-sort-button").click(function(){
+		let select = $(this).val();
+		let area = $(".commu-sort-options").data("location");
+	
+		location.href=`commupost.do?location=${area}&select=${select}`;
+	});
+	
+	
+	//검색 기능
+	$("#commu-regionSearch").on("input", function() {
+		let search = $("#commu-regionSearch").val();
+	
+    	$.ajax({ 
+	        type:"get",
+	        url:"/cds/community/getSearchList.do",
+	        data:{ search: search },
+	        //headers: {"Accept": "application/json"},
+	        dataType: "json",
+	        success:function(data){
+	        	console.log("data:",data);
+	            let htmls = ``;
+	            data.forEach(function(search) {
+	            	let createDate = new Date(search.created_at).toLocaleDateString();
+                        htmls += `<div class="post-item" data-id="${search.c_idx}">
+                            <div class="post-image" style="background-image: url('${search.imagePaths[0].imagePath}');">
+	                            <p>작성자 : ${search.memberId}</p>
+                            	<p>지역 : ${search.location}</p>
+                            </div>
+                            <p>제목: ${search.title}</p>
+                            <div class="post-rating">
+                                <span>⭐ ${ search.rating }</span>
+                            </div>
+                            
+                            <div class="post-actions">
+                                <span>👍 ${search.likes}</span>
+                                <span>💬 ${search.comments}</span>
+                            </div>
+                            <p>
+                            	작성일: createDate
+                            </p>
+                            
+                        </div>`;
+                    });
+                    
+                    $("#commu-postLis").html(htmls);
+	            
+	        },
+	        error:function(){
+	            console.log("커뮤니티 검색목록을 불러오는데 실패했습니다.");
+	        }
+	    });
 	});
 	
 	

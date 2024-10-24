@@ -6,7 +6,6 @@
 <head>
     <meta charset="UTF-8">
     <title>커뮤니티 페이지</title>
-    <c:set var="isLoggedIn" value="${sessionScope.isLoggedIn}" />
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/member/community.css">
     <script src="../resources/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/community.js"></script>
@@ -21,12 +20,12 @@
                 <h2 style="display: inline-block; margin-right: 20px;">떠나자 커뮤니티 ✍️</h2>
 <c:if test="${ not empty member }">
                 <a href="${pageContext.request.contextPath}/community/upload.do">
-                    <button class="commu-post-button" style="display: inline-block;" onclick="goToUploadPost()">게시물 올리기</button>
+                    <button class="commu-post-button" style="display: inline-block;">게시물 올리기</button>
                 </a>
 </c:if>
-                <div class="commu-sort-options" style="margin-left: auto;">
-                    <button class="commu-sort-button" id="commu-sortLatest" onclick="sortPosts('latest')">최신순</button>
-                    <button class="commu-sort-button" id="commu-sortRating" onclick="sortPosts('rating')">평점순</button>
+                <div class="commu-sort-options" style="margin-left: auto;" data-location="${ area }">
+                    <button class="commu-sort-button" id="commu-sortLatest" value="latest">최신순</button>
+                    <button class="commu-sort-button" id="commu-sortRating" value="rating">평점순</button>
                 </div>
             </div>
             
@@ -35,13 +34,13 @@
                 <!-- 게시물 12개가 그리드로 나올 영역 -->
                     <c:forEach var="community" items="${communityList}">
                         <div class="post-item" data-id="${ community.c_idx }">
-                            <div class="post-image" style="background-image: url('${community.imagePaths[0]}');">
+                            <div class="post-image" style="background-image: url('${community.imagePaths[0].imagePath}');">
 	                            <p>작성자 : ${community.memberId}</p>
                             	<p>지역 : ${community.location}</p>
                             </div>
                             <p>제목: ${community.title}</p>
                             <div class="post-rating">
-                                <span>⭐4.5</span>
+                                <span>⭐ ${ community.rating }</span>
                             </div>
                             
                             <div class="post-actions">
@@ -65,7 +64,7 @@
             <!-- 지역 검색창 -->
             <div class="commu-search-box">
                 <p><img src="${pageContext.request.contextPath}/resources/img/돋보기.png" /></p>
-                <input type="text" placeholder="지역명, 제목, ID 검색 가능" id="commu-regionSearch" onkeyup="searchPosts()">
+                <input type="text" placeholder="제목, ID 검색 가능" id="commu-regionSearch">
             </div>
             <h4 id="commu-selectedLocation" style="margin-top: 10px;"></h4>
 

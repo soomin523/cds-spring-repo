@@ -14,5 +14,9 @@ public interface CommunityService {
 	int uploadPost(CommunityVO vo);
 
 	List<CommunityVO> getLocationList(String location);
+
+	List<CommunityVO> getCommupost(String select, String area);
+
+	List<CommunityVO> getSearchList(String search);
 }
 

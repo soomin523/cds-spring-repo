@@ -76,10 +76,10 @@ public class ProductsController {
 				List<ProductsVO.Products> filteredItems = data.getResponse().getBody().getItems().getItem().stream()
 					    .filter(item -> 
 					        ((item.getCat2().equals("A0202") || item.getCat2().equals("A0203") || 
-					          item.getCat2().equals("A0207") || item.getCat2().equals("A0208") || 
+					          item.getCat2().equals("A0207") || item.getCat3().equals("A02080") || 
 					          item.getCat1().equals("A03")) &&
 					         !(item.getCat3().equals("A02020200") || item.getCat3().equals("A02020700")) &&
-					         (item.getContenttypeid() == "12" || item.getContenttypeid() == "15" || item.getContenttypeid() == "28") && 
+					         (item.getContenttypeid().equals("12") || item.getContenttypeid().equals("15") || item.getContenttypeid().equals("28")) && 
 					         (item.getFirstimage() != null && !item.getFirstimage().isEmpty())) // firstimage가 비어있지 않은 조건 추가
 					    )
 					    .collect(Collectors.toList());
@@ -107,7 +107,7 @@ public class ProductsController {
             model.addAttribute("msg", "오류 발생: " + e.getMessage());
         }
         
-        return "products/products";
+        return "home";
     }
 
     

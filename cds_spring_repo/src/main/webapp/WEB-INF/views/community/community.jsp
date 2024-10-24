@@ -44,8 +44,8 @@
                             </div>
                             
                             <div class="post-actions">
-                                <span>👍 ${community.likes}</span>
-                                <span>💬 ${community.comments}</span>
+                                <span>👍 0</span>
+                                <span>💬 ${ community.commentNum }</span>
                             </div>
                             <p>
                             	작성일: <fmt:formatDate value="${community.created_at}" type="date" pattern="yyyy-MM-dd" />

@@ -70,13 +70,24 @@ public class CommunityController {
     
     
     @GetMapping("/commupost.do")
-    public String getCommupost(@RequestParam String select, @RequestParam String location, Model model) {
+    public String getCommupost(String select, String location, Model model) {
     	List<CommunityVO> vo = null;
     	vo = communityService.getCommupost(select, location);
     	
     	if(vo != null) {
     		model.addAttribute("communityList", vo);
     		model.addAttribute("area", location); 
+    	}
+    	
+    	return "community/community";
+    }
+    
+    @GetMapping("/getSearchList.do")
+    public String getSearchList(String search, Model model) {
+    	List<CommunityVO> vo = null;
+    	vo = communityService.getSearchList(search);
+    	if(vo != null) {
+    		model.addAttribute("communityList", vo);
     	}
     	
     	return "community/community";

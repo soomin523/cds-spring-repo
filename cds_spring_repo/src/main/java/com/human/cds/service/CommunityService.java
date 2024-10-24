@@ -2,6 +2,7 @@ package com.human.cds.service;
 
 import java.util.List;
 
+import com.human.cds.vo.CommunityContentVO;
 import com.human.cds.vo.CommunityVO;
 
 public interface CommunityService {
@@ -18,5 +19,9 @@ public interface CommunityService {
 	List<CommunityVO> getCommupost(String select, String area);
 
 	List<CommunityVO> getSearchList(String search);
+
+	int insertComment(String memberId, String content, String c_idx);
+
+	CommunityContentVO getComment(int c_idx);
 }
 

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.human.cds.vo.CommunityContentVO;
 import com.human.cds.vo.CommunityImgVO;
 import com.human.cds.vo.CommunityVO;
 
@@ -25,6 +26,8 @@ public class CommunityDAO {
 			int idx = vo.getC_idx();
 			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
 			vo.setImagePaths(imagePathList);
+			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
+			vo.setCommentNum(content);
 		}
 		return communityList;
 	}
@@ -35,6 +38,12 @@ public class CommunityDAO {
 		
 		List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", id);
 		vo.setImagePaths(imagePathList);
+		
+		List<CommunityContentVO> contentList = sqlSession.selectList(MAPPER+".getCommentsByArticleId", id);
+		vo.setComments(contentList);
+		
+		int commentNum = sqlSession.selectOne(MAPPER+".getCommentCount", id);
+		vo.setCommentNum(commentNum);
 		
 		return vo;
 	}
@@ -70,6 +79,8 @@ public class CommunityDAO {
 			int idx = vo.getC_idx();
 			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
 			vo.setImagePaths(imagePathList);
+			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
+			vo.setCommentNum(content);
 		}
 		return communityList;
 	}
@@ -94,6 +105,8 @@ public class CommunityDAO {
 			int idx = vo.getC_idx();
 			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
 			vo.setImagePaths(imagePathList);
+			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
+			vo.setCommentNum(content);
 		}
 		
 		return communityList;
@@ -108,5 +121,13 @@ public class CommunityDAO {
 		}
 
 	    return communityList;
+	}
+
+	public int insertComment(Map<String, String> map) {
+		return sqlSession.insert(MAPPER+".insertComment", map);
+	}
+
+	public CommunityContentVO getComment(int c_idx) {
+		return sqlSession.selectOne(MAPPER+".getComment", c_idx);
 	}
 }

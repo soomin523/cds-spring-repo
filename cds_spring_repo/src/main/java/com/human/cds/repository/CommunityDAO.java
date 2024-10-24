@@ -1,6 +1,7 @@
 package com.human.cds.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ public class CommunityDAO {
 			int idx = vo.getC_idx();
 			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
 			vo.setImagePaths(imagePathList);
-			System.out.println(vo.getImagePaths());
 		}
 		return communityList;
 	}
@@ -44,17 +44,22 @@ public class CommunityDAO {
 		int result = 0;
 		
 		if(sqlSession.insert(MAPPER+".insertPost", vo) == 1) {
+			
 			int count = sqlSession.selectOne(MAPPER+".getCommunityCount");
-			for(CommunityImgVO imgvo : vo.getImagePaths()) {
-				imgvo.setPostId(count+1);
+			
+			CommunityImgVO imgvo = new CommunityImgVO();
+			for(String imgName : vo.getImagenames()) {
+				imgvo.setPostId(count);
+				imgvo.setImagePath(imgName);
 				result += sqlSession.insert(MAPPER+".insertImg", imgvo);
 			}
 		}
-		if(result > 1) {
+		
+		if(result >= 1) {
 			result = 1;
 		}
 		
-		return 0;
+		return result;
 		
 	}
 
@@ -67,5 +72,41 @@ public class CommunityDAO {
 			vo.setImagePaths(imagePathList);
 		}
 		return communityList;
+	}
+
+	public List<CommunityVO> getCommupost(Map<String, String> map) {
+		
+		List<CommunityVO> communityList = null;
+		String select = map.get("select");
+		String area = map.get("area");
+		
+		if(select.equals("latest") && !area.equals("all")) {
+			communityList = sqlSession.selectList(MAPPER+".getlatestarea", map);//최신순
+		}else if(select.equals("rating") && !area.equals("all")) {
+			communityList = sqlSession.selectList(MAPPER+".getratingarea", map);//평점순
+		}else if(select.equals("latest")){
+			communityList = sqlSession.selectList(MAPPER+".getlatest", select);//최신순
+		}else {
+			communityList = sqlSession.selectList(MAPPER+".getrating", select);//평점순
+		}
+		
+		for(CommunityVO vo : communityList) {
+			int idx = vo.getC_idx();
+			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+			vo.setImagePaths(imagePathList);
+		}
+		
+		return communityList;
+	}
+
+	public List<CommunityVO> getSearchList(String search) {
+		List<CommunityVO> communityList = sqlSession.selectList(MAPPER+".getSeachList",search); // 검색 결과 반환
+		for(CommunityVO vo : communityList) {
+			int idx = vo.getC_idx();
+			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+			vo.setImagePaths(imagePathList);
+		}
+
+	    return communityList;
 	}
 }

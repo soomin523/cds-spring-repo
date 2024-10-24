@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.human.cds.service.CommunityService;
 import com.human.cds.vo.CommunityVO;
@@ -21,9 +22,10 @@ public class CommunityController {
 
     @GetMapping("/commu")
     public String communityMain(Model model) {
+    	
         List<CommunityVO> communityList = communityService.getCommunityList();
-        System.out.println(communityList);
         model.addAttribute("communityList", communityList);
+        
         return "community/community"; 
     }
 
@@ -38,6 +40,9 @@ public class CommunityController {
     	String viewName = "community/uploadPost";
     	
     	if(communityService.uploadPost(vo) == 1) {
+    		List<CommunityVO> communityList = null;
+    		communityList = communityService.getCommunityList();
+    		model.addAttribute("communityList", communityList);
     		viewName = "community/community";
     	}else {
     		model.addAttribute("msg", "게시물 등록에 실패하였습니다.");
@@ -58,7 +63,23 @@ public class CommunityController {
     		communityList = communityService.getLocationList(location);    		
     	}
     	model.addAttribute("communityList", communityList);
+		model.addAttribute("area", location); 
     	
     	return "community/community";
     }
+    
+    
+    @GetMapping("/commupost.do")
+    public String getCommupost(@RequestParam String select, @RequestParam String location, Model model) {
+    	List<CommunityVO> vo = null;
+    	vo = communityService.getCommupost(select, location);
+    	
+    	if(vo != null) {
+    		model.addAttribute("communityList", vo);
+    		model.addAttribute("area", location); 
+    	}
+    	
+    	return "community/community";
+    }
+    
 }

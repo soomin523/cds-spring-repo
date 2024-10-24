@@ -19,10 +19,11 @@
 
         if (locationValue && !locations.includes(locationValue)) {
             locations.push(locationValue); // 위치 추가
+            $("#tag").val(locations.join(',')); 
+            alert($("#tag").val());
+            
             displayLocations(); // 화면에 위치 표시
             locationInput.value = ''; // 입력 필드 초기화
-            
-            $("#tag").val(locations.join(',')); 
         } else if (locations.includes(locationValue)) {
             alert("이미 추가된 위치입니다."); // 중복 경고
         } else {
@@ -33,7 +34,7 @@
 
     // 이미지 미리보기 및 저장 함수
     function previewImages() {
-        const fileInput = document.getElementById('imagePath');
+        const fileInput = document.getElementById('imagenames');
         const fileList = fileInput.files;
         const previewContainer = document.getElementById('image-preview');
 
@@ -80,7 +81,7 @@
     // 이미지 제거 함수
     function removeImage(index) {
         imageFiles.splice(index, 1); // 해당 인덱스의 이미지 파일 제거
-        const fileInput = document.getElementById('imagePath');
+        const fileInput = document.getElementById('imagenames');
         const dataTransfer = new DataTransfer();
         imageFiles.forEach(file => dataTransfer.items.add(file)); // 남은 파일을 DataTransfer에 추가
         fileInput.files = dataTransfer.files; // input 요소의 files 업데이트
@@ -106,7 +107,7 @@
     
     // DOMContentLoaded 이벤트를 사용하여 페이지가 로드되었을 때 이벤트 리스너 추가
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('imagePath').addEventListener('change', previewImages);
+        document.getElementById('imagenames').addEventListener('change', previewImages);
     });
 
     // 태그를 화면에 표시하는 함수
@@ -158,12 +159,12 @@
 
     // 평점 선택 함수
     function selectRating(value) {
-        rating = value;
+        starnum = value;
         const stars = document.querySelectorAll('.star');
         stars.forEach((star, index) => {
-            star.classList.toggle('filled', index < rating); // 1점 단위로 별 채우기
+            star.classList.toggle('filled', index < starnum); // 1점 단위로 별 채우기
         });
-        $(".starnumber").val(rating);
+        $(".starnumber").val(starnum);
     }
 
 </script>
@@ -231,12 +232,12 @@
 			    <span class="star" onclick="selectRating(4)">&#9733;</span>
 			    <span class="star" onclick="selectRating(5)">&#9733;</span>
 			</div>
-			<input type="hidden" class="starnumber" id="rating" name="rating">
+			<input type="hidden" class="starnumber" id="rating" name="rating" value="0">
 
-       <label class="commu-label" for="imagePath">이미지 업로드</label>
+       <label class="commu-label" for="imagenames">이미지 업로드</label>
 <div class="image-upload-container">
-    <input type="file" id="imagePath" name="imagePath" class="commu-file-input" accept="image/*" multiple required style="display: none;">
-    <label class="upload-button" for="imagePath" style="cursor: pointer; display: flex; flex-direction: column; align-items: center;">
+    <input type="file" id="imagenames" name="imagenames" class="commu-file-input" accept="image/*" multiple required style="display: none;">
+    <label class="upload-button" for="imagenames" style="cursor: pointer; display: flex; flex-direction: column; align-items: center;">
         <img src="${pageContext.request.contextPath}/resources/img/사진첨부.png" alt="사진 아이콘" style="width: 60px; height: 60px; vertical-align: middle;">
         <span style="margin-top: 5px;">사진 추가</span>
     </label>

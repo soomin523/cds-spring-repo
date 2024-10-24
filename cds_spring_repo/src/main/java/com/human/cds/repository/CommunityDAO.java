@@ -28,22 +28,26 @@ public class CommunityDAO {
 			vo.setImagePaths(imagePathList);
 			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 			vo.setCommentNum(content);
+			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
+			vo.setLikeNum(like);
 		}
 		return communityList;
 	}
 
 	//모달용 가져오기
-	public CommunityVO getCommunity(int id) {
-		CommunityVO vo = sqlSession.selectOne(MAPPER+".getCommunity", id);
+	public CommunityVO getCommunity(int idx) {
+		CommunityVO vo = sqlSession.selectOne(MAPPER+".getCommunity", idx);
 		
-		List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", id);
+		List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
 		vo.setImagePaths(imagePathList);
 		
-		List<CommunityContentVO> contentList = sqlSession.selectList(MAPPER+".getCommentsByArticleId", id);
+		List<CommunityContentVO> contentList = sqlSession.selectList(MAPPER+".getCommentsByArticleId", idx);
 		vo.setComments(contentList);
 		
-		int commentNum = sqlSession.selectOne(MAPPER+".getCommentCount", id);
+		int commentNum = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 		vo.setCommentNum(commentNum);
+		int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
+		vo.setLikeNum(like);
 		
 		return vo;
 	}
@@ -81,6 +85,8 @@ public class CommunityDAO {
 			vo.setImagePaths(imagePathList);
 			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 			vo.setCommentNum(content);
+			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
+			vo.setLikeNum(like);
 		}
 		return communityList;
 	}
@@ -107,6 +113,8 @@ public class CommunityDAO {
 			vo.setImagePaths(imagePathList);
 			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 			vo.setCommentNum(content);
+			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
+			vo.setLikeNum(like);
 		}
 		
 		return communityList;
@@ -118,6 +126,10 @@ public class CommunityDAO {
 			int idx = vo.getC_idx();
 			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
 			vo.setImagePaths(imagePathList);
+			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
+			vo.setCommentNum(content);
+			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
+			vo.setLikeNum(like);
 		}
 
 	    return communityList;
@@ -129,5 +141,22 @@ public class CommunityDAO {
 
 	public CommunityContentVO getComment(int c_idx) {
 		return sqlSession.selectOne(MAPPER+".getComment", c_idx);
+	}
+
+	public int insertLike(Map<String, String> map) {
+		int result = 0;
+		int idx = Integer.parseInt(map.get("c_idx"));
+		
+		if((int)sqlSession.selectOne(MAPPER+".likeDouble", map) == 1) {
+			result = sqlSession.delete(MAPPER+".deleteLike", map);
+		}else {
+			result = sqlSession.insert(MAPPER+".insertLike", map);
+		}
+		
+		if(result == 1) {
+			result = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
+		}
+		
+		return result;
 	}
 }

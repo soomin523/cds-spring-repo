@@ -23,5 +23,7 @@ public interface CommunityService {
 	int insertComment(String memberId, String content, String c_idx);
 
 	CommunityContentVO getComment(int c_idx);
+
+	int insertLike(String memberId, String c_idx);
 }
 

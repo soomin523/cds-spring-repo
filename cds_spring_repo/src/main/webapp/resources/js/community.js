@@ -16,15 +16,21 @@ $(function () {
 	            $(".commu-comment-box").attr("data-idx", data.c_idx); // 게시물번호
 			    $("#commu-modalUserId").text(data.memberId); // 아이디
 			    $("#commu-modalLocation").text("위치: " + data.location); // 위치
+			    $("#commu-modalLikes").text(data.likeNum); // 좋아요 수
 			    $("#commu-modalCommentsCount").text(data.commentNum); // 댓글 수
 			    const createdAt = new Date(data.created_at); // 밀리초를 Date 객체로 변환
+			    const formattedDate = createdAt.toISOString().slice(0, 10).replace(/-/g, '-'); // YYYY-MM-DD 형식으로 변환
 			    $("#commu-modalMeta").text("작성일: " + createdAt.toLocaleString()); // 원하는 형식으로 출력
 			    $("#commu-modalTitle").text(data.title); // 제목
 			    $("#commu-modalDescription").text(data.content); // 내용
 			    
 			    let htmls = ''; //댓글목록
 				data.comments.forEach(function(comment) {
-				    htmls += `<p>${comment.memberId} ${comment.content} ${comment.created_at}</p>`;
+				    htmls += `<div class="commu-modal-comment">
+			            <p class="comment-author"><strong>${comment.memberId}</strong></p>
+			            <p class="comment-content">${comment.content}</p>
+			            <p class="comment-date">${formattedDate.slice(2)}</p>
+			        </div>`;
 				});
 				$("#commu-modalComments").html(htmls);
 	        },
@@ -63,44 +69,76 @@ $(function () {
 	
 	//검색 기능
 	$("#commu-regionSearch").on("keypress", function(event) {
-   		let search = $("#commu-regionSearch").val();
-   		
-   		location.href=`getSearchList.do?search=${search}`;
+	    if (event.key === "Enter") { // Enter 키 확인
+	        let search = $("#commu-regionSearch").val();
+	        location.href = `getSearchList.do?search=${search}`;
+	    }
 	});
 	
 	// 댓글 기능
-$("#commentSubmitBtn").click(function() {
-    let c_idx = $(".commu-comment-box").data("idx");
-    let memberId = $(".commu-comment-box").data("name");
-    let content = $("#commu-commentText").val();
-
-    if (!memberId) {
-        alert("로그인이 필요한 기능입니다.");
-    } else {
-        $.ajax({
-            type: "GET", // POST 방식으로 변경
-            url: "/cds/community/insertComment.do",
-            data: { memberId: memberId, content: content, c_idx: c_idx },
-            headers: { "Accept": "application/json" },
-            success: function(data) {
-                let htmls = `<p><strong>${data.memberId}:</strong> ${data.content} <em>${data.created_at}</em></p>`;
-                $("#commu-modalComments").append(htmls);
-
-                // 텍스트박스 초기화
-                $("#commu-commentText").val("");
-
-                // 스크롤을 아래로 이동
-                $("#commu-modalComments").scrollTop($("#commu-modalComments")[0].scrollHeight);
-            },
-            error: function() {
-                console.log("댓글을 입력하는데 오류가 났습니다.");
-            }
-        });
-    }
-});
-
+	$("#commentSubmitBtn").click(function() {
+	    let c_idx = $(".commu-comment-box").data("idx");
+	    let memberId = $(".commu-comment-box").data("name");
+	    let content = $("#commu-commentText").val();
+	
+	    if (!memberId) {
+	        alert("로그인이 필요한 기능입니다.");
+	    } else {
+	        $.ajax({
+	            type: "GET",
+	            url: "/cds/community/insertComment.do",
+	            data: { memberId: memberId, content: content, c_idx: c_idx },
+	            headers: { "Accept": "application/json" },
+	            success: function(data) {
+	            	const createdAt = new Date(data.created_at);
+	            	const formattedDate = createdAt.toISOString().slice(0, 10).replace(/-/g, '-'); // YYYY-MM-DD 형식으로 변환
+	                let htmls = `<div class="commu-modal-comment">
+				            <p class="comment-author"><strong>${data.memberId}</strong></p>
+				            <p class="comment-content">${data.content}</p>
+				            <p class="comment-date">${formattedDate.slice(2)}</p>
+				        </div>`;
+	                $("#commu-modalComments").append(htmls);
+	
+	                // 텍스트박스 초기화
+	                $("#commu-commentText").val("");
+	
+	                // 스크롤을 아래로 이동
+	                const commentsDiv = $("#commu-modalComments");
+	                commentsDiv.scrollTop(commentsDiv.prop("scrollHeight"));
+	            },
+	            error: function() {
+	                console.log("댓글을 입력하는데 오류가 났습니다.");
+	            }
+	        });
+	    }
+	});
+	
+	//좋아요 기능
+	$(".commu-likeBtn").click(function() {
+		let c_idx = $(".commu-comment-box").data("idx");
+		let memberId = $(".commu-comment-box").data("name");
+		
+		if (!memberId) {
+	        alert("로그인이 필요한 기능입니다.");
+	    } else {
+	        $.ajax({
+	            type: "GET",
+	            url: "/cds/community/insertLike.do",
+	            data: { memberId: memberId, c_idx: c_idx },
+	            headers: { "Accept": "application/json" },
+	            success: function(data) {
+	            	$("#commu-modalLikes").text(data);
+	            },
+	            error: function() {
+	                console.log("좋아요누르는데 오류가 났습니다.");
+	            }
+	        });
+	    }
 	
 	
+	});
+	
+
 	var currentPage = 1;
 	var postsPerPage = 12;
 	

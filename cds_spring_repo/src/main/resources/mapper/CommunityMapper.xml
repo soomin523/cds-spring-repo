@@ -9,6 +9,7 @@
     <select id="getCommunityList" resultType="CommunityVO">
         SELECT *
         FROM community
+        where isDeleted = false
         GROUP BY c_idx
         ORDER BY created_at DESC
     </select>
@@ -20,37 +21,35 @@
     
     <select id="getCommunity" parameterType="_int" resultType="CommunityVO">
     	select * from community
-    		where c_idx = #{id}
-    </select>
-
-    <!-- 게시물 상세 조회 -->
-    <select id="getPostById" parameterType="int" resultType="CommunityVO">
-        SELECT *
-        FROM community
-        WHERE c_idx = #{id}
-        GROUP BY c_idx
+    		where c_idx = #{idx}
     </select>
     
     <!-- 댓글 목록 조회 -->
     <select id="getCommentsByArticleId" parameterType="_int" resultType="com.human.cds.vo.CommunityContentVO">
         SELECT comment_id, c_idx, memberId, content, created_at
         FROM community_comments
-        WHERE c_idx = #{id}
+        WHERE c_idx = #{idx}
     </select>
     
     <!-- 댓글 수 조회 -->
     <select id="getCommentCount" parameterType="int" resultType="int">
-        SELECT COUNT(*) FROM community_comments WHERE c_idx = #{id}
+        SELECT COUNT(*) FROM community_comments WHERE c_idx = #{idx}
+    </select>
+    
+    <!-- 좋아요 수 조회 -->
+    <select id="getLikeCount" parameterType="int" resultType="int">
+        SELECT COUNT(*) FROM community_likes WHERE c_idx = #{idx}
     </select>
 
     <!-- 게시물 삽입 -->
     <insert id="insertPost" parameterType="CommunityVO">
-        INSERT INTO community (memberId, title, content, location, tag)
-        VALUES (#{memberId}, #{title}, #{content}, #{location}, #{tag})
+        INSERT INTO community (memberId, title, content, location, tag, rating)
+        VALUES (#{memberId}, #{title}, #{content}, #{location}, #{tag}, #{rating})
     </insert>
     
     <select id="getCommunityCount" resultType="_int">
     	select max(c_idx) from community
+    		where isDeleted = false
     </select>
     
     <insert id="insertImg" parameterType="com.human.cds.vo.CommunityImgVO">
@@ -61,7 +60,7 @@
      <!-- 지역별 게시물 조회 -->
     <select id="getLocationList" resultType="CommunityVO">
     	select * from community
-    		where location = #{location}
+    		where location = #{location} and isDeleted = false
     </select>
     
     <!-- 최신/평점순 +지역별 게시물 조회 -->
@@ -96,6 +95,7 @@
 		select * From community
 		where memberId like concat ('%', #{search}, '%') or
 				title like concat ('%', #{search}, '%')
+				and isDeleted = false
 	</select>
 	
 	<!-- 댓글 삽입 -->
@@ -104,15 +104,30 @@
 			values(#{c_idx}, #{memberId}, #{content})
 	</insert>
 	
+	<!-- 댓글 삽입 후 화면에 띄우기 위함 -->
 	<select id="getComment" resultType="com.human.cds.vo.CommunityContentVO">
 		select * from community_comments
 			ORDER BY comment_id DESC
 			LIMIT 1;
 	</select>
 	
+	<!-- 좋ㅇㅏ요 삽입 -->
+	<insert id="insertLike" parameterType="map">
+		insert into community_likes (c_idx, memberId)
+			values(#{c_idx}, #{memberId})
+	</insert>
 	
+	<!-- 좋아요 이미 있는지 검사 -->
+	<select id="likeDouble" parameterType="map" resultType="_int">
+		select count(*) from community_likes
+			where c_idx = #{c_idx} and memberId = #{memberId}
+	</select>
 	
-	
+	<!-- 좋아요 삭제 -->
+	<delete id="deleteLike" parameterType="map">
+		delete from community_likes
+			where c_idx = #{c_idx} and memberId = #{memberId}
+	</delete>
 	
 	<!--아직 안슨거  -->
     <!-- 게시물 수정 -->

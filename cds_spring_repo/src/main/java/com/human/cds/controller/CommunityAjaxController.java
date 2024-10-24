@@ -33,7 +33,10 @@ public class CommunityAjaxController {
     	return vo;
     }
 
-
+    @GetMapping("insertLike.do")
+    public int insertLike(@RequestParam String memberId,@RequestParam String c_idx) {
+    	return communityService.insertLike(memberId, c_idx);
+    }
 
     
 }

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.human.cds.vo.CommentVO;
+import com.human.cds.vo.CommunityContentVO;
+import com.human.cds.vo.CommunityImgVO;
+import com.human.cds.vo.CommunityVO;
 import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.DestinationDBVO;
 import com.human.cds.vo.MemberVO;
@@ -51,6 +54,24 @@ public class MypageDAO {
 	public CourseInfoVO getCourseInfoByContentId(String contentId) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(MAPPER+".getCourseInfoByContentId",contentId);
+	}
+
+	public List<CommunityVO> getContentByMemberId(String memId) {
+		
+		List<CommunityVO> communitys = sqlSession.selectList(MAPPER+".getContentByMemberId",memId);
+		for(CommunityVO community: communitys) {
+			int c_idx = community.getC_idx();
+			List<CommunityImgVO> img = sqlSession.selectList(MAPPER+".getImgByCidx",c_idx);
+			List<CommunityContentVO> comment = sqlSession.selectList(MAPPER+".getcommentByCidx",c_idx);
+			community.setImagePaths(img);
+			community.setComments(comment);
+		
+		}
+			
+		
+		
+		
+		return communitys;
 	}
 	
 	

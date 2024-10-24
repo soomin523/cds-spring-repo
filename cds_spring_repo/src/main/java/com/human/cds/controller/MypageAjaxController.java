@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.human.cds.repository.MypageDAO;
 import com.human.cds.service.MypageService;
 import com.human.cds.vo.CommentVO;
+import com.human.cds.vo.CommunityVO;
 import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.MemberVO;
 
@@ -82,6 +82,20 @@ public class MypageAjaxController {
 	    }
 
 	    return comments;
+	}
+	
+	@GetMapping("getContentList.do")
+	public List<CommunityVO> getContentList(HttpSession session){
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memId = member.getMember_id();
+		
+		//게시글 목록 가져오기
+		List<CommunityVO> contents = mypageServiceImpl.getContentByMemberId(memId);
+		
+		return contents;
+		
+		
 	}
 	
 	

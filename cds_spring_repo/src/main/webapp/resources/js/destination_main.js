@@ -29,16 +29,81 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500);
     });
 
-    $(document).ready(function() {
-        let defaultRegion = 1;  
-        let defaultRname = "서울";
-        let defaultSigungucode = "종로구"; 
-        initialize(defaultRegion, defaultRname);
+	$(".desheader_circle").on("click", function(){
+		
+		   // 모든 .desheader_circle 스타일 초기화
+		    $(".desheader_circle").css({
+		        "border-radius": "",
+		        "width": "",
+		        "height": "",
+		        "background-size": "",
+		        "background-position": "",
+		        "border": "",
+		        "margin": "",
+		        "cursor": ""
+		    });
+		
+		$(this).css({
+				"border-radius": "50%",
+			    "width": "90px",
+			    "height": "90px",
+			    "background-size": "cover",
+			    "background-position": "center",
+			    "border":"skyblue solid 2px",
+			    "margin": "0 15px",
+			    "cursor":"pointer"}
+		
+		);
+	
+	});
 
+    $(document).ready(function() {
+     	let areacode = getParameterByName('areacode'); // URL 파라미터에서 areaCode를 가져옴
+        let defaultRname = '';
+        switch(areacode){
+        	case '1' : defaultRname = '서울'; break;
+        	case '2' : defaultRname = '인천'; break;
+        	case '3' : defaultRname = '대전'; break;
+        	case '4' : defaultRname = '대구'; break;
+        	case '5' : defaultRname = '광주'; break;
+        	case '6' : defaultRname = '부산'; break;
+        	case '7' : defaultRname = '울산'; break;
+        	case '31' : defaultRname = '경기'; break;
+        	case '32' : defaultRname = '강원'; break;
+        	case '33' : defaultRname = '충북'; break;
+        	case '34' : defaultRname = '충남'; break;
+        	case '35' : defaultRname = '경북'; break;
+        	case '36' : defaultRname = '경남'; break;
+        	case '37' : defaultRname = '전북'; break;
+        	case '38' : defaultRname = '전남'; break;
+        	case '39' : defaultRname = '제주'; break;
+        	case '8' : defaultRname = '세종'; break;
+        };
+        initialize(areacode, defaultRname);
+
+		// URL 파라미터에서 값을 추출하는 함수
+    	function getParameterByName(name) {
+	        let url = window.location.href;
+	        name = name.replace(/[\[\]]/g, '\\$&');
+	        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+	            results = regex.exec(url);
+	        if (!results) return null;
+	        if (!results[2]) return '';
+	        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	    }
+		
+
+
+		//스타일 초기화
         $(".circle-item").on("click", function() {
             var region = $(this).data('region');
             var rname = $(this).data('rname');
+        	getList(region, rname);
+        });
+            
+        function getList(region, rname){    
             $('.desselect h3').text(rname);
+           			
 
             $.ajax({
                 type: "GET",
@@ -64,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("지역 리스트를 불러오는 데 실패했습니다.");
                 }
             });
-        });
+        };
 
         function loadDesList(region, sigungucode) {
             console.log("시군구 코드:", sigungucode);

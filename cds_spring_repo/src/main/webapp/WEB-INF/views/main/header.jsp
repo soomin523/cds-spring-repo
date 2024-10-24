@@ -164,7 +164,7 @@
 				location.href = "index.do";
 			});
 			$(".destination").click(function() {
-				location.href = "destination/destination.do";
+				location.href = "destination/destination.do?areacode=1";
 			});
 			$(".festival").click(function() {
 				location.href = "festival/getFestivalList.do";

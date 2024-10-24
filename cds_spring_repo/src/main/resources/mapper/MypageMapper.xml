@@ -56,6 +56,32 @@
 		FROM travel_course
 		WHERE content_id = #{content_id}
 	</select>
+	
+	<!-- 커뮤니티 정보 전체조회 -->
+	<select id="getContentByMemberId" resultType="CommunityVO">
+			select *
+			from community
+			where memberId = #{memId}
+	
+	</select>
+	
+	
+	<!-- 이미지 조회 -->
+	<select id="getImgByCidx" resultType="CommunityImgVO">
+		select *
+		from image_paths
+		where  postId = #{c_idx}
+	</select>
+	
+	
+	<!-- 댓글조회 -->
+	<select id="getcommentByCidx" resultType="CommunityContentVO">
+		select *
+		from community_comments
+		where c_idx = #{c_idx}
+	</select>
+	
+	
 </mapper>
 
 

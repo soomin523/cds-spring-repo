@@ -156,7 +156,7 @@
                 <option>노원구</option>
                 <option>구로구</option>
             </select>
-            <input type="text" id="search-box" placeholder="검색창">
+            <input type="text" id="search-box" placeholder="검색어를 입력해주세요">
         </div>
 
         <!-- 여행지 리스트 -->
@@ -168,7 +168,7 @@
         </div>
 
         <div class="desslogan">
-        <img src="${pageContext.request.contextPath}/resources/img/banner-1.png">
+        <img src="${pageContext.request.contextPath}/resources/img/desbanner.png">
         </div>
     </section>
     <%@ include file="../main/footer.jsp"%>

@@ -27,10 +27,6 @@
 				<button id="redirectButton_comment">댓글</button>
 			</div>
 			<hr>
-			<!-- 게시글 작성 내역이 없을 때 -->
-			<div class="mywrite-content-none">
-				<p>등록된 게시글이 없습니다</p>
-			</div>
 
 			<!-- 댓글 작성 내역이 있을 때 -->
 			<div class="mywrite-comment-exist">
@@ -41,8 +37,9 @@
 
 			<!-- 게시글 작성 내역이 있을 때 -->
 			<div class="mywrite-content-exist">
-				<p>커뮤게시글 제목</p>
-				<p>날짜</p>
+				<div id="content-list">
+					<!-- 게시글 목록이 이곳에 추가됩니다 -->
+				</div>
 			</div>
 			<hr>
 		<div><button class="homebt" onclick="location.href='${pageContext.request.contextPath}/mypage/mypagemain.do'"></button></div>

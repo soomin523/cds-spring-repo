@@ -175,6 +175,7 @@ body {
 
 .mapicon{
 	margin: 0;	
+	vertical-align: middle;  /* 텍스트와 수직으로 맞춤 */
 }
 
 .festaimgbox {

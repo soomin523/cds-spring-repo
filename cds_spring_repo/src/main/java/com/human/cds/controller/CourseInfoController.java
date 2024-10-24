@@ -1,5 +1,6 @@
 package com.human.cds.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -110,7 +111,7 @@ public class CourseInfoController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/tourCourse/home"; // 업데이트 후 리스트 페이지로 리다이렉트
+		return "redirect:/home.do"; // 업데이트 후 리스트 페이지로 리다이렉트
 	}
 
 	@GetMapping("/Courseitems.do")
@@ -124,7 +125,21 @@ public class CourseInfoController {
 			System.out.println("courseList 데이터가 있습니다.");
 		}
 		model.addAttribute("courseList", courseList);
-		return "tourCourse/Courseitems";
+		return "tourCourse/home.do";
+	}
+	
+	@GetMapping("/Courseitems2.do")
+	public String showTitles2(Model model) {
+		// title과 content_id를 가져옴
+		List<Map<String, Object>> courseList = courseInfoDAO.getTitleAndContentId();
+
+		if (courseList.isEmpty()) {
+			System.out.println("courseList가 비어 있습니다.");
+		} else {
+			System.out.println("courseList 데이터가 있습니다.");
+		}
+		model.addAttribute("courseList", courseList);
+		return "tourCourse/Courseitems2";
 	}
 
 	@GetMapping("/getCoursesByRegion.do")
@@ -217,17 +232,26 @@ public class CourseInfoController {
 	
 	 @PostMapping("/getComments.do")
 	 @ResponseBody
-	 public List<CommentVO> getComments(@RequestParam("contentId") String contentId, @RequestParam("page") int page) {
+	 public Map<String, Object> getComments(@RequestParam("contentId") String contentId, 
+	                                        @RequestParam("page") int page, 
+	                                        HttpSession session) {
 	     int pageSize = 10;
-	     int offset = (page -1) * pageSize;
-		 
-		 
-		 // 코스 ID에 해당하는 댓글 목록 가져오기
-	     List<CommentVO> comments = commentServiceImpl.getCommentsByContentId(contentId,offset,pageSize);
-	     
-	     
-	     return comments; // 댓글 리스트를 JSON 형식으로 반환
+	     int offset = (page - 1) * pageSize;
+
+	     // 코스 ID에 해당하는 댓글 목록 가져오기
+	     List<CommentVO> comments = commentServiceImpl.getCommentsByContentId(contentId, offset, pageSize);
+
+	     // 로그인된 사용자 정보 가져오기
+	     MemberVO member = (MemberVO) session.getAttribute("member");
+
+	     // 결과를 담을 Map 생성
+	     Map<String, Object> result = new HashMap<>();
+	     result.put("comments", comments); // 댓글 목록
+	     result.put("member", member);     // 로그인된 사용자 정보 (없을 수 있음)
+
+	     return result; // 댓글 리스트와 회원 정보를 JSON 형식으로 반환
 	 }
+
 
 	 @PostMapping("/toggleLike.do")
 	 @ResponseBody
@@ -278,12 +302,12 @@ public class CourseInfoController {
 	 @PostMapping("/deleteComment.do")
 	 @ResponseBody
 	 public String deleteComment(int c_idx) {
-		 String viewName = "tourCourse/view";//글삭제 실패시 뷰이름
-			int result = commentServiceImpl.deleteComment(c_idx);
-			if(result == 1) {//글삭제 성공
-				viewName = "redirect:/index.do";
+		 String result = "Fail";//글삭제 실패시 뷰이름
+			int res = commentServiceImpl.deleteComment(c_idx);
+			if(res == 1) {//글삭제 성공
+				result = "success";
 			}
-			return viewName;
+			return result;
 		 
 	 }
 

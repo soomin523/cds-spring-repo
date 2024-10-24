@@ -57,6 +57,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 						<h3>코스</h3>
 						<a href="../tourCourse/Insertcourse.do">코스데이터삽입</a><br>
    	                    <a href="../tourCourse/Courseitems.do">코스데이터 목록 조회 및 추가 삽입</a><br>
+   	                    <a href="../tourCourse/Courseitems2.do">코스데이터 목록 조회 및 추가 삽입2</a><br>
 					</div>
                     <div class="gift">
 						<h3>관광상품</h3>
@@ -70,6 +71,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 						<a href="../accommodations/accommo.do">숙소</a><br>
 						<a href="../accommodations/cityaccomo.do">숙소 목록</a><br>
 						<a href="../accommodations/accommoitems.do">숙소데이터 목록 조회 및 추가 삽입</a><br>
+						<a href="../accommodations/accommoitems2.do">숙소데이터 목록 조회 및 추가 삽입2</a><br>
    	                    <a href="../accommodations/Insertaccommo.do">숙소데이터삽입</a><br>
 					</div>
                 </div>

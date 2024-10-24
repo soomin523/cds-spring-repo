@@ -4,21 +4,19 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>코스 목록</title>
+    <title>숙소 목록</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 
-<h1>코스 거리</h1>
+<h1>숙소 설명과 ID</h1>
 
 <!-- 새로운 버튼을 위한 폼 -->
-<form id="updateCourseDetailsForm" method="post" action="updateCourseDetails.do">
-<button type="submit">선택한 항목 업데이트 (Course Details)</button>
-   <!-- updateCourseDetails.do 이건 거리 및 소요시간-->
-   <!-- updateOverview.do  설명 -->
+<form id="updateAccommoDetailsForm" method="post" action="accomoupdate.do">
+<button type="submit">선택한 항목 업데이트 (Accommo Details)</button>
    
    <!-- overview 입력 -->
-   	<%-- <table border="1">
+     <table border="1">
         <thead>
             <tr>
                 <th><input type="checkbox" id="selectAll"></th> <!-- 전체 선택 체크박스 -->
@@ -28,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="course" items="${courseList}">
+            <c:forEach var="course" items="${accommoList}">
                 <tr>
                     <td>
                         <input type="checkbox" name="contentIds" value="${course['content_id']}">
@@ -39,17 +37,12 @@
                 </tr>
             </c:forEach>
         </tbody>
-    </table> --%>
-   
-   
-   
-   
-   
-   
+    </table> 
+    
    
     <!-- 동일한 체크박스를 사용하여 선택된 항목을 전송 -->
     <!-- 거리 소요시간 입력 -->
-    <table border="1">
+     <%-- <table border="1">
         <thead>
             <tr>
                 <th><input type="checkbox" id="selectAll"></th> <!-- 전체 선택 체크박스 -->
@@ -59,7 +52,7 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="course" items="${courseList}">
+            <c:forEach var="course" items="${accommoList}">
                 <tr>
                     <td>
                         <input type="checkbox" name="selectedItems" value="${course['content_id']},${course['content_type_id']}">
@@ -70,7 +63,7 @@
                 </tr>
             </c:forEach>
         </tbody>
-    </table>
+    </table>  --%>
 </form>
 
 <script>
@@ -78,24 +71,24 @@
     // 거리 소요시간입력
      $(document).ready(function(){
         $('#selectAll').click(function() {
-            $('input[name="selectedItems"]').prop('checked', this.checked);
+            $('input[name="contentIds"]').prop('checked', this.checked);
         });
 
-        $('input[name="selectedItems"]').click(function() {
+        $('input[name="contentIds"]').click(function() {
             if (!this.checked) {
                 $('#selectAll').prop('checked', false);
             }
         });
-    });
+    }); 
     
  // 전체 선택 체크박스 기능
  // overview
      /* $(document).ready(function(){
         $('#selectAll').click(function() {
-            $('input[name="contentIds"]').prop('checked', this.checked);
+            $('input[name="selectedItems"]').prop('checked', this.checked);
         });
 
-        $('input[name="contentIds"]').click(function() {
+        $('input[name="selectedItems"]').click(function() {
             if (!this.checked) {
                 $('#selectAll').prop('checked', false);
             }

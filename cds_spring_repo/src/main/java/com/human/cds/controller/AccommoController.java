@@ -107,6 +107,20 @@ public class AccommoController {
 		return "accommodations/accommoitems";
 	}
 	
+	@GetMapping("/accommoitems2.do")
+	public String showTitles2(Model model) {
+		// title과 content_id를 가져옴
+		List<Map<String, Object>> accommoList = accommoDAO.getTitleAndContentId();
+
+		if (accommoList.isEmpty()) {
+			System.out.println("accommoList가 비어 있습니다.");
+		} else {
+			System.out.println("accommoList 데이터가 있습니다.");
+		}
+		model.addAttribute("accommoList", accommoList);
+		return "accommodations/accommoitems2";
+	}
+	
 	@PostMapping("/accomoupdate.do")
 	public String accomoupdate(@RequestParam List<String> contentIds) {
 		try {

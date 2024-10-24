@@ -13,6 +13,9 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.cfg.CoercionAction;
+import com.fasterxml.jackson.databind.cfg.CoercionInputShape;
+import com.human.cds.vo.ProductsDetailIntroVO;
 
 public class ProductsIntroApiExplorer {
     public static <T extends Object> T getApiJsonData( String serviceKey, String srcUrl, 
@@ -62,6 +65,11 @@ public class ProductsIntroApiExplorer {
             
             //서버에서 받은 데이터를 Jackson API를 이용해서 자바DTO에 세팅하기
             ObjectMapper objectMapper = new ObjectMapper();
+            
+	        // CoercionConfig를 설정하여 빈 문자열을 null로 처리하도록 설정
+	        objectMapper.coercionConfigFor(ProductsDetailIntroVO.Items.class)
+	        	.setCoercion(CoercionInputShape.EmptyString, CoercionAction.AsNull);
+	        
             T data = objectMapper.readValue(sb.toString(), vo);
 	
         

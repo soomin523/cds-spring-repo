@@ -103,7 +103,7 @@ section {
     background-position: center;
     border:skyblue solid 2px;
     margin: 0 15px;
-    cursor:pointer;]
+    cursor:pointer;
 }
 
 .circle-item p {
@@ -132,7 +132,7 @@ section {
     font-size: 15px;
     margin: 50px 10px 20px 0px;
     color: gray;
-    border-bottom:1px solid rgba(0,0,0,0,2);
+    border:solid 1px skyblue;
     border-radius: 5px;
     cursor:pointer;
 }
@@ -143,11 +143,15 @@ section {
   	position: relative;
   	left:46.5%;
   	margin-top:20px;
-	   	
+	border:2px solid skyblue;
     border-radius: 5px;
 }
 
-
+.desselect input::placeholder{
+	
+	text-align:left;
+	padding-left:10px;
+}
 
 .desimg1 {
 	width:950px;

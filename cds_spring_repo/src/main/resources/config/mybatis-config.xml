@@ -6,22 +6,32 @@
   
 	<!-- MyBatis에서 데이터 타입으로 사용할 객체들에 대한 별칭(alias) 정의 / Mapper에서 사용 -->
 	<typeAliases>
+		<!-- 축제정보 -->
 		<typeAlias alias="FestivalVO" type="com.human.cds.vo.FestivalVO"/>
 		<typeAlias alias="Festival" type="com.human.cds.vo.FestivalVO$Festival"/>
 		<typeAlias alias="FestivalDBVO" type="com.human.cds.vo.FestivalDBVO"/>
 		<typeAlias alias="FestivalModalVO" type="com.human.cds.vo.FestivalModalVO"/>
+		<!-- 코스정보 -->
 		<typeAlias alias="CourseInfoVO" type="com.human.cds.vo.CourseInfoVO"/>
+
 		<typeAlias alias="SupportVO" type="com.human.cds.vo.SupportVO"/>
 		<typeAlias alias="MemberVO" type="com.human.cds.vo.MemberVO"/>
+		<!-- 관광지  -->
 		<typeAlias alias="DestinationDBVO" type="com.human.cds.vo.DestinationDBVO"/>
 		<typeAlias alias="DestinationModalVO" type="com.human.cds.vo.DestinationModalVO"/>
+		<!-- 숙소 -->
 		<typeAlias alias="AcommoImgVO" type="com.human.cds.vo.AcommoImgVO"/>
 		<typeAlias alias="AccommodationRoomVO" type="com.human.cds.vo.AccommodationRoomVO"/>
 		<typeAlias alias="AccommodationVO" type="com.human.cds.vo.AccommodationVO"/>
+		<!-- 관광상품 -->
 		<typeAlias alias="ProductsVO" type="com.human.cds.vo.ProductsVO"/>
+		<!-- 코스댓글 -->
 		<typeAlias alias="CommentVO" type="com.human.cds.vo.CommentVO"/>
 		<typeAlias alias="CommentLikeVO" type="com.human.cds.vo.CommentLikeVO"/>
+		<!-- 커뮤니티  -->
 		<typeAlias alias="CommunityVO" type="com.human.cds.vo.CommunityVO"/>
+		<typeAlias alias="CommunityImgVO" type="com.human.cds.vo.CommunityImgVO"/>
+		<typeAlias alias="CommunityContentVO" type="com.human.cds.vo.CommunityContentVO"/>
 	</typeAliases>
 	
 </configuration>

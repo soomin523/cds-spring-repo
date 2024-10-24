@@ -78,7 +78,7 @@ $("#commentSubmitBtn").click(function() {
         alert("로그인이 필요한 기능입니다.");
     } else {
         $.ajax({
-            type: "POST", // POST 방식으로 변경
+            type: "GET", // POST 방식으로 변경
             url: "/cds/community/insertComment.do",
             data: { memberId: memberId, content: content, c_idx: c_idx },
             headers: { "Accept": "application/json" },

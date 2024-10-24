@@ -1,20 +1,11 @@
 $(function() {
-
-	$(document).on('click','.comment-card', function(){
-		let contentId=$(this).data('contentid');
-		
-			window.location.href='/cds/tourCourse/Course.do?contentId='+contentId;
-									
-	});
-
-
-
-
+    $(document).on('click', '.comment-card', function() {
+        let contentId = $(this).data('contentid');
+        window.location.href = '/cds/tourCourse/Course.do?contentId=' + contentId;
+    });
 
     $('#redirectButton_comment').on('click', function() {
-        $('.mywrite-comment-none').css('display', 'none');
         $('.mywrite-comment-exist').css('display', 'flex');
-        $('.mywrite-content-none').css('display', 'none');
         $('.mywrite-content-exist').css('display', 'none');
         
         // AJAX 요청
@@ -25,7 +16,6 @@ $(function() {
             success: function(data) {
                 $('#comment-list').empty(); // 기존 댓글 비움
                 
-                // 댓글 목록을 카드 형식으로 추가
                 if (data.length === 0) {
                     // 댓글이 없을 경우 "작성한 댓글이 없습니다." 메시지 추가
                     $('#comment-list').append('<p class="no-comments">작성한 댓글이 없습니다.</p>');
@@ -56,10 +46,53 @@ $(function() {
         });
     });
 
+
+	commuContent();	
+
     $('#redirectButton_post').on('click', function() {
-        $('.mywrite-content-none').css('display', 'none');
-        $('.mywrite-content-exist').css('display', 'flex');
-        $('.mywrite-comment-none').css('display', 'none');
-        $('.mywrite-comment-exist').css('display', 'none');
+    	  commuContent();
     });
+    
+    function commuContent(){
+    	$('.mywrite-content-exist').css('display', 'flex');
+        $('.mywrite-comment-exist').css('display', 'none');
+        
+        $.ajax({
+            url: 'getContentList.do',
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                $('#content-list').empty(); // 기존 게시물 비움
+                if (data.length === 0) {
+                    // 게시글이 없을 경우 메시지 추가
+                    $('#content-list').append('<p class="no-comments">작성한 게시글이 없습니다.</p>');
+                } else {
+                    $.each(data, function(index, commu) {
+                    console.log(data);
+                        htmlcon = `
+                             <div class="content-card">
+                                <div class="content-header">
+                                    <div class="content-image">
+                                        <img src="${commu.imagePath}" alt="이미지" />
+                                    </div>
+                                    <div class="content-info">
+                                        <p class="content-author">${commu.title}</p>
+                                        <p class="content-content">${commu.content}</p>
+                                        <p class="content-date">${new Date(commu.created_at).toLocaleString()}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        `;
+                    });
+                    $('#content-list').append(htmlcon); // 게시글 추가
+                }
+            },
+            error: function(error) {
+                console.log('게시글 로딩 실패: ', error);
+            }
+        });
+    };
+    
+    
 });

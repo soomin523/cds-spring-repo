@@ -13,14 +13,20 @@ $(function () {
 	        headers: {"Accept": "application/json"},
 	        success:function(data){
 	            
+	            $(".commu-comment-box").attr("data-idx", data.c_idx); // 게시물번호
 			    $("#commu-modalUserId").text(data.memberId); // 아이디
 			    $("#commu-modalLocation").text("위치: " + data.location); // 위치
-			    $("#commu-modalLikes").text(data.likes); // 좋아요 수
-			    $("#commu-modalCommentsCount").text(data.comments); // 댓글 수
+			    $("#commu-modalCommentsCount").text(data.commentNum); // 댓글 수
 			    const createdAt = new Date(data.created_at); // 밀리초를 Date 객체로 변환
 			    $("#commu-modalMeta").text("작성일: " + createdAt.toLocaleString()); // 원하는 형식으로 출력
 			    $("#commu-modalTitle").text(data.title); // 제목
 			    $("#commu-modalDescription").text(data.content); // 내용
+			    
+			    let htmls = ''; //댓글목록
+				data.comments.forEach(function(comment) {
+				    htmls += `<p>${comment.memberId} ${comment.content} ${comment.created_at}</p>`;
+				});
+				$("#commu-modalComments").html(htmls);
 	        },
 	        error:function(){
 	            console.log("커뮤니티 세부목록을 불러오는데 실패했습니다.");
@@ -39,7 +45,6 @@ $(function () {
 	$(".commu-modal-close").click(function(){
 		closeModal();
 	});
-
 	
 	//지역별 게시물 보기
 	$(".commu-button-container > .commu-button").click(function(){
@@ -56,52 +61,44 @@ $(function () {
 		location.href=`commupost.do?location=${area}&select=${select}`;
 	});
 	
-	
 	//검색 기능
-	$("#commu-regionSearch").on("input", function() {
-		let search = $("#commu-regionSearch").val();
-	
-    	$.ajax({ 
-	        type:"get",
-	        url:"/cds/community/getSearchList.do",
-	        data:{ search: search },
-	        //headers: {"Accept": "application/json"},
-	        dataType: "json",
-	        success:function(data){
-	        	console.log("data:",data);
-	            let htmls = ``;
-	            data.forEach(function(search) {
-	            	let createDate = new Date(search.created_at).toLocaleDateString();
-                        htmls += `<div class="post-item" data-id="${search.c_idx}">
-                            <div class="post-image" style="background-image: url('${search.imagePaths[0].imagePath}');">
-	                            <p>작성자 : ${search.memberId}</p>
-                            	<p>지역 : ${search.location}</p>
-                            </div>
-                            <p>제목: ${search.title}</p>
-                            <div class="post-rating">
-                                <span>⭐ ${ search.rating }</span>
-                            </div>
-                            
-                            <div class="post-actions">
-                                <span>👍 ${search.likes}</span>
-                                <span>💬 ${search.comments}</span>
-                            </div>
-                            <p>
-                            	작성일: createDate
-                            </p>
-                            
-                        </div>`;
-                    });
-                    
-                    $("#commu-postLis").html(htmls);
-	            
-	        },
-	        error:function(){
-	            console.log("커뮤니티 검색목록을 불러오는데 실패했습니다.");
-	        }
-	    });
+	$("#commu-regionSearch").on("keypress", function(event) {
+   		let search = $("#commu-regionSearch").val();
+   		
+   		location.href=`getSearchList.do?search=${search}`;
 	});
 	
+	// 댓글 기능
+$("#commentSubmitBtn").click(function() {
+    let c_idx = $(".commu-comment-box").data("idx");
+    let memberId = $(".commu-comment-box").data("name");
+    let content = $("#commu-commentText").val();
+
+    if (!memberId) {
+        alert("로그인이 필요한 기능입니다.");
+    } else {
+        $.ajax({
+            type: "POST", // POST 방식으로 변경
+            url: "/cds/community/insertComment.do",
+            data: { memberId: memberId, content: content, c_idx: c_idx },
+            headers: { "Accept": "application/json" },
+            success: function(data) {
+                let htmls = `<p><strong>${data.memberId}:</strong> ${data.content} <em>${data.created_at}</em></p>`;
+                $("#commu-modalComments").append(htmls);
+
+                // 텍스트박스 초기화
+                $("#commu-commentText").val("");
+
+                // 스크롤을 아래로 이동
+                $("#commu-modalComments").scrollTop($("#commu-modalComments")[0].scrollHeight);
+            },
+            error: function() {
+                console.log("댓글을 입력하는데 오류가 났습니다.");
+            }
+        });
+    }
+});
+
 	
 	
 	var currentPage = 1;

@@ -542,6 +542,14 @@ justify-content: space-between; /* 댓글과 삭제 버튼 간격 조절 */
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 이미지에 그림자 추가 */
 }
 
+#commu-modalComments {
+    max-height: 200px; /* 원하는 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤 가능 */
+    border: 1px solid #ccc; /* 선택 사항: 테두리 추가 */
+    padding: 10px; /* 선택 사항: 패딩 추가 */
+}
+
+
 /* 큰 버튼 스타일 */
 .commu-post-button-large {
     display: flex;

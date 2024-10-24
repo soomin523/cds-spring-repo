@@ -1,7 +1,5 @@
 package com.human.cds.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.human.cds.service.CommunityService;
+import com.human.cds.vo.CommunityContentVO;
 import com.human.cds.vo.CommunityVO;
 
 @RestController
@@ -22,12 +21,19 @@ public class CommunityAjaxController {
     public CommunityVO getCommunity(@RequestParam int id){
     	return communityService.getCommunity(id);
     }
-
-    @GetMapping("/getSearchList.do")
-    public List<CommunityVO> getSearchList(@RequestParam String search) {
-    	System.out.println("search: "+search);
-    	return communityService.getSearchList(search);
+    
+    @GetMapping("insertComment.do")
+    public CommunityContentVO insertComment(@RequestParam String memberId, @RequestParam String content,
+    		@RequestParam String c_idx) {
+    	CommunityContentVO vo = null;
+    	if(communityService.insertComment(memberId, content, c_idx) == 1) {
+    		vo = communityService.getComment(Integer.parseInt(c_idx));
+    	}
+    	
+    	return vo;
     }
+
+
 
     
 }

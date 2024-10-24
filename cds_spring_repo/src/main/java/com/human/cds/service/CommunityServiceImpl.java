@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.human.cds.repository.CommunityDAO;
+import com.human.cds.vo.CommunityContentVO;
 import com.human.cds.vo.CommunityVO;
 
 @Service
@@ -52,6 +53,21 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public List<CommunityVO> getSearchList(String search) {
 		return communityDAO.getSearchList(search);
+	}
+
+	@Override
+	public int insertComment(String memberId, String content, String c_idx) {
+		Map<String, String> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("content", content);
+		map.put("c_idx", c_idx);
+		
+		return communityDAO.insertComment(map);
+	}
+
+	@Override
+	public CommunityContentVO getComment(int c_idx) {
+		return communityDAO.getComment(c_idx);
 	}
 }
 

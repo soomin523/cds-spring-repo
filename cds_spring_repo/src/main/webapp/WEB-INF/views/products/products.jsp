@@ -100,10 +100,7 @@
             <c:if test="${item.cat3.startsWith('A03')}">
                 <c:set var="category" value="레포츠" />
             </c:if>
-            <c:if test="${fn:substring(item.cat3, 0, 6) == 'A02080'}">
-                <c:set var="category" value="공연/전시" />
-            </c:if>
-            <c:if test="${fn:substring(item.cat3, 0, 6) == 'A02081'}">
+            <c:if test="${item.cat3.startsWith('A02080')}">
                 <c:set var="category" value="공연/전시" />
             </c:if>
               <div class="product-card"
@@ -199,7 +196,6 @@ $(document).ready(function() {
     if (cat3.startsWith('A0203')) return '체험';
     if (cat3.startsWith('A03')) return '레포츠';
     if (cat3.startsWith('A02080')) return '공연/전시';
-    if (cat3.startsWith('A02081')) return '공연/전시';
     return '기타';
 }
         // Show/hide dropdown
@@ -224,6 +220,8 @@ $(document).ready(function() {
     function loadMoreProducts() {
         if (loading) return;
         loading = true;
+
+         $('#no-more-products').hide();
 
          let cardCount = 0;
 
@@ -270,12 +268,11 @@ $(document).ready(function() {
                         }
                         if (data.length < pageSize) {
                             $('#no-more-products').show();
-                            loading = false;
                         }
                     } else {
                         $('#no-more-products').show();
-                        loading = false;
                     }
+                        loading = false;
                 },
                     error: function(xhr, status, error) {
                         console.error("Error loading products:", error);
@@ -307,9 +304,7 @@ function createProductCard(item) {
         category = "체험";
     } else if (item.cat3.startsWith('A03')) {
         category = "레포츠";
-    } else if (item.cat3.substring(0, 6) === 'A02080') {
-        category = "공연/전시";
-    } else if (item.cat3.substring(0, 6) === 'A02081') {
+    } else if (item.cat3.startsWith('A02080')) {
         category = "공연/전시";
     }
 

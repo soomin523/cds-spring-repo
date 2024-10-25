@@ -25,5 +25,11 @@ public interface CommunityService {
 	CommunityContentVO getComment(int c_idx);
 
 	int insertLike(String memberId, String c_idx);
+
+	int deletePost(int c_idx);
+
+	int deleteComment(int comment_id);
+
+	int updatePost(CommunityVO vo);
 }
 

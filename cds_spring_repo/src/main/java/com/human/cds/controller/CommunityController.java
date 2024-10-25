@@ -19,6 +19,7 @@ public class CommunityController {
     @Autowired
     private CommunityService communityService; 
 
+    //커뮤니티 페이지 이동
     @GetMapping("/commu")
     public String communityMain(Model model) {
     	
@@ -28,11 +29,24 @@ public class CommunityController {
         return "community/community"; 
     }
 
+    //게시글 작성 페이지 이동
     @GetMapping("/upload.do")
     public String communityUpload() {
         return "community/uploadPost";  
     }
+    
+    //게시글 수정 페이지 이동
+    @GetMapping("updatePage.do")
+    public String updatePage(String c_idx, Model model) {
+    	int id = Integer.parseInt(c_idx);
+    	
+    	CommunityVO vo = communityService.getCommunity(id);
+    	model.addAttribute("post", vo);
+    	
+    	return "community/updatePost";
+    }
 
+    //게시글 추가하기
     @PostMapping("/uploadPost.do")
     public String uploadPost(CommunityVO vo, Model model){
         
@@ -50,7 +64,7 @@ public class CommunityController {
     	return viewName;
     }
     
-    
+    //지역별 목록 조회하기
     @GetMapping("/getLocationList.do")
     public String getLocationList(String location, Model model) {
     	
@@ -67,7 +81,7 @@ public class CommunityController {
     	return "community/community";
     }
     
-    
+    //최신/평점순 + 지역별 목록 조회
     @GetMapping("/commupost.do")
     public String getCommupost(String select, String location, Model model) {
     	List<CommunityVO> vo = null;
@@ -81,6 +95,7 @@ public class CommunityController {
     	return "community/community";
     }
     
+    //검색어 목록 조회
     @GetMapping("/getSearchList.do")
     public String getSearchList(String search, Model model) {
     	List<CommunityVO> vo = null;
@@ -90,6 +105,23 @@ public class CommunityController {
     	}
     	
     	return "community/community";
+    }
+    
+    @PostMapping("/updatePost.do")
+    public String updatePost(CommunityVO vo, Model model) {
+    	String viewName = "community/updatePost";
+    	
+    	if(communityService.updatePost(vo) == 1) {
+    		List<CommunityVO> communityList = null;
+    		communityList = communityService.getCommunityList();
+    		model.addAttribute("communityList", communityList);
+    		viewName = "community/community";
+    	}else {
+    		model.addAttribute("msg", "게시물 수정에 실패하였습니다.");
+    	}
+    	
+    	return viewName;
+    	
     }
     
 }

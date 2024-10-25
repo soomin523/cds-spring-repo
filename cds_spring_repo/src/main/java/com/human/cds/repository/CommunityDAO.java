@@ -159,4 +159,37 @@ public class CommunityDAO {
 		
 		return result;
 	}
+
+	public int deletePost(int c_idx) {
+		return sqlSession.delete(MAPPER+".deletePost", c_idx);
+	}
+
+	public int deleteComment(int comment_id) {
+		return sqlSession.delete(MAPPER+".deleteComment", comment_id);
+	}
+
+	public int updatePost(CommunityVO vo) {
+		int result = 0;
+		result = sqlSession.update(MAPPER+".updatePost", vo);
+		System.out.println(result);
+		
+		if( result == 1) {
+			
+			int count = vo.getC_idx();
+			System.out.println(count);
+			
+			CommunityImgVO imgvo = new CommunityImgVO();
+			for(String imgName : vo.getImagenames()) {
+				imgvo.setPostId(count);
+				imgvo.setImagePath(imgName);
+				result += sqlSession.insert(MAPPER+".insertImg", imgvo);
+			}
+		}
+		
+		if(result >= 1) {
+			result = 1;
+		}
+		
+		return result;
+	}
 }

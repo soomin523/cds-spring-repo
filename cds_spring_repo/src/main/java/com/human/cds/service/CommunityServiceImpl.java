@@ -78,5 +78,20 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		return communityDAO.insertLike(map);
 	}
+
+	@Override
+	public int deletePost(int c_idx) {
+		return communityDAO.deletePost(c_idx);
+	}
+
+	@Override
+	public int deleteComment(int comment_id) {
+		return communityDAO.deleteComment(comment_id);
+	}
+
+	@Override
+	public int updatePost(CommunityVO vo) {
+		return communityDAO.updatePost(vo);
+	}
 }
 

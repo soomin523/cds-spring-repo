@@ -124,7 +124,9 @@
             </div>
             <div class="commu-modal-slider">
                 <button class="prev-slide" onclick="prevSlide()">&#10094;</button>
-                <div class="commu-modalImage"></div>
+                <div class="commu-modalImage">
+                	<div class="commu-imageList"></div>
+                </div>
                 <button class="next-slide" onclick="nextSlide()">&#10095;</button>
             </div>
     
@@ -141,13 +143,18 @@
             <p class="commu-modal-description" id="commu-modalDescription"></p>
 
             <div id="commu-modalComments" class="commu-modal-comments"></div>
-
             
             <!-- 댓글 작성 영역 추가 -->
             <div class="commu-comment-box" data-name='${member.member_id}'>
                 <textarea id="commu-commentText" placeholder="댓글을 작성하세요"></textarea>
                 <button id="commentSubmitBtn">올리기</button>
             </div>
+            <!-- 게시글 수정삭제 -->
+            <div class="community-delete">
+                <button id="commu-Edit-Btn">게시글 수정</button>
+                <span> | </span>
+                <button id="commu-delete-Btn">삭제</button>      
+            </div>     
         </div>
     </div>  
  </div>   

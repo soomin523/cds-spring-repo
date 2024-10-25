@@ -14,59 +14,102 @@
 
     // 이미지 미리보기 및 저장 함수
     function previewImages() {
-        const fileInput = document.getElementById('imagenames');
-        const fileList = fileInput.files;
-        const previewContainer = document.getElementById('image-preview');
+    const fileInput = document.getElementById('imagenames');
+    const fileList = Array.from(fileInput.files); // 선택된 파일을 배열로 변환
+    const previewContainer = document.getElementById('image-preview');
 
-        previewContainer.innerHTML = ''; // 기존 미리보기 초기화
-        imageFiles = []; // 이전 파일 목록 초기화
+    fileList.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imgContainer = document.createElement('div');
+            imgContainer.style.display = 'flex';
+            imgContainer.style.alignItems = 'center';
+            imgContainer.style.marginRight = '10px';
 
-        for (let i = 0; i < fileList.length; i++) {
-            const file = fileList[i];
-            const reader = new FileReader();
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.width = '100px';
+            img.style.height = '100px';
 
-            reader.onload = function(e) {
-                const imgContainer = document.createElement('div');
-                imgContainer.style.display = 'flex';
-                imgContainer.style.alignItems = 'center';
-                imgContainer.style.marginRight = '10px';
+            // Remove button for the image
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'X';
+            removeButton.style.border = 'none';
+            removeButton.style.background = 'none';
+            removeButton.style.color = '#ff0000';
+            removeButton.style.cursor = 'pointer';
+            removeButton.style.marginLeft = '5px';
 
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.style.width = '100px'; // 미리보기 이미지 크기 조정
-                img.style.height = '100px'; // 미리보기 이미지 크기 조정
-
-                // Remove button for the image
-                const removeButton = document.createElement('button');
-                removeButton.textContent = 'X';
-                removeButton.style.border = 'none';
-                removeButton.style.background = 'none';
-                removeButton.style.color = '#ff0000'; // 빨간색으로 X 버튼
-                removeButton.style.cursor = 'pointer';
-                removeButton.style.marginLeft = '5px';
-                removeButton.onclick = function() {
-                    removeImage(i); // 이미지 제거 함수 호출
-                };
-
-                imgContainer.appendChild(img);
-                imgContainer.appendChild(removeButton);
-                previewContainer.appendChild(imgContainer);
-                imageFiles.push(file); // 파일 목록에 추가
+            // 파일 삭제 이벤트를 추가하여 제거 시 인덱스 수정
+            removeButton.onclick = function() {
+                removeImage(imageFiles.indexOf(file));
             };
 
-            reader.readAsDataURL(file);
-        }
-    }
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(removeButton);
+            previewContainer.appendChild(imgContainer);
+        };
+        reader.readAsDataURL(file);
+        imageFiles.push(file); // 새 파일을 imageFiles에 추가
+    });
+
+    // `DataTransfer` 객체를 사용하여 input 요소의 파일 목록을 동기화
+    const dataTransfer = new DataTransfer();
+    imageFiles.forEach(file => dataTransfer.items.add(file));
+    fileInput.files = dataTransfer.files;
+}
 
     // 이미지 제거 함수
-    function removeImage(index) {
-        imageFiles.splice(index, 1); // 해당 인덱스의 이미지 파일 제거
-        const fileInput = document.getElementById('imagenames');
-        const dataTransfer = new DataTransfer();
-        imageFiles.forEach(file => dataTransfer.items.add(file)); // 남은 파일을 DataTransfer에 추가
-        fileInput.files = dataTransfer.files; // input 요소의 files 업데이트
-        previewImages(); // 미리보기 갱신
-    }
+function removeImage(index) {
+    // 이미지 파일 배열에서 해당 인덱스의 파일 제거
+    imageFiles.splice(index, 1);
+
+    // 미리보기 컨테이너를 비우고, 남은 이미지들로 미리보기를 다시 생성
+    const previewContainer = document.getElementById('image-preview');
+    previewContainer.innerHTML = '';
+
+    imageFiles.forEach((file, i) => {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            const imgContainer = document.createElement('div');
+            imgContainer.style.display = 'flex';
+            imgContainer.style.alignItems = 'center';
+            imgContainer.style.marginRight = '10px';
+
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.style.width = '100px';
+            img.style.height = '100px';
+
+            // 새 X 버튼 생성
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'X';
+            removeButton.style.border = 'none';
+            removeButton.style.background = 'none';
+            removeButton.style.color = '#ff0000';
+            removeButton.style.cursor = 'pointer';
+            removeButton.style.marginLeft = '5px';
+            
+            // 클로저를 사용하여 index의 i 값을 저장
+            removeButton.onclick = function() {
+                removeImage(i); // 새로 만든 removeImage 호출
+            };
+
+            imgContainer.appendChild(img);
+            imgContainer.appendChild(removeButton);
+            previewContainer.appendChild(imgContainer);
+        };
+
+        reader.readAsDataURL(file);
+    });
+
+    // DataTransfer로 파일 배열을 업데이트하여 input 요소에 반영
+    const dataTransfer = new DataTransfer();
+    imageFiles.forEach(file => dataTransfer.items.add(file));
+    document.getElementById('imagenames').files = dataTransfer.files;
+}
+
 
     // 태그 추가 함수
     function addLocation() {

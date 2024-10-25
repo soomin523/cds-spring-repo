@@ -19,6 +19,10 @@
 		GROUP BY f_sigunguname, f_sigungucode
 		ORDER BY CAST(f_sigungucode AS UNSIGNED)
 	</select>
+	
+	<select id="getFestivalAllList" resultType="FestivalDBVO">
+		select * from festival
+	</select>
     
     <select id="getFestivalList" resultType="FestivalDBVO">
 	    select * from festival

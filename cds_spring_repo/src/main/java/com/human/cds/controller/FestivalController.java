@@ -72,7 +72,7 @@ public class FestivalController {
 			e.printStackTrace();
 		}
 		
-		return "home";
+		return "manager/manager";
 	}
 	
 	
@@ -127,7 +127,7 @@ public class FestivalController {
 					e.printStackTrace();
 				}
 			}
-			List<FestivalDBVO> festivalList = festivalServiceImpl.getFestivalList();
+			List<FestivalDBVO> festivalList = festivalServiceImpl.getFestivalAllList();
 			
 			festivalList.parallelStream()
 				.forEach(item -> {
@@ -146,7 +146,7 @@ public class FestivalController {
 			e.printStackTrace();
 		}
 		
-		return "home";
+		return "manager/manager";
 		
 	}
 	

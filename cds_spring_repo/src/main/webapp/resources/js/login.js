@@ -47,13 +47,13 @@ $(function() {
 	});
     
     //카카오 로그인
-    $(".log-kakao-login").on('click', function() {
+    $(".log-kakao-login").off('click').on('click', function() {
 	    const kakaoClientId = "c07530622585d316fcad9f90e1d935b5";
 	    const redirectUri = "http://localhost:9090/cds/member/kakaoLogin.do";
 	
 	    window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientId}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code`;
 	});
-    
+	    
     //구글 로그인
     $(".log-google-login").on('click', function() {
     	window.location.href = "/cds/member/googleLogin.do";
@@ -100,24 +100,6 @@ function openModal() {
         document.querySelector('.log-login-options').style.display = 'block'; 
         document.getElementById('log-emailInput').value = ''; 
         document.getElementById('log-passwordInput').value = ''; 
-    }
-
-    // 카카오 로그인 요청 URL 생성 및 리다이렉트
-    function redirectToKakaoLogin() {
-        window.Kakao.init("9dc9962fd8d9c313d5ca5a57212228ab");
-        window.Kakao.Auth.login({
-            scope: 'account_email',
-            success: function(authObj) {
-                console.log(authObj);
-                window.Kakao.API.request({
-                    url: '/v2/user/me',
-                    success: res => {
-                        const kakao_account = res.kakao_account;
-                        console.log(kakao_account);
-                    }
-                });
-            }
-        });
     }
 
     // 폼 제출 방지 (엔터 키로 인한 모달 닫힘 현상 방지)

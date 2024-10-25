@@ -113,4 +113,9 @@ public class FestivalServiceImpl implements FestivalService {
 		return dao.getFestivalNoAreaSoonList(selectDate);
 	}
 
+	@Override
+	public List<FestivalDBVO> getFestivalAllList() {
+		return dao.getFestivalAllList();
+	}
+
 }

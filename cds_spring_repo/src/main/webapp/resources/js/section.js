@@ -102,6 +102,36 @@ $(function () {
     
     
 //믿고보는 고객님의 찐리뷰
+
+	//커뮤니티 슬라이드
+	const totalItems = $('.reviewItem').length;
+    let currentIndex = 0;
+    const itemWidth = 190; // 아이템의 너비
+    
+    $('#nextBtn').click(function() {
+        if (currentIndex < totalItems - 3) {
+            currentIndex++;
+            updateSlider();
+        }
+    });
+
+    $('#prevBtn').click(function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateSlider();
+        }
+    });
+
+    function updateSlider() {
+        const offset = -currentIndex * itemWidth; // 현재 인덱스에 따른 오프셋 계산
+        $('.reviewList').css('transform', 'translateX(' + offset + 'px)');
+    }
+	
+
+    //더보기 버튼 클릭 시 여행공유 페이지 이동
+	$(".mainReview > button").click(function(){
+		location.href=`community/commu`;
+	});
     
     
     

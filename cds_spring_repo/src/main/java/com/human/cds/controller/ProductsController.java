@@ -33,7 +33,7 @@ public class ProductsController {
 
    
     
-    private String serviceKey = "FuwMUFZUntQUUD1GcyAcTAoz7EihmI5dxJj5Bd8FgRyKWqVr5ESL/j/cwogqgbuliXCqklKwumwuM60AZ5MHeQ==";
+    private String serviceKey = "YwBZem4wHPLMylzzg9Oy6PTiDA94x1cmOJRsaOmTMu31f6jYqU/x2gLHziEJIpxkn7p0XTfSyJqVXIjaazct5w==";
     private String srcUrl = "http://apis.data.go.kr/B551011/KorService1/areaBasedList1";
 	private String srcUrlAreaCode = "https://apis.data.go.kr/B551011/KorService1/areaCode1";
 	private String srcUrlDetailCommon = "https://apis.data.go.kr/B551011/KorService1/detailCommon1";
@@ -76,7 +76,7 @@ public class ProductsController {
 				List<ProductsVO.Products> filteredItems = data.getResponse().getBody().getItems().getItem().stream()
 					    .filter(item -> 
 					        ((item.getCat2().equals("A0202") || item.getCat2().equals("A0203") || 
-					          item.getCat2().equals("A0207") || item.getCat3().equals("A02080") || 
+					          item.getCat2().equals("A0207") || item.getCat3().startsWith("A02080") || 
 					          item.getCat1().equals("A03")) &&
 					         !(item.getCat3().equals("A02020200") || item.getCat3().equals("A02020700")) &&
 					         (item.getContenttypeid().equals("12") || item.getContenttypeid().equals("15") || item.getContenttypeid().equals("28")) && 

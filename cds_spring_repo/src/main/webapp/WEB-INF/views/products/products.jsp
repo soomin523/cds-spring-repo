@@ -267,7 +267,10 @@ $(document).ready(function() {
                             loading = false;
                         }
                         if (data.length < pageSize) {
-                            $('#no-more-products').show();
+                             setTimeout(function() {
+                                $('#no-more-products').show();
+                            }, 1000);
+                            loading = false;
                         }
                     } else {
                         $('#no-more-products').show();

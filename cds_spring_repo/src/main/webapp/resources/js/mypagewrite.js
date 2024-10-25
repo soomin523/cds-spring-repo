@@ -3,10 +3,25 @@ $(function() {
         let contentId = $(this).data('contentid');
         window.location.href = '/cds/tourCourse/Course.do?contentId=' + contentId;
     });
+    
+    $(document).on('click', '.content-card', function(){
+    	let c_idx = $(this).data('c_idx');
+    	window.location.href = '/cds/community/commu.do?c_idx=' + c_idx;
+    });
+    
+        $(document).on('click', '.comment2-card', function(){
+    	let c_idx = $(this).data('c_idx');
+    	window.location.href = '/cds/community/commu.do?c_idx=' + c_idx;
+    });
+
+
 
     $('#redirectButton_comment').on('click', function() {
         $('.mywrite-comment-exist').css('display', 'flex');
         $('.mywrite-content-exist').css('display', 'none');
+     	$('.mywrite-comment2-exist').css('display', 'none');
+        
+
         
         // AJAX 요청
         $.ajax({
@@ -46,7 +61,12 @@ $(function() {
         });
     });
 
+	
 
+
+
+
+	//작성내역 초기화면값
 	commuContent();	
 
     $('#redirectButton_post').on('click', function() {
@@ -56,6 +76,7 @@ $(function() {
     function commuContent(){
     	$('.mywrite-content-exist').css('display', 'flex');
         $('.mywrite-comment-exist').css('display', 'none');
+        $('.mywrite-comment2-exist').css('display', 'none');
         
         $.ajax({
             url: 'getContentList.do',
@@ -70,7 +91,7 @@ $(function() {
                     $.each(data, function(index, commu) {
                     console.log(data);
                         htmlcon = `
-                             <div class="content-card">
+                             <div class="content-card" data-c_idx=${commu.c_idx}>
                                 <div class="content-header">
                                     <div class="content-image">
                                         <img src="${commu.imagePath}" alt="이미지" />
@@ -84,8 +105,9 @@ $(function() {
                             </div>
                             
                         `;
+                        $('#content-list').append(htmlcon); // 게시글 추가
                     });
-                    $('#content-list').append(htmlcon); // 게시글 추가
+                    
                 }
             },
             error: function(error) {
@@ -93,6 +115,49 @@ $(function() {
             }
         });
     };
+    
+    $('#redirectButton_comment2').on('click', function() {
+    	$('.mywrite-comment2-exist').css('display', 'flex');
+    	$('.mywrite-content-exist').css('display', 'none');
+        $('.mywrite-comment-exist').css('display', 'none');
+        
+          $.ajax({
+            url: 'getComuCommentList.do',
+            type: 'get',
+            dataType: 'json',
+            success: function(data) {
+                $('#comment2-list').empty(); // 기존 게시물 비움
+                if (data.length === 0) {
+                    // 게시글이 없을 경우 메시지 추가
+                    $('#comment2-list').append('<p class="no-comments">작성한 댓글이 없습니다.</p>');
+                } else {
+                    $.each(data, function(index, commu) {
+                    console.log(data);
+                        htmlcomment2 = `
+                             <div class="comment2-card" data-c_idx=${commu.c_idx}>
+                                <div class="comment2-header">
+                                    <div class="comment2-info">
+                                        <p class="comment2-content">${commu.content}</p>
+                                        <p class="comment2-date">${new Date(commu.created_at).toLocaleString()}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        `;
+                        $('#comment2-list').append(htmlcomment2); // 게시글 추가
+                    });
+                    
+                }
+            },
+            error: function(error) {
+                console.log('게시글 로딩 실패: ', error);
+            }
+        });
+    
+    });
+    
+    
+    
     
     
 });

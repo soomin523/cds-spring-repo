@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.human.cds.repository.MypageDAO;
 import com.human.cds.vo.CommentVO;
+import com.human.cds.vo.CommunityContentVO;
 import com.human.cds.vo.CommunityVO;
 import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.DestinationDBVO;
@@ -54,6 +55,12 @@ public class MypageServiceImpl implements MypageService {
 	public List<CommunityVO> getContentByMemberId(String memId) {
 		// TODO Auto-generated method stub
 		return dao.getContentByMemberId(memId);
+	}
+
+	@Override
+	public List<CommunityContentVO> getComuCommentByMemberId(String memId) {
+		// TODO Auto-generated method stub
+		return dao.getComuCommentByMemberId(memId);
 	}
 
 }

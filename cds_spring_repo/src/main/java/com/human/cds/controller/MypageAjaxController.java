@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.human.cds.repository.MypageDAO;
 import com.human.cds.service.MypageService;
 import com.human.cds.vo.CommentVO;
+import com.human.cds.vo.CommunityContentVO;
 import com.human.cds.vo.CommunityVO;
 import com.human.cds.vo.CourseInfoVO;
 import com.human.cds.vo.MemberVO;
@@ -84,6 +85,8 @@ public class MypageAjaxController {
 	    return comments;
 	}
 	
+	
+	//커뮤니티 목록 조회
 	@GetMapping("getContentList.do")
 	public List<CommunityVO> getContentList(HttpSession session){
 		
@@ -95,6 +98,19 @@ public class MypageAjaxController {
 		
 		return contents;
 		
+		
+	}
+	
+	//댓글 목록 조회
+	@GetMapping("getComuCommentList.do")
+	public List<CommunityContentVO> getComuCommentList(HttpSession session){
+		
+		MemberVO member = (MemberVO) session.getAttribute("member");
+		String memId = member.getMember_id();
+		
+		List<CommunityContentVO> comments = mypageServiceImpl.getComuCommentByMemberId(memId);
+		
+		return comments;
 		
 	}
 	

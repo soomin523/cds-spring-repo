@@ -102,8 +102,8 @@ section {
     background-size: cover;
     background-position: center;
     border:skyblue solid 2px;
-    margin: 0 15px;
     cursor:pointer;
+    transform: translateY(-5px);
 }
 
 .circle-item p {

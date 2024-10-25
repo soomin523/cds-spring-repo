@@ -5,7 +5,23 @@ $(document).ready(function () {
         level: 13, // 지도의 확대 레벨
         scrollwheel: false, // 스크롤 줌 비활성화
         disableDoubleClickZoom: true, // 더블 클릭 줌 비활성화
+        draggable: false, //드래그 비활성화
     };
+    
+    function updateDateTime() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = ('0' + (now.getMonth() + 1)).slice(-2);
+            var day = ('0' + now.getDate()).slice(-2);
+            var hours = ('0' + now.getHours()).slice(-2);
+            var minutes = ('0' + now.getMinutes()).slice(-2);
+            var seconds = ('0' + now.getSeconds()).slice(-2);
+            var currentDateTime ='현재시각 : ' + year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
+            document.getElementById('currentDateTime').innerText = currentDateTime;
+        }
+
+        // 1초마다 updateDateTime 함수를 실행해 실시간 업데이트
+        setInterval(updateDateTime, 100);
 
     var map = new kakao.maps.Map(container, options); // 지도 생성
     var polygons = []; // 폴리곤을 저장할 배열
@@ -31,7 +47,7 @@ $(document).ready(function () {
                     strokeColor: '#004c80',
                     strokeOpacity: 0.8,
                     fillColor: '#fff',  // 기본 채우기 색상
-                    fillOpacity: 0.7    // 기본 투명도
+                    fillOpacity: 0.7,    // 기본 투명도
                 });
                 polygons.push(polygon); // 폴리곤을 배열에 저장
 
@@ -41,6 +57,7 @@ $(document).ready(function () {
                 // 마우스 오버 시 폴리곤 색상 및 지역 이름 표시
                 kakao.maps.event.addListener(polygon, 'mouseover', function () {
                     polygon.setOptions({ fillColor: '#09f', fillOpacity: 0.9 }); // 색상 변경
+                    
                     regionNameDiv.html('<h3>' + unit.properties.SIG_KOR_NM + '</h3>' + '<p>클릭시 지역 날씨 정보를 확인할 수 있습니다.</p>');
                     regionNameDiv.show(); // 지역 이름 표시 div 보이기
                 });

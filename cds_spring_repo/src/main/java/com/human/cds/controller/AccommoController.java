@@ -81,7 +81,7 @@ public class AccommoController {
 			}
 
 			if (totalInserted != 0) { // 저장 성공
-				viewName = "redirect:/home.do";
+				viewName = "redirect:/index.do";
 			}
 
 		} catch (Exception e) {
@@ -125,7 +125,7 @@ public class AccommoController {
 	public String accomoupdate(@RequestParam List<String> contentIds) {
 		try {
 			//문배 apikey
-			String serviceKey = "y%2BM4KcA3dU54OMX03WyfG7Vgskk1N4ti1JPnqNLJgfSxfGZDGpJzCXttag92jy9eIo3XD6a89LQXwVwD%2BM9RyQ%3D%3D";
+			String serviceKey = "cHMBzY2Ljo7k%2Fuc9cuO7pzwJoPCyA3zZM5rAV0c6bXxkV6dB66ov2nfRGgk%2F9P%2FA55kmN25hvQEB5rK116XY5w%3D%3D";
 			
 			//선호 apikey
 			//String serviceKey = "Kw%2BbWob0mUGRN8FWR2ORdZCaU94yAQKwmxuwVTcBFhWwkRqcSzJKM%2FZr56KCIYm8Ly9O%2F6eSz8pdP1cfMxObWA%3D%3D";

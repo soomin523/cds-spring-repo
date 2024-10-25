@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -18,6 +19,7 @@
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id"
 	content="172267091290-704rp9g9evbu8na2co56nmop1i13d1ul.apps.googleusercontent.com">
+
 </head>
 
 <body>
@@ -38,18 +40,26 @@
 				<div class="manager">관리자</div>
 			</c:if>
 		</div>
-		<c:choose>
-			<c:when test="${ not empty member }">
-				<button class="mypage-btn">
-					<img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
-				</button>
-			</c:when>
-			<c:otherwise>
-				<button class="log-login-btn" onclick="openModal()">
-					<img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
-				</button>
-			</c:otherwise>
-		</c:choose>
+		<div>
+			<button class="weatherbtn">
+				<img
+					src="${pageContext.request.contextPath}/resources/img/weather.png" />
+			</button>
+			<c:choose>
+				<c:when test="${ not empty member }">
+					<button class="mypage-btn">
+						<img
+							src="${pageContext.request.contextPath}/resources/img/프로필.png" />
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button class="log-login-btn" onclick="openModal()">
+						<img
+							src="${pageContext.request.contextPath}/resources/img/프로필.png" />
+					</button>
+				</c:otherwise>
+			</c:choose>
+		</div>
 	</header>
 
 
@@ -89,7 +99,7 @@
 					</button>
 
 					<!-- 카카오 로그인 버튼 -->
-					<button class="log-kakao-login" onclick="redirectToKakaoLogin()">
+					<button class="log-kakao-login">
 						<div class="log-social-icons">
 							<img
 								src="${pageContext.request.contextPath}/resources/img/kakao-icon.png" />카카오로
@@ -156,52 +166,55 @@
 
 
 
-    
-    <script>
-    	$(function(){
-    		
-    		//화면 이동
-    		$(".headerLogo").click(function(){
-                location.href = "../index.do";
-            });
-            $(".destination").click(function(){
-                location.href = "../destination/destination.do?areacode=1";
-            });
-            $(".festival").click(function(){
-                location.href = "../festival/getFestivalList.do";
-            });
-            $(".tourCourse").click(function(){
-                location.href = "../tourCourse/Course.do";
-            });
-            $(".gift").click(function(){
-                location.href = "../products/products.do";
-            });
-            $(".accommodation").click(function(){
-                location.href = "../accommodations/accommo.do";
-            });
-            $(".community").click(function(){
-                location.href = "../community/commu";
-            });
-            $(".support").click(function(){
-                location.href = "../support/support.do";
-            });
-            $(".manager").click(function(){
-                location.href = "../manager/manager.do";
-            });
-            $(".mypage-btn").click(function(){
-                location.href = "../mypage/mypagemain.do";
-            });
-            
-            //스크롤 시 배경 하얀색 채우기
-            $(window).scroll(function () {
-                if ($(this).scrollTop() === 0) {
-                    $("header").css("background-color", "#fff0"); // 스크롤이 최상단일 때
-                } else {
-                    $("header").css("background-color", "#fff"); // 스크롤이 내려갔을 때
-                }
-            });
-    	
-    	});
-    </script>
+
+	<script>
+		$(function() {
+
+			//화면 이동
+			$(".headerLogo").click(function() {
+				location.href = "../index.do";
+			});
+			$(".destination").click(function() {
+				location.href = "../destination/destination.do?areacode=1";
+			});
+			$(".festival").click(function() {
+				location.href = "../festival/getFestivalList.do";
+			});
+			$(".tourCourse").click(function() {
+				location.href = "../tourCourse/Course.do";
+			});
+			$(".gift").click(function() {
+				location.href = "../products/products.do";
+			});
+			$(".accommodation").click(function() {
+				location.href = "../accommodations/accommo.do";
+			});
+			$(".community").click(function() {
+				location.href = "../community/commu";
+			});
+			$(".support").click(function() {
+				location.href = "../support/support.do";
+			});
+			$(".manager").click(function() {
+				location.href = "../manager/manager.do";
+			});
+			$(".mypage-btn").click(function() {
+				location.href = "../mypage/mypagemain.do";
+			});
+			$(".weatherbtn").click(function() {
+				location.href = "../weather/weather.do";
+			});
+
+			//스크롤 시 배경 하얀색 채우기
+			$(window).scroll(function() {
+				if ($(this).scrollTop() === 0) {
+					$("header").css("background-color", "#fff0"); // 스크롤이 최상단일 때
+				} else {
+					$("header").css("background-color", "#fff"); // 스크롤이 내려갔을 때
+				}
+			});
+
+		});
+	</script>
 </body>
 </html>

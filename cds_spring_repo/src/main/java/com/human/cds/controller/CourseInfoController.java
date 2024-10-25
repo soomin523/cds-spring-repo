@@ -83,7 +83,7 @@ public class CourseInfoController {
 			}
 
 			if (totalInserted != 0) { // 저장 성공
-				viewName = "redirect:/home.do";
+				viewName = "redirect:/index.do";
 			}
 
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class CourseInfoController {
 	@PostMapping("/updateOverview.do")
 	public String updateOverview(@RequestParam("contentIds") List<String> contentIds) {
 		try {
-			String serviceKey = "Kw%2BbWob0mUGRN8FWR2ORdZCaU94yAQKwmxuwVTcBFhWwkRqcSzJKM%2FZr56KCIYm8Ly9O%2F6eSz8pdP1cfMxObWA%3D%3D";
+			String serviceKey = "cHMBzY2Ljo7k%2Fuc9cuO7pzwJoPCyA3zZM5rAV0c6bXxkV6dB66ov2nfRGgk%2F9P%2FA55kmN25hvQEB5rK116XY5w%3D%3D";
 			for (String contentId : contentIds) {
 				// ApiExplorerDetail 클래스를 통해 상세 데이터를 가져옴
 				CourseInfoDTO2 detailData = ApiExplorerDetail.getDetailByContentId(serviceKey, contentId);
@@ -111,7 +111,7 @@ public class CourseInfoController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/home.do"; // 업데이트 후 리스트 페이지로 리다이렉트
+		return "redirect:/index.do"; // 업데이트 후 리스트 페이지로 리다이렉트
 	}
 
 	@GetMapping("/Courseitems.do")
@@ -125,7 +125,7 @@ public class CourseInfoController {
 			System.out.println("courseList 데이터가 있습니다.");
 		}
 		model.addAttribute("courseList", courseList);
-		return "tourCourse/home.do";
+		return "tourCourse/Courseitems";
 	}
 	
 	@GetMapping("/Courseitems2.do")
@@ -161,6 +161,8 @@ public class CourseInfoController {
 		return courseInfoServiceImpl.getCourseByContentId(contentid);
 	}
 
+	
+	//거리 입력
 	@PostMapping("/updateCourseDetails.do")
 	public String updateCourseDetails(@RequestParam("selectedItems") List<String> selectedItems) {
 	    try {
@@ -191,7 +193,7 @@ public class CourseInfoController {
 	        e.printStackTrace();
 	    }
 
-	    return "redirect:/tourCourse/Courseitems.do";  // 업데이트 후 리스트 페이지로 리다이렉트
+	    return "redirect:/index.do";  // 업데이트 후 리스트 페이지로 리다이렉트
 	}
 
 	 @GetMapping("/getRandomFestival.do")
@@ -227,6 +229,7 @@ public class CourseInfoController {
 	 @ResponseBody
 	 public String checkLoginStatus(HttpSession session) {
 	     MemberVO member = (MemberVO) session.getAttribute("member"); // 세션에서 member 객체 가져오기
+	     System.out.println(member);
 	     return (member != null) ? "loggin" : "belogin";
 	 }
 	

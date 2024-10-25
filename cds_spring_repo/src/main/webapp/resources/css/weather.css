@@ -80,6 +80,7 @@ body, html {
     height: auto;
     border-radius: 10px;
     border: 2px solid #6495ED;
+    background-color: lightblue;
     margin: 0 20px 0 20px;
     text-align: center;
     padding: 20px; /* 상하좌우로 패딩 추가 */
@@ -141,6 +142,26 @@ body, html {
     vertical-align: middle;  /* 텍스트와 수직으로 맞춤 */
 }
 
+.hbtn{
+	margin-top:20px;
+	width: 100%;
+    display: flex;
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+.homebt {
+	width: 60px;
+	height: 60px;
+	background-image: url("../img/homebt.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: none;
+	cursor: pointer;
+	transition: transform 0.2s ease; /* 크기 변화를 위한 부드러운 전환 */
+}
+
+
 .expbox ul {
     list-style-type: none; /* 예보 리스트 스타일 */
     padding-left: 20px; /* 리스트 왼쪽 패딩 */
@@ -150,4 +171,21 @@ body, html {
 .expbox li {
     font-size: 0.95rem;
     color: #555;
+}
+
+#currentDateTime {
+    width: 70%;
+    text-align: end;
+    font-size: 40px; /* 더 큰 폰트 사이즈 */
+    font-weight: bold;
+}
+
+/* 텍스트에 그림자 */
+#currentDateTime span {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* 텍스트 그림자 */
+}
+.weatherheader{
+	width:100%;
+	display:flex;
+	justify-content: space-between;	
 }

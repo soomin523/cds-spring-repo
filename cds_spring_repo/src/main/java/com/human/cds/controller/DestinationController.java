@@ -73,7 +73,7 @@ public class DestinationController {
 			e.printStackTrace();
 		}
 		
-		return "home";
+		return "redirect:/index.do";
 	}
 	
 	//리스트 지역 등록
@@ -129,7 +129,7 @@ public class DestinationController {
 				e.printStackTrace();
 			}
 			
-			return "home";
+			return "redirect:/index.do";
 			
 		}
 		

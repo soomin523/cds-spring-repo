@@ -39,18 +39,26 @@
 				<div class="manager">관리자</div>
 			</c:if>
 		</div>
-		<c:choose>
-			<c:when test="${ not empty member }">
-				<button class="mypage-btn">
-					<img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
-				</button>
-			</c:when>
-			<c:otherwise>
-				<button class="log-login-btn" onclick="openModal()">
-					<img src="${pageContext.request.contextPath}/resources/img/프로필.png" />
-				</button>
-			</c:otherwise>
-		</c:choose>
+		<div>
+			<button class="weatherbtn">
+				<img
+					src="${pageContext.request.contextPath}/resources/img/weather.png" />
+			</button>
+			<c:choose>
+				<c:when test="${ not empty member }">
+					<button class="mypage-btn">
+						<img
+							src="${pageContext.request.contextPath}/resources/img/프로필.png" />
+					</button>
+				</c:when>
+				<c:otherwise>
+					<button class="log-login-btn" onclick="openModal()">
+						<img
+							src="${pageContext.request.contextPath}/resources/img/프로필.png" />
+					</button>
+				</c:otherwise>
+			</c:choose>
+		</div>
 	</header>
 
 
@@ -90,7 +98,7 @@
 					</button>
 
 					<!-- 카카오 로그인 버튼 -->
-					<button class="log-kakao-login" onclick="redirectToKakaoLogin()">
+					<button class="log-kakao-login">
 						<div class="log-social-icons">
 							<img
 								src="${pageContext.request.contextPath}/resources/img/kakao-icon.png" />카카오로
@@ -189,6 +197,9 @@
 			});
 			$(".mypage-btn").click(function() {
 				location.href = "mypage/mypagemain.do";
+			});
+			$(".weatherbtn").click(function() {
+				location.href = "weather/weather.do";
 			});
 
 			//스크롤 시 배경 하얀색 채우기

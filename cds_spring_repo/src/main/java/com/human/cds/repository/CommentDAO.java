@@ -1,5 +1,9 @@
 package com.human.cds.repository;
 
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +32,11 @@ public class CommentDAO {
         params.put("contentId", contentId);
         params.put("offset", offset);
         params.put("pageSize", pageSize);
-        return sqlSession.selectList(MAPPER+".getCommentsByContentId", params);
+        List<CommentVO> commentVOList = sqlSession.selectList(MAPPER+".getCommentsByContentId", params);
+        for(CommentVO vo : commentVOList) {
+        	correctMySQLDate(vo);//시간 조정
+        }
+        return commentVOList;
     }
 
     // 좋아요/싫어요 상태 확인
@@ -80,4 +88,44 @@ public class CommentDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.delete(MAPPER + ".deleteComment", c_idx);
 	}
+	
+	
+	//MySQL에 입력된 시간을 Java에서 가져다 사용할 때 시간을 조정해주는 메소드
+	public void correctMySQLDate(CommentVO vo) { //매개변수는 시간 필드를 가지는 VO객체
+		
+		//Date객체를 LocalDateTime객체로 변경하기
+		
+		//1. 등록일: reg_date
+		//System.out.println("등록일: "+vo.getReg_date());
+		LocalDateTime localDateTime = vo.getCreatedAt().toInstant() // Date -> Instant
+				.atZone(ZoneId.systemDefault()) // Instant -> ZonedDateTime 
+				.toLocalDateTime(); // ZonedDateTime -> LocalDateTime
+		
+		//MySQL에 저장된 날짜 그대로 사용하기 위해서 가져온 날짜값에서 9시간 빼기
+		LocalDateTime updatedLocalDateTime = localDateTime.minusHours(9);
+		
+		//변경된 LocalDateTime객체를 다시 Date객체로 변경해서 reg_date값을 다시 세팅해줌
+		Instant instant = updatedLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
+		Timestamp correctReg_date = Timestamp.from(instant);
+		//Date correctReg_date = Date.from(instant); //java.util.Date클래스
+		
+		vo.setCreatedAt(correctReg_date);
+		//System.out.println("정정된 등록일: "+vo.getReg_date());
+		
+		//2. 수정일: update_date
+		localDateTime = vo.getUpdatedAt().toInstant() // Date -> Instant
+				.atZone(ZoneId.systemDefault()) // Instant -> ZonedDateTime 
+				.toLocalDateTime(); // ZonedDateTime -> LocalDateTime
+		
+		//MySQL에 저장된 날짜 그대로 사용하기 위해서 가져온 날짜값에서 9시간 빼기
+		updatedLocalDateTime = localDateTime.minusHours(9);
+		
+		//변경된 LocalDateTime객체를 다시 Date객체로 변경해서 reg_date값을 다시 세팅해줌
+		instant = updatedLocalDateTime.atZone(ZoneId.systemDefault()).toInstant();
+		Timestamp correctUpdate_date = Timestamp.from(instant);
+		//Date correctUpdate_date = Date.from(instant); //java.util.Date클래스
+		
+		vo.setUpdatedAt(correctUpdate_date);
+	}
+	
 }

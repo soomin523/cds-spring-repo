@@ -1,5 +1,6 @@
 package com.human.cds.repository;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,21 +28,29 @@ public class CourseInfoDAO {
 
 	// contenttypeid가 25인 값들만 삽입
 	public int insertCoursesWithType25(CourseInfoDTO data) {
-		int result = 0;
-		try {
-			List<Item> items = data.getResponse().getBody().getItems().getItem();
-			for (Item courseInfo : items) {
-				// contenttypeid가 25이고, first_image가 null이 아닌 경우만 삽입
-				if ("25".equals(courseInfo.getContenttypeid()) && courseInfo.getFirstimage() != null
-						&& !courseInfo.getFirstimage().isEmpty()) {
-					result += sqlSession.insert(MAPPER + ".insertCourseInfo", courseInfo);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
+	    int result = 0;
+	    try {
+	        // API 응답에서 아이템 리스트 가져오기
+	        List<Item> items = data.getResponse().getBody().getItems().getItem();
+	        
+	        // 유효한 area_code 값 목록 정의
+	        List<String> validAreaCodes = Arrays.asList("1", "2", "3", "4", "5", "6", "7", "8", "9", "39");
+
+	        for (Item courseInfo : items) {
+	            // contenttypeid가 25이고, first_image가 존재하며, area_code가 유효한 값일 경우만 삽입
+	            if ("25".equals(courseInfo.getContenttypeid()) 
+	                    && courseInfo.getFirstimage() != null 
+	                    && !courseInfo.getFirstimage().isEmpty()
+	                    && validAreaCodes.contains(courseInfo.getAreacode())) {
+	                result += sqlSession.insert(MAPPER + ".insertCourseInfo", courseInfo);
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return result;
 	}
+
 
 	public List<Map<String, Object>> getTitleAndContentId() {
 		return sqlSession.selectList(MAPPER + ".getTitleAndContentId");

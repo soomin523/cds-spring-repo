@@ -15,7 +15,7 @@
 
 <body>
     <div class="section">
-    <div> </div>
+    <div class="weatherheader"><button class="homebt" onclick="location.href='${pageContext.request.contextPath}/index.do'"></button><div id="currentDateTime"></div></div>
         <div class="grid-container">
             <!-- 지도 영역 -->
             <div class="map"><div id="map"></div></div>

@@ -17,28 +17,34 @@
 		#{booktour}, #{cat1}, #{cat2}, #{cat3}, #{contenttypeid},
 		#{createdtime}, #{firstimage}, #{firstimage2}, #{cpyrhtDivCd}, #{mapx}, #{mapy},
 		#{mlevel}, #{modifiedtime}, #{sigungucode}, #{tel}, #{zipcode},
-		#{overview}, #{cnt}
+		#{overview}, 0
 		)
 	</insert>
 
 	<select id="getTitleAndContentId" resultType="map">
-		SELECT title, content_id, content_type_id
+		SELECT title,
+		content_id, content_type_id
 		FROM accommodation
 	</select>
 
 	<update id="accomoupdate">
 		UPDATE accommodation
 		SET overview = #{overview}
-		WHERE content_id = #{contentId} AND content_type_id = '32'
+		WHERE
+		content_id = #{contentId} AND content_type_id = '32'
 	</update>
 
 	<insert id="insertRoomInfo">
 		INSERT INTO accommodationroom (
-		contentid, contenttypeid, roomtitle, roomcode, roomoffseasonminfee1,
-		roomimg1, roomimg1alt, roomimg2, roomimg2alt, roomimg3, roomimg3alt,
-		roomimg4, roomimg4alt, roomimg5, roomimg5alt
+		contentid,
+		contenttypeid, roomtitle, roomcode, roomoffseasonminfee1,
+		roomimg1,
+		roomimg1alt, roomimg2, roomimg2alt, roomimg3, roomimg3alt,
+		roomimg4,
+		roomimg4alt, roomimg5, roomimg5alt
 		) VALUES (
-		#{contentid}, #{contenttypeid}, #{roomtitle}, #{roomcode}, #{roomoffseasonminfee1},
+		#{contentid},
+		#{contenttypeid}, #{roomtitle}, #{roomcode}, #{roomoffseasonminfee1},
 		#{roomimg1}, #{roomimg1alt}, #{roomimg2}, #{roomimg2alt}, #{roomimg3},
 		#{roomimg3alt}, #{roomimg4}, #{roomimg4alt}, #{roomimg5},
 		#{roomimg5alt}
@@ -51,26 +57,27 @@
 	</select>
 
 	<select id="getAccommodationsByRegion" resultType="AcommoImgVO">
-    SELECT *
-    FROM accommodation
-    WHERE area_code = #{areaCode}
-    <if test="cat3 != null">
-        AND cat3 = #{cat3}
-    </if>
-    LIMIT #{limit} OFFSET #{offset}
-</select>
+		SELECT *
+		FROM accommodation
+		WHERE area_code = #{areaCode}
+		<if test="cat3 != null">
+			AND cat3 = #{cat3}
+		</if>
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
 
 
-	<select id="getFilteredAccommodationsByRegion" resultType="AcommoImgVO">
-    SELECT *
-    FROM accommodation
-    WHERE area_code = #{areaCode}
-    <if test="cat3 != null">
-        AND cat3 = #{cat3}
-    </if>
-    AND (LOWER(title) LIKE #{search} OR LOWER(addr1) LIKE #{search})
-    LIMIT #{limit} OFFSET #{offset}
-</select>
+	<select id="getFilteredAccommodationsByRegion"
+		resultType="AcommoImgVO">
+		SELECT *
+		FROM accommodation
+		WHERE area_code = #{areaCode}
+		<if test="cat3 != null">
+			AND cat3 = #{cat3}
+		</if>
+		AND (LOWER(title) LIKE #{search} OR LOWER(addr1) LIKE #{search})
+		LIMIT #{limit} OFFSET #{offset}
+	</select>
 
 
 
@@ -87,13 +94,15 @@
 		resultType="AccommodationRoomVO">
 		SELECT *
 		FROM accommodationroom
-		WHERE contentid = #{contentId}
+		WHERE contentid =
+		#{contentId}
 	</select>
-	
+
 	<update id="incrementcnt">
 		update accommodation
 		set cnt =cnt + 1
-		where content_id =#{contentId}
-	
+		where content_id
+		=#{contentId}
+
 	</update>
 </mapper>

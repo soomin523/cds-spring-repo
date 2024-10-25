@@ -3,7 +3,8 @@ $(document).ready(function () {
     let markers = [];
     let infoWindows = []; // 정보 창을 저장할 배열
     let openInfoWindow = null; // 현재 열린 정보창을 저장
-
+	checkLoginStatus();
+	
     function getParameterByName(name) {
         let url = window.location.href;
         name = name.replace(/[\[\]]/g, '\\$&');
@@ -42,6 +43,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data) {
+                console.log(data);
                     updateCourseModal(data);
                     history.replaceState(null, '', '/cds/tourCourse/Course.do');
                 } else {
@@ -80,7 +82,10 @@ $(document).ready(function () {
         var mapContainer = document.getElementById('map');
         var mapOption = {
             center: new kakao.maps.LatLng(map_y, map_x),
-            level: 3
+            level: 3,
+            scrollwheel: false, // 스크롤 줌 비활성화
+        disableDoubleClickZoom: true, // 더블 클릭 줌 비활성화
+        draggable: false, //드래그 비활성화
         };
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -180,7 +185,6 @@ $(document).ready(function () {
         }, { location: location, radius: 3000 });
     }
 
-    // 마커 표시 함수
     // 마커 표시 함수 (미세먼지 추가)
     function displayMarker(place, map) {
         var marker = new kakao.maps.Marker({
@@ -286,6 +290,7 @@ $(document).ready(function () {
     // 초기 페이지 로드에서 contentId가 있을 경우 코스 정보 로드
     if (contentId) {
         loadCourseDetails(contentId);
+        loadComments(contentId, 1);
     }
 
     // course-item 클릭 시 contentid를 서버로 보내 상세 정보 가져오기
@@ -353,6 +358,7 @@ $(document).ready(function () {
 
     // 댓글 로드 함수
 function loadComments(contentId, page) {
+    console.log("Loading comments for contentId:", contentId, "on page:", page); // 확인용 로그 추가
     $.ajax({
         url: '/cds/tourCourse/getComments.do',
         type: 'POST',
@@ -362,6 +368,7 @@ function loadComments(contentId, page) {
         },
         dataType: 'json',
         success: function (response) {
+            console.log("Comments loaded:", response); // 로드된 데이터 확인
             const comments = response.comments;
             const member = response.member;  // 서버에서 로그인된 사용자 정보도 함께 반환
             displayComments(comments, page, member);
@@ -374,10 +381,15 @@ function loadComments(contentId, page) {
 }
 
 
+
     // 댓글 표시 함수
+// 댓글 표시 함수
 function displayComments(comments, page, member) {
-console.log(comments,member);
-console.log(member.membership_level);
+    console.log(comments, member);
+
+    // member가 null인지 먼저 확인
+    var membershipLevel = member ? member.membership_level : null;
+
     if (page === 1) {
         $('#comment-thread').empty();  // 댓글을 처음 로드할 때는 기존 댓글 목록을 비웁니다.
     }
@@ -386,10 +398,14 @@ console.log(member.membership_level);
         $('#comment-thread').append('<p>댓글이 없습니다. 첫 댓글을 작성해보세요!</p>');
     } else {
         comments.forEach(function (comment) {
-            // 작성자가 현재 로그인한 사용자와 같거나, 회원 등급이 3인 경우에만 삭제 버튼을 표시
-            var isDeletable = member && (comment.name === member.name || member.membership_level == 3);
-            
+            // member가 null이 아닐 때만 삭제 버튼을 표시
+            var isDeletable = member && (comment.name === member.name || membershipLevel == 3);
+
             var deleteButtonHtml = isDeletable ? `<button class="delete-btn" data-c_idx="${comment.c_idx}">🗑️ 댓글삭제</button>` : '';
+
+            // Unix timestamp를 Date 객체로 변환
+            var commentDate = new Date(comment.createdAt);  // createdAt을 Date 객체로 변환
+            var formattedDate = commentDate.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });  // 한국 시간대에 맞춰 변환
 
             // 댓글 HTML을 동적으로 생성합니다.
             var commentHtml = `
@@ -398,7 +414,7 @@ console.log(member.membership_level);
                     <img src="${comment.gender == 'F' ? '../resources/img/womanfile.png' : '../resources/img/manprofile.png'}" 
                         alt="프사" class="author-photo"/>
                     <span class="author-name">${comment.name}</span>
-                    <span class="comment-date">${new Date(comment.createdAt).toLocaleString()}</span>
+                    <span class="comment-date">${formattedDate}</span> <!-- 한국 시간으로 표시 -->
                 </div>
                 <div class="comment-content">${comment.content}</div>
                 <div class="comment-meta">
@@ -414,6 +430,8 @@ console.log(member.membership_level);
         $('#comment-thread').data('page', page + 1);  // 현재 페이지 정보 업데이트
     }
 }
+
+
 
     // 좋아요/싫어요 버튼 클릭 이벤트 핸들러
     $(document).on('click', '.like-btn, .dislike-btn', function () {
@@ -476,6 +494,8 @@ console.log(member.membership_level);
     $(document).on('click', '.delete-btn', function () {
         // 댓글 ID 가져오기
         var c_idx = $(this).data('c_idx');
+        
+        var contentId = $('#add-comment').data('contentid');
 
         if (confirm('댓글을 삭제하시겠습니까?')) {
             // AJAX 요청으로 댓글 삭제

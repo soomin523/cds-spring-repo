@@ -39,12 +39,6 @@
         <hr>
         <!-- 마이페이지 카테고리 -->
         <div class="main-category">
-            <a href="mypagelike.do">
-                <div>
-                    <img src="${pageContext.request.contextPath}/resources/img/즐겨찾기.png" alt="">
-                </div>
-                <p>즐겨찾기</p>
-            </a>
             <a href="mypagewrite.do">
                 <div>
                     <img src="${pageContext.request.contextPath}/resources/img/작성내역.png" alt="">

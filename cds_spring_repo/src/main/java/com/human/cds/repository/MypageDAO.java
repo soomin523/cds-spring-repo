@@ -73,6 +73,12 @@ public class MypageDAO {
 		
 		return communitys;
 	}
+
+	public List<CommunityContentVO> getComuCommentByMemberId(String memId) {
+		
+		
+		return sqlSession.selectList(MAPPER+".getComuCommentByMemberId",memId);
+	}
 	
 	
 }

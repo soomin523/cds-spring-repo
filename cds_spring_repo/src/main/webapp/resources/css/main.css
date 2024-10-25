@@ -3,6 +3,9 @@
     padding: 0px;
     box-sizing: border-box;
     color: #000;
+}
+
+body{
     max-width: 1300px;
 }
 
@@ -51,7 +54,7 @@ header>button {
     cursor: pointer;
     padding: 10px;
 }
-header>button>img {
+header button img {
     height: 40px; /* 프로필 이미지 높이 설정 */
     width: 40px;
 }   
@@ -119,7 +122,7 @@ header>button>img {
     height: 200px;
 }
 #mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem>h4{
-	margin: 10px 0px;
+	margin: 10px;
 	color: #333;
 }
 #mainSection>.mainTop>.imgSlider>.imgContainer>.imgList>.imgItem>h3{
@@ -204,29 +207,53 @@ header>button>img {
     align-items: center;
     padding: 0px 2%;
 }
-#mainSection>.mainReview>.reviewContainer{
-    width: 100%;
-    margin: 20px 0px;
+#mainSection>.mainReview>.reviewBox{
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }
-#mainSection>.mainReview>.reviewContainer>.reviewList{
+#prevBtn, #nextBtn {
+    cursor: pointer;
+    font-size: 24px; /* 기호 크기 설정 */
+    user-select: none; /* 텍스트 선택 방지 */
+}
+#mainSection>.mainReview>.reviewBox>.reviewContainer{
+    width: 92%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+#mainSection>.mainReview>.reviewBox>.reviewContainer>.reviewList{
+	width: 1820px;
     display: flex;
     justify-content: space-between;
     height: max-content;
+    transition: transform 0.5s ease;
 }
-#mainSection>.mainReview>.reviewContainer>.reviewList>.reviewItem{
+#mainSection>.mainReview>.reviewBox>.reviewContainer>.reviewList>.reviewItem{
     border: solid 1px #969696;
     border-radius: 5px;
     text-align: left;
-    width: 20%;
-    height: 300px;
+    width: 200px;
+    height: 280px;
+    cursor: pointer;
+    margin: 0px 10px;
 }
-#mainSection>.mainReview>.reviewContainer>.reviewList>.reviewItem>img{
+#mainSection>.mainReview>.reviewBox>.reviewContainer>.reviewList>.reviewItem>.commuImg{
+	margin: 0px;
     width: 100%;
     height: 200px;
-    background-color: #87bee5;
+    background: no-repeat center center;
+    background-size: cover;
 }
-#mainSection>.mainReview>.reviewContainer>.reviewList>.reviewItem>div{
+#mainSection>.mainReview>.reviewBox>.reviewContainer>.reviewList>.reviewItem>.commuTitle{
+	white-space: nowrap; /* 줄 바꿈 방지 */
+	overflow: hidden;
+	text-overflow: ellipsis; /* ...으로 표시하기 */
+	font-size: 14px;
+}
+#mainSection>.mainReview>.reviewBox>.reviewContainer>.reviewList>.reviewItem>div{
 	font-size: 12px;
+	margin: 5px 10px;
 }
 #mainSection>.mainReview>button{
 	border: solid 1px #969696;
@@ -310,6 +337,7 @@ header>button>img {
 }
 #mainSection>.mainSupport>.supportBox>.supportList{
 	margin-top: 20px;
+	height: max-content;
 }
 #mainSection>.mainSupport>.supportBox>.supportList>.supportItem{
 	display: flex;

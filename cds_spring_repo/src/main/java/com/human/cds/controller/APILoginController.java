@@ -55,7 +55,7 @@ public class APILoginController {
 	}
 	
 	
-	//네이버 회원가입/로그인을 위함
+//네이버 회원가입/로그인을 위함
 	private String naverClientId = "4IZekkKFksLclCpboj2G";
 	private String naverClientPw = "y0PcRKsVJv";
     private String naverUri = "http://localhost:9090/cds/member/naverLogin.do";
@@ -158,7 +158,7 @@ public class APILoginController {
     }
 
 	
-	//카카오 회원가입/로그인을 위함
+//카카오 회원가입/로그인을 위함
 	private String kakaoClientId = "c07530622585d316fcad9f90e1d935b5";
     
     @RequestMapping(value="/member/kakaoLogin.do", method = RequestMethod.GET)
@@ -265,7 +265,7 @@ public class APILoginController {
     }
 	
 	
-	//구글 회원가입/로그인을 위함
+//구글 회원가입/로그인을 위함
     private String googleClientId = "172267091290-704rp9g9evbu8na2co56nmop1i13d1ul.apps.googleusercontent.com";
     private String googleClientPw = "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";
 	

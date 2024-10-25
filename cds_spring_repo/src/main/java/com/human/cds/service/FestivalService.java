@@ -38,4 +38,6 @@ public interface FestivalService {
 
 	List<FestivalDBVO> getFestivalNoAreaSoonList(String selectDate);
 
+	List<FestivalDBVO> getFestivalAllList();
+
 }

@@ -239,5 +239,9 @@ public class FestivalDAO {
 		return sqlSession.selectList(MAPPER+".getFestivalNoAreaSoonList", selectDate);
 	}
 
+	public List<FestivalDBVO> getFestivalAllList() {
+		return sqlSession.selectList(MAPPER+".getFestivalAllList");
+	}
+
 
 }

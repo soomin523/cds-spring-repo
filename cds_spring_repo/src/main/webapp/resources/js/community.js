@@ -5,6 +5,7 @@ $(function () {
 	//게시물의 세부 정보를 모달 창에 표시하는 역할
 	$(".post-item").click(function(){
 		let id = $(this).data("id");
+		let memberId = $(".commu-comment-box").data("name");
 		
 		$.ajax({ 
 	        type:"get",
@@ -12,7 +13,7 @@ $(function () {
 	        data:{ id: id },
 	        headers: {"Accept": "application/json"},
 	        success:function(data){
-	            
+	            console.log(data);
 	            $(".commu-comment-box").attr("data-idx", data.c_idx); // 게시물번호
 			    $("#commu-modalUserId").text(data.memberId); // 아이디
 			    $("#commu-modalLocation").text("위치: " + data.location); // 위치
@@ -24,15 +25,90 @@ $(function () {
 			    $("#commu-modalTitle").text(data.title); // 제목
 			    $("#commu-modalDescription").text(data.content); // 내용
 			    
+			    let htmlI = ''; //이미지 목록
+			    data.imagePaths.forEach(function(item){
+			    	htmlI += `
+			    		<img src="${item.imagePath}" alt="이미지 없음"/>
+			    	`;
+			    });
+			    $(".commu-imageList").html(htmlI);
+			    
 			    let htmls = ''; //댓글목록
 				data.comments.forEach(function(comment) {
 				    htmls += `<div class="commu-modal-comment">
 			            <p class="comment-author"><strong>${comment.memberId}</strong></p>
 			            <p class="comment-content">${comment.content}</p>
 			            <p class="comment-date">${formattedDate.slice(2)}</p>
-			        </div>`;
+			        </div>
+	                	<button class="deleteBtn" value="${comment.comment_id}">삭제</button>`;
 				});
+				
 				$("#commu-modalComments").html(htmls);
+				
+				//본인 게시글이 아니면 수정/삭제가 뜨지 않게하기
+				if(memberId != data.memberId){
+					$(".community-delete").hide();
+				}
+				
+				// 각 댓글에 대해 삭제 버튼 숨기기
+				data.comments.forEach(function(comment, index) {
+				    if (memberId != comment.memberId) {
+				        $(`.deleteBtn:eq(${index})`).hide(); // 수정된 선택자
+				}
+				    
+			});
+				
+				//댓글 삭제 기능
+				$(".deleteBtn").click(function(){
+					let comment_id = $(this).val(); //게시물번호
+					$.ajax({
+			            type: "GET",
+			            url: "/cds/community/deleteComment.do",
+			            data: { comment_id: comment_id },
+			            headers: { "Accept": "application/json" },
+			            success: function(data) {
+			            	if(data == 1){
+				            	location.href=`/cds/community/commu`;
+			            	}else{
+			            		alart("댓글 삭제 실패");
+			            	}
+			            },
+			            error: function() {
+			                console.log("댓글 삭제 중 오류가 났습니다.");
+			            }
+			        });
+				});
+				
+				//모달 내 이미지 슬라이더 추가
+				let currentSlide = 0;
+				let images = data.imagePaths;
+				
+				// 슬라이더 위치 업데이트 함수
+				function updateSlidePosition() {
+				    const imageList = $(".commu-imageList");
+				    imageList.css("transform", `translateX(-${currentSlide * 100}%)`);
+				}
+				
+				// 이전 슬라이드로 이동
+				function prevSlide() {
+				    if (currentSlide > 0) {
+				        currentSlide--;
+				    } else {
+				        currentSlide = images.length - 1; // 처음 슬라이드에서 마지막으로 이동
+				    }
+				    updateSlidePosition();
+				}
+				
+				// 다음 슬라이드로 이동
+				function nextSlide() {
+				    if (currentSlide < images.length - 1) {
+				        currentSlide++;
+				    } else {
+				        currentSlide = 0; // 마지막 슬라이드에서 처음으로 이동
+				    }
+				    updateSlidePosition();
+				}
+				
 	        },
 	        error:function(){
 	            console.log("커뮤니티 세부목록을 불러오는데 실패했습니다.");
@@ -96,7 +172,8 @@ $(function () {
 				            <p class="comment-author"><strong>${data.memberId}</strong></p>
 				            <p class="comment-content">${data.content}</p>
 				            <p class="comment-date">${formattedDate.slice(2)}</p>
-				        </div>`;
+				        </div>
+		                <button class="deleteBtn" value="${data.comment_id}">삭제</button>`;
 	                $("#commu-modalComments").append(htmls);
 	
 	                // 텍스트박스 초기화
@@ -135,8 +212,39 @@ $(function () {
 	        });
 	    }
 	
-	
 	});
+	
+	//게시물 수정 기능
+	$("#commu-Edit-Btn").click(function(){
+		let c_idx = $(".commu-comment-box").data("idx"); //게시물번호
+		
+		location.href=`/cds/community/updatePage.do?c_idx=${c_idx}`;
+		
+	});
+	
+	//게시물 삭제 기능
+	$("#commu-delete-Btn").click(function(){
+		let c_idx = $(".commu-comment-box").data("idx"); //게시물번호
+		$.ajax({
+            type: "GET",
+            url: "/cds/community/deletePost.do",
+            data: { c_idx: c_idx },
+            headers: { "Accept": "application/json" },
+            success: function(data) {
+            	if(data == 1){
+	            	location.href=`/cds/community/commu`;
+            	}else{
+            		alart("게시물 삭제 실패");
+            	}
+            },
+            error: function() {
+                console.log("게시물 삭제 중 오류가 났습니다.");
+            }
+        });
+	});
+	
+	
+	
 	
 
 	var currentPage = 1;

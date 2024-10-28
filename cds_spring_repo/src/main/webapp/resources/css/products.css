@@ -78,7 +78,7 @@
     white-space: nowrap;
 }
 .category-item.active {
-    background-color: #007bff;
+    background-color: #87bee5;
     color: white;
 }
 .search-container {
@@ -91,6 +91,14 @@
     padding: 5px;
 
 }
+
+#search-input:focus {
+    outline: none;
+    border: 2px solid #87bee5;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+
 #search-button {
     padding: 5px 10px;
 }
@@ -121,7 +129,7 @@
      /* grid-template-columns: repeat(2, 1fr) */
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-    min-height: auto;
+    min-height: 320px;
   }
   
   .bg-공연_전시 { background-color: #e487b9 !important; }
@@ -250,7 +258,8 @@
 
         .modal-image {
             width: 100%;
-            object-fit: hidden;
+            object-fit: contain;
+            max-height: 500px;
         }
 
         .modal-body {
@@ -304,11 +313,46 @@
 
         .close {
             position: absolute;
-            right: 10px;
-            top: 10px;
-            color: white;
+            right: 3px;
+            top: -3px;
+            color: rgb(112, 112, 112);
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             z-index: 1;
         }
+
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* background-color: rgba(255, 255, 255, 0.8); */
+            z-index: 9999;
+        }
+        
+        .spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50px;
+            height: 50px;
+            margin: -25px 0 0 -25px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            color: #333;
+            font-size: 16px;
+        }
+        

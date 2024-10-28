@@ -6,12 +6,12 @@ $(function() {
     
     $(document).on('click', '.content-card', function(){
     	let c_idx = $(this).data('c_idx');
-    	window.location.href = '/cds/community/commu.do?c_idx=' + c_idx;
+    	window.location.href = '/cds/community/getCommunity.do?c_idx=' + c_idx;
     });
     
         $(document).on('click', '.comment2-card', function(){
     	let c_idx = $(this).data('c_idx');
-    	window.location.href = '/cds/community/commu.do?c_idx=' + c_idx;
+    	window.location.href = '/cds/community/getCommunity.do?c_idx=' + c_idx;
     });
 
 

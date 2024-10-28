@@ -78,3 +78,73 @@
     background-color: #4CAF50;
     color: white;
 }
+
+
+.destinationDeco{
+	border-bottom:solid 1px #87bee5;
+	padding:10px 0px 10px 0px;
+}
+
+.festivalDeco{
+	border-top:solid 1px #87bee5;
+	border-bottom:solid 1px #87bee5;
+	padding:10px 0px 10px 0px;
+}
+
+.tourCourseDeco{
+	border-top:solid 1px #87bee5;
+	border-bottom:solid 1px #87bee5;
+	padding:10px 0px 10px 0px;
+}
+
+.giftDeco{
+	border-top:solid 1px #87bee5;
+	border-bottom:solid 1px #87bee5;
+	padding:10px 0px 10px 0px;
+}
+
+.accommodationDeco{
+	border-top:solid 1px #87bee5;
+	border-bottom:solid 1px #87bee5;
+	padding:10px 0px 10px 0px;
+}
+
+.destinationDeco>a{
+	text-decoration:none;
+}
+
+.festivalDeco>a{
+	text-decoration:none;
+}
+
+.tourCourseDeco>a{
+	text-decoration:none;
+}
+
+.giftDeco>a{
+	text-decoration:none;
+}
+
+.accommodationDeco>a{
+	text-decoration:none;
+}
+
+.destinationDeco>a:hover{
+	color:rgba(165,102,255,0.6);
+}
+
+.festivalDeco>a:hover{
+	color:rgba(165,102,255,0.6);
+}
+
+.tourCourseDeco>a:hover{
+	color:rgba(165,102,255,0.6);
+}
+
+.giftDeco>a:hover{
+	color:rgba(165,102,255,0.6);
+	}
+
+.accommodationDeco>a:hover{
+	color:rgba(165,102,255,0.6);
+}

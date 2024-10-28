@@ -1,593 +1,621 @@
 /* 기본적인 스타일 설정 */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f5f5f5;
 }
 
 .fullcourse {
-    display: flex;
-    flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 /* 제목 스타일 */
 #course-title {
-    font-size: 24px;
-    margin: 20px;
-    font-weight: bold;
-    color: #333;
+	font-size: 24px;
+	margin: 20px;
+	font-weight: bold;
+	color: #333;
 }
 
 /* 코스 박스 설정 */
 .coursebox {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
 }
 
 /* 코스 이야기 스타일 */
 .course-story {
-    border-top: 2px solid #ddd;
-    width: 70%;
+	border-top: 2px solid #ddd;
+	width: 70%;
 }
 
 .course-search {
-    margin: 10px 0;
-    width: 100%;
-    height: auto;
-    background-color: black;
+	margin: 10px 0;
+	width: 100%;
+	height: auto;
+	background-color: black;
 }
 
 .course-search {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    margin: 20px 0;
-    padding: 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    width: 100%;
-    box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	margin: 20px 0;
+	padding: 10px;
+	background-color: #f0f0f0;
+	border-radius: 5px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 /* 검색 입력 필드 스타일 */
 #search-input {
-    width: 40%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
-    font-size: 16px;
+	width: 40%;
+	padding: 10px;
+	border: 1px solid #87bee584;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-size: 16px;
+}
+
+#search-input:focus {
+	border: 1px solid #87bee584;
+	outline: none; /* 기본 아웃라인 제거 */
 }
 
 /* 검색 버튼 스타일 */
 #search-button {
-    padding: 10px 15px;
-    margin-left: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #87bee585;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+	padding: 10px 15px;
+	margin-left: 10px;
+	border: none;
+	border-radius: 5px;
+	background-color: #87bee585;
+	color: white;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
 }
 
 /* 검색 버튼 호버 효과 */
 #search-button:hover {
-    background-color: #669e74;
+	background-color: #669e74;
 }
 
 /* 코스 리스트 스타일 */
 .course-item {
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.15); /* 연한 회색 테두리 */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 좀 더 세련된 그림자 */
-    border-radius: 5px;
-    cursor: pointer;   
-    transition: all 0.3s ease-in-out; 
+	display: flex;
+	align-items: center;
+	background-color: #fff;
+	margin: 10px 0;
+	padding: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.15); /* 연한 회색 테두리 */
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+	/* 좀 더 세련된 그림자 */
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
 }
 
-.course-item:hover{
-	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
-    transform: translateY(-5px); /* hover 시 살짝 위로 올라가는 효과 */
-	
+.course-item:hover {
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15), 0 4px 6px rgba(0, 0, 0, 0.1);
+	/* hover 시 그림자 진하게 */
+	transform: translateY(-5px); /* hover 시 살짝 위로 올라가는 효과 */
 }
-
 
 .course-item img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
+	width: 50px;
+	height: 50px;
+	margin-right: 10px;
 }
 
 .course-item p {
-    margin: 0;
-    color: #666;
-    font-size:20px;
-    font-weight:500 !important;
+	margin: 0;
+	color: #666;
+	font-size: 20px;
+	font-weight: 500 !important;
 }
 
 .course-item .cat2 {
-    margin-left: auto;
-    color: #666;
-    background-color: #87bee586;
-    border-radius: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+	margin-left: auto;
+	color: #666;
+	background-color: #87bee586;
+	border-radius: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 /* 페이지네이션 스타일 */
 .pagination {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
+	display: flex;
+	justify-content: center;
+	margin: 20px 0;
 }
 
 .pagination div {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    cursor: pointer;
-    color: #333;
+	margin: 0 5px;
+	padding: 5px 10px;
+	border: 1px solid #ccc;
+	background-color: #fff;
+	cursor: pointer;
+	color: #333;
 }
 
 .pagination div:hover {
-    background-color: #e0e0e0;
+	background-color: #e0e0e0;
 }
 
 /* 축제 및 도시 리스트 설정 */
 .fesorcitybox {
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 750px;
-    justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+	width: 20%;
+	height: 750px;
+	justify-content: space-between;
 }
 
 .festa {
 	margin-top: 20px;
-    width: 100%;
-    height: max-content;
-    align-self: flex-end;
-    border: 1px solid #87bee584;
-    cursor: pointer;
-    border-radius: 5px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08); /* 좀 더 세련된 그림자 */
+	width: 100%;
+	height: max-content;
+	align-self: flex-end;
+	border: 1px solid #87bee584;
+	cursor: pointer;
+	border-radius: 5px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+	/* 좀 더 세련된 그림자 */
 }
 
-.festa:hover{
-	box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
-	
+.festa:hover {
+	box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px
+		rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
 }
 
 .festa h2, .festa h3, .festa h4 {
-	margin-top:15px;
-    text-align: center;
+	margin-top: 15px;
+	text-align: center;
 }
 
-.mapicon{
-	margin: 0;	
-	vertical-align: middle;  /* 텍스트와 수직으로 맞춤 */
+.mapicon {
+	margin: 0;
+	vertical-align: middle; /* 텍스트와 수직으로 맞춤 */
 }
 
 .festaimgbox {
-    width: 100%;
-    height: 200px;
+	width: 100%;
+	height: 200px;
 }
 
 .festaimgbox img {
-    width: 100%;
-    height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 /* 도시 구분 박스 */
 .citylist {
-    width: 100%;
-    height: max-content;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    border-radius: 20px;
-    background-color: #87bee585;
-    padding: 10px;
-    box-sizing: border-box;
-    justify-content: flex-start;
-    border: white;
-    box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
+	width: 100%;
+	height: max-content;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	border-radius: 20px;
+	background-color: #87bee585;
+	padding: 10px;
+	box-sizing: border-box;
+	justify-content: flex-start;
+	border: white;
+	box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px
+		rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
 }
 
 /* 버튼 스타일 */
 .course-button {
-    width: max-content;
-    height: max-content;
-    margin-left: 5%;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #87bee584;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #87bee586;
-    transition: background-color 0.3s ease;
-    color: white;
+	width: max-content;
+	height: max-content;
+	margin-left: 5%;
+	text-align: center;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #87bee584;
+	cursor: pointer;
+	border-radius: 5px;
+	background-color: #87bee586;
+	transition: background-color 0.3s ease;
+	color: white;
 }
 
 .course-button:hover {
-    background-color: white;
-    color: #87bee692;
-    animation: shake 1s infinite;
+	background-color: white;
+	color: #87bee692;
+	animation: shake 1s infinite;
 }
 
-@keyframes shake {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-2px); }
-    100% { transform: translateY(0); }
+@
+keyframes shake { 0% {
+	transform: translateY(0);
+}
+
+50
+%
+{
+transform
+:
+translateY(
+-2px
+);
+}
+100
+%
+{
+transform
+:
+translateY(
+0
+);
+}
 }
 
 /* 모달 스타일 */
 .coursemodal {
-    visibility: hidden;
-    opacity: 0;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.95);
-    width: 90%;
-    max-width: 600px;
-    height: auto;
-    max-height: 80vh;
-    overflow-y: auto;
-    background-color: #ffffff;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 25px;
-    z-index: 1000;
-    flex-direction: column;
-    transition: visibility 0s, opacity 0.3s ease, transform 0.3s ease;
+	visibility: hidden;
+	opacity: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.95);
+	width: 90%;
+	max-width: 600px;
+	height: auto;
+	max-height: 80vh;
+	overflow-y: auto;
+	background-color: #ffffff;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+	align-items: center;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	padding: 25px;
+	z-index: 1000;
+	flex-direction: column;
+	transition: visibility 0s, opacity 0.3s ease, transform 0.3s ease;
 }
 
 .coursemodal.show {
-    visibility: visible;
-    opacity: 1;
+	visibility: visible;
+	opacity: 1;
 }
 
 /* 닫기 버튼 스타일 */
 .close-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 24px;
-    cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 24px;
+	cursor: pointer;
 }
 
 /* 고정된 카테고리 바 스타일 */
 .fixed-category-bar {
-    padding: 10px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #ddd;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 20px;
+	padding: 10px;
+	background-color: #ffffff;
+	border-bottom: 1px solid #ddd;
+	display: flex;
+	justify-content: space-around;
+	margin-bottom: 20px;
 }
 
 .fixed-category-bar button {
-    background-color: #87bee5;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: white;
-    font-weight: bold;
+	background-color: #87bee5;
+	border: none;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	color: white;
+	font-weight: bold;
 }
 
 .fixed-category-bar button:hover {
-    background-color: #669e74;
+	background-color: #669e74;
 }
 
 .coursenamebox {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 24px;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 24px;
 }
 
 .first-image {
-    max-width: 100%;
-    height: auto;
-    max-height: 300px;
-    object-fit: cover;
-    margin-bottom: 10px;
+	max-width: 100%;
+	height: auto;
+	max-height: 300px;
+	object-fit: cover;
+	margin-bottom: 10px;
 }
 
 .course-title {
-    margin-top: 10px;
-    font-size: 24px;
-    color: black;
-    text-align: center;
+	margin-top: 10px;
+	font-size: 24px;
+	color: black;
+	text-align: center;
 }
 
 .overview {
-    width: 100%;
-    background-color: white;
-    font-size: 19px;
-    font-weight: 700;
+	width: 100%;
+	background-color: white;
+	font-size: 19px;
+	font-weight: 700;
 }
 
-/* 스크롤이 모달 내에서만 작동하도록 */
-.coursemodal::-webkit-scrollbar {
-    width: 12px;
-}
 
-.coursemodal::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #4facfe, #00f2fe);
-    border-radius: 10px;
-    border: 3px solid #f0f0f0;
-}
-
-.coursemodal::-webkit-scrollbar-track {
-    background: #e0e0e0;
-    border-radius: 10px;
+.coursemodal::-webkit-scrollbar{
+	display: none;
 }
 
 hr {
-    width: 95%;
-    border: 1px solid #333;
+	width: 95%;
+	border: 1px solid #333;
 }
 
 /* 태그 박스 */
 .tagbox {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin: 20px 0;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	margin: 20px 0;
 }
 
 .tag {
-    text-align: center;
-    padding: 10px;
-    background-color: #87bee5;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    width: 120px;
-    height: 120px;
+	text-align: center;
+	padding: 10px;
+	background-color: #87bee5;
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	width: 120px;
+	height: 120px;
 }
-.tag > h3, .tag > p {
-    color: white;
+
+.tag>h3, .tag>p {
+	color: white;
 }
 
 .mapbox {
-    position: relative;
-    width: 100%;
-    height: 450px;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
+	position: relative;
+	width: 100%;
+	height: 450px;
+	margin-bottom: 20px;
+	background-color: #f9f9f9;
+	border: 1px solid #ddd;
 }
 
 /* 카테고리 버튼을 지도 위의 좌측 상단에 고정 */
 #category-buttons {
-    position: absolute;
-    top: 10px; /* 지도 위에서 10px 아래 */
-    left: 10px; /* 지도 좌측에서 10px 오른쪽 */
-    display: flex;
-    gap: 10px; /* 버튼들 간의 간격 */
-    z-index: 100; /* 지도 위에 표시되도록 z-index 설정 */
+	position: absolute;
+	top: 10px; /* 지도 위에서 10px 아래 */
+	left: 10px; /* 지도 좌측에서 10px 오른쪽 */
+	display: flex;
+	gap: 10px; /* 버튼들 간의 간격 */
+	z-index: 100; /* 지도 위에 표시되도록 z-index 설정 */
 }
 
 /* 카테고리 버튼 스타일 */
 .category-btn {
-    padding: 10px;
-    background-color: #4facfe;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
+	padding: 10px;
+	background-color: #4facfe;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	font-size: 14px;
 }
 
 .category-btn:hover {
-    background-color: #00f2fe;
+	background-color: #00f2fe;
 }
 
 .commentbox {
-        margin: 20px 0;
-        padding: 20px;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-    }
-    .comment-title {
-        font-size: 20px;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-    .comment-count {
-        margin-bottom: 20px;
-        font-size: 16px;
-        color: #555;
-    }
-    .comment-thread .comment{
-        margin-bottom: 20px;
-        padding: 10px;
-        background-color: #ffffff;
-        border-radius: 5px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-    .comment-author {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-    }
-    .author-photo {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-    .author-name {
-        font-weight: bold;
-        margin-right: 10px;
-    }
-    .comment-date {
-        font-size: 12px;
-        color: #888;
-    }
-    .comment-content {
-        font-size: 14px;
-        margin-bottom: 10px;
-    }
-    .comment-meta {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-    .like-btn, .dislike-btn, .edit-comment, .delete-comment, .delete-btn{
-        background: none;
-        border: none;
-        color: #007bff;
-        cursor: pointer;
-    }
-    .comment-input {
-        margin-top: 20px;
-    }
-    #new-comment {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        font-size: 14px;
-    }
-    #add-comment {
-        margin-top: 10px;
-        padding: 8px 16px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+	margin: 20px 0;
+	padding: 20px;
+	background-color: #f9f9f9;
+	border-radius: 8px;
+}
+
+.comment-title {
+	font-size: 20px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.comment-count {
+	margin-bottom: 20px;
+	font-size: 16px;
+	color: #555;
+}
+
+.comment-thread .comment {
+	margin-bottom: 20px;
+	padding: 10px;
+	background-color: #ffffff;
+	border-radius: 5px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment-author {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.author-photo {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+.author-name {
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.comment-date {
+	font-size: 12px;
+	color: #888;
+}
+
+.comment-content {
+	font-size: 14px;
+	margin-bottom: 10px;
+}
+
+.comment-meta {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.like-btn, .dislike-btn, .edit-comment, .delete-comment, .delete-btn {
+	background: none;
+	border: none;
+	color: #007bff;
+	cursor: pointer;
+}
+
+.comment-input {
+	margin-top: 20px;
+}
+
+#new-comment {
+	width: 100%;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	font-size: 14px;
+}
+
+#add-comment {
+	margin-top: 10px;
+	padding: 8px 16px;
+	background-color: #007bff;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
 #comment-thread {
-    max-height: 300px; /* 댓글 영역의 최대 높이 설정 (원하는 크기로 조정 가능) */
-    overflow-y: scroll; /* 세로 스크롤 활성화 */
-    padding: 10px;
-    border: 1px solid #ddd;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+	max-height: 300px; /* 댓글 영역의 최대 높이 설정 (원하는 크기로 조정 가능) */
+	overflow-y: scroll; /* 세로 스크롤 활성화 */
+	padding: 10px;
+	border: 1px solid #ddd;
+	background-color: #ffffff;
+	border-radius: 8px;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* 스크롤바 스타일 (선택 사항) */
 #comment-thread::-webkit-scrollbar {
-    width: 8px;
+	width: 8px;
 }
 
 #comment-thread::-webkit-scrollbar-thumb {
-    background-color: #007bff;
-    border-radius: 10px;
+	background-color: #007bff;
+	border-radius: 10px;
 }
 
 .info-window {
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    font-size: 14px;
-    color: #333;
-    max-width: 200px;
-    text-align: center;
+	padding: 10px;
+	background-color: #fff;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	font-size: 14px;
+	color: #333;
+	max-width: 200px;
+	text-align: center;
 }
 
 .page-button {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 5px;
-    background-color: #fff;
-    cursor: pointer;
-    border-radius: 4px;
-    box-shadow: -3px -4px 12px rgba(0, 0, 0, 0.15), 3px 4px 6px rgba(0, 0, 0, 0.1); /* hover 시 그림자 진하게 */
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin: 5px;
+	background-color: #fff;
+	cursor: pointer;
+	border-radius: 4px;
 }
 
-.page-button:hover{
+.page-button:hover {
 	background-color: #1a3e5f;
-    color: #fff;
-    border: 1px solid #1a3e5f;	
+	color: #fff;
+	border: 1px solid #1a3e5f;
 }
 
 .page-button.active {
-    background-color: #1a3e5f;
-    color: #fff;
-    border: 1px solid #1a3e5f;
+	background-color: #87bee584;
+	color: #fff;
+	border: 1px solid #6495ED;
+	
 }
 
 #pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 /* 날씨 정보 패널 스타일 */
 #weather-info-panel {
-    position: absolute;
-    right: 10px; /* 지도 우측에 고정 */
-    top: 10px; /* 지도 상단에서 10px 아래 */
-    width: 150px; /* 패널 너비 */
-    background-color: rgba(135, 206, 235, 0.8); /* 반투명 하늘색 배경 */
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-    font-family: Arial, sans-serif;
-    color: #333;
-    z-index: 1000; /* 지도 위에 표시되도록 */
-    overflow: hidden; /* 내용이 넘치지 않도록 */
+	position: absolute;
+	right: 10px; /* 지도 우측에 고정 */
+	top: 10px; /* 지도 상단에서 10px 아래 */
+	width: 150px; /* 패널 너비 */
+	background-color: rgba(135, 206, 235, 0.8); /* 반투명 하늘색 배경 */
+	padding: 10px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+	font-family: Arial, sans-serif;
+	color: #333;
+	z-index: 1000; /* 지도 위에 표시되도록 */
+	overflow: hidden; /* 내용이 넘치지 않도록 */
 }
 
 #weather-info-panel h3 {
-    font-size: 18px;
-    margin: 0;
-    color: #007bff; /* 파란색 포인트 */
+	font-size: 18px;
+	margin: 0;
+	color: #007bff; /* 파란색 포인트 */
 }
 
 #weather-content p {
-    margin: 0;
-    padding: 5px 0;
-    font-size: 14px;
-    color: #666;
+	margin: 0;
+	padding: 5px 0;
+	font-size: 14px;
+	color: #666;
 }
 
 /* 날씨 아이콘 스타일 */
 #weather-content img {
-    width: 30px;
-    height: 30px;
+	width: 30px;
+	height: 30px;
 }
 
 #weather-content .temperature {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+	font-size: 24px;
+	font-weight: bold;
+	color: #333;
 }
 
 #weather-content .description {
-    font-size: 14px;
-    font-style: italic;
-    color: #555;
+	font-size: 14px;
+	font-style: italic;
+	color: #555;
 }
 
 #weather-content .extra-info {
-    margin-top: 10px;
-    font-size: 13px;
+	margin-top: 10px;
+	font-size: 13px;
 }

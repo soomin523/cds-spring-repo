@@ -49,6 +49,19 @@
 	content: "• ";
 }
 
+
+.exbox{
+	border: 2px solid #87bee584;
+	padding: 20px;
+	width: max-content;
+	margin : 20px;
+	border-radius: 15px;
+}
+
+.exbox > h2 {
+	margin: 0;
+}
+
 /* 검색 박스 스타일 */
 .accoheaderbox {
 	background-color: rgba(255, 255, 255, 0.7);
@@ -107,6 +120,10 @@
 	justify-content: space-between;
 }
 
+.accmodal::-webkit-scrollbar{
+	display: none;
+}
+
 .accodesbox > div {
 	display: flex;
 	flex: 0 0 11%;
@@ -116,11 +133,12 @@
 	border-radius: 15%;
 	flex-direction: column;
 	cursor: pointer;
+	padding:4px;
 }
 
-.accodesbox > div:hover{
-	transform: translateY(-2px); /* 살짝 위로 올라가는 효과 */
-	border: 2px solid #6495ED;	
+.accodesbox > div:hover,
+.accodesbox > div.active {
+    border: 2px solid #3b5998;
 }
 
 .accodesbox > div > div {

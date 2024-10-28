@@ -70,10 +70,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 <c:forEach var="item" items="${ festivalList }">
                 <div class="festivalitem">
                     <div class="itemImg" style="background-image: url(${ item.f_firstimage });">
-                    	<div class="like" data-contentid="${ item.f_contentid }">
-                    		<i class="fa-regular fa-heart emptyHeart"></i>
-                    		<i class="fa-solid fa-heart fullheart"></i>
-                    	</div>
                         <div class="hiddenItem">
                             <div>${ item.f_areaname } ${ item.f_sigunguname }</div>
                             <p>${ item.f_eventstartdate } ~ ${ item.f_eventenddate }</p>

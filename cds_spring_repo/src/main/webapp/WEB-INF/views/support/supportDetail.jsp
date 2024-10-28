@@ -56,7 +56,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	                        <i class="fa-solid fa-angle-up"></i>
 	                        <i class="fa-solid fa-angle-down"></i>
 	                    </div>
-	                    <div class="contentText">
+	                    <div class="contentText" id="contentText-${ item.s_idx }">
 	                    	<p>${ item.s_content }</p>
 	                    	<div>
 			<fmt:formatDate value="${ item.update_date }" pattern="yyyy-MM-dd HH:mm:ss" />

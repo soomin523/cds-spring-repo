@@ -130,16 +130,20 @@ header button img {
 	color: #fff;
 	align-self: center;
 }
+#mainSection>.mainTop>.imgSlider>.imgButton>button{
+	margin: 0px 10px;
+}
 #mainSection>.mainTop>.imgSlider>.imgButton>button>i{ /* 슬라이드 버튼 */
 	color: #fff;
     font-size: 25px;
-    margin-top: 5px;
+    margin-top: 10px;
+    padding: 3px;
 }
 #mainSection>.mainCategory{ /* 여행자 이용 서비스 */
     padding: 0px 4%;
     background: url("../img/mainMidbackimg.png") no-repeat center center;
     background-size: cover;
-    margin: 40px 0px;
+    margin: 60px 0px 40px;
 }
 #mainSection>.mainCategory>.cateIntro>div{
 	display: inline-block;
@@ -265,7 +269,7 @@ header button img {
 }
 #mainSection>.mainCourse{
 	width: 100%;
-	margin: 2% 4%;
+	margin: 4%;
 }
 #mainSection>.mainCourse>.courseIntro{
 	display: flex;
@@ -278,6 +282,7 @@ header button img {
 #mainSection>.mainCourse>.courseIntro>h2,
 #mainSection>.mainCourse>.courseIntro>div{
 	color: #87bee5;
+	margin: 0px;
 }
 #mainSection>.mainCourse>.courseIntro>span{
 	color: #87bee5;
@@ -313,19 +318,25 @@ header button img {
 #mainSection>.mainSupport{
 	display: flex;
 	justify-content: space-between;
-	padding: 0px 4%;
+	padding: 4%;
 	width: 100%;
 }
 #mainSection>.mainSupport>img{
 	width: 40%;
 }
 #mainSection>.mainSupport>.supportBox{
-	width: 55%;
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 #mainSection>.mainSupport>.supportBox>.supportIntro{
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+#mainSection>.mainSupport>.supportBox>.supportIntro>h2{
+	margin: 0px;
 }
 #mainSection>.mainSupport>.supportBox>.supportIntro>div>button{
 	border: solid 1px #969696;

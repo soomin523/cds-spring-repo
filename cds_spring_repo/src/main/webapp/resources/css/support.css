@@ -41,6 +41,14 @@
     border-radius: 20px;
     cursor: pointer;
 }
+#supportMain>.supMainMid>button:hover{
+    animation: beat .8s infinite;
+}
+@keyframes beat{
+    0% {transform: none;}
+    50% {transform: scale(1.02);}
+    100% {transform: none;}
+}
 #supportMain>.supMainMid>button>p{
     font-size: 18px;
     font-weight: 600;
@@ -75,6 +83,10 @@
     border: solid 1px #6e6e6e;
     padding: 2px 10px;
     border-radius: 30px;
+	transition: transform 0.3s ease;
+}
+#supportMain>.supMainBtm>div>button:hover{
+    transform: translateY(-2px); /* 마우스 오버 시 위로 이동 */
 }
 #supportMain>.supMainBtm>div>.items{ /* 리스트 출력될 곳 */
     width: 100%;
@@ -112,9 +124,7 @@
 }
 #supportDetail>aside>h2{
 	padding-bottom: 30px;
-    margin-left: 5%;
-}
-#supportDetail>aside>h2:hover{
+    margin: 0px 0px 0px 5%;
     cursor: pointer;
 }
 #supportDetail>aside>h2+hr{
@@ -226,12 +236,12 @@
     border-radius: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-#supportDetail>section>.newContentPage>h2
+#supportDetail>section>.newContentPage>h2,
 #supportDetail>section>.updateContentPage>h2{
 	width: 100%;
 	text-align: center;
 	color: #333;
-	margin-bottom: 30px;
+	margin: 0px 0px 30px;
 }
 #supportDetail>section>.newContentPage input[type="text"],
 #supportDetail>section>.newContentPage textarea,
@@ -260,7 +270,6 @@
 #supportDetail>section>.newContentPage input[type="reset"], 
 #supportDetail>section>.newContentPage input[type="button"],
 #supportDetail>section>.updateContentPage input[type="submit"],
-#supportDetail>section>.updateContentPage input[type="reset"], 
 #supportDetail>section>.updateContentPage input[type="button"] {
 	background-color: #87bee5;
 	color: white;

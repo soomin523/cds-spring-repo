@@ -13,35 +13,52 @@ $(function () {
 	});
 	
 	const imgList = $(".imgSlider > .imgContainer > .imgList");
-    const scrollStep = 210;
+    const scrollStep = 210; //움직이는 width 값
+    let autoScroll; //타이머
     
-    // 왼쪽으로 스크롤 (맨 뒤의 요소가 첫 번째로 감)
+    //왼쪽으로 스크롤 (맨 뒤의 요소가 첫 번째로 감)
 	$(".imgSlider > .imgButton > .prevBtn").click(function() {
 	    imgList.css("transition", "transform 0.5s ease");
 	    imgList.css("transform", `translateX(${scrollStep}px)`);
 	    
 	    setTimeout(function () {
 	        imgList.css("transition", "none");
-	        imgList.prepend(imgList.children().last()); // 마지막 요소를 첫 번째로 이동
-	        imgList.css("transform", "translateX(0)"); // 변환 초기화
+	        imgList.prepend(imgList.children().last()); //마지막 요소를 첫 번째로 이동
+	        imgList.css("transform", "translateX(0)"); //변환 초기화
 	        
 	        imgItemCss();
 	    }, 500);
+	    
+	    //타이머
+	    clearInterval(autoScroll); //기존 타이머 클리어
+    	startAutoScroll(); //새로 시작
 	});
 	
-	// 오른쪽으로 스크롤 (첫 번째 요소가 맨 뒤로 감)
+	//오른쪽으로 스크롤 (첫 번째 요소가 맨 뒤로 감)
 	$(".imgSlider > .imgButton > .nextBtn").click(function() {
 	    imgList.css("transition", "transform 0.5s ease");
 	    imgList.css("transform", `translateX(-${scrollStep}px)`);
 	    
 	    setTimeout(function () {
 	        imgList.css("transition", "none");
-	        imgList.append(imgList.children().first()); // 첫 번째 요소를 마지막으로 이동
-		    imgList.css("transform", "translateX(0)"); // 변환 초기화	 
+	        imgList.append(imgList.children().first()); //첫 번째 요소를 마지막으로 이동
+		    imgList.css("transform", "translateX(0)"); //변환 초기화	 
 		           
 		    imgItemCss();
 	    }, 500);
+	    
+	    //타이머
+	    clearInterval(autoScroll); //기존 타이머 클리어
+    	startAutoScroll(); //새로 시작
     });
+    
+    function startAutoScroll() {
+	    autoScroll = setInterval(function() {
+	        $(".imgSlider > .imgButton > .nextBtn").click();
+	    }, 3500); // 3.5초
+	}
+	startAutoScroll();  
+    
     
     //관광지 리스트 글씨, 첫번째 요소 css
     function imgItemCss(){
@@ -68,10 +85,13 @@ $(function () {
 
 	$(".mainCategory > .cateSelect > .festivalImg").hide();
     $(".mainCategory > .cateSelect > .productImg").hide();
+    $(".mainCategory > .cateSelect > .selectBox > button:first-child").css("background-color", "#87bee585");
     
   	//버튼 클릭에 따른 해당 카테고리 아이템 보여주기
     $(".mainCategory > .cateSelect > .selectBox > button").click(function(){
     	let select = $(this).val();
+    	$(".mainCategory > .cateSelect > .selectBox > button").css("background-color", "#fff0");
+    	$(this).css("background-color", "#87bee585");
     	
     	$(".mainCategory > .cateSelect > .destinationImg, .mainCategory > .cateSelect > .festivalImg, .mainCategory > .cateSelect > .productImg").hide();
     	
@@ -90,13 +110,16 @@ $(function () {
     
 	//아이템 클릭 시 해당 페이지로 이동
     $(".mainCategory > .cateSelect > .destinationImg > div").click(function(){
-    	location.href=`destination/destination.do`;
+    	let contentid = $(this).data("contentid");
+    	location.href=`destination/destination.do?contentid=${contentid}`;
     });
     $(".mainCategory > .cateSelect > .festivalImg > div").click(function(){
-    	location.href=`festival/getFestivalList.do`;
+    	let contentid = $(this).data("contentid");
+    	location.href=`festival/getFestivalList.do?contentid=${contentid}`;
     });
     $(".mainCategory > .cateSelect > .productImg > div").click(function(){
-    	location.href=`products/products.do`;
+    	let contentid = $(this).data("contentid");
+    	location.href=`products/products.do?contentid=${contentid}`;
     });
     
     
@@ -147,7 +170,8 @@ $(function () {
 	
  	//코스 화면으로 이동
 	$(".mainCourse > .courseImg > div").click(function(){
-    	location.href=`tourCourse/Course.do`;
+		let contentid = $(this).data("contentid");
+    	location.href=`tourCourse/Course.do?contentId=${contentid}`;
     });
     
     
@@ -162,8 +186,9 @@ $(function () {
   	//공지사항 리스트 클릭 시 각 카테고리 화면 이동
     $(".mainSupport > .supportBox > .supportList > .supportItem").click(function(){
     	let select = $(this).data('category');
+    	let s_idx = $(this).data('s_idx');
     
-    	location.href=`support/supportDetail.do?select=${select}`;
+    	location.href=`support/supportDetail.do?select=${select}&s_idx=${s_idx}`;
     });
 	
 });

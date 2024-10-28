@@ -31,7 +31,7 @@ $(function(){
     function searchTitle(searchText){
     	$.ajax({ 
             type:"get",
-            url:"http://localhost:9090/cds/festival/getFestivalSearchTitle.do",
+            url:"/cds/festival/getFestivalSearchTitle.do",
             data:{ searchText: searchText },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -69,7 +69,7 @@ $(function(){
         
         $.ajax({ 
             type:"get",
-            url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
+            url:"/cds/festival/getFestivalSelectList.do",
             data:{ areaCode: selectarea, selectDate: selectDate },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -108,7 +108,7 @@ $(function(){
 	        if ($(this).hasClass('ing')) {
 	            $.ajax({ 
 	                type:"get",
-	                url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
+	                url:"/cds/festival/getFestivalSelectList.do",
 	                data:{ areaCode: selectarea, selectDate: selectDate },
 	                headers: {"Accept": "application/json"},
 	                success:function(festivalList){
@@ -122,7 +122,7 @@ $(function(){
 	        } else if ($(this).hasClass('soon')) {
 	            $.ajax({ 
 	                type:"get",
-	                url:"http://localhost:9090/cds/festival/getFestivalSoonList.do",
+	                url:"/cds/festival/getFestivalSoonList.do",
 	                data:{ areaCode: selectarea, selectDate: selectDate },
 	                headers: {"Accept": "application/json"},
 	                success:function(festivalList){
@@ -139,7 +139,7 @@ $(function(){
         
         	$.ajax({ 
                 type:"get",
-                url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
+                url:"/cds/festival/getFestivalSelectList.do",
                 data:{ areaCode: selectarea, selectDate: selectDate },
                 headers: {"Accept": "application/json"},
                 success:function(festivalList){
@@ -165,7 +165,7 @@ $(function(){
       
     	$.ajax({ 
             type:"get",
-            url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
+            url:"/cds/festival/getFestivalSelectList.do",
             data:{ areaCode: selectarea, selectDate: selectDate },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -179,7 +179,7 @@ $(function(){
         //상세지역 선택창 만들기
         $.ajax({ 
             type:"get",
-            url:"http://localhost:9090/cds/festival/getAreaList.do",
+            url:"/cds/festival/getAreaList.do",
             data:{ areaCode: selectarea },
             headers: {"Accept": "application/json"},
             success:function(AreaList){
@@ -216,7 +216,7 @@ $(function(){
     	
     	$.ajax({ 
             type:"get",
-            url:"http://localhost:9090/cds/festival/getFestivaldetailSelectList.do",
+            url:"/cds/festival/getFestivaldetailSelectList.do",
             data:{ selectarea: selectarea, selectsigungu: selectsigungu },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -241,7 +241,7 @@ $(function(){
 
         $.ajax({ 
             type:"get",
-            url:"http://localhost:9090/cds/festival/getFestivalSelectList.do",
+            url:"/cds/festival/getFestivalSelectList.do",
             data:{ areaCode: selectarea, selectDate: selectDate },
             headers: {"Accept": "application/json"},
             success:function(festivalList){
@@ -268,12 +268,6 @@ $(function(){
     };
     festivalListHover();
     
-    $(".fullheart").hide();
-    
-    //축제 좋아요 효과
-	$(".festivalitem > .itemImg > .like").click(function(){
-		$(this).children("i").toggle();
-	});
 
 	//선택에 따른 축제 리스트 html에 표시하기
     function loadingFestivalList(festivalList){
@@ -293,10 +287,6 @@ $(function(){
 	            htmlContent += `
 				    <div class='festivalitem'>
 				        <div class='itemImg' style='background-image: url(${item.f_firstimage});'>
-				        	<div class="like" data-contentid="${ item.f_contentid }">
-	                    		<i class="fa-regular fa-heart emptyHeart"></i>
-	                    		<i class="fa-solid fa-heart fullheart"></i>
-	                    	</div>
 				            <div class='hiddenItem'>
 				                <div>${item.f_areaname} ${item.f_sigunguname}</div>
 				                <p>${item.f_eventstartdate} ~ ${item.f_eventenddate}</p>
@@ -318,8 +308,8 @@ $(function(){
         	
         	$.ajax({ 
 	            type:"get",
-	            url:"http://localhost:9090/cds/festival/getFestivalRandomList.do",
-	            data:{ 'contentid[]': contentid },
+	            url:"/cds/festival/getFestivalRandomList.do",
+	            data:{ 'contentid[]': contentid.length > 0 ? contentid : [null] },
 	            headers: {"Accept": "application/json"},
 	            success:function(recommendList){
 	                recommendFestivalList(recommendList);
@@ -338,13 +328,6 @@ $(function(){
         });
         
         festivalListHover();
-        
-        $(".fullheart").hide();
-    
-	    //축제 좋아요 효과
-		$(".festivalitem > .itemImg > .like").click(function(){
-			$(this).children("i").toggle();
-		});
 		
     };
     
@@ -494,7 +477,7 @@ $(function(){
     	
     	$.ajax({ 
             type:"get",
-            url:"http://localhost:9090/cds/festival/getFestival.do",
+            url:"/cds/festival/getFestival.do",
             data:{ contentid: contentid },
             headers: {"Accept": "application/json"},
             success:function(item){
@@ -563,7 +546,10 @@ $(function(){
 					var mapContainer = document.getElementById('map'); // 지도를 표시할 div 
 					var mapOption = {
 						center: new kakao.maps.LatLng(item.f_mapy, item.f_mapx), // 지도의 중심좌표
-						level: 6 // 지도의 확대 레벨
+						level: 6, // 지도의 확대 레벨
+						scrollwheel: false, // 스크롤 줌 비활성화
+				        disableDoubleClickZoom: true, // 더블 클릭 줌 비활성화
+				        draggable: false //드래그 비활성화
 					};
 			
 					// 지도 생성
@@ -630,7 +616,7 @@ $(function(){
     function MoreFestivalData() {
 	    $.ajax({ 
 	        type: "GET",
-	        url: "http://localhost:9090/cds/festival/getMoreFestivalData.do",
+	        url: "/cds/festival/getMoreFestivalData.do",
 	        data: { page: page },
 	        headers: {"Accept": "application/json"},
 	        success: function (data) {
@@ -659,10 +645,6 @@ $(function(){
 			htmlContent += `
 				<div class="festivalitem">
 	                    <div class="itemImg" style="background-image: url(${ item.f_firstimage });">
-	                    	<div class="like" data-contentid="${ item.f_contentid }">
-	                    		<i class="fa-regular fa-heart emptyHeart"></i>
-	                    		<i class="fa-solid fa-heart fullheart"></i>
-	                    	</div>
 	                        <div class="hiddenItem">
 	                            <div>${ item.f_areaname } ${ item.f_sigunguname }</div>
 	                            <p>${ item.f_eventstartdate } ~ ${ item.f_eventenddate }</p>
@@ -679,17 +661,30 @@ $(function(){
 		
 		festivalListHover();
 		
-		$(".fullheart").hide();
     
-	    //축제 좋아요 효과
-		$(".festivalitem > .itemImg > .like").click(function(){
-			$(this).children("i").toggle();
-		});
-		
 		$(".festivalitem > .itemImg > .hiddenItem > button").click(function(){
         	const contentid = $(this).val();
        		showModal(contentid);
 		});
 	}
+	
+	
+	//다른 페이지에서 오는 요청에 따라 모달 바로 띄우기
+	let contentid = getParameterByName('contentid');
+	
+	//주소창에서 name이 들어간 뒤 부분을 추출해냄
+	function getParameterByName(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    
+    if(contentid != null){
+    	showModal(contentid);
+    }
             
 });

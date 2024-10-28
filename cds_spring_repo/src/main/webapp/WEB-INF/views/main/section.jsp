@@ -127,32 +127,35 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 				<div class="cateIntro">
 					<div>여행자 이용 서비스</div>
 					<h1>대한민국 추천 여행</h1>
-					<p>'2024 여행지 추천', '축제/행사', '전시/공연'<br>
+					<p>'관광지 추천', '축제/행사', '전시/공연'<br>
 					즐거움을 위한 다양한 여행지를 소개합니다 :)</p>
 				</div>
 				<div class="cateSelect">
 					<div class="selectBox">
-						<button value="destination">여행지추천</button>
+						<button value="destination">관광지추천</button>
 						<button value="festival">축제/행사</button>
 						<button value="product">전시/공연</button>
 					</div>
 					<div class="selectimgBox destinationImg">
 <c:forEach var="i" begin="0" end="2" varStatus="status">
-						<div style="background-image: url('${ destinationList[i].d_firstimage }');">
+						<div style="background-image: url('${ destinationList[i].d_firstimage }');" 
+							data-contentid=${ destinationList[i].d_contentid }>
 							<p>${ destinationList[i].d_title }</p>
 						</div>
 </c:forEach>
 					</div>
 					<div class="selectimgBox festivalImg">
 <c:forEach var="i" begin="0" end="2" varStatus="status">
-						<div style="background-image: url('${ festivalList[i].f_firstimage }');">
+						<div style="background-image: url('${ festivalList[i].f_firstimage }');"
+							data-contentid=${ festivalList[i].f_contentid }>
 							<p>${ festivalList[i].f_title }</p>
 						</div>
 </c:forEach>
 					</div>
 					<div class="selectimgBox productImg">
 <c:forEach var="i" begin="0" end="2" varStatus="status">
-						<div style="background-image: url('${ productList[i].firstimage }');">
+						<div style="background-image: url('${ productList[i].firstimage }');"
+							data-contentid=${ productList[i].contentid }>
 							<p>${ productList[i].title }</p>
 						</div>
 </c:forEach>
@@ -188,7 +191,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 				</div>
 				<div class="courseImg">
 <c:forEach var="i" begin="0" end="3" varStatus="status">
-					<div style="background-image: url('${ courseList[i].first_image }');">
+					<div style="background-image: url('${ courseList[i].first_image }');"
+						data-contentid=${ courseList[i].content_id }>
 						<p>${ courseList[i].title }</p>
 					</div>
 </c:forEach>
@@ -203,12 +207,13 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					</div>
 					<div class="supportList">
 <c:forEach var="i" begin="0" end="${ supportList.size() > 6 ? 6 : supportList.size()-1 }" varStatus="status">
-						<div class="supportItem" data-category="${ supportList[i].s_category }">
+						<div class="supportItem" data-category="${ supportList[i].s_category }" 
+							data-s_idx="${ supportList[i].s_idx }">
 							<div>${ supportList[i].s_category }</div>
 							<span>|</span>
 							<div>${ supportList[i].s_title }</div>
 						</div>
-	<c:if test="${ status.index < 5 }">
+	<c:if test="${ status.index < 6 }">
 						<hr>
 	</c:if>
 </c:forEach>

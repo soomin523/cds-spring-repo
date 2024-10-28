@@ -64,7 +64,16 @@ $(function() {
 function openModal() {
     console.log("openModal called");
         document.getElementById('log-loginModal').style.display = 'block'; 
-        resetModal(); 
+        resetModal();
+        
+	    // 폼 제출 방지 (엔터 키로 인한 모달 닫힘 현상 방지)
+	    document.querySelector('form').addEventListener('submit', function(event) {
+	        event.preventDefault(); // 폼 제출을 막고 모달이 닫히는 것을 방지
+	    });
+	    
+	    // 아이디와 비밀번호 입력 칸에 엔터 키 감지 이벤트 추가
+	    document.getElementById('log-emailInput').addEventListener('keydown', submitOnEnter);
+	    document.getElementById('log-passwordInput').addEventListener('keydown', submitOnEnter);
     }
 
     // 모달 닫기 함수
@@ -102,11 +111,6 @@ function openModal() {
         document.getElementById('log-passwordInput').value = ''; 
     }
 
-    // 폼 제출 방지 (엔터 키로 인한 모달 닫힘 현상 방지)
-    document.querySelector('form').addEventListener('submit', function(event) {
-        event.preventDefault(); // 폼 제출을 막고 모달이 닫히는 것을 방지
-    });
-
     // 엔터 키 눌렀을 때 로그인 버튼 클릭
     function submitOnEnter(event) {
         if (event.keyCode === 13) { // 엔터 키 코드 13
@@ -114,9 +118,3 @@ function openModal() {
             document.getElementById('loginButton').click(); // 로그인 버튼 클릭
         }
     }
-
-    // 아이디와 비밀번호 입력 칸에 엔터 키 감지 이벤트 추가
-    document.getElementById('log-emailInput').addEventListener('keydown', submitOnEnter);
-    document.getElementById('log-passwordInput').addEventListener('keydown', submitOnEnter);
-    
-

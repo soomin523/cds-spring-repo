@@ -22,11 +22,39 @@ $(function () {
 		location.href="http://pf.kakao.com/_LcpIn";
 	});
 	
-	//support에서 각 아이템 누르면 supportDetail로 넘어가기
+	//support에서 각 아이템 누르면 supportDetail로 넘어가고 해당 게시글 열린채로 페이지 이동하기
 	$(".select > .items > .item").click(function(){
 		let select = $(this).data('category');
-		location.href=`supportDetail.do?select=${select}`;
+		let s_idx = $(this).data('s_idx');
+		console.log(s_idx);
+		location.href=`supportDetail.do?select=${select}&s_idx=${s_idx}`;
 	});
+	
+	//다른 페이지에서 오는 요청에 따라 토글하기
+	let s_idx = getParameterByName('s_idx');
+	
+	//주소창에서 name이 들어간 뒤 부분을 추출해냄
+	function getParameterByName(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    
+    $(".contentText").hide();
+    $(".fa-angle-up").hide();
+    
+    //주소창으로 들어온 특정 게시글 열기
+    if (s_idx) {
+        const contentText = $("#contentText-" + s_idx);
+        
+        contentText.show(); // 해당 게시글 내용 열기
+        contentText.prev(".contentTitle").find(".fa-angle-up").show();
+        contentText.prev(".contentTitle").find(".fa-angle-down").hide();
+    }
     
     //supportDetail에서 support 메인페이지 이동
     $("aside > h2").click(function(){
@@ -38,8 +66,6 @@ $(function () {
         $(this).next().toggle();
         $(this).find("i").toggle();
     });
-    $(".contentText").hide();
-    $(".fa-angle-up").hide();
     
  
     //모달창 숨김

@@ -1,6 +1,11 @@
+//슬라이더 변수 선언
+let currentSlide = 0;
+
 $(function () {
 	
 	closeModal();
+	
+	let images = [];
 	
 	//게시물의 세부 정보를 모달 창에 표시하는 역할
 	$(".post-item").click(function(){
@@ -25,6 +30,8 @@ $(function () {
 			    $("#commu-modalTitle").text(data.title); // 제목
 			    $("#commu-modalDescription").text(data.content); // 내용
 			    
+			    
+			  
 			    let htmlI = ''; //이미지 목록
 			    data.imagePaths.forEach(function(item){
 			    	htmlI += `
@@ -33,14 +40,25 @@ $(function () {
 			    });
 			    $(".commu-imageList").html(htmlI);
 			    
+			    
+			    images = data.imagePaths;
+			    if(images.length == 1){
+			    	$(".prev-slide").css("opacity", "0");
+			    }else{
+			    	$(".prev-slide").css("opacity", "1");
+			    	$(".next-slide").css("opacity", "1");
+			    }
+			    
 			    let htmls = ''; //댓글목록
 				data.comments.forEach(function(comment) {
 				    htmls += `<div class="commu-modal-comment">
 			            <p class="comment-author"><strong>${comment.memberId}</strong></p>
 			            <p class="comment-content">${comment.content}</p>
-			            <p class="comment-date">${formattedDate.slice(2)}</p>
-			        </div>
-	                	<button class="deleteBtn" value="${comment.comment_id}">삭제</button>`;
+			            <div>
+				            <p class="comment-date">${formattedDate.slice(2)}</p>
+				       	    <button class="deleteBtn" value="${comment.comment_id}">❌</button>
+			       	    </div>       
+			        </div>`;
 				});
 				
 				$("#commu-modalComments").html(htmls);
@@ -79,36 +97,6 @@ $(function () {
 			        });
 				});
 				
-				//모달 내 이미지 슬라이더 추가
-				let currentSlide = 0;
-				let images = data.imagePaths;
-				
-				// 슬라이더 위치 업데이트 함수
-				function updateSlidePosition() {
-				    const imageList = $(".commu-imageList");
-				    imageList.css("transform", `translateX(-${currentSlide * 100}%)`);
-				}
-				
-				// 이전 슬라이드로 이동
-				function prevSlide() {
-				    if (currentSlide > 0) {
-				        currentSlide--;
-				    } else {
-				        currentSlide = images.length - 1; // 처음 슬라이드에서 마지막으로 이동
-				    }
-				    updateSlidePosition();
-				}
-				
-				// 다음 슬라이드로 이동
-				function nextSlide() {
-				    if (currentSlide < images.length - 1) {
-				        currentSlide++;
-				    } else {
-				        currentSlide = 0; // 마지막 슬라이드에서 처음으로 이동
-				    }
-				    updateSlidePosition();
-				}
-				
 	        },
 	        error:function(){
 	            console.log("커뮤니티 세부목록을 불러오는데 실패했습니다.");
@@ -119,9 +107,38 @@ $(function () {
 	    $("#commu-modal").show();
 	});
 	
+	//모달 내 이미지 슬라이더 추가
+	// 슬라이더 위치 업데이트 함수
+	function updateSlidePosition() {
+	    const imageList = $(".commu-imageList");
+	    imageList.css("transform", `translateX(-${currentSlide * 100}%)`);
+	};
+	
+	// 이전 슬라이드로 이동
+	$(".prev-slide").click(function(){
+	    if (currentSlide > 0) {
+	        currentSlide--;
+	    } else {
+	        currentSlide = images.length - 1; // 처음 슬라이드에서 마지막으로 이동
+	    }
+	    updateSlidePosition();
+	});
+	
+	// 다음 슬라이드로 이동
+	$(".next-slide").click(function(){
+	    if (currentSlide < images.length - 1) {
+	        currentSlide++;
+	    } else {
+	        currentSlide = 0; // 마지막 슬라이드에서 처음으로 이동
+	    }
+	    updateSlidePosition();
+	});
+	
 	//모달 닫기 기능
 	function closeModal() {
 		$("#commu-modal").hide();
+		currentSlide = 0; // 슬라이드 인덱스 초기화
+    	updateSlidePosition(); // 슬라이드 위치 초기화
 	}
 	
 	$(".commu-modal-close").click(function(){
@@ -172,8 +189,9 @@ $(function () {
 				            <p class="comment-author"><strong>${data.memberId}</strong></p>
 				            <p class="comment-content">${data.content}</p>
 				            <p class="comment-date">${formattedDate.slice(2)}</p>
-				        </div>
-		                <button class="deleteBtn" value="${data.comment_id}">삭제</button>`;
+				            <button class="deleteBtn" value="${data.comment_id}">❌</button>
+
+				        </div>`;
 	                $("#commu-modalComments").append(htmls);
 	
 	                // 텍스트박스 초기화

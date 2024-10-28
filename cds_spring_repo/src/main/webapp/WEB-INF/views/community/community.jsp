@@ -123,11 +123,11 @@
                 <span class="commu-modal-close">&times;</span>
             </div>
             <div class="commu-modal-slider">
-                <button class="prev-slide" onclick="prevSlide()">&#10094;</button>
+                <button class="prev-slide">&#10094;</button>
                 <div class="commu-modalImage">
                 	<div class="commu-imageList"></div>
                 </div>
-                <button class="next-slide" onclick="nextSlide()">&#10095;</button>
+                <button class="next-slide">&#10095;</button>
             </div>
     
             <!-- 좋아요 수, 댓글 수, 작성일을 사진 아래로 이동 -->

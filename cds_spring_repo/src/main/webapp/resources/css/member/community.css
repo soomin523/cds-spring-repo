@@ -547,13 +547,33 @@ font-size: 12px; /* 글자 크기 줄임 */
 }
 
 /* 댓글 스타일 수정 */
-.commu-modal-comments div {
+.commu-modal-comments .commu-modal-comment {
     text-align: left; /* 댓글을 왼쪽으로 정렬 */
     display: flex;
-    justify-content: space-between; /* 댓글과 날짜 간격 조절 */
     margin-bottom: 10px;
-    align-items: center; /* 수직 중앙 정렬 */
     width:100%;
+}
+
+.commu-modal-comment .comment-content{
+	width: 59%;
+	white-space: normal; /* 자동 줄 바꿈 */
+    word-break: break-word; /* 긴 단어가 줄 바꿈에 맞게 잘림 */
+	margin: 0px 5px;
+}
+
+.comment-date, .comment-author, .deleteBtn{
+	margin-top: 2px;
+}
+
+.commu-modal-comment .deleteBtn{
+	height: max-content;
+}
+
+.commu-modal-comment div{
+	display: flex;
+}
+.commu-modal-comment div button{
+	margin-left: 5px;
 }
 
 .comment-date {

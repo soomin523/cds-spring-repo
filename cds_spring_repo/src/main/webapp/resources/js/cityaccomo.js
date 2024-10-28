@@ -55,6 +55,17 @@ $(document).ready(function () {
             alert('데이터를 가져오는데 실패했습니다.');
         }
     });
+    
+    document.querySelectorAll('.atype-btn').forEach((button) => {
+    button.addEventListener('click', function () {
+        // 모든 버튼에서 active 클래스 제거
+        document.querySelectorAll('.atype-btn').forEach((btn) => btn.classList.remove('active'));
+
+        // 클릭한 버튼에 active 클래스 추가
+        this.classList.add('active');
+    });
+});
+    
 
     // 지역 버튼 클릭 시 지역 숙소 데이터 로드
     $('.region-btn').on('click', function () {

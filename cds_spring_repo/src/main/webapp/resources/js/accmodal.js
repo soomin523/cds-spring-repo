@@ -121,7 +121,7 @@ $(document).ready(function () {
     // accobox 클릭 시 모달 열기
     $(document).on('click', '.accobox', function () {
         let contentId = $(this).data('contentid');
-
+		document.body.style.overflow = 'hidden'; // body의 스크롤 비활성화
         // Ajax 요청을 통해 서버에서 숙소 정보를 가져옴
         $.ajax({
             url: '/cds/accommodations/getAccommodationDetails.do',
@@ -134,6 +134,17 @@ $(document).ready(function () {
             }
         });
     });
+    
+    //
+    document.querySelectorAll('.accodesbox > div').forEach((div) => {
+    div.addEventListener('click', function () {
+        // 모든 div에서 active 클래스 제거
+        document.querySelectorAll('.accodesbox > div').forEach((d) => d.classList.remove('active'));
+
+        // 클릭한 div에 active 클래스 추가
+        this.classList.add('active');
+    });
+});
 
     // 확대 이미지 표시 함수
     window.showLargeImage = function (src) {
@@ -143,6 +154,7 @@ $(document).ready(function () {
 
     // 모달 닫기
     $('.x-mark').on('click', function () {
+    document.body.style.overflow = ''; // body의 스크롤 활성화
         modal.css({
             'opacity': '0',
             'transform': 'translate(-50%, -50%) scale(0.95)'
@@ -162,6 +174,7 @@ $(document).ready(function () {
     });
     
     $(document).on('keydown', function (e) {
+    document.body.style.overflow = ''; // body의 스크롤 활성화
         if (e.key === "Escape") {
             modal.css({
             'opacity': '0',

@@ -289,12 +289,15 @@ $(document).ready(function () {
 
     // 초기 페이지 로드에서 contentId가 있을 경우 코스 정보 로드
     if (contentId) {
+    document.body.style.overflow = 'hidden'; // body의 스크롤 비활성화
         loadCourseDetails(contentId);
         loadComments(contentId, 1);
     }
 
     // course-item 클릭 시 contentid를 서버로 보내 상세 정보 가져오기
+    // 모달열기
     $(document).on('click', '.course-item', function () {
+    document.body.style.overflow = 'hidden'; // body의 스크롤 비활성화
         var contentId = $(this).data('contentid');
         loadCourseDetails(contentId);
     });
@@ -341,16 +344,19 @@ $(document).ready(function () {
 
     // 모달 닫기
     $(document).on('click', '.close-btn', function () {
+    document.body.style.overflow = ''; // body의 스크롤 활성화
         $('.coursemodal').removeClass('show');
     });
 
     $(document).on('click', function (event) {
+     document.body.style.overflow = ''; // body의 스크롤 활성화
         if ($(event.target).closest('.coursemodal').length === 0 && $('.coursemodal').is(':visible')) {
             $('.coursemodal').removeClass('show');
         }
     });
 
     $(document).on('keydown', function (event) {
+     document.body.style.overflow = ''; // body의 스크롤 활성화
         if (event.key === "Escape" && $('.coursemodal').is(':visible')) {
             $('.coursemodal').removeClass('show');
         }

@@ -52,8 +52,10 @@
         </div>
 
         <hr class="hr" />
+        <div class="exbox">
         <h2>여행지 별 숙소</h2>
         <h5>여행지 별 숙소 현황을 확인하세요.</h5>
+        </div>
         <br>
         <div class="accodesbox">
             <div class="region-btn" data-region="1">
@@ -91,8 +93,10 @@
         </div>
 
         <hr class="hr" />
+        <div class="exbox">
         <h2>인기 만점 숙소</h2>
         <h5>사람들의 관심이 많은 숙소를 확인하세요.</h5>
+        </div>
         <div class="scroll-container">
             <button class="scroll-button left">◀</button>
             <div class="accodesbox2">

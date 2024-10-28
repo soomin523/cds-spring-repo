@@ -46,7 +46,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	                <hr>
 <c:if test="${ not empty notice }">
 	<c:forEach var="i" begin="0" end="${ notice.size() > 7 ? 7 : notice.size()-1 }">
-						<div class="item" data-category="notice">
+						<div class="item" data-category="notice" data-s_idx="${ notice[i].s_idx }">
 	                		<div class="title">${ notice[i].s_title }</div>
 	                		<div class="date">
 		<fmt:formatDate value="${ notice[i].post_date }" type="date" pattern="yyyy-MM-dd" />
@@ -64,7 +64,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 	                <hr>
 <c:if test="${ not empty guide }">
 	<c:forEach var="i" begin="0" end="${ guide.size() > 7 ? 7 : guide.size()-1 }">
-						<div class="item" data-category="guide">
+						<div class="item" data-category="guide" data-s_idx="${ guide[i].s_idx }">
 		                	<div class="title">${ guide[i].s_title }</div>
 	                		<div class="date">
 		<fmt:formatDate value="${ guide[i].post_date }" type="date" pattern="yyyy-MM-dd" />
@@ -82,7 +82,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
                     <hr>
 <c:if test="${ not empty question }">
 	<c:forEach var="i" begin="0" end="${ question.size() > 7 ? 7 : question.size()-1 }">
-						<div class="item" data-category="question">
+						<div class="item" data-category="question" data-s_idx="${ question[i].s_idx }">
 	                		<div class="title">${ question[i].s_title }</div>
 	                		<div class="date">
 		<fmt:formatDate value="${ question[i].post_date }" type="date" pattern="yyyy-MM-dd" />

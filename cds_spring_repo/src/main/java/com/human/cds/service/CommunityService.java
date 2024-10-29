@@ -2,7 +2,12 @@ package com.human.cds.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.human.cds.vo.CommunityContentVO;
+import com.human.cds.vo.CommunityImgVO;
 import com.human.cds.vo.CommunityVO;
 
 public interface CommunityService {
@@ -31,5 +36,10 @@ public interface CommunityService {
 	int deleteComment(int comment_id);
 
 	int updatePost(CommunityVO vo);
+
+	void saveImage(CommunityImgVO imgVO);
+
+	int uploadPost(MultipartFile[] uploadFiles, HttpServletRequest request, CommunityVO vo);
+
 }
 

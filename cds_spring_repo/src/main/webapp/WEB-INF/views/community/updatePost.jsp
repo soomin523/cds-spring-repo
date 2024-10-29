@@ -169,7 +169,7 @@
    </c:if>
         </h2>
 		
-        <form id="updateForm" action="updatePost.do" method="post">
+        <form id="updateForm" action="updatePost.do" method="post" enctype="multipart/form-data">
             <label class="commu-label" for="title">제목</label>
             <input type="text" id="title" name="title" class="commu-input commu-placeholder" required value="${post.title}">
 			<input type="hidden" id="memberId" name="memberId" value="${ member.member_id }">
@@ -240,7 +240,7 @@
 
         <div class="commu-button-container">
             <a href="${pageContext.request.contextPath}/community/commu.do">
-                <button type="button" class="commu-button">커뮤니티 보기</button>
+                <button type="button" class="commu-button">취소</button>
             </a>
             <button type="submit" class="commu-button">게시하기</button>
         </div>

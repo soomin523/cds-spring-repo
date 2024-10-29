@@ -111,7 +111,8 @@ $(function () {
 	//아이템 클릭 시 해당 페이지로 이동
     $(".mainCategory > .cateSelect > .destinationImg > div").click(function(){
     	let contentid = $(this).data("contentid");
-    	location.href=`destination/destination.do?contentid=${contentid}`;
+    	let areacode = $(this).data("areacode");
+    	location.href=`destination/destination.do?areacode=${areacode}&contentid=${contentid}`;
     });
     $(".mainCategory > .cateSelect > .festivalImg > div").click(function(){
     	let contentid = $(this).data("contentid");

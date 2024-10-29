@@ -371,7 +371,6 @@ footer {
 footer>.footerContainer {
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
     width: 92%;
 }
 footer>.footerContainer>.footerLeft,
@@ -379,11 +378,12 @@ footer>.footerContainer>.footerCenter,
 footer>.footerContainer>.footerRight {
     flex: 1;
     min-width: 300px;
-    margin: 20px 0px;
+    margin: 40px 0px 20px 15px;
 }
 footer>.footerContainer>.footerLeft>p,
 footer>.footerContainer>.footerCenter>p {
     margin: 5px 0;
+    font-size:12px;
 }
 footer>.footerContainer>.footerCenter>h4 {
     margin-bottom: 10px;
@@ -396,6 +396,17 @@ footer>.footerTop{
 footer>.footerTop>span{
 	cursor: pointer;
 	margin: 0px 1%;
+	font-size:13px;
+}
+
+footer-icons{
+	width:100%;
+	height:90px;
+}
+
+footer-icons>img{
+	width:100%;
+	height:100%;
 }
 #footerOverlay{
     position: fixed;

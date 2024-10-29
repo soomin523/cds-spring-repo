@@ -27,15 +27,15 @@
 			<p>주소: 충남 천안시 동남구 대흥로 215, 8층 6강의실</p>
 		</div>
 		<div class="footerCenter">
-			<h4>고객센터 041-561-1122</h4>
+			<h4>고객센터: 041-561-1122</h4>
 			<p><strong></strong></p>
-			<p>평일 11:00 ~ 18:00 | 점심시간 13:00 ~ 14:00</p>
+			<p>평일: 11:00 - 18:00 | 점심시간: 13:00 - 14:00</p>
 			<p>(토, 일요일 및 공휴일 휴무)</p>
-			<p>고객문의: teamBeACodingPro@coding.com</p>
+			<p>고객문의: https://pf.kakao.com/_LcpIn</p>
 		</div>
 		<div class="footerRight">
 			<div class="footer-icons">
-				아이콘?
+				<img src="${pageContext.request.contextPath}/resources/img/떠나자푸터.png"/>
 			</div>
 		</div>
 	</div>

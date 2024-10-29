@@ -171,7 +171,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 						<div class="reviewList">
 	<c:forEach var="i" begin="0" end="${ communityList.size() > 6 ? 6 : communityList.size()-1 }" varStatus="status">					
 							<div class="reviewItem" data-c_idx="${ communityList[i].c_idx }">
-								<div class="commuImg" style="background-image: url('${ communityList[i].imagePaths[0].imagePath }');"></div>
+								<div class="commuImg" style="background-image: url('${pageContext.request.contextPath}/resources/uploads/${ communityList[i].attachedList[0].save_filename }');"></div>
 								<div>⭐ ${ communityList[i].rating }</div>
 								<div class="commuTitle">${ communityList[i].title }</div>
 								<div><fmt:formatDate value="${communityList[i].created_at}" type="date" pattern="yyyy-MM-dd" /></div>

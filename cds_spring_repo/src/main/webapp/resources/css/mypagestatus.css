@@ -5,15 +5,25 @@
     padding: 0;
 }
 
+.section {
+    width: 100%; /* 부모 요소는 100% 너비로 설정 */
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    flex-direction: column; /* 자식 요소들을 세로로 배치 */
+    padding: 20px; /* 여백을 줘서 중앙으로 배치 */
+}
+
 .background {
-    width: 100%;
-    background: rgb(233, 233, 231);
+    width: 800px; /* 고정 너비 설정 */
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
-
-
+    border: 2px solid #6495ED; /* 테두리 설정 */
+    margin-top: 50px;
+    padding: 40px;
+    border-radius: 15px;
 }
 
 .mystatus-title {

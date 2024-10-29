@@ -1,11 +1,14 @@
 package com.human.cds.repository;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.human.cds.vo.CommunityContentVO;
 import com.human.cds.vo.CommunityImgVO;
@@ -24,8 +27,8 @@ public class CommunityDAO {
 		List<CommunityVO> communityList =  sqlSession.selectList(MAPPER+".getCommunityList");
 		for(CommunityVO vo : communityList) {
 			int idx = vo.getC_idx();
-			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
-			vo.setImagePaths(imagePathList);
+			List<CommunityImgVO> attachedList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+			vo.setAttachedList(attachedList);
 			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 			vo.setCommentNum(content);
 			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
@@ -38,8 +41,8 @@ public class CommunityDAO {
 	public CommunityVO getCommunity(int idx) {
 		CommunityVO vo = sqlSession.selectOne(MAPPER+".getCommunity", idx);
 		
-		List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
-		vo.setImagePaths(imagePathList);
+		List<CommunityImgVO> attachedList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+		vo.setAttachedList(attachedList);
 		
 		List<CommunityContentVO> contentList = sqlSession.selectList(MAPPER+".getCommentsByArticleId", idx);
 		vo.setComments(contentList);
@@ -52,37 +55,59 @@ public class CommunityDAO {
 		return vo;
 	}
 
-	//게시물 추가하기
+	// 게시물 추가하기
 	public int uploadPost(CommunityVO vo) {
-		int result = 0;
-		
-		if(sqlSession.insert(MAPPER+".insertPost", vo) == 1) {
-			
-			int count = sqlSession.selectOne(MAPPER+".getCommunityCount");
-			
-			CommunityImgVO imgvo = new CommunityImgVO();
-			for(String imgName : vo.getImagenames()) {
-				imgvo.setPostId(count);
-				imgvo.setImagePath(imgName);
-				result += sqlSession.insert(MAPPER+".insertImg", imgvo);
-			}
-		}
-		
-		if(result >= 1) {
-			result = 1;
-		}
-		
-		return result;
-		
+	    int result = 0;
+	    
+	    // 게시물 추가
+	    if (sqlSession.insert(MAPPER + ".insertPost", vo) == 1) {
+	        int c_idx = sqlSession.selectOne(MAPPER + ".getCIdx");//게시물 ID 가져오기
+
+	        // 이미지 정보 추가
+	        for (CommunityImgVO attached : vo.getAttachedList()) { 
+	            if (attached != null) {
+	                CommunityImgVO imgvo = new CommunityImgVO();
+	                System.out.println("uploadPost 호출됨: " + imgvo);
+	                imgvo.setPostId(c_idx); // 게시물 ID 설정
+	                imgvo.setOrigin_filename(attached.getOrigin_filename()); // 원본 파일명 설정
+	                imgvo.setSave_filename(attached.getSave_filename()); // 저장된 파일명 설정, 이 함수는 파일 저장 로직을 구현해야 함
+	                result += sqlSession.insert(MAPPER + ".insertImg", imgvo); // 이미지 정보 추가
+	            }
+	        }
+	    }
+	    
+	    return result >= 1 ? 1 : 0; // 성공적으로 추가된 경우 1 반환
 	}
+
+//	public int updatePost1(CommunityVO vo) {
+//	    int result = sqlSession.update(MAPPER + ".updatePost", vo);
+//	    
+//	    if (result == 1) {
+//	        // 기존 이미지 삭제 로직 추가 필요 (예: deleteImg)
+//
+//	        // 새로운 이미지 추가
+//	        for (MultipartFile file : vo.getUploadFiles()) { // MultipartFile 사용
+//	            if (!file.isEmpty()) {
+//	                CommunityImgVO imgvo = new CommunityImgVO();
+//	                imgvo.setPostId(vo.getC_idx()); // 게시물 ID 설정
+//	                imgvo.setOrigin_filename(file.getOriginalFilename()); // 원본 파일명 설정
+//	                imgvo.setSave_filename(saveFile(file)); // 저장된 파일명 설정
+//	                sqlSession.insert(MAPPER + ".insertImg", imgvo); // 이미지 정보 추가
+//	            }
+//	        }
+//	    }
+//	    
+//	    return result; // 수정 결과 반환
+//	}
+
 
 	public List<CommunityVO> getLocationList(String location) {
 		
 		List<CommunityVO> communityList =  sqlSession.selectList(MAPPER+".getLocationList", location);
 		for(CommunityVO vo : communityList) {
 			int idx = vo.getC_idx();
-			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
-			vo.setImagePaths(imagePathList);
+			List<CommunityImgVO> attachedList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+			vo.setAttachedList(attachedList);
 			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 			vo.setCommentNum(content);
 			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
@@ -109,8 +134,8 @@ public class CommunityDAO {
 		
 		for(CommunityVO vo : communityList) {
 			int idx = vo.getC_idx();
-			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
-			vo.setImagePaths(imagePathList);
+			List<CommunityImgVO> attachedList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+			vo.setAttachedList(attachedList);
 			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 			vo.setCommentNum(content);
 			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
@@ -124,8 +149,8 @@ public class CommunityDAO {
 		List<CommunityVO> communityList = sqlSession.selectList(MAPPER+".getSeachList",search); // 검색 결과 반환
 		for(CommunityVO vo : communityList) {
 			int idx = vo.getC_idx();
-			List<CommunityImgVO> imagePathList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
-			vo.setImagePaths(imagePathList);
+			List<CommunityImgVO> attachedList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+			vo.setAttachedList(attachedList);
 			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
 			vo.setCommentNum(content);
 			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
@@ -179,11 +204,11 @@ public class CommunityDAO {
 			System.out.println(count);
 			
 			CommunityImgVO imgvo = new CommunityImgVO();
-			for(String imgName : vo.getImagenames()) {
-				imgvo.setPostId(count);
-				imgvo.setImagePath(imgName);
-				result += sqlSession.insert(MAPPER+".insertImg", imgvo);
-			}
+//			for(String imgName : vo.getImagenames()) {
+//				imgvo.setPostId(count);
+//				imgvo.setImagePath(imgName);
+//				result += sqlSession.insert(MAPPER+".insertImg", imgvo);
+//			}
 		}
 		
 		if(result >= 1) {
@@ -191,5 +216,20 @@ public class CommunityDAO {
 		}
 		
 		return result;
+	}
+
+	//커뮤니티 게시글 목록에 업로드된 파일들을 포함해서 가져오기
+	public List<CommunityVO> getCommunityList(int c_idx) {
+		List<CommunityVO> communityList =  sqlSession.selectList(MAPPER+".getCommunityList");
+		for(CommunityVO vo : communityList) {
+			int idx = vo.getC_idx();
+			List<CommunityImgVO> attachedList = sqlSession.selectList(MAPPER+".getImagePathList", idx);
+			vo.setAttachedList(attachedList);
+			int content = sqlSession.selectOne(MAPPER+".getCommentCount", idx);
+			vo.setCommentNum(content);
+			int like = sqlSession.selectOne(MAPPER+".getLikeCount", idx);
+			vo.setLikeNum(like);
+		}
+		return communityList;
 	}
 }

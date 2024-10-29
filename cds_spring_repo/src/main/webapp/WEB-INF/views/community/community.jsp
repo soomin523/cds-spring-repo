@@ -24,7 +24,7 @@
                     <button class="commu-post-button" style="display: inline-block;">게시물 올리기</button>
                 </a>
 </c:if>
-                <div class="commu-sort-options" style="margin-left: auto;" data-location="${ area }">
+                <div class="commu-sort-options" style="margin-left: auto;" data-location="${ area ? area : 'all' }">
                     <button class="commu-sort-button" id="commu-sortLatest" value="latest">최신순</button>
                     <button class="commu-sort-button" id="commu-sortRating" value="rating">평점순</button>
                 </div>
@@ -35,7 +35,7 @@
                 <!-- 게시물 12개가 그리드로 나올 영역 -->
                     <c:forEach var="community" items="${communityList}">
                         <div class="post-item" data-id="${ community.c_idx }">
-                            <div class="post-image" style="background-image: url('${community.imagePaths[0].imagePath}');">
+						<div class="post-image" style="background-image: url('${pageContext.request.contextPath}/resources/uploads/${ community.attachedList[0].save_filename }');">
 	                            <p class= "postlocation">작성자 : ${community.memberId}</p>
                             	<p class= "postlocation">${community.location}</p>
                             </div>

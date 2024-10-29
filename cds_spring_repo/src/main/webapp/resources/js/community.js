@@ -18,7 +18,6 @@ $(function () {
 	        data:{ id: id },
 	        headers: {"Accept": "application/json"},
 	        success:function(data){
-	            console.log(data);
 	            $(".commu-comment-box").attr("data-idx", data.c_idx); // 게시물번호
 			    $("#commu-modalUserId").text(data.memberId); // 아이디
 			    $("#commu-modalLocation").text("위치: " + data.location); // 위치
@@ -29,21 +28,19 @@ $(function () {
 			    $("#commu-modalMeta").text("작성일: " + createdAt.toLocaleString()); // 원하는 형식으로 출력
 			    $("#commu-modalTitle").text(data.title); // 제목
 			    $("#commu-modalDescription").text(data.content); // 내용
-			    
-			    
 			  
 			    let htmlI = ''; //이미지 목록
-			    data.imagePaths.forEach(function(item){
-			    	htmlI += `
-			    		<img src="${item.imagePath}" alt="이미지 없음"/>
-			    	`;
+			    data.attachedList.forEach(function(item){
+			    	htmlI += `<img src="../resources/uploads/${item.save_filename}" alt="커뮤니티 이미지"/>`;
 			    });
+			    
 			    $(".commu-imageList").html(htmlI);
 			    
 			    
-			    images = data.imagePaths;
+			    images = data.attachedList;
 			    if(images.length == 1){
 			    	$(".prev-slide").css("opacity", "0");
+			    	$(".next-slide").css("opacity", "0");
 			    }else{
 			    	$(".prev-slide").css("opacity", "1");
 			    	$(".next-slide").css("opacity", "1");
@@ -156,6 +153,8 @@ $(function () {
 	$(".commu-sort-options > .commu-sort-button").click(function(){
 		let select = $(this).val();
 		let area = $(".commu-sort-options").data("location");
+		
+		console.log(area);
 	
 		location.href=`commupost.do?location=${area}&select=${select}`;
 	});

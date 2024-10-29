@@ -7,7 +7,6 @@
 }
 
 body {
-    
 }
 
 section {
@@ -367,8 +366,8 @@ section {
  }
  
 .desslogan{
+	width:1250px;		
 	margin-top:50px;
-	width:100%;		
 	
 	
 }

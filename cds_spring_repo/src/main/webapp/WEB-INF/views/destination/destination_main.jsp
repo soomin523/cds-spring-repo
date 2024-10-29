@@ -167,8 +167,8 @@
             <div id="myModal"></div>
         </div>
 
-        <div class="desslogan">
-        <img src="${pageContext.request.contextPath}/resources/img/desbanner.png">
+        <div>
+        <img class="desslogan" src="${pageContext.request.contextPath}/resources/img/desbanner.png">
         </div>
     </section>
     <%@ include file="../main/footer.jsp"%>

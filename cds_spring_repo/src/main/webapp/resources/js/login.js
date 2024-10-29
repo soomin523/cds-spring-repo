@@ -59,6 +59,24 @@ $(function() {
     	window.location.href = "/cds/member/googleLogin.do";
     });
     
+    
+    //주소창에 로그인 요청이 들어왔을 때 모달 열기
+    if(getParameterByName('login')){
+    	openModal();
+    }
+    
+    
+    //주소창에서 name이 들어간 뒤 부분을 추출해냄
+	function getParameterByName(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+    
 });
 
 function openModal() {

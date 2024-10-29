@@ -139,7 +139,8 @@ crossorigin="anonymous" referrerpolicy="no-referrer" />
 					<div class="selectimgBox destinationImg">
 <c:forEach var="i" begin="0" end="2" varStatus="status">
 						<div style="background-image: url('${ destinationList[i].d_firstimage }');" 
-							data-contentid=${ destinationList[i].d_contentid }>
+							data-contentid=${ destinationList[i].d_contentid } 
+							data-areacode=${ destinationList[i].d_areacode }>
 							<p>${ destinationList[i].d_title }</p>
 						</div>
 </c:forEach>

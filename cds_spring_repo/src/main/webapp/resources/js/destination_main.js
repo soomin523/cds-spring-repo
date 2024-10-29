@@ -29,34 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500);
     });
 
-	$(".desheader_circle").on("click", function(){
-		
-		   // 모든 .desheader_circle 스타일 초기화
-		    $(".desheader_circle").css({
-		        "border-radius": "",
-		        "width": "",
-		        "height": "",
-		        "background-size": "",
-		        "background-position": "",
-		        "border": "",
-		        "margin": "",
-		        "cursor": ""
-		    });
-		
-		$(this).css({
-				"border-radius": "50%",
-			    "width": "90px",
-			    "height": "90px",
-			    "background-size": "cover",
-			    "background-position": "center",
-			    "border":"skyblue solid 2px",
-			    "margin": "0 15px",
-			    "cursor":"pointer"}
-		
-		);
-	
-	});
-
     $(document).ready(function() {
      	let areacode = getParameterByName('areacode'); // URL 파라미터에서 areaCode를 가져옴
         let defaultRname = '';
@@ -79,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
         	case '39' : defaultRname = '제주'; break;
         	case '8' : defaultRname = '세종'; break;
         };
-        initialize(areacode, defaultRname);
+        getList(areacode, defaultRname);
 
 		// URL 파라미터에서 값을 추출하는 함수
     	function getParameterByName(name) {
@@ -90,11 +62,16 @@ document.addEventListener("DOMContentLoaded", function () {
 	        if (!results) return null;
 	        if (!results[2]) return '';
 	        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+	       
 	    }
 		
+		let contentid = getParameterByName('contentid'); // URL 파라미터에서 areaCode를 가져옴
+		if(areacode == null && contentid == null){
+			loadDesInfo(contentid);
+		}
 
 
-		//스타일 초기화
+		//시군구 이름 받아오기
         $(".circle-item").on("click", function() {
             var region = $(this).data('region');
             var rname = $(this).data('rname');
@@ -103,7 +80,6 @@ document.addEventListener("DOMContentLoaded", function () {
             
         function getList(region, rname){    
             $('.desselect h3').text(rname);
-           			
 
             $.ajax({
                 type: "GET",
@@ -129,6 +105,49 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.log("지역 리스트를 불러오는 데 실패했습니다.");
                 }
             });
+            
+            // 모든 .desheader_circle 스타일 초기화
+		    $(".desheader_circle").css({
+		        "border-radius": "",
+		        "width": "",
+		        "height": "",
+		        "background-size": "",
+		        "background-position": "",
+		        "border": "",
+		        "margin": "",
+		        "cursor": ""
+		    });
+		    
+		    var desheader_circles = document.querySelectorAll(".circle-item");
+		    desheader_circles.forEach(function(item){
+		    	var area = item.getAttribute("data-region");
+		    	if(area == region){
+		    		var div = item.querySelector("div"); // 자식 <div> 요소 찾기
+			        if (div) {
+			            div.style.borderRadius = "50%";
+			            div.style.width = "90px";
+			            div.style.height = "90px";
+			            div.style.backgroundSize = "cover";
+			            div.style.backgroundPosition = "center";
+			            div.style.border = "2px solid skyblue";
+			            div.style.margin = "0 15px";
+			            div.style.cursor = "pointer";
+			        }
+		    	}
+		    
+		    });
+            
+            $(this).find("div").css({
+            	"border-radius": "50%",
+			    "width": "90px",
+			    "height": "90px",
+			    "background-size": "cover",
+			    "background-position": "center",
+			    "border":"skyblue solid 2px",
+			    "margin": "0 15px",
+			    "cursor":"pointer"
+            });
+            
         };
 
         function loadDesList(region, sigungucode) {
@@ -199,6 +218,8 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
+
+
         function loadDesInfo(contentid) {
             $.ajax({
                 type: "GET",
@@ -263,7 +284,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 var mapContainer = document.getElementById('map');
                 var mapOption = {
                     center: new kakao.maps.LatLng(data.d_mapy, data.d_mapx),
-                    level: 3
+                    level: 3,
+                     scrollwheel: false, // 스크롤 줌 비활성화
+			         disableDoubleClickZoom: true, // 더블 클릭 줌 비활성화
+			         draggable: false, //드래그 비활성화
+			                    
                 };
                 var map = new kakao.maps.Map(mapContainer, mapOption);
                 var markerPosition = new kakao.maps.LatLng(data.d_mapy, data.d_mapx);
@@ -287,32 +312,5 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         }
 
-        function initialize(region, rname) {
-            $('.desselect h3').text(rname);
-            $.ajax({
-                type: "GET",
-                url: "getSigungunName.do",
-                data: { areacode: region },
-                headers: { "Accept": "application/json" },
-                success: function(data) {
-                    let htmlc = '';
-                    data.forEach(function(selectItem) {
-                        htmlc += `<option value="${selectItem.d_sigungucode}">${selectItem.d_sigunguname}</option>`;
-                    });
-
-                    $("#sigunguselect").html(htmlc);
-                    let firstSigungucode = $("#sigunguselect option:first").val();
-                    loadDesList(region, firstSigungucode);
-
-                    $("#sigunguselect").off("change").on("change", function() {
-                        let sigungucode = $("#sigunguselect").val();
-                        loadDesList(region, sigungucode);
-                    });
-                },
-                error: function() {
-                    console.log("지역 리스트를 불러오는 데 실패했습니다.");
-                }
-            });
-        }
     });
 });

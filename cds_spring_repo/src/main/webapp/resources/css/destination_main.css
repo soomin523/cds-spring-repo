@@ -43,7 +43,7 @@ section {
 
 .desheader_1a p {
     font-size: 40px;
-    margin: 0 200px 20px 0;
+    margin: 0 200px 40px 0;
 }
 
 .desheader_2 {
@@ -53,7 +53,7 @@ section {
     align-items: center;
     width: 80%;
     margin: 0 auto;
-    padding: 20px 0;
+    
 }
 
 .desheader_2> span {
@@ -103,7 +103,8 @@ section {
     background-position: center;
     border:skyblue solid 2px;
     cursor:pointer;
-    transform: translateY(-5px);
+   
+    
 }
 
 .circle-item p {
@@ -153,6 +154,13 @@ section {
 	padding-left:10px;
 }
 
+.desselect input:focus {
+	outline:none;
+	border:2px solid skyblue;
+	box-shadow:none;
+	
+}
+
 .desimg1 {
 	width:950px;
     display: grid;
@@ -188,6 +196,7 @@ section {
     align-items: center;
     border:1px solid rgb(0,0,0,0.2);
     cursor:pointer;
+    z-index:1000;
 }
 
 .desimg-container {

@@ -6,14 +6,14 @@
 	
 	<insert id="insertProducts" parameterType="com.human.cds.vo.ProductsVO$Products">
 	    INSERT IGNORE INTO products (
-	        addr1, addr2, areacode, booktour, cat1, cat2, cat3, contentid, contenttypeid, 
-	        createdtime, firstimage, firstimage2, cpyrhtDivCd, mapx, mapy, mlevel, 
-	        modifiedtime, sigungucode, tel, title, zipcode
+	        addr1, areacode, cat1, cat2, cat3, contentid, contenttypeid, 
+	        firstimage, mapx, mapy, mlevel, 
+	        tel, title
 	    ) VALUES (
-	        #{addr1}, #{addr2}, #{areacode}, #{booktour}, #{cat1}, #{cat2}, #{cat3}, 
-	        #{contentid}, #{contenttypeid}, #{createdtime}, #{firstimage}, #{firstimage2}, 
-	        #{cpyrhtDivCd}, #{mapx}, #{mapy}, #{mlevel}, #{modifiedtime}, #{sigungucode}, 
-	        #{tel}, #{title}, #{zipcode}
+	        #{addr1}, #{areacode}, #{cat1}, #{cat2}, #{cat3}, 
+	        #{contentid}, #{contenttypeid}, #{firstimage},
+	       #{mapx}, #{mapy}, #{mlevel}, 
+	        #{tel}, #{title}
 	    );
 	</insert>
 	    
@@ -26,7 +26,7 @@
     
 	<update id="updateAreaName" parameterType="map">
 		update products
-			set areaname = #{areaName}, sigunguname = #{sigunguName}
+			set areaname = #{areaName}
 			where contentid = #{contentid}
 	</update>  
 	
@@ -41,7 +41,6 @@
         homepage = #{homepage}, 
         info = #{info}, 
         opendate = #{opendate}, 
-        enddate = #{enddate}, 
         restdate = #{restdate}, 
         price = #{price}, 
         usetime = #{usetime},
@@ -60,13 +59,7 @@
         infoname3 = #{infoname3},
         infotext3 = #{infotext3},
         infoname4 = #{infoname4},
-        infotext4 = #{infotext4},
-        infoname5 = #{infoname5},
-        infotext5 = #{infotext5},
-        infoname5 = #{infoname6},
-        infotext5 = #{infotext6},
-        infoname5 = #{infoname7},
-        infotext5 = #{infotext7}
+        infotext4 = #{infotext4}
     WHERE contentid = #{contentid}
 </update>
 

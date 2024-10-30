@@ -124,12 +124,6 @@ public class ProductsDAO {
 			params.put("infotext3", product.getInfotext3());
 			params.put("infoname4", product.getInfoname4());
 			params.put("infotext4", product.getInfotext4());
-			params.put("infoname5", product.getInfoname5());
-			params.put("infotext5", product.getInfotext5());
-			params.put("infoname6", product.getInfoname6());
-			params.put("infotext6", product.getInfotext6());
-			params.put("infoname7", product.getInfoname7());
-			params.put("infotext7", product.getInfotext7());
 	        params.put("contentid", product.getContentid());
 			
 			result = sqlSession.update(MAPPER + ".updateProductInfo", params);

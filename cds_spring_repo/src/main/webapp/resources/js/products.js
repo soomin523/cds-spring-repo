@@ -1,12 +1,87 @@
 
 $(document).ready(function() {
-    var page = 2;
+
+    var page = 1;
     var loading = false;
     var pageSize = 12;
     var currentCategory = 'all';
     var currentLocation = '전체';
     var isSearchMode = false; // 검색 모드 상태
     var currentSearchTerm = ''; // 검색어 상태
+    const urlParams = new URLSearchParams(window.location.search);
+    const contentId = urlParams.get('contentid');
+
+    function convertCat3ToCategory(cat3) {
+    if (cat3.startsWith('A0203')) return '체험';
+    if (cat3.startsWith('A03')) return '레포츠';
+    if (cat3.startsWith('A02080')) return '공연/전시';
+    return '기타';
+    }
+
+    function convertAreaName(areaname) {
+        if (!areaname) return '';
+        
+        const areaMapping = {
+            '강원특별자치도': '강원',
+            '경기도': '경기',
+            '경상남도': '경남',
+            '경상북도': '경북',
+            '세종특별자치시': '세종',
+            '전라남도': '전남',
+            '전북특별자치도': '전북',
+            '제주도': '제주',
+            '충청남도': '충남',
+            '충청북도': '충북'
+        };
+    
+        for (const [fullName, shortName] of Object.entries(areaMapping)) {
+            if (areaname.includes(fullName)) {
+                return shortName;
+            }
+        }
+        return areaname;
+    }
+
+    
+    if (contentId) {
+        $('.product-grid').empty();
+        
+        $.ajax({
+            url: '/cds/products/getProducts',
+            method: 'GET',
+            dataType: 'json',
+            data: { 
+                contentid: contentId,
+                category: currentCategory,
+                location: currentLocation
+            },
+            success: function(data) {
+                if (Array.isArray(data)) {
+                    data.forEach(function(item) {
+                        var itemCategory = convertCat3ToCategory(item.cat3);
+                        let convertedAreaName = convertAreaName(item.areaname);
+    
+                        if ((currentCategory === 'all' || itemCategory === currentCategory) &&
+                            (currentLocation === '전체' || convertedAreaName === currentLocation)) {
+                            var productCard = createProductCard(item);
+                            $('.product-grid').append(productCard);
+                        }
+                    });
+                } else {
+                    var productCard = createProductCard(data);
+                    $('.product-grid').append(productCard);
+                }
+                applyProductCardStyles();
+                $('#no-more-products').show();
+                
+                // 첫 번째 상품 카드의 클릭 이벤트 트리거
+                $('.product-card:first').trigger('click');
+            },
+            error: function(xhr, status, error) {
+                console.error("Error loading products:", error);
+            }
+        });
+    }
 
     const LoadingHandler = {
     show: function() {
@@ -18,12 +93,6 @@ $(document).ready(function() {
     }
 };
 
-    function convertCat3ToCategory(cat3) {
-    if (cat3.startsWith('A0203')) return '체험';
-    if (cat3.startsWith('A03')) return '레포츠';
-    if (cat3.startsWith('A02080')) return '공연/전시';
-    return '기타';
-}
         // Show/hide dropdown
     $('.location-icon').click(function() {
         $('.location-dropdown').toggle();
@@ -64,19 +133,7 @@ $(document).ready(function() {
                     if (data.length > 0) {
                         data.forEach(function(item) {
                             var itemCategory = convertCat3ToCategory(item.cat3);
-                            // Convert area name before comparison
-                           let convertedAreaName = item.areaname || ''; // Set default empty string if null
-
-                            if (convertedAreaName.includes('강원특별자치도')) convertedAreaName = '강원';
-                            if (convertedAreaName.includes('경기도')) convertedAreaName = '경기';
-                            if (convertedAreaName.includes('경상남도')) convertedAreaName = '경남';
-                            if (convertedAreaName.includes('경상북도')) convertedAreaName = '경북';
-                            if (convertedAreaName.includes('세종특별자치시')) convertedAreaName = '세종';
-                            if (convertedAreaName.includes('전라남도')) convertedAreaName = '전남';
-                            if (convertedAreaName.includes('전북특별자치도')) convertedAreaName = '전북';
-                            if (convertedAreaName.includes('제주도')) convertedAreaName = '제주';
-                            if (convertedAreaName.includes('충청남도')) convertedAreaName = '충남';
-                            if (convertedAreaName.includes('충청북도')) convertedAreaName = '충북';
+                            let convertedAreaName = convertAreaName(item.areaname);
 
                             if ((currentCategory === 'all' || itemCategory === currentCategory) &&
                                 (currentLocation === '전체' || convertedAreaName === currentLocation)) {
@@ -119,17 +176,7 @@ $(document).ready(function() {
 
 function createProductCard(item) {
     // 지역 이름 변환
-    let convertedAreaName = item.areaname
-        .replace('강원특별자치도', '강원')
-        .replace('경기도', '경기')
-        .replace('경상남도', '경남')
-        .replace('경상북도', '경북')
-        .replace('세종특별자치시', '세종')
-        .replace('전라남도', '전남')
-        .replace('전북특별자치도', '전북')
-        .replace('제주도', '제주')
-        .replace('충청남도', '충남')
-        .replace('충청북도', '충북');
+    let convertedAreaName = convertAreaName(item.areaname);
 
     // 카테고리 변환
     let category = "기타"; // 기본값을 "기타"로 설정
@@ -258,19 +305,7 @@ function createProductCard(item) {
                   success: function(data) {
                       data.forEach(function(item) {
                           var itemCategory = convertCat3ToCategory(item.cat3);
-                          let convertedAreaName = item.areaname || '';
-                    
-                          // 지역명 변환
-                          if (convertedAreaName.includes('강원특별자치도')) convertedAreaName = '강원';
-                          if (convertedAreaName.includes('경기도')) convertedAreaName = '경기';
-                          if (convertedAreaName.includes('경상남도')) convertedAreaName = '경남';
-                          if (convertedAreaName.includes('경상북도')) convertedAreaName = '경북';
-                          if (convertedAreaName.includes('세종특별자치시')) convertedAreaName = '세종';
-                          if (convertedAreaName.includes('전라남도')) convertedAreaName = '전남';
-                          if (convertedAreaName.includes('전북특별자치도')) convertedAreaName = '전북';
-                          if (convertedAreaName.includes('제주도')) convertedAreaName = '제주';
-                          if (convertedAreaName.includes('충청남도')) convertedAreaName = '충남';
-                          if (convertedAreaName.includes('충청북도')) convertedAreaName = '충북';
+                          let convertedAreaName = convertAreaName(item.areaname);
 
                           // 카테고리와 지역 필터 적용
                           if ((currentCategory === 'all' || itemCategory === currentCategory) &&
@@ -362,11 +397,13 @@ function createProductCard(item) {
 
         function setModalInfo(selector, text) {
             if (text) {
-                $(selector).text(text);
+                text = text.replace(/<a[^>]*>.*?<\/a>/g, '');
+                $(selector).html(text.replace(/<br>/g, '<br>'));
             } else {
-                $(selector).text('');
+                $(selector).html('');
             }
         }
+        
 
         $('#productModal .modal-image').attr('src', image);
         $('#productModal .modal-title').text(title);
@@ -378,15 +415,20 @@ function createProductCard(item) {
         setModalInfo('#productModal .modal-info.restdate', restdate ? "쉬는날: " + restdate : '');
         setModalInfo('#productModal .modal-info.price', price ? "요금정보: " + price.replace(/<br>/g, '<br>') : '');
             
-                if (overview) {
-            $('#productModal .modal-info.overview').text(overview).show();
+        if (overview) {
+            $('#productModal .modal-info.overview').html(overview.replace(/<br>/g, '<br>')).show();
         } else {
             $('#productModal .modal-info.overview').hide();
         }
+        
 
         setHomepageLink(homepage);
-
+		
         modal.fadeIn(300, function() {
+            setTimeout(function() {
+        $('#productModal').scrollTop(190);
+       
+    }, 100);
             var container = document.getElementById('map');
             var options = {
                 center: new kakao.maps.LatLng(mapy, mapx),

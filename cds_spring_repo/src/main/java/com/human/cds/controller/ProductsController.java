@@ -33,7 +33,7 @@ public class ProductsController {
 
    
     
-    private String serviceKey = "YwBZem4wHPLMylzzg9Oy6PTiDA94x1cmOJRsaOmTMu31f6jYqU/x2gLHziEJIpxkn7p0XTfSyJqVXIjaazct5w==";
+    private String serviceKey = "NkFU7MXFQab71yXUMx3Qd0ZYVsBx2RMK81efMCHEI9/UvlLJQsGroUYdhxVKJhV858hn5n8GucOYfQ28eG9n3w==";
     private String srcUrl = "http://apis.data.go.kr/B551011/KorService1/areaBasedList1";
 	private String srcUrlAreaCode = "https://apis.data.go.kr/B551011/KorService1/areaCode1";
 	private String srcUrlDetailCommon = "https://apis.data.go.kr/B551011/KorService1/detailCommon1";
@@ -47,8 +47,7 @@ public class ProductsController {
     
     @GetMapping("/products.do")
     public String products(Model model) {
-        List<ProductsVO.Products> initialProducts = productsServiceImpl.getProductsPage(1, 12);
-        model.addAttribute("initialProducts", initialProducts);
+ 
         return "products/products";
     }
     
@@ -80,7 +79,8 @@ public class ProductsController {
 					          item.getCat1().equals("A03")) &&
 					         !(item.getCat3().equals("A02020200") || item.getCat3().equals("A02020700")) &&
 					         (item.getContenttypeid().equals("12") || item.getContenttypeid().equals("15") || item.getContenttypeid().equals("28")) && 
-					         (item.getFirstimage() != null && !item.getFirstimage().isEmpty())) // firstimage가 비어있지 않은 조건 추가
+					         (item.getFirstimage() != null && !item.getFirstimage().isEmpty())&& 
+					         (item.getAreacode() != null && !item.getAreacode().isEmpty()))
 					    )
 					    .collect(Collectors.toList());
 
@@ -150,12 +150,10 @@ public class ProductsController {
   				.forEach(item -> {
   					String areaCode = item.getAreacode();
   					if(areaCode != null) {
-  						String sigunguCode = areaCode+"_"+item.getSigungucode();
   						String areaName = areaCodeMap.get(areaCode);
-  						String sigunguName = areaCodeMap.get(sigunguCode);
   						String contentid = item.getContentid();
   						
-  						result2[0] += productsServiceImpl.updateAreaName(areaName, sigunguName, contentid);
+  						result2[0] += productsServiceImpl.updateAreaName(areaName, contentid);
   					}
   				});
   		} catch (Exception e) {
@@ -232,18 +230,6 @@ public class ProductsController {
                                  product.setInfoname4(infoItem.getInfoname());
                                  product.setInfotext4(infoItem.getInfotext());
                                  break;
-                             case "4":
-                                 product.setInfoname5(infoItem.getInfoname());
-                                 product.setInfotext5(infoItem.getInfotext());
-                                 break;
-                             case "5":
-                            	 product.setInfoname6(infoItem.getInfoname());
-                            	 product.setInfotext6(infoItem.getInfotext());
-                            	 break;
-                             case "6":
-                            	 product.setInfoname7(infoItem.getInfoname());
-                            	 product.setInfotext7(infoItem.getInfotext());
-                            	 break;
                          }
                      }
 
@@ -331,9 +317,6 @@ public class ProductsController {
 		             if (intItem.getEventstartdate() != null) {
 		                 product.setOpendate(intItem.getEventstartdate());
 		             }
-		             if (intItem.getEventenddate() != null) {
-		                 product.setEnddate(intItem.getEventenddate());
-		             }
 		             if (intItem.getUsetimefestival() != null) {
 		                 product.setPrice(intItem.getUsetimefestival());
 		             }
@@ -387,6 +370,10 @@ public class ProductsController {
         return productsServiceImpl.getEventProducts();
     }
 
-  	
+    @GetMapping("/getProducts")
+    @ResponseBody
+    public ProductsVO.Products getProducts(@RequestParam String contentid) {
+        return productsServiceImpl.getProducts(contentid);
+    }
   	
 }

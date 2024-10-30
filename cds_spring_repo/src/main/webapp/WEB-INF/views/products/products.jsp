@@ -36,7 +36,7 @@
                 <div class="location-selector">
                     <div class="location-icon">📍지역</div>
                     <div class="location-dropdown">
-                        <div data-location="전체">지역</div>
+                        <div data-location="전체">전체</div>
                         <div data-location="서울">서울</div>
                         <div data-location="부산">부산</div>
                         <div data-location="대구">대구</div>
@@ -64,85 +64,7 @@
     </div>
 
     <main class="product-grid">
-        <c:forEach var="item" items="${initialProducts}">
-            <c:set var="convertedAreaName" value="${item.areaname}" />
-            <c:if test="${fn:contains(item.areaname, '강원특별자치도')}">
-                <c:set var="convertedAreaName" value="강원" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '경기도')}">
-                <c:set var="convertedAreaName" value="경기" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '경상남도')}">
-                <c:set var="convertedAreaName" value="경남" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '경상북도')}">
-                <c:set var="convertedAreaName" value="경북" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '세종특별자치시')}">
-                <c:set var="convertedAreaName" value="세종" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '전라남도')}">
-                <c:set var="convertedAreaName" value="전남" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '전북특별자치도')}">
-                <c:set var="convertedAreaName" value="전북" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '제주도')}">
-                <c:set var="convertedAreaName" value="제주" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '충청남도')}">
-                <c:set var="convertedAreaName" value="충남" />
-            </c:if>
-            <c:if test="${fn:contains(item.areaname, '충청북도')}">
-                <c:set var="convertedAreaName" value="충북" />
-            </c:if>
-
-                <!-- 카테고리 변환 -->
-            <c:set var="category" value="기타" /> <!-- 기본값을 "기타"로 설정 -->
-            <c:if test="${item.cat3.startsWith('A0203')}">
-                <c:set var="category" value="체험" />
-            </c:if>
-            <c:if test="${item.cat3.startsWith('A03')}">
-                <c:set var="category" value="레포츠" />
-            </c:if>
-            <c:if test="${item.cat3.startsWith('A02080')}">
-                <c:set var="category" value="공연/전시" />
-            </c:if>
-              <div class="product-card"
-                data-mapx="${item.mapx}"
-                data-mapy="${item.mapy}"
-                data-title="${item.title}" 
-                data-category="${category}"  
-                data-areaname="${convertedAreaName}"
-                data-addr1="${item.addr1}"
-                data-image="${item.firstimage}"
-                data-phone="${item.tel}"
-                data-info="${item.info}"
-                data-usetime="${item.usetime}"
-                data-opendate="${item.opendate}"
-                data-restdate="${item.restdate}"
-                data-price="${item.price}"
-                data-overview="${item.overview}"
-                data-infoname1="${item.infoname1}"
-                data-infotext1="${item.infotext1}"
-                data-infoname2="${item.infoname2}"
-                data-infotext2="${item.infotext2}"
-                data-infoname3="${item.infoname3}"
-                data-infotext3="${item.infotext3}"
-                data-infoname4="${item.infoname4}"
-                data-infotext4="${item.infotext4}">
-            
-                <div class="product-image">
-                    <img src="${item.firstimage}" alt="상품 이미지">
-                </div>
-                <div class="product-category bg-${category.replace('/', '_')}">${category}</div>  
-                <div class="product-details">
-                    <h3 class="product-title">${item.title}</h3>
-                    <span class="product-areaname">${convertedAreaName}</span>  
-                </div>
-                <div class="hidden-homepage" style="display: none;">${item.homepage}</div>
-            </div>
-        </c:forEach>
+        
 
     </main>
     <div id="no-more-products" style="display: none; text-align: center; padding: 20px; color: #666;">

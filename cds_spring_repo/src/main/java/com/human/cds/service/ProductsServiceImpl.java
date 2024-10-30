@@ -32,10 +32,9 @@ public class ProductsServiceImpl implements ProductsService {
 
 
 	@Override
-	public int updateAreaName(String areaName, String sigunguName, String contentid) {
+	public int updateAreaName(String areaName, String contentid) {
 		Map<String, String> map = new HashMap<>();
 		map.put("areaName", areaName);
-		map.put("sigunguName", sigunguName);
 		map.put("contentid", contentid);
 		return dao.updateAreaName(map);
 	}

@@ -11,7 +11,7 @@ public interface ProductsService {
 
 	List<ProductsVO.Products> getProductsList();
 
-	int updateAreaName(String areaName, String sigunguName, String contentid);
+	int updateAreaName(String areaName, String contentid);
 
 	List<ProductsVO.Products> getProductsPage(int page, int size);
 

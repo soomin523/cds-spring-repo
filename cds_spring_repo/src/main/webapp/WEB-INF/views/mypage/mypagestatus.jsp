@@ -34,8 +34,8 @@
 					<p>회원탈퇴 안내를 모두 확인하였으며 탈퇴에 동의합니다</p>
 				</div>
 			</div>
-			<div class="mystatus-button">
-				<button onclick="location.href='cancelProcess'">탈퇴</button>
+			<div class="mystatus-button" >
+				<button onclick="validateWithdrawal()">탈퇴</button>
 			</div>
 		</div>
 	</div>

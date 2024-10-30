@@ -65,9 +65,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	       
 	    }
 		
-		let contentid = getParameterByName('contentid'); // URL 파라미터에서 areaCode를 가져옴
-		if(areacode == null && contentid == null){
-			loadDesInfo(contentid);
+		let contentId = getParameterByName('contentid'); // URL 파라미터에서 areaCode를 가져옴
+		if(contentId != null){
+			loadDesInfo(contentId);
 		}
 
 

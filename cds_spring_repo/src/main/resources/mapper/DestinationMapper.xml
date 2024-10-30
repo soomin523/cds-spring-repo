@@ -40,6 +40,7 @@
 	
 	<select id="DesNoList" resultType="DestinationDBVO">
 		select * from destination
+		where d_areaname IN ('서울', '인천', '대전', '대구', '광주', '부산', '울산', '경기', '강원')
 		order by rand()
 		limit 20
 	</select>

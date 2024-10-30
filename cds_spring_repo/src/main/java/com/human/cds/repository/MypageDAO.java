@@ -63,7 +63,7 @@ public class MypageDAO {
 			int c_idx = community.getC_idx();
 			List<CommunityImgVO> img = sqlSession.selectList(MAPPER+".getImgByCidx",c_idx);
 			List<CommunityContentVO> comment = sqlSession.selectList(MAPPER+".getcommentByCidx",c_idx);
-			community.setImagePaths(img);
+			community.setAttachedList(img);
 			community.setComments(comment);
 		
 		}

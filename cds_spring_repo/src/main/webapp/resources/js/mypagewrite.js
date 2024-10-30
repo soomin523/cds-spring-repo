@@ -6,12 +6,12 @@ $(function() {
     
     $(document).on('click', '.content-card', function(){
     	let c_idx = $(this).data('c_idx');
-    	window.location.href = '/cds/community/getCommunity.do?c_idx=' + c_idx;
+    	window.location.href = '/cds/community/commu?c_idx=' + c_idx;
     });
     
         $(document).on('click', '.comment2-card', function(){
     	let c_idx = $(this).data('c_idx');
-    	window.location.href = '/cds/community/getCommunity.do?c_idx=' + c_idx;
+    	window.location.href = '/cds/community/commu?c_idx=' + c_idx;
     });
 
 
@@ -94,7 +94,7 @@ $(function() {
                              <div class="content-card" data-c_idx=${commu.c_idx}>
                                 <div class="content-header">
                                     <div class="content-image">
-                                        <img src="${commu.imagePath}" alt="이미지" />
+                                        <img src="../resources/uploads/${commu.attachedList[0].save_filename}" alt="이미지" />
                                     </div>
                                     <div class="content-info">
                                         <p class="content-author">${commu.title}</p>

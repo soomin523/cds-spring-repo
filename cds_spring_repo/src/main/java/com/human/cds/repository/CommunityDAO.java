@@ -146,7 +146,7 @@ public class CommunityDAO {
 	}
 
 	public List<CommunityVO> getSearchList(String search) {
-		List<CommunityVO> communityList = sqlSession.selectList(MAPPER+".getSeachList",search); // 검색 결과 반환
+		List<CommunityVO> communityList = sqlSession.selectList(MAPPER+".getSearchList",search); // 검색 결과 반환
 		for(CommunityVO vo : communityList) {
 			int idx = vo.getC_idx();
 			List<CommunityImgVO> attachedList = sqlSession.selectList(MAPPER+".getImagePathList", idx);

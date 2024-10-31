@@ -1,147 +1,102 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./transportation.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/transportation.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="../resources/js/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="transportation.js"></script>
-
-    <title>교통 예약</title>
+    <script src="${pageContext.request.contextPath}/resources/js/transportation.js"></script>
+    <title>교통 조회</title>
+    
 </head>
 <body>
-    <div class="main-container">
-        <div class="title">교통 예약</div>
-        <div class="title-border"></div>
+<%@ include file="../main/header2.jsp"%>
+<div class="loading-spinner">
+    <div class="spinner"></div>
+</div>
 
-        <!-- 티켓 종류 컨테이너 -->
-        <div class="ticket-type-container">
-            <div class="ticket-types-left">
-                <div class="ticket-type one-way active">편도</div>
-                <div class="ticket-type round-trip">왕복</div>
-            </div>
-            <div class="ticket-types-right">
-                <div class="label bus" style="background: #f7f7f9; border-radius: 5px; border: 1px solid #bbb9b9; position: relative;">고속·시외버스</div>
-                <div class="label train" onclick="window.location.href='train.jsp'">기차</div>
-                <div class="label flight" onclick="window.location.href='flight.jsp'" >항공권</div>
-            </div>
-        </div>
-        <!-- 출발지 및 날짜 컨테이너 -->
-        <div class="location-date-container">
-            <div class="location-label departure-location" onclick="openModal('출발지')">출발지</div>
-            <div class="location-label arrival-location" onclick="openModal('도착지')">도착지</div>
-            <div class="date-label departure">
-                가는날 
-                <input type="date" class="date-input" id="departure-date"  onchange="updateDepartureDate()" />
-            </div>
-            <div class="date-label return">
-                오는날 
-                <input type="date" class="date-input" id="arrival-date" onchange="updateArrivalDate()" />
-            </div>
-            <div class="customer-count" onclick="openCustomerModal()">인원 수</div>
-            <div class="button inquiry">조회</div>
-        </div>
+<div class="main-container">
+    <div class="title">교통 조회</div>
+    <div class="title-border"></div>
 
-
-        <!-- 로고 -->
-        <img class="logo" src="black-logo-with-transparency-1-30.png" alt="Logo" />
-
-       <!-- 조회결과 -->
-        <div class="search-results-container" style="display: none;">
-            <div class="result-date"> 2024/10/02 수 </div>
-            <div class="result-header">
-                <div class="cp">고속사</div>
-                <div class="departure-time">출발 시간</div>
-                <div class="arrival-time">도착 시간</div>
-                <div class="price">가격</div>
-                <div class="seats">잔여석</div>
-            </div>
-             
-            <div class="result-item">
-                <div class="cp">ㅇㅇ고속</div>
-                <div class="departure-time">12:00</div>
-                <div class="arrival-time">13:30</div>
-                <div class="price">₩15,000</div>
-                <div class="seats">10석</div>
-            </div>
-            <div class="result-item">
-                <div class="cp">ㅁㅁ고속</div>
-                <div class="departure-time">14:00</div>
-                <div class="arrival-time">15:30</div>
-                <div class="price">₩15,000</div>
-                <div class="seats">5석</div>
-            </div>
-        </div>
+    <div class="ticket-type-container">
+        <div class="label bus" style="background: #87bee585; color:white; border-radius: 5px; position: relative;">고속버스</div>
+        <div class="label train" onclick="window.location.href='${pageContext.request.contextPath}/transportation/train.do'">기차</div>
+        <div class="label flight" onclick="window.location.href='${pageContext.request.contextPath}/transportation/flight.do'">항공권</div>
     </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()" style="float: right; cursor: pointer;">&times;</span>
-            <div class="container">
-                <div class="left-panel">
-                    <div class="filter-options">
-                        <input type="radio" name="filter" id="all" checked onchange="filterResults()">
-                        <label for="all">전체</label>
-                        <input type="radio" name="filter" id="express" onchange="filterResults()">
-                        <label for="express">고속</label>
-                        <input type="radio" name="filter" id="local" onchange="filterResults()">
-                        <label for="local">시외</label>
-                    </div>
-                    <div class="selection region">
-                        <button onclick="filterByRegion('all'); setActive(this)">전체</button>
-                        <button onclick="filterByRegion('서울'); setActive(this)">서울</button>
-                        <button onclick="filterByRegion('인천/경기'); setActive(this)">인천/경기</button>
-                        <button onclick="filterByRegion('강원'); setActive(this)">강원</button>
-                        <button onclick="filterByRegion('대전/충남'); setActive(this)">대전/충남</button>
-                        <button onclick="filterByRegion('충북'); setActive(this)">충북</button>
-                        <button onclick="filterByRegion('광주/전남'); setActive(this)">광주/전남</button>
-                        <button onclick="filterByRegion('전북'); setActive(this)">전북</button>
-                        <button onclick="filterByRegion('부산/경남'); setActive(this)">부산/경남</button>
-                        <button onclick="filterByRegion('대구/경북'); setActive(this)">대구/경북</button>
-                    </div>
-                </div>
-                <div class="results">
-                    <input type="text" id="search" placeholder="검색" onkeyup="filterResults()">
-                    <div class="result" data-category="express">
-                        <span class="category express">고속</span>
-                        <span class="location">서울경부</span>
-                    </div>
-                    <div class="result" data-category="local">
-                        <span class="category local">시외</span>
-                        <span class="location">동서울</span>
-                    </div>
-                    
-                </div>
-            </div>
+    <div class="location-date-container">
+        <div class="location-label departure-location" onclick="openModal('departure')">출발지</div>
+        <div class="location-label arrival-location" onclick="openModal('arrival')">도착지</div>
+        <div class="date-label departure">
+            가는날  
+            <input type="date" class="date-input" id="departure-date" onchange="updateDepartureDate()" />
         </div>
+        <div class="button inquiry">조회</div>
     </div>
 
-    <!-- 탑승 인원 선택 모달 -->
-    <div id="customerModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeCustomerModal()" style="float: right; cursor: pointer;">&times;</span>
-            <div class="container">
-                <div class="passenger-count">
-                    <div>
-                        성인: <button onclick="changeCount('adult', -1)">-</button> <span id="adultCount">1</span> <button onclick="changeCount('adult', 1)">+</button>
-                    </div>
-                    <div>
-                        소아: <button onclick="changeCount('child', -1)">-</button> <span id="childCount">0</span> <button onclick="changeCount('child', 1)">+</button>
-                    </div>
-                    <div>
-                        유아: <button onclick="changeCount('infant', -1)">-</button> <span id="infantCount">0</span> <button onclick="changeCount('infant', 1)">+</button>
-                    </div>
-                </div>
-                <button onclick="updateCustomerCount()">확인</button>
-            </div>
+    <img class="logo" src="${pageContext.request.contextPath}/resources/img/logo-transportation.png" alt="Logo" />
+
+    <div class="search-results-container" style="display: none;">
+        <div class="date-navigation">
+            <button class="prev-date">◀</button>
+            <div class="result-date"></div>
+            <button class="next-date">▶</button>
         </div>
+        <div class="result-header">
+            <div class="grade">등급</div>
+            <div class="departure-time">출발 시간</div>
+            <div class="arrival-time">도착 시간</div>
+            <div class="charge">요금</div>
+        </div>
+        <div class="results-list"></div>
     </div>
 
-   
-    
+</div>
+
+<!-- Terminal selection modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <div class="consonant-filter"></div>
+            <button class="filter-btn" data-consonant="all">전체</button>
+            <button class="filter-btn" data-consonant="ㄱ">ㄱ</button>
+            <button class="filter-btn" data-consonant="ㄴ">ㄴ</button>
+            <button class="filter-btn" data-consonant="ㄷ">ㄷ</button>
+            <button class="filter-btn" data-consonant="ㄹ">ㄹ</button>
+            <button class="filter-btn" data-consonant="ㅁ">ㅁ</button>
+            <button class="filter-btn" data-consonant="ㅂ">ㅂ</button>
+            <button class="filter-btn" data-consonant="ㅅ">ㅅ</button>
+            <button class="filter-btn" data-consonant="ㅇ">ㅇ</button>
+            <button class="filter-btn" data-consonant="ㅈ">ㅈ</button>
+            <button class="filter-btn" data-consonant="ㅊ">ㅊ</button>
+            <button class="filter-btn" data-consonant="ㅋ">ㅋ</button>
+            <button class="filter-btn" data-consonant="ㅌ">ㅌ</button>
+            <button class="filter-btn" data-consonant="ㅍ">ㅍ</button>
+            <button class="filter-btn" data-consonant="ㅎ">ㅎ</button>
+            <input type="text" id="search-input" placeholder="검색">
+
+        <div class="selection terminal">
+            <c:set var="stations" value="강릉,강진,경북도청,경주,경포해변,고대조치원,고양백석,고창,고흥,공주,광양,광주(유·스퀘어),광주비아,교통대,구리,구미,군산,금산,김제,김해,김해장유,나주,나주혁신,낙동강(휴)상행,낙동강(휴)하행,남원,내포,녹동,논산,능주,담양,당진,당진기지시,대구용계,대전도룡,대전복합,대전청사(샘머리),덕산스파,동광양(중마),동대구,동서울,동해,마산,마산내서,목포,무안,배방정류소,벌교,보성,부산,삼척,상주,서대구,서부산(사상),서산,서울경부,서충주,선문대,선산(휴)상행,선산(휴)하행,섬진강(휴)상행,섬진강(휴)하행,성남(분당),세종국무조정실,세종시청,세종연구단지,세종청사,세종터미널,센트럴시티(서울),속초,수원,순창,순천,순천신대지구,시흥(시화),신갈시외(두진A),신갈영덕(고속도로),신대CGV,아산둔포,아산서부(호서대),아산온양,아산탕정사무소,아산테크노밸리,안동,안면도,안산,안성,안성공도,안성대림,안성중대,안성풍림,안성한경,안성회관,안중,안중오거리,애통리,양양,여수,여주,여주대,여주프리미엄아울렛,여천,연무대,영광,영덕,영암,영주,영천,영천망정동,영통,예산,예천,오산,옥과,완도,용인,용인기흥역,용인신갈(고가밑),용인유림,울산,울산신복,원동,원주,원주기업도시,원주문막,원주혁신,유성,의정부,이천,이천부발(신하리),익산,익산팔봉,인삼랜드(휴)상행,인삼랜드(휴)하행,인천,인천공항T1,인천공항T2,자치인재원,장성,장흥,전북혁신,전주고속터미널,전주호남제일문,점촌,정산,정안(휴)상행,정안(휴)하행,정읍,제천,제천하소,조치원,죽전,지도,진도,진주,진주개양,진주혁신,진해,창기리,창원,창원역,천안,천안3공단,천안아산역,청양,청주(센트럴),청주고속터미널,청주공항,청주대정류소,청주북부,춘천,충주,탕정삼성LCD,태안,태인,통영,평택,평택대,평택용이동,포항,포항시청,풍기,함평,해남,해제,홍대조치원,홍성,화순,황간,횡성(휴)상행,횡성(휴)하행,흥덕"/>
+            
+            <c:forEach items="${fn:split(stations, ',')}" var="station">
+                <button onclick="selectLocation('${station}')">${station}</button>
+            </c:forEach>
+        </div>
+    </div>
+</div>
+
+
+
+
+<jsp:include page="../main/footer.jsp" />
 </body>
 </html>

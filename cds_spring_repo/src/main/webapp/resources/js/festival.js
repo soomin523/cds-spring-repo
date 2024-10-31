@@ -466,14 +466,6 @@ $(function(){
     
     //모달 보이기
     function showModal(contentid){
-    	 setTimeout(function() { 
-	            $("#festivalModal").show();
-	            $("#modalOverlay").show();
-			}, 500);
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth' // 부드러운 스크롤
-        });
     	
     	$.ajax({ 
             type:"get",
@@ -575,6 +567,13 @@ $(function(){
             error:function(){
                 console.log("축제 상세보기를 불러오는 데 실패했습니다.");
             }
+        });
+        
+        $("#festivalModal").show();
+        $("#modalOverlay").show();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth' // 부드러운 스크롤
         });
     };
     

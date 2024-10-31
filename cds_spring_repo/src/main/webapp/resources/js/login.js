@@ -62,7 +62,7 @@ $(function() {
     
     //주소창에 로그인 요청이 들어왔을 때 모달 열기
     if(getParameterByName('login')){
-    	openModal();
+    	openLoginModal();
     }
     
     
@@ -79,8 +79,8 @@ $(function() {
     
 });
 
-function openModal() {
-    console.log("openModal called");
+function openLoginModal() {
+    console.log("openLoginModal called");
         document.getElementById('log-loginModal').style.display = 'block'; 
         resetModal();
         
@@ -95,7 +95,7 @@ function openModal() {
     }
 
     // 모달 닫기 함수
-    function closeModal() {
+    function closeLoginModal() {
         document.getElementById('log-loginModal').style.display = 'none'; 
     }
 

@@ -8,7 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>여행 상품</title>
+    <title>관광 상품</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/products.css">
     <script src="../resources/js/jquery-3.7.1.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/products.js"></script>
@@ -20,7 +20,7 @@
 </div>
 
 <div class="travel-products">
-    <h1 class="main-title">여행 상품</h1>
+    <h1 class="main-title">관광 상품</h1>
     <div class="title-border"></div>
 
     <div class="content-wrapper">

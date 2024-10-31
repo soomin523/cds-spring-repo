@@ -54,7 +54,7 @@
 					</button>
 				</c:when>
 				<c:otherwise>
-					<button class="log-login-btn" onclick="openModal()">
+					<button class="log-login-btn" onclick="openLoginModal()">
 						<img
 							src="${pageContext.request.contextPath}/resources/img/프로필.png" />
 					</button>
@@ -69,7 +69,7 @@
 	<div class="loginmodal">
 		<div id="log-loginModal" class="log-modal">
 			<div class="log-modal-content">
-				<span class="log-close" onclick="closeModal()">&times;</span>
+				<span class="log-close" onclick="closeLoginModal()">&times;</span>
 
 				<!-- 로그인 선택 화면 -->
 				<div class="log-login-options">

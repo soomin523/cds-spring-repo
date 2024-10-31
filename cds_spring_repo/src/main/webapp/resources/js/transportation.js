@@ -90,7 +90,7 @@ $(document).ready(function() {
         });
     });
 
-    $('#stationSearch').on('input', function() {
+    $('#search-input').on('input', function() {
         const searchText = $(this).val().toLowerCase();
         $('.selection button').each(function() {
             const stationName = $(this).text().toLowerCase();

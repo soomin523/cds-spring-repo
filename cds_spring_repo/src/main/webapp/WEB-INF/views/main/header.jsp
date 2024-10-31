@@ -33,6 +33,7 @@
 			<div class="tourCourse">여행 코스</div>
 			<div class="gift">관광 상품</div>
 			<div class="accommodation">숙소</div>
+			<div class="transportation">교통조회</div>
 			<div class="community">여행공유</div>
 			<div class="support">고객센터</div>
 			<c:if test="${ not empty member && member.membership_level == 3 }">
@@ -185,6 +186,9 @@
 			});
 			$(".accommodation").click(function() {
 				location.href = "accommodations/accommo.do";
+			});
+			$(".transportation").click(function() {
+				location.href = "transportation/bus.do";
 			});
 			$(".community").click(function() {
 				location.href = "community/commu";

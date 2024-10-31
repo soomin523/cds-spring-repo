@@ -191,10 +191,11 @@ $(function () {
 	//삭제하기 버튼 클릭
 	$(".contentText > div > div > .delete").click(function(){
 	    const s_idx = $(this).data("sidx");
+	    const category = $(this).data("category");
 	    
 	    const ans = confirm("정말 삭제하시겠습니까?");
 	    if(ans){
-	        location.href=`deleteSupport.do?s_idx=${s_idx}`;
+	        location.href=`deleteSupport.do?s_idx=${s_idx}&category=${category}`;
 	    }
 	});
 	

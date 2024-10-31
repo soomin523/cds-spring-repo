@@ -150,7 +150,12 @@ $(function () {
         const offset = -currentIndex * itemWidth; // 현재 인덱스에 따른 오프셋 계산
         $('.reviewList').css('transform', 'translateX(' + offset + 'px)');
     }
-	
+    
+	//각 아이템 클릭 시 여행공유 페이지 이동 + 모달 띄우기
+	$(".reviewList > .reviewItem").click(function(){
+		let c_idx = $(this).data("c_idx");
+		location.href=`community/commu?c_idx=${c_idx}`;
+	});
 
     //더보기 버튼 클릭 시 여행공유 페이지 이동
 	$(".mainReview > button").click(function(){
@@ -165,8 +170,8 @@ $(function () {
     
   	//코스 리스트에 마우스 올리면 크기 변경
     $(".mainCourse > .courseImg > div").mouseover(function(){
-	        $(".mainCourse > .courseImg > div").css("width", "12%");
-	        $(this).css("width", "50%");
+        $(".mainCourse > .courseImg > div").css("width", "12%");
+        $(this).css("width", "50%");
 	});	
 	
  	//코스 화면으로 이동

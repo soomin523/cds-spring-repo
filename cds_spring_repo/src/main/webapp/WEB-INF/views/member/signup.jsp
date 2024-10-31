@@ -112,7 +112,7 @@
 
                 <div class="centered" style="margin-top: 20px;">
                     <input type="submit" value="회원가입">
-                    <button type="button" onclick="location.href='/'">취소</button>
+                    <button type="button" onclick="location.href='/cds/index.do'">취소</button>
                 </div>
             </form>
         </div>

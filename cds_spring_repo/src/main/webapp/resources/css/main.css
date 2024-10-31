@@ -365,8 +365,10 @@ header button img {
 
 /* 푸터 : footer.jsp */
 footer {
-    margin: 30px 0px;
+   	margin-top:30px;
+   	padding-bottom:30px;
     color: #fff0;
+    background-color:rgb(247,247,247);
 }
 footer>.footerContainer {
     margin: 0 auto;
@@ -378,7 +380,16 @@ footer>.footerContainer>.footerCenter,
 footer>.footerContainer>.footerRight {
     flex: 1;
     min-width: 300px;
-    margin: 40px 0px 20px 15px;
+    margin: 5% 4% 5%;
+}
+
+footer>.footerContainer>.footerRight>div>img{
+	width:100px;
+	height:50px;
+	border-radius:15px;
+}
+footer>.footerContainer>.footerRight>div>img:nth-child(2){
+	margin-left:30px;
 }
 footer>.footerContainer>.footerLeft>p,
 footer>.footerContainer>.footerCenter>p {
@@ -386,27 +397,17 @@ footer>.footerContainer>.footerCenter>p {
     font-size:12px;
 }
 footer>.footerContainer>.footerCenter>h4 {
-    margin-bottom: 10px;
+    margin: 0px 0px 10px;
     font-size: 1.2em;
     font-weight: bold;
 }
 footer>.footerTop{
-	margin: 1% 0px 1% 4%;
+	margin: 1% 0px 1% 6.5%;
 }
 footer>.footerTop>span{
 	cursor: pointer;
 	margin: 0px 1%;
 	font-size:13px;
-}
-
-footer-icons{
-	width:100%;
-	height:90px;
-}
-
-footer-icons>img{
-	width:100%;
-	height:100%;
 }
 #footerOverlay{
     position: fixed;

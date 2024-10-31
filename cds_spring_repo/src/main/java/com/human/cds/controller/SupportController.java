@@ -103,10 +103,10 @@ public class SupportController {
 	}
 	
 	@GetMapping("/deleteSupport.do")
-	public String deleteSupport(String s_idx) {		
+	public String deleteSupport(String s_idx, String category) {		
 		supportServiceImpl.deleteSupport(s_idx);
 		
-		return "redirect:supportDetail.do?select=notice";
+		return "redirect:supportDetail.do?select="+category;
 	}
 	
 }

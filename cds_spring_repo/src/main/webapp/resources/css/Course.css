@@ -358,7 +358,7 @@ translateY(
 	display: none;
 }
 
-hr {
+.citylist hr, .festa hr {
 	width: 95%;
 	border: 1px solid #333;
 }

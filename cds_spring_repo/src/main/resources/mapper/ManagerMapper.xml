@@ -9,7 +9,7 @@
     <select id="getMemberList" resultType="MemberVO">
         SELECT * FROM member
 	        where membership_level = 1
-	        order by membership_level desc, m_id
+	        order by withdrawal_request desc, m_id desc
     </select>
     
     <delete id="deleteMember">

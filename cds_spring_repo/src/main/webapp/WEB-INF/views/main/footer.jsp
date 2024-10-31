@@ -35,7 +35,12 @@
 		</div>
 		<div class="footerRight">
 			<div class="footer-icons">
-				<img src="${pageContext.request.contextPath}/resources/img/떠나자푸터.png"/>
+				<img src="${pageContext.request.contextPath}/resources/img/관광공사.PNG"/>
+				<img src="${pageContext.request.contextPath}/resources/img/투어API.PNG"/>
+			</div>
+			<div class="footer-icons">
+				<img src="${pageContext.request.contextPath}/resources/img/날씨api.png"/>
+				<img src="${pageContext.request.contextPath}/resources/img/카카오api.png"/>
 			</div>
 		</div>
 	</div>

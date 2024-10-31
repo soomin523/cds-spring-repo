@@ -237,10 +237,10 @@ function removeImage(index) {
                     </select>
                 </div>
 
-                <!-- 위치 추가 필드 -->
+                <!-- 해시 태그 필드 -->
                 <div style="flex: 1; display: flex; align-items: center;">
-                    <label class="commu-label" for="location2" style="width: auto; margin-right: 10px; margin-top: 10px;">위치 추가</label>
-                    <input type="text" id="location2" name="location2" class="commu-location-input" placeholder="위치를 입력하세요." style="flex: 1; margin-top: 20px;">
+                    <label class="commu-label" for="location2" style="width: auto; margin-right: 10px; margin-top: 10px;">해시 태그</label>
+                    <input type="text" id="location2" name="location2" class="commu-location-input" placeholder="태그를 입력하세요." style="flex: 1; margin-top: 20px;">
                     <button type="button" class="commu-button" onclick="addLocation()" style="margin-left: 10px;">추가</button>
 					<input type="hidden" id="tag" name="tag">
 		            <!-- 위치 태그 모달 -->

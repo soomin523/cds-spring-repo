@@ -2,8 +2,107 @@
 let currentSlide = 0;
 
 $(function () {
+
+	function getParameterByName(name) {
+        let url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        let regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
 	
+	let c_idx = getParameterByName('c_idx');
+	if(!c_idx){
 	closeModal();
+	}
+	
+	console.log(c_idx);
+	if (c_idx) {
+        $.ajax({
+            type: "get",
+            url: "/cds/community/getcommunity.do",
+            data: { id: c_idx }, // c_idx를 이용해 게시물의 ID를 가져옵니다
+            headers: { "Accept": "application/json" },
+            success: function(data) {
+                $(".commu-comment-box").attr("data-idx", data.c_idx); // 게시물번호
+                $("#commu-modalUserId").text(data.memberId); // 아이디
+                $("#commu-modalLocation").text("위치: " + data.location); // 위치
+                $("#commu-modalLikes").text(data.likeNum); // 좋아요 수
+                $("#commu-modalCommentsCount").text(data.commentNum); // 댓글 수
+                const createdAt = new Date(data.created_at);
+                const formattedDate = createdAt.toISOString().slice(0, 10).replace(/-/g, '-');
+                $("#commu-modalMeta").text("작성일: " + createdAt.toLocaleString());
+                $("#commu-modalTitle").text(data.title); // 제목
+                $("#commu-modalDescription").text(data.content); // 내용
+
+                let htmlI = ''; // 이미지 목록
+                data.attachedList.forEach(function(item) {
+                    htmlI += `<img src="../resources/uploads/${item.save_filename}" alt="커뮤니티 이미지"/>`;
+                });
+
+                $(".commu-imageList").html(htmlI);
+                images = data.attachedList;
+
+                if (images.length == 1) {
+                    $(".prev-slide").css("opacity", "0");
+                    $(".next-slide").css("opacity", "0");
+                } else {
+                    $(".prev-slide").css("opacity", "1");
+                    $(".next-slide").css("opacity", "1");
+                }
+
+                let htmls = ''; // 댓글 목록
+                data.comments.forEach(function(comment) {
+                    htmls += `<div class="commu-modal-comment">
+                        <p class="comment-author"><strong>${comment.memberId}</strong></p>
+                        <p class="comment-content">${comment.content}</p>
+                        <div>
+                            <p class="comment-date">${formattedDate.slice(2)}</p>
+                            <button class="deleteBtn" value="${comment.comment_id}">❌</button>
+                        </div>
+                    </div>`;
+                });
+
+                $("#commu-modalComments").html(htmls);
+
+                // 본인 게시글이 아니면 수정/삭제 버튼 숨기기
+                if (memberId != data.memberId) {
+                    $(".community-delete").hide();
+                }
+
+                // 댓글 삭제 기능 및 모달 열기
+                $(".deleteBtn").click(function() {
+                    let comment_id = $(this).val();
+                    $.ajax({
+                        type: "GET",
+                        url: "/cds/community/deleteComment.do",
+                        data: { comment_id: comment_id },
+                        headers: { "Accept": "application/json" },
+                        success: function(data) {
+                            if (data == 1) {
+                                location.href = `/cds/community/commu`;
+                            } else {
+                                alert("댓글 삭제 실패");
+                            }
+                        },
+                        error: function() {
+                            console.log("댓글 삭제 중 오류가 났습니다.");
+                        }
+                    });
+                });
+
+                // 모달 열기
+                $("#commu-modal").show();
+            },
+            error: function() {
+                console.log("커뮤니티 세부목록을 불러오는데 실패했습니다.");
+            }
+        });
+    }
+	
+	
 	
 	let images = [];
 	

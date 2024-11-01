@@ -298,11 +298,35 @@ $(function () {
 	                // 스크롤을 아래로 이동
 	                const commentsDiv = $("#commu-modalComments");
 	                commentsDiv.scrollTop(commentsDiv.prop("scrollHeight"));
+	                
+	                // 댓글 삭제 기능
+		            $(".deleteBtn").click(function() {
+		                let comment_id = $(this).val();
+		                $.ajax({
+		                    type: "GET",
+		                    url: "/cds/community/deleteComment.do",
+		                    data: { comment_id: comment_id },
+		                    headers: { "Accept": "application/json" },
+		                    success: function(data) {
+		                        if (data == 1) {
+		                            location.href = `/cds/community/commu`;
+		                        } else {
+		                            alert("댓글 삭제 실패");
+		                        }
+		                    },
+		                    error: function() {
+		                        console.log("댓글 삭제 중 오류가 났습니다.");
+		                    }
+		                });
+		            });
 	            },
 	            error: function() {
 	                console.log("댓글을 입력하는데 오류가 났습니다.");
 	            }
+	            
+	            
 	        });
+	        
 	    }
 	});
 	

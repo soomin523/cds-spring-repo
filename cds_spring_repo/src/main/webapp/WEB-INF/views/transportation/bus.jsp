@@ -28,7 +28,7 @@
     <div class="title-border"></div>
 
     <div class="ticket-type-container">
-        <div class="label bus" style="background: #87bee585; color:white; border-radius: 5px; position: relative;">고속버스</div>
+        <div class="label bus" style="background: #4caff6; color:white; border-radius: 5px; position: relative;">고속버스</div>
         <div class="label train" onclick="window.location.href='${pageContext.request.contextPath}/transportation/train.do'">기차</div>
         <div class="label flight" onclick="window.location.href='${pageContext.request.contextPath}/transportation/flight.do'">항공권</div>
     </div>
@@ -37,7 +37,7 @@
         <div class="location-label departure-location" onclick="openModal('departure')">출발지</div>
         <div class="location-label arrival-location" onclick="openModal('arrival')">도착지</div>
         <div class="date-label departure">
-            가는날  
+            <span class="sideup">가는날</span>
             <input type="date" class="date-input" id="departure-date" onchange="updateDepartureDate()" />
         </div>
         <div class="button inquiry">조회</div>

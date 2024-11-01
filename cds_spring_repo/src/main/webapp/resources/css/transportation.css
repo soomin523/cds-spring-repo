@@ -23,7 +23,7 @@
 /* Title */
 .title {
   font-size: 36px;
-  color: #757577;
+  color: black;
   margin: 10px;
   margin-top: 20px;
 }
@@ -42,16 +42,41 @@
   align-items: center;
   margin: 20px 0;
   padding: 10px;
-  background-color: #f3f2f285;
+  background-color: #a7a2a285;
 }
 
 /* Shared Styles */
 .label, .date-label, .date-input, .ticket-type, .location-label, .button, .customer-count {
-  color: #737579;
+  color: black;
   text-align: center;
   flex: 1;
   margin-left: 10px;
 }
+
+.date-label{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	margin-right:20px;
+}
+.sideup{
+	margin-right:20px;
+}
+
+
+.date-input{
+	padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  width: max-content;
+}
+
 
 .ticket-type-container {
   display: flex;
@@ -68,13 +93,12 @@
     cursor: pointer;
 }
 .label {
-  color: #b1b2b8;
   font-size: 15px;
   padding: 5px;
 }
 
 .button {
-  background-color: #96bee2;
+  background-color: #4caff6;
   color: white;
   padding: 10px 20px;
   border-radius: 5px;

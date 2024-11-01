@@ -283,13 +283,17 @@
 }
 
 .commu-sort-options button {
-    padding: 10px 15px;
+    padding: 10px 10px;
     margin-left: 10px;
-    background-color: #b2e0f5;
-    border: none;
+    border: 1px solid #4caff6;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 12px;
+}
+
+.commu-sort-options button:active{
+	background-color:#4caff6;
+	color:white;
 }
 
 .commu-post-button {

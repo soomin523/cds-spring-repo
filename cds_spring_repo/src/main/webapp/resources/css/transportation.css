@@ -42,7 +42,7 @@
   align-items: center;
   margin: 20px 0;
   padding: 10px;
-  background-color: #a7a2a285;
+  background-color: #B0E0E6;
 }
 
 /* Shared Styles */
@@ -51,6 +51,17 @@
   text-align: center;
   flex: 1;
   margin-left: 10px;
+}
+
+.location-label{
+	background-color: #87bee585;
+	border-radius: 15px;
+	cursor:pointer;
+	color:white;
+}
+
+.location-label:hover{
+	background-color: #87CEEB;
 }
 
 .date-label{

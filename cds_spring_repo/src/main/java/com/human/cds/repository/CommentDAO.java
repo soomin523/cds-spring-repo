@@ -38,6 +38,9 @@ public class CommentDAO {
         }
         return commentVOList;
     }
+    
+    
+    
 
     // 좋아요/싫어요 상태 확인
     public CommentLikeVO getLikeStatus(int cIdx, String name) {

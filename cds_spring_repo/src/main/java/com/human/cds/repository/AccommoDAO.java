@@ -32,7 +32,7 @@ public class AccommoDAO {
 		try {
 			List<Item> items = data.getResponse().getBody().getItems().getItem();
 			for (Item accommoInfo : items) {
-				// contenttypeid가 25이고, first_image가 null이 아닌 경우만 삽입
+				// contenttypeid가 32이고, first_image가 null이 아닌 경우만 삽입
 				if ("32".equals(accommoInfo.getContenttypeid()) && accommoInfo.getFirstimage() != null
 						&& !accommoInfo.getFirstimage().isEmpty()) {
 					result += sqlSession.insert(MAPPER + ".insertaccommoInfo", accommoInfo);

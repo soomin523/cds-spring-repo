@@ -16,6 +16,8 @@ public class CourseInfoDTO {
 	public static class Response {
 		private Header header;
 
+		private Body body;
+
 		public Header getHeader() {
 			return header;
 		}
@@ -31,12 +33,11 @@ public class CourseInfoDTO {
 		public void setBody(Body body) {
 			this.body = body;
 		}
-
-		private Body body;
 	}
 
 	public static class Header {
 		private String resultCode;
+		private String resultMsg;
 
 		public String getResultCode() {
 			return resultCode;
@@ -53,13 +54,13 @@ public class CourseInfoDTO {
 		public void setResultMsg(String resultMsg) {
 			this.resultMsg = resultMsg;
 		}
-
-		private String resultMsg;
 	}
 
 	public static class Body {
 		private Items items;
 		private int numOfRows;
+		private int pageNo;
+		private int totalCount;
 
 		public Items getItems() {
 			return items;
@@ -93,8 +94,6 @@ public class CourseInfoDTO {
 			this.totalCount = totalCount;
 		}
 
-		private int pageNo;
-		private int totalCount;
 	}
 
 	public static class Items {
@@ -111,6 +110,30 @@ public class CourseInfoDTO {
 
 	public static class Item {
 
+		private String addr1;
+		private String addr2;
+		private String areacode;
+		private String booktour;
+		private String cat1;
+		private String cat2;
+		private String cat3;
+		private String contentid;
+		private String contenttypeid;
+		private String createdtime;
+		private String firstimage;
+		private String firstimage2;
+		private String cpyrhtDivCd;
+		private String mapx;
+		private String mapy;
+		private String mlevel;
+		private String modifiedtime;
+		private String sigungucode;
+		private String tel;
+		private String title;
+		private String zipcode;
+		private String overview;
+		private String cnt;
+		
 		public String getAddr1() {
 			return addr1;
 		}
@@ -294,29 +317,7 @@ public class CourseInfoDTO {
 		public void setCnt(String cnt) {
 			this.cnt = cnt;
 		}
-		private String addr1;
-		private String addr2;
-		private String areacode;
-		private String booktour;
-		private String cat1;
-		private String cat2;
-		private String cat3;
-		private String contentid;
-		private String contenttypeid;
-		private String createdtime;
-		private String firstimage;
-		private String firstimage2;
-		private String cpyrhtDivCd;
-		private String mapx;
-		private String mapy;
-		private String mlevel;
-		private String modifiedtime;
-		private String sigungucode;
-		private String tel;
-		private String title;
-		private String zipcode;
-		private String overview;
-		private String cnt;
+
 		
 	}
 }
